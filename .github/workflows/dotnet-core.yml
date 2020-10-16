@@ -37,12 +37,12 @@ jobs:
           path: Plugins
 
       - name: Build Plugins
-        run: dotnet publish -c Release .\Plugins\Artemis.Plugins.sln
+        run: dotnet publish -c Release .\Plugins\src\Artemis.Plugins\Artemis.Plugins.sln
 
         #msbuild is dumb so we have to upload one at a time :)
         #https://github.com/dotnet/sdk/issues/7238
-      - name: Upload Philips HUe
+      - name: Upload Philips Hue
         uses: actions/upload-artifact@v2
         with:
           name: Philips Hue
-          path: .\Plugins\Artemis.Plugins.PhilipsHue\bin\x64\Release\netcoreapp3.1\publish
+          path: .\Plugins\src\Artemis.Plugins\Artemis.Plugins.PhilipsHue\bin\x64\Release\netcoreapp3.1\publish
