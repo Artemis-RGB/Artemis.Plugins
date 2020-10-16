@@ -16,7 +16,7 @@ using Serilog;
 
 namespace Artemis.Plugins.PhilipsHue
 {
-    public class PluginDataModelExpansion : DataModelExpansion<PluginDataModel>
+    public class PluginDataModelExpansion : DataModelExpansion<HueDataModel>
     {
         private readonly ILogger _logger;
         private readonly PluginSetting<int> _pollingRateSetting;
@@ -92,55 +92,24 @@ namespace Artemis.Plugins.PhilipsHue
             {
                 // Add or update current groups
                 List<Group> groups = (await bridge.Client.GetGroupsAsync()).Where(g => g.Type == GroupType.Room || g.Type == GroupType.Zone).ToList();
-                foreach (Group group in groups)
-                {
-                    string groupKey = $"{bridge.BridgeId}-{group.Id}";
-                    GroupDataModel groupDataModel = DataModel.DynamicChild<GroupDataModel>(groupKey);
-                    if (groupDataModel != null)
-                        groupDataModel.HueGroup = group;
-                    else
-                    {
-                        groupDataModel = (GroupDataModel)DataModel.AddDynamicChild(new GroupDataModel(group, bridge.BridgeInfo), groupKey);
-                        DataModel.Groups.Add(groupDataModel);
-                    }
-
-                    groupDataModel.DataModelDescription.Name = groupDataModel.Name;
-                }
-
-                // Remove groups that no longer exist
-                List<GroupDataModel> groupsToRemove = DataModel.Groups
-                    .Where(dmg => dmg.HueBridge.Config.BridgeId == bridge.BridgeId && groups.All(g => g.Id == dmg.HueGroup.Id))
-                    .ToList();
-
-                foreach (GroupDataModel groupDataModel in groupsToRemove)
-                {
-                    DataModel.RemoveDynamicChild(groupDataModel);
-                    DataModel.Groups.Remove(groupDataModel);
-                }
+                DataModel.Rooms.Update(bridge, groups);
+                DataModel.Zones.Update(bridge, groups);
             }
         }
 
+
         private async Task UpdateHue(double delta)
         {
-            if (!DataModel.Groups.Any())
+            if (!DataModel.Rooms.Groups.Any() && !DataModel.Zones.Groups.Any())
                 await UpdateGroups(delta);
 
             foreach (PhilipsHueBridge bridge in _storedBridgesSetting.Value)
             {
-                string bridgeId = bridge.BridgeId;
                 List<Light> lights = (await bridge.Client.GetLightsAsync()).ToList();
                 List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).ToList();
 
-                foreach (Light light in lights)
-                {
-                    List<GroupDataModel> groups = DataModel.Groups
-                        .Where(g => g.HueGroup.Lights.Any(l => l.Equals(light.Id)) && g.HueBridge.Config.BridgeId.Equals(bridgeId, StringComparison.OrdinalIgnoreCase))
-                        .ToList();
-
-                    GroupDataModel roomGroup = groups.FirstOrDefault(g => g.GroupType == GroupType.Room);
-                    foreach (GroupDataModel groupDataModel in groups)
-                        groupDataModel.AddOrUpdateLight(light, roomGroup);
-                }
+                DataModel.Rooms.UpdateContents(bridge, lights, sensors);
+                DataModel.Zones.UpdateContents(bridge, lights, sensors);
             }
         }
 

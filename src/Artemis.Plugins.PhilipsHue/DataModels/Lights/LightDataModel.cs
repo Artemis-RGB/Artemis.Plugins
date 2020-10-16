@@ -5,7 +5,7 @@ using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
 using SkiaSharp;
 
-namespace Artemis.Plugins.PhilipsHue.DataModels
+namespace Artemis.Plugins.PhilipsHue.DataModels.Lights
 {
     public class LightDataModel : DataModel
     {
@@ -22,7 +22,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels
         public Bridge HueBridge { get; }
 
         public string Name => HueLight.Name;
-        public bool LightTurnedOn => HueLight.State.On;
+        public bool IsOn => HueLight.State.On;
 
         [DataModelProperty(Description = "The current color of the light")]
         public SKColor SolidColor { get; set; }
@@ -36,16 +36,8 @@ namespace Artemis.Plugins.PhilipsHue.DataModels
         [DataModelProperty(Description = "A fixed name describing the type of light e.g. “Extended color light”")]
         public string LightType => HueLight.Type;
 
-        public string ManufacturerName => HueLight.ManufacturerName;
-
         [DataModelProperty(Name = "Light ID", Description = "A unique identifier for this light within the bridge")]
         public string LightId => HueLight.Id;
-
-        [DataModelProperty(Name = "Model ID")]
-        public string ModelId => HueLight.ModelId;
-
-        [DataModelProperty(Name = "Product ID")]
-        public string ProductId => HueLight.ProductId;
 
         public void UpdateColor()
         {

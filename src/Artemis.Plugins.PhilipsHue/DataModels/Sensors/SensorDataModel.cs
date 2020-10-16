@@ -1,8 +1,9 @@
 ﻿using Artemis.Core.DataModelExpansions;
+using Artemis.Plugins.PhilipsHue.DataModels.Groups;
 using Q42.HueApi;
 using Q42.HueApi.Models;
 
-namespace Artemis.Plugins.PhilipsHue.DataModels
+namespace Artemis.Plugins.PhilipsHue.DataModels.Sensors
 {
     public class SensorDataModel : DataModel
     {
