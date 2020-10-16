@@ -9,17 +9,13 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Lights
 {
     public class LightDataModel : DataModel
     {
-        public LightDataModel(Light hueLight, Bridge hueBridge)
+        public LightDataModel(Light hueLight)
         {
             HueLight = hueLight;
-            HueBridge = hueBridge;
         }
 
         [DataModelIgnore]
         public Light HueLight { get; set; }
-
-        [DataModelIgnore]
-        public Bridge HueBridge { get; }
 
         public string Name => HueLight.Name;
         public bool IsOn => HueLight.State.On;
@@ -35,7 +31,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Lights
 
         [DataModelProperty(Description = "A fixed name describing the type of light e.g. “Extended color light”")]
         public string LightType => HueLight.Type;
-
+        
         [DataModelProperty(Name = "Light ID", Description = "A unique identifier for this light within the bridge")]
         public string LightId => HueLight.Id;
 

@@ -1,6 +1,7 @@
 ﻿using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.PhilipsHue.DataModels.Lights;
 using Q42.HueApi;
+using Q42.HueApi.Models;
 using Q42.HueApi.Models.Groups;
 
 namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
@@ -28,7 +29,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
             string lightKey = $"light-{light.Id}";
             LightDataModel lightDataModel = DynamicChild<LightDataModel>(lightKey);
             if (lightDataModel == null)
-                lightDataModel = (LightDataModel) AddDynamicChild(new LightDataModel(light, HueBridge), lightKey, light.Name);
+                lightDataModel = (LightDataModel) AddDynamicChild(new LightDataModel(light), lightKey, light.Name);
 
             lightDataModel.HueLight = light;
             lightDataModel.UpdateColor();

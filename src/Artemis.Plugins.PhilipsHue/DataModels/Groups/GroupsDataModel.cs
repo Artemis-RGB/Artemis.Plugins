@@ -48,7 +48,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
             }
         }
 
-        public void UpdateContents(PhilipsHueBridge bridge, List<Light> lights, List<Sensor> sensors)
+        public void UpdateContents(PhilipsHueBridge bridge, List<Light> lights)
         {
             foreach (Light light in lights)
             {

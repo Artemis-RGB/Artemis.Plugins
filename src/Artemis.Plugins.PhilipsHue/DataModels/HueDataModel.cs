@@ -1,6 +1,6 @@
 ﻿using Artemis.Core.DataModelExpansions;
+using Artemis.Plugins.PhilipsHue.DataModels.Accessories;
 using Artemis.Plugins.PhilipsHue.DataModels.Groups;
-using Artemis.Plugins.PhilipsHue.DataModels.Lights;
 
 namespace Artemis.Plugins.PhilipsHue.DataModels
 {
@@ -10,11 +10,11 @@ namespace Artemis.Plugins.PhilipsHue.DataModels
         {
             Rooms = new RoomsDataModel();
             Zones = new ZonesDataModel();
-            Lights = new LightsDataModel();
+            Accessories = new AccessoriesDataModel();
         }
 
         public RoomsDataModel Rooms { get; set; }
         public ZonesDataModel Zones { get; set; }
-        public LightsDataModel Lights { get; set; }
+        public AccessoriesDataModel Accessories { get; set; }
     }
 }

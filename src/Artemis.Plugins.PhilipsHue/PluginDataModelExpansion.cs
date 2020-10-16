@@ -106,10 +106,12 @@ namespace Artemis.Plugins.PhilipsHue
             foreach (PhilipsHueBridge bridge in _storedBridgesSetting.Value)
             {
                 List<Light> lights = (await bridge.Client.GetLightsAsync()).ToList();
-                List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).ToList();
+                List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).Where(s => s.Capabilities != null).ToList();
 
-                DataModel.Rooms.UpdateContents(bridge, lights, sensors);
-                DataModel.Zones.UpdateContents(bridge, lights, sensors);
+                DataModel.Rooms.UpdateContents(bridge, lights);
+                DataModel.Zones.UpdateContents(bridge, lights);
+
+                DataModel.Accessories.UpdateContents(bridge, sensors);
             }
         }
 
