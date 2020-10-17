@@ -33,12 +33,12 @@
 
   <ItemGroup>
     <Reference Include="Artemis.Core">
-      <HintPath>C:\Repos\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1\Artemis.Core.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1\Artemis.Core.dll</HintPath>
+	  <Private>false</Private>
     </Reference>
     <Reference Include="Artemis.UI.Shared">
-      <HintPath>C:\Repos\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1\Artemis.UI.Shared.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1\Artemis.UI.Shared.dll</HintPath>
+	  <Private>false</Private>
     </Reference>
   </ItemGroup>
 
