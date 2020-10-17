@@ -1,7 +1,7 @@
 # Artemis Plugins
-![Build Plugins](https://github.com/Artemis-RGB/Artemis.Plugins/workflows/Build%20Plugins/badge.svg)
-[![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/SpoinkyNL/Artemis/blob/master/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/SpoinkyNL/Artemis.svg)](https://github.com/SpoinkyNL/Artemis/stargazers)
+[![Build Plugins](https://github.com/Artemis-RGB/Artemis.Plugins/workflows/Build%20Plugins/badge.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/actions?query=workflow%3A%22Build+Plugins%22+is%3Asuccess)
+[![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Artemis-RGB/Artemis.Plugins.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/stargazers)
 [![Discord](https://img.shields.io/discord/392093058352676874?logo=discord&logoColor=white)](https://discord.gg/S3MVaC9) 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VQBAEJYUFLU4J) 
 
