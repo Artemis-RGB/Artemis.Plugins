@@ -29,7 +29,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
                     groupDataModel.HueGroup = group;
                 else
                 {
-                    groupDataModel = (GroupDataModel) AddDynamicChild(new GroupDataModel(group, bridge.BridgeInfo), groupKey);
+                    groupDataModel = AddDynamicChild(new GroupDataModel(@group, bridge.BridgeInfo), groupKey);
                     Groups.Add(groupDataModel);
                 }
 

@@ -23,7 +23,6 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
 
         [DataModelProperty(Name = "Sensor ID", Description = "A unique identifier for this sensor within the bridge")]
         public string SensorId => HueSensor.Id;
-
     }
 
     public enum AccessoryType
@@ -31,10 +30,9 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
         Other,
         HueDimmerSwitch,
         HueMotionSensor,
-        HueOutdoorSensor,
-        HueSmartButton,
-        HueSmartPlug,
-        HueSyncBox,
+        // HueOutdoorSensor,
+        // HueSmartButton,
+        // HueSmartPlug,
         HueTapSwitch
     }
 }

@@ -29,7 +29,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
             string lightKey = $"light-{light.Id}";
             LightDataModel lightDataModel = DynamicChild<LightDataModel>(lightKey);
             if (lightDataModel == null)
-                lightDataModel = (LightDataModel) AddDynamicChild(new LightDataModel(light), lightKey, light.Name);
+                lightDataModel = AddDynamicChild(new LightDataModel(light), lightKey, light.Name);
 
             lightDataModel.HueLight = light;
             lightDataModel.UpdateColor();
