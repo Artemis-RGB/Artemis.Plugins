@@ -63,6 +63,19 @@ steps:
   inputs:
     restoreSolution: '$(pluginSolution)'
 
+- task: PowerShell@2
+  displayName: 'Insert build number into plugin.json'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Get-ChildItem -Recurse -Filter plugin.json  | 
+      Foreach-Object {
+          $buidNumber = "1.0.1." + $Env:BUILD_BUILDID;
+          $a = Get-Content $_.FullName | ConvertFrom-Json
+          $a.Version = $buidNumber;
+          $a | ConvertTo-Json | Set-Content $_.FullName
+      }
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish Artemis.Plugins'
   inputs:
