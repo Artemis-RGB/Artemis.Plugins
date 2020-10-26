@@ -11,8 +11,9 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="x64\MysticLight_SDK.dll" />
-    <None Remove="x86\MysticLight_SDK.dll" />
+    <Compile Remove="Layouts\**" />
+    <EmbeddedResource Remove="Layouts\**" />
+    <None Remove="Layouts\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\MysticLight_SDK.dll">
@@ -61,12 +62,6 @@
     <None Update="Images\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Layouts\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Layouts\Msi\" />
   </ItemGroup>
 
   <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->

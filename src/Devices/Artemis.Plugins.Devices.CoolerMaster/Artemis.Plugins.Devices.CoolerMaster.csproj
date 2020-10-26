@@ -11,10 +11,6 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="x64\CMSDK.dll" />
-    <None Remove="x86\CMSDK.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="x64\CMSDK.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
