@@ -56,7 +56,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(artemisSolution)'
-    arguments: '--runtime win-x64 /nowarn:cs1591'
+    arguments: '/property:WarningLevel=0'
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore Artemis.Plugins'
