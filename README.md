@@ -1,5 +1,5 @@
 # Artemis Plugins
-[![Build Plugins](https://github.com/Artemis-RGB/Artemis.Plugins/workflows/Build%20Plugins/badge.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/actions?query=workflow%3A%22Build+Plugins%22+is%3Asuccess)
+[![Build Status](https://dev.azure.com/artemis-rgb/Artemis/_apis/build/status/Artemis-RGB.Artemis.Plugins?repoName=Artemis-RGB%2FArtemis.Plugins&branchName=master)](https://dev.azure.com/artemis-rgb/Artemis/_build/latest?definitionId=2&repoName=Artemis-RGB%2FArtemis.Plugins&branchName=master)
 [![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Artemis-RGB/Artemis.Plugins.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/stargazers)
 [![Discord](https://img.shields.io/discord/392093058352676874?logo=discord&logoColor=white)](https://discord.gg/S3MVaC9) 
