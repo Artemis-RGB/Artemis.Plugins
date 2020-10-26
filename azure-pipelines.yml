@@ -10,6 +10,11 @@ resources:
     endpoint: github.com_SpoinkyNL
     name: DarthAffe/RGB.NET
     ref: Development
+  - repository: Artemis
+    type: github
+    endpoint: github.com_SpoinkyNL
+    name: Artemis-RGB/Artemis
+    ref: master
 
 trigger:
 - master
@@ -19,11 +24,13 @@ pool:
 
 variables:
   rgbSolution: '**/RGB.NET.sln'
-  artemisSolution: '**/Artemis.Plugins.sln'
-  pluginProjects: '**/Artemis.Plugins/src/*.csproj'
+  artemisSolution: '**/Artemis.sln'
+  pluginSolution: '**/Artemis.Plugins.sln'
+  pluginProjects: '**/Artemis.Plugins.*.csproj'
 
 steps:
 - checkout: RGBdotNET
+- checkout: Artemis
 - checkout: self
 
 - task: NuGetToolInstaller@1
@@ -40,16 +47,28 @@ steps:
     msbuildArgs: '/property:WarningLevel=0'
 
 - task: NuGetCommand@2
-  displayName: 'NuGet restore Artemis.Plugins'
+  displayName: 'NuGet restore Artemis'
   inputs:
     restoreSolution: '$(artemisSolution)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Artemis'
+  inputs:
+    command: 'build'
+    projects: '$(artemisSolution)'
+    arguments: '--runtime win-x64 /nowarn:cs1591'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore Artemis.Plugins'
+  inputs:
+    restoreSolution: '$(pluginSolution)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish Artemis.Plugins'
   inputs:
     command: 'publish'
     publishWebProjects: false
-    arguments: '--runtime win-x64 --self-contained false --output $(Build.ArtifactStagingDirectory)/build/Plugins /nowarn:cs1591'
+    arguments: '--runtime win-x64 --self-contained false --output $(Build.ArtifactStagingDirectory)/build/Plugins'
     projects: '$(pluginProjects)'
 
 - task: PublishPipelineArtifact@1
