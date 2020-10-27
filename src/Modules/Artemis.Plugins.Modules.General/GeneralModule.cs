@@ -59,7 +59,7 @@ namespace Artemis.Plugins.Modules.General
             int processId = WindowUtilities.GetActiveProcessId();
             if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
                 DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService);
-            if (DataModel.ActiveWindow != null && string.IsNullOrWhiteSpace(DataModel.ActiveWindow.WindowTitle))
+            if (DataModel.ActiveWindow != null && (string.IsNullOrWhiteSpace(DataModel.ActiveWindow.WindowTitle) || DataModel.ActiveWindow.WindowTitle != Process.GetProcessById(WindowUtilities.GetActiveProcessId()).MainWindowTitle))
                 DataModel.ActiveWindow.WindowTitle = Process.GetProcessById(WindowUtilities.GetActiveProcessId()).MainWindowTitle;
         }
 
