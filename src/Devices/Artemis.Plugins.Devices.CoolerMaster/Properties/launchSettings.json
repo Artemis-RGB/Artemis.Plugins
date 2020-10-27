@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ModuleProject": {
+    "Artemis.Plugins.Devices.CoolerMaster": {
       "commandName": "Executable",
       "executablePath": ".\\Artemis.UI.exe",
       "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\x64\\Debug\\netcoreapp3.1"
