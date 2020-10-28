@@ -9,7 +9,8 @@ Repository containing official Artemis plugins
 
 ### Installation
 Note: These plugins are provided in a pre-release state. The installation process will eventually be automated through the workshop
-1. Find the latest succesful build [here](https://github.com/Artemis-RGB/Artemis.Plugins/actions?query=workflow%3A%22Build+Plugins%22+is%3Asuccess) and open it
+They are also included in the pre-release builds of Artemis found over at [the main repository](https://github.com/Artemis-RGB/Artemis).
+1. Find the latest succesful build [here](https://dev.azure.com/artemis-rgb/Artemis/_build/latest?definitionId=2&repoName=Artemis-RGB%2FArtemis.Plugins&branchName=master) and open the build artifact by clicking on ![1 published](https://i.imgur.com/UBu0BBW.png)
 2. Download the Artifacts you'd like. Each Artifact contains one plugin
 3. Extract the Artifact into its own folder at ```%ProgramData%\Artemis\plugins```
 4. If already running, restart Artemis
