@@ -15,7 +15,7 @@ variables:
 
 steps:
 - checkout: self
-  path: Artemis.Plugins
+  path: s/Artemis.Plugins
 
 - task: NuGetToolInstaller@1
 
@@ -29,15 +29,14 @@ steps:
     artifactName: 'RGB.NET development build'
     targetPath: '$(Pipeline.Workspace)\s\RGB.NET\bin\netstandard2.0'
 
-# TODO: Create a glob pattern that excludes plugins
 - task: DownloadPipelineArtifact@2
-  displayName: 'Download Artemis build artifacts'
   inputs:
     buildType: 'specific'
     project: '882fdc71-c09c-4923-8ab0-2cd9fcf0656d'
     definition: '1'
     buildVersionToDownload: 'latest'
-    artifactName: 'Artemis Development build'
+    artifactName: 'Artemis build'
+    itemPattern: '!Plugins/**'
     targetPath: '$(Pipeline.Workspace)\s\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1'
 
 - task: NuGetCommand@2
