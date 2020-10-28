@@ -3,19 +3,6 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-resources:
-  repositories:
-  - repository: RGBdotNET
-    type: github
-    endpoint: github.com_SpoinkyNL
-    name: DarthAffe/RGB.NET
-    ref: Development
-  - repository: Artemis
-    type: github
-    endpoint: github.com_SpoinkyNL
-    name: Artemis-RGB/Artemis
-    ref: master
-
 trigger:
 - master
 
@@ -23,40 +10,35 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  rgbSolution: '**/RGB.NET.sln'
-  artemisSolution: '**/Artemis.sln'
   pluginSolution: '**/Artemis.Plugins.sln'
   pluginProjects: '**/Artemis.Plugins.*.csproj'
 
 steps:
-- checkout: RGBdotNET
-- checkout: Artemis
 - checkout: self
+  path: Artemis.Plugins
 
 - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore RGB.NET'
+- task: DownloadPipelineArtifact@2
+  displayName: 'Download RGB.NET build artifacts'
   inputs:
-    restoreSolution: '$(rgbSolution)'
+    buildType: 'specific'
+    project: '882fdc71-c09c-4923-8ab0-2cd9fcf0656d'
+    definition: '3'
+    buildVersionToDownload: 'latest'
+    artifactName: 'RGB.NET development build'
+    targetPath: '$(Pipeline.Workspace)\s\RGB.NET\bin\netstandard2.0'
 
-- task: VSBuild@1
-  displayName: 'Build RGB.NET'
+# TODO: Create a glob pattern that excludes plugins
+- task: DownloadPipelineArtifact@2
+  displayName: 'Download Artemis build artifacts'
   inputs:
-    solution: '$(rgbSolution)'
-    msbuildArgs: '/property:WarningLevel=0'
-
-- task: NuGetCommand@2
-  displayName: 'NuGet restore Artemis'
-  inputs:
-    restoreSolution: '$(artemisSolution)'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Build Artemis'
-  inputs:
-    command: 'build'
-    projects: '$(artemisSolution)'
-    arguments: '/property:WarningLevel=0'
+    buildType: 'specific'
+    project: '882fdc71-c09c-4923-8ab0-2cd9fcf0656d'
+    definition: '1'
+    buildVersionToDownload: 'latest'
+    artifactName: 'Artemis Development build'
+    targetPath: '$(Pipeline.Workspace)\s\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1'
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore Artemis.Plugins'
