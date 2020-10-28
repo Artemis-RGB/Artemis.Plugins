@@ -16,7 +16,8 @@ namespace Artemis.Plugins.Modules.General
     {
         private readonly IColorQuantizerService _quantizerService;
 
-        public GeneralModule(IColorQuantizerService quantizerService) {
+        public GeneralModule(IColorQuantizerService quantizerService)
+        {
             _quantizerService = quantizerService;
         }
 
@@ -25,7 +26,7 @@ namespace Artemis.Plugins.Modules.General
             DisplayName = "General";
             DisplayIcon = "Images/bow.svg";
             ExpandsDataModel = true;
-            
+
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
         }
 
@@ -59,8 +60,8 @@ namespace Artemis.Plugins.Modules.General
             int processId = WindowUtilities.GetActiveProcessId();
             if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
                 DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService);
-            if (DataModel.ActiveWindow != null && (string.IsNullOrWhiteSpace(DataModel.ActiveWindow.WindowTitle) || DataModel.ActiveWindow.WindowTitle != Process.GetProcessById(WindowUtilities.GetActiveProcessId()).MainWindowTitle))
-                DataModel.ActiveWindow.WindowTitle = Process.GetProcessById(WindowUtilities.GetActiveProcessId()).MainWindowTitle;
+
+            DataModel.ActiveWindow?.UpdateWindowTitle();
         }
 
         #endregion

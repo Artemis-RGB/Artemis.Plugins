@@ -6,6 +6,7 @@ using System.Linq;
 using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Core.Services;
+using Artemis.Plugins.Modules.General.Utilities;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.General.DataModels.Windows
@@ -15,7 +16,6 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
         public WindowDataModel(Process process, IColorQuantizerService quantizerService)
         {
             Process = process;
-            WindowTitle = process.MainWindowTitle;
             ProcessName = process.ProcessName;
 
             // Accessing MainModule requires admin privileges, this way does not
@@ -41,6 +41,11 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
                     DarkMuted = quantizerService.FindColorVariation(skClrs, ColorType.DarkMuted, true)
                 };
             }
+        }
+
+        public void UpdateWindowTitle()
+        {
+            WindowTitle = WindowUtilities.GetActiveWindowTitle();
         }
 
         [DataModelIgnore]
