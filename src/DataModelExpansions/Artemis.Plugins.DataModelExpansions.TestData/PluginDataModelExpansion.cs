@@ -1,6 +1,8 @@
 ﻿using System;
+using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.DataModelExpansions.TestData.DataModels;
+using Artemis.Plugins.DataModelExpansions.TestData.ViewModels;
 using SkiaSharp;
 
 namespace Artemis.Plugins.DataModelExpansions.TestData
@@ -12,7 +14,7 @@ namespace Artemis.Plugins.DataModelExpansions.TestData
         public override void EnablePlugin()
         {
             _rand = new Random();
-            AddTimedUpdate(TimeSpan.FromSeconds(1), TimedUpdate);
+            ConfigurationDialog = new PluginConfigurationDialog<TestPluginConfigurationViewModel>();
         }
 
         public override void DisablePlugin()

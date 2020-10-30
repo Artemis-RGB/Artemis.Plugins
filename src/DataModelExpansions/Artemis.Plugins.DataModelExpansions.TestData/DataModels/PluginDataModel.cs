@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using SkiaSharp;
 
@@ -11,9 +12,9 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
             PluginSubDataModel = new PluginSubDataModel();
             ListItems = new List<SomeListItem>();
             for (int i = 0; i < 20; i++)
-                ListItems.Add(new SomeListItem {ItemName = $"Item {i + 1}", Number = i});
+                ListItems.Add(new SomeListItem { ItemName = $"Item {i + 1}", Number = i });
 
-            GenericTest = new Test<string> {Value = "Generic string value"};
+            GenericTest = new Test<string> { Value = "Generic string value" };
         }
 
         // Your datamodel can have regular properties and you can annotate them if you'd like
@@ -34,6 +35,22 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
         public bool IsWinning { get; set; }
 
         public List<SomeListItem> ListItems { get; set; }
+
+        [DataModelProperty(Description = "Event without arguments")]
+        public DataModelEvent Event1 { get; set; } = new DataModelEvent();
+
+        [DataModelProperty(Description = "Event with arguments")]
+        public DataModelEvent<TestEventArgs> Event2 { get; set; } = new DataModelEvent<TestEventArgs>();
+    }
+
+    public class TestEventArgs : DataModelEventArgs
+    {
+        public TestEventArgs(string someValue)
+        {
+            SomeValue = someValue;
+        }
+
+        public string SomeValue { get; set; }
     }
 
     public class Test<T>
@@ -57,7 +74,7 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
     {
         public PluginSubDataModel()
         {
-            ListOfInts = new List<int> {1, 2, 3, 4, 5};
+            ListOfInts = new List<int> { 1, 2, 3, 4, 5 };
         }
 
         // You don't need to annotate properties, they will still show up 

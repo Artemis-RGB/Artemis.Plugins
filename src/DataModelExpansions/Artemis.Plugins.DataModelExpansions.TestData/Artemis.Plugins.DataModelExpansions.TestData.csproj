@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
-    
     <AssemblyName>Artemis.Plugins.DataModelExpansions.TestData</AssemblyName>
     <RootNamespace>Artemis.Plugins.DataModelExpansions.TestData</RootNamespace>
+    <UseWPF>true</UseWPF>
 	<Platforms>x64</Platforms>
 	<GenerateDependencyFile>False</GenerateDependencyFile>
   </PropertyGroup>
