@@ -4,16 +4,81 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:s="https://github.com/canton7/Stylet"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16">
-        <materialDesign:PackIcon Kind="Crane" Width="250" Height="250" HorizontalAlignment="Center" />
-        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0 25">
-            WS281X settings are not yet implemented
-        </TextBlock>
-        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0 25">
-            WS281X LED controllers require extra setup that needs to be configured in this window. <LineBreak />
-            That however isn't built yet :o).
-        </TextBlock>
-    </StackPanel>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="15" MaxWidth="800">
+                <!-- General settings -->
+                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 15">Manage devices</TextBlock>
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Stretch" Margin="0,0,5,0">
+                    <StackPanel Margin="15">
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Introduction</TextBlock>
+                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
+                                This plugin supports both Arduino and Bitwizard devices in combination with WS2812B- and WS2811-Led-devices.<LineBreak/>
+                                To get started you can use the sketches found on the RGB.NET repository.
+                                </TextBlock>
+
+                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
+                                - For Arduino use 
+                                <Hyperlink NavigateUri="https://github.com/DarthAffe/RGB.NET/blob/master/RGB.NET.Devices.WS281X/Sketches/RGB.NET_Arduino.ino"
+                                           RequestNavigate="{s:Action OpenHyperlink}"
+                                           Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                                    this sketch
+                                </Hyperlink>.
+                                <LineBreak/>
+                                - For Bitwizard use 
+                                <Hyperlink NavigateUri="https://github.com/DarthAffe/RGB.NET/blob/master/RGB.NET.Devices.WS281X/Sketches/RGB.NET_Bitwizard_compatible.ino"
+                                           RequestNavigate="{s:Action OpenHyperlink}"
+                                           Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                                    this sketch
+                                </Hyperlink>.
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <Separator Style="{StaticResource MaterialDesignSeparator}" Margin="-15 5" />
+
+                        <Grid>
+                            <DataGrid ItemsSource="{Binding Definitions}"
+                                  AutoGenerateColumns="False"
+                                  CanUserSortColumns="True"
+                                  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                                  HeadersVisibility="All"
+                                  Background="{StaticResource MaterialDesignCardBackground}">
+                                <DataGrid.Columns>
+                                    <materialDesign:DataGridTextColumn Width="3*"
+                                                                   Binding="{Binding DisplayName}"
+                                                                   Header="Name"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                    <materialDesign:DataGridTextColumn Width="1*"
+                                                                   Binding="{Binding Type}"
+                                                                   Header="Type"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                    <materialDesign:DataGridTextColumn Width="1*"
+                                                                   Binding="{Binding Port}"
+                                                                   Header="COM port"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="0"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Command="{s:Action AddDevice}"
+                Margin="0 0 20 20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                ToolTip="Add a new device">
+            <materialDesign:PackIcon Kind="Add" Height="24" Width="24" />
+        </Button>
+    </Grid>
+    
 </UserControl>
