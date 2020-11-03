@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Navigation;
 using Artemis.Core;
 using Artemis.Plugins.Devices.WS281X.Settings;
 using Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs;
 using Artemis.UI.Shared.Services;
+using Stylet;
 
 namespace Artemis.Plugins.Devices.WS281X.ViewModels
 {
@@ -16,21 +18,31 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
         {
             _dialogService = dialogService;
             _definitions = settings.GetSetting<List<DeviceDefinition>>("DeviceDefinitions");
+
+            Definitions = new BindableCollection<DeviceDefinition>(_definitions.Value);
         }
+
+        public BindableCollection<DeviceDefinition> Definitions { get; }
 
         public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
         {
             Utilities.OpenUrl(e.Uri.AbsoluteUri);
         }
 
-        public void AddDevice()
+        public async Task AddDevice()
         {
-            _dialogService.ShowDialog<DeviceConfigurationDialog>();
+            DeviceDefinition device = new DeviceDefinition {Name = $"Device {_definitions.Value.Count + 1}"};
+            Dictionary<string, object> parameters = new Dictionary<string, object> {{"device", device}};
+            await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+
+            _definitions.Value.Add(device);
+            Definitions.Add(device);
         }
 
         public void EditDevice(DeviceDefinition device)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object> {{"device", device}};
+            _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
         }
     }
 }

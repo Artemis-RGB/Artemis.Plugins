@@ -46,23 +46,48 @@
                             <DataGrid ItemsSource="{Binding Definitions}"
                                   AutoGenerateColumns="False"
                                   CanUserSortColumns="True"
+                                  CanUserAddRows="False"
+                                  HeadersVisibility="Column"
                                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                                   materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                                  HeadersVisibility="All"
                                   Background="{StaticResource MaterialDesignCardBackground}">
+                                <DataGrid.Resources>
+                                    <ResourceDictionary>
+                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                            <Setter Property="Background" Value="{x:Null}" />
+                                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="{x:Null}" />
+                                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        <Style TargetType="{x:Type DataGridRow}">
+                                            <Setter Property="Background" Value="{x:Null}" />
+                                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="{x:Null}" />
+                                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ResourceDictionary>
+                                </DataGrid.Resources>
                                 <DataGrid.Columns>
                                     <materialDesign:DataGridTextColumn Width="3*"
-                                                                   Binding="{Binding DisplayName}"
+                                                                   Binding="{Binding Name}"
                                                                    Header="Name"
-                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                                                   IsReadOnly="True"/>
                                     <materialDesign:DataGridTextColumn Width="1*"
                                                                    Binding="{Binding Type}"
                                                                    Header="Type"
-                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                                                   IsReadOnly="True"/>
                                     <materialDesign:DataGridTextColumn Width="1*"
                                                                    Binding="{Binding Port}"
                                                                    Header="COM port"
-                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                                                   IsReadOnly="True" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>

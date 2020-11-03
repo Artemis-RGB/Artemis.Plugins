@@ -2,6 +2,7 @@
 {
     public class DeviceDefinition
     {
+        public string Name { get; set; }
         public DeviceDefinitionType Type { get; set; }
         public string Port { get; set; }
     }
