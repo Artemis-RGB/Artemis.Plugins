@@ -63,11 +63,6 @@
   <Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
     <Message Text="------ Artemis plugin publish ------" Importance="High" />
     <Exec Command="dotnet publish --verbosity q --output &quot;%25ProgramData%25\Artemis\Plugins\$(ProjectName)&quot;" />
-
-    <!--Workaround for the wrong System.IO.Ports being copied (https://github.com/dotnet/runtime/issues/25375) -->
-    <!-- <Delete Files="$(ProgramData)\Artemis\Plugins\$(ProjectName)\System.IO.Ports.dll"/> -->
-    <Copy SourceFiles="$(ProgramData)\Artemis\Plugins\$(ProjectName)\runtimes\win\lib\netstandard2.0\System.IO.Ports.dll" DestinationFolder="$(ProgramData)\Artemis\Plugins\$(ProjectName)" />
-
     <Message Text="Published $(ProjectName) at file:\\$(ProgramData)\Artemis\Plugins\$(ProjectName)" Importance="High" />
     <Message Text="If distributing outside the workshop, share this folder." Importance="High" />
   </Target>
@@ -80,5 +75,9 @@
     <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ProgramData)\Artemis\Plugins\$(ProjectName)" />
   </Target>
 
- 
+  <!--Workaround for the wrong System.IO.Ports being copied (https://github.com/dotnet/runtime/issues/25375) -->
+  <Target Name="SystemIOPortsWorkaround" AfterTargets="Publish">
+    <Copy SourceFiles="$(PublishDir)\runtimes\win\lib\netstandard2.0\System.IO.Ports.dll" DestinationFolder="$(PublishDir)" />
+    <RemoveDir Directories="$(PublishDir)\runtimes" />
+  </Target>
 </Project>
