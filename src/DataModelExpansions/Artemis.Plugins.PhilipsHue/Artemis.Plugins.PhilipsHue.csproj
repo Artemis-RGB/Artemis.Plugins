@@ -12,11 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <None Remove="Resources\pushlink_bridge_v2.png" />
-  </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Q42.HueApi" Version="3.15.7" />
     <PackageReference Include="Q42.HueApi.ColorConverters" Version="3.14.0" />
@@ -43,12 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\pushlink_bridge_v2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -70,6 +60,10 @@
     <None Update="Views\PhilipsHueConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\pushlink_bridge_v2.png" />
   </ItemGroup>
 
   <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->

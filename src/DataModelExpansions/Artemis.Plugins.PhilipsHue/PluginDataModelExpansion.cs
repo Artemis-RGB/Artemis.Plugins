@@ -97,7 +97,6 @@ namespace Artemis.Plugins.PhilipsHue
             }
         }
 
-
         private async Task UpdateHue(double delta)
         {
             if (!DataModel.Rooms.Groups.Any() && !DataModel.Zones.Groups.Any())
@@ -120,7 +119,16 @@ namespace Artemis.Plugins.PhilipsHue
         public async Task UpdateExistingBridges()
         {
             IBridgeLocator locator = new HttpBridgeLocator();
-            IEnumerable<LocatedBridge> bridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
+            List<LocatedBridge> bridges = (await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5))).ToList();
+
+            // Lets try to find some more 
+            locator = new SsdpBridgeLocator();
+            IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
+            foreach (LocatedBridge extraBridge in extraBridges)
+            {
+                if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
+                    bridges.Add(extraBridge);
+            }
 
             int updatedBridges = 0;
             foreach (LocatedBridge locatedBridge in bridges)

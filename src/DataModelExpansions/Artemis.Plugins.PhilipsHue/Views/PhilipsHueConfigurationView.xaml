@@ -64,7 +64,7 @@
                     </TextBlock>
 
                     <Grid>
-                        <Image Source="/Artemis.Plugins.DataModelExpansions.PhilipsHue;component/Resources/pushlink_bridge_v2.png"
+                        <Image Source="/Artemis.Plugins.PhilipsHue;component/Resources/pushlink_bridge_v2.png"
                                Margin="0 50"
                                Width="300"
                                Height="300" />

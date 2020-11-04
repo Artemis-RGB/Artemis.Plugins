@@ -110,7 +110,16 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
         {
             LocatingBridges = true;
             IBridgeLocator locator = new HttpBridgeLocator();
-            IEnumerable<LocatedBridge> bridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
+            List<LocatedBridge> bridges = (await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5))).ToList();
+            
+            // Lets try to find some more 
+            locator = new SsdpBridgeLocator();
+            IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
+            foreach (LocatedBridge extraBridge in extraBridges)
+            {
+                if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
+                    bridges.Add(extraBridge);
+            }
 
             await Task.Delay(1000);
 
