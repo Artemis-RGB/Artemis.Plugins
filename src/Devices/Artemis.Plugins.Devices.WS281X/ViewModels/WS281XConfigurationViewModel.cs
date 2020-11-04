@@ -33,7 +33,10 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
         {
             DeviceDefinition device = new DeviceDefinition {Name = $"Device {_definitions.Value.Count + 1}"};
             Dictionary<string, object> parameters = new Dictionary<string, object> {{"device", device}};
-            await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+            object result = await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+
+            if (result == null)
+                return;
 
             _definitions.Value.Add(device);
             Definitions.Add(device);

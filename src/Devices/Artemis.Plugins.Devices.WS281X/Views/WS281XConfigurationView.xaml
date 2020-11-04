@@ -84,12 +84,12 @@
                                     </ResourceDictionary>
                                 </DataGrid.Resources>
                                 <DataGrid.Columns>
-                                    <materialDesign:DataGridTextColumn Width="3*"
+                                    <materialDesign:DataGridTextColumn Width="2*"
                                                                        Binding="{Binding Name}"
                                                                        Header="Name"
                                                                        IsReadOnly="True"
                                                                        ElementStyle="{StaticResource CenteredTextColumn}" />
-                                    <materialDesign:DataGridTextColumn Width="1*"
+                                    <materialDesign:DataGridTextColumn Width="0.5*"
                                                                        Binding="{Binding Type}"
                                                                        Header="Type"
                                                                        IsReadOnly="True"
@@ -99,15 +99,20 @@
                                                                        Header="COM port"
                                                                        IsReadOnly="True"
                                                                        ElementStyle="{StaticResource CenteredTextColumn}" />
+                                    <materialDesign:DataGridTextColumn Width="1*"
+                                                                       Binding="{Binding Hostname}"
+                                                                       Header="Hostname"
+                                                                       IsReadOnly="True"
+                                                                       ElementStyle="{StaticResource CenteredTextColumn}" />
                                     <DataGridTemplateColumn CanUserResize="False" Width="60">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="MaterialDesignIconForegroundButton" Height="35" Width="35" >
+                                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="MaterialDesignIconForegroundButton" Height="35" Width="35">
                                                     <materialDesign:PackIcon Kind="DotsVertical" />
                                                     <Button.ContextMenu>
                                                         <ContextMenu>
-                                                            <MenuItem Header="Edit" Command="{s:Action EditDevice}" CommandParameter="{Binding}"/>
-                                                            <MenuItem Header="Remove from list" Command="{s:Action RemoveDevice}" CommandParameter="{Binding}"/>
+                                                            <MenuItem Header="Edit" Command="{s:Action EditDevice}" CommandParameter="{Binding}" />
+                                                            <MenuItem Header="Remove from list" Command="{s:Action RemoveDevice}" CommandParameter="{Binding}" />
                                                         </ContextMenu>
                                                     </Button.ContextMenu>
                                                 </Button>

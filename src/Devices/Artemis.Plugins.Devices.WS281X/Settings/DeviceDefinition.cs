@@ -7,8 +7,9 @@ namespace Artemis.Plugins.Devices.WS281X.Settings
     {
         private string _name;
         private string _port;
+        private string _hostname;
         private DeviceDefinitionType _type;
-
+        
         public string Name
         {
             get => _name;
@@ -26,12 +27,19 @@ namespace Artemis.Plugins.Devices.WS281X.Settings
             get => _port;
             set => SetProperty(ref _port, value);
         }
+
+        public string Hostname
+        {
+            get => _hostname;
+            set => SetProperty(ref _hostname, value);
+        }
     }
 
     public enum DeviceDefinitionType
     {
         Arduino,
-        Bitwizard
+        Bitwizard,
+        ESP8266
     }
 
 
