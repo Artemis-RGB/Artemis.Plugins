@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
+using System.Linq;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
@@ -7,6 +9,7 @@ using Artemis.Plugins.Devices.WS281X.Settings;
 using Artemis.Plugins.Devices.WS281X.ViewModels;
 using RGB.NET.Devices.WS281X.Arduino;
 using RGB.NET.Devices.WS281X.Bitwizard;
+using Serilog;
 
 namespace Artemis.Plugins.Devices.WS281X
 {
@@ -15,10 +18,12 @@ namespace Artemis.Plugins.Devices.WS281X
     {
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
+        private readonly ILogger _logger;
 
-        public WS281XDeviceProvider(IRgbService rgbService, PluginSettings settings) : base(RGB.NET.Devices.WS281X.WS281XDeviceProvider.Instance)
+        public WS281XDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger) : base(RGB.NET.Devices.WS281X.WS281XDeviceProvider.Instance)
         {
             _settings = settings;
+            _logger = logger;
             _rgbService = rgbService;
         }
 
@@ -30,8 +35,15 @@ namespace Artemis.Plugins.Devices.WS281X
             if (definitions.Value == null)
                 definitions.Value = new List<DeviceDefinition>();
 
+            string[] ports = SerialPort.GetPortNames();
             foreach (DeviceDefinition deviceDefinition in definitions.Value)
             {
+                if (!ports.Contains(deviceDefinition.Port))
+                {
+                    _logger.Warning($"Not adding WS281X device named {deviceDefinition.Name} because {deviceDefinition.Port} was not found");
+                    continue;
+                }
+
                 switch (deviceDefinition.Type)
                 {
                     case DeviceDefinitionType.Arduino:

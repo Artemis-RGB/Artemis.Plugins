@@ -12,13 +12,13 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
     public class WS281XConfigurationViewModel : PluginConfigurationViewModel
     {
         private readonly IDialogService _dialogService;
-        private PluginSetting<List<DeviceDefinition>> _definitions;
+        private readonly PluginSetting<List<DeviceDefinition>> _definitions;
 
         public WS281XConfigurationViewModel(Plugin plugin, PluginSettings settings, IDialogService dialogService) : base(plugin)
         {
             _dialogService = dialogService;
             _definitions = settings.GetSetting<List<DeviceDefinition>>("DeviceDefinitions");
-
+            
             Definitions = new BindableCollection<DeviceDefinition>(_definitions.Value);
         }
 
@@ -37,12 +37,24 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
 
             _definitions.Value.Add(device);
             Definitions.Add(device);
+
+            _definitions.Save();
         }
 
-        public void EditDevice(DeviceDefinition device)
+        public async Task EditDevice(DeviceDefinition device)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object> {{"device", device}};
-            _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+            await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+
+            _definitions.Save();
+        }
+
+        public void RemoveDevice(DeviceDefinition device)
+        {
+            _definitions.Value.Remove(device);
+            Definitions.Remove(device);
+
+            _definitions.Save();
         }
     }
 }

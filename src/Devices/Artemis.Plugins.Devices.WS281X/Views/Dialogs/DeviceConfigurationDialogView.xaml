@@ -17,22 +17,22 @@
 
         <TextBox materialDesign:HintAssist.Hint="Display name"
                  Margin="0 5"
-                 Text="{Binding Device.Name, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
         <ComboBox materialDesign:HintAssist.Hint="Type"
                   Margin="0 5"
-                  SelectedValue="{Binding Device.Type}"
+                  SelectedValue="{Binding Type}"
                   ItemsSource="{Binding DeviceTypes}"
                   SelectedValuePath="Value"
                   DisplayMemberPath="Description" 
                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
 
-        <TextBox materialDesign:HintAssist.Hint="COM port"
-                 materialDesign:HintAssist.HelperText="A COM port like COM1"
-                 Margin="0 5"
-                 Text="{Binding Device.Port, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <ComboBox materialDesign:HintAssist.Hint="COM port"
+                  Margin="0 5"
+                  SelectedValue="{Binding Port}"
+                  ItemsSource="{Binding Ports}"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 35 0 0">
             <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Margin="0 0 8 0" Command="{s:Action Cancel}">
