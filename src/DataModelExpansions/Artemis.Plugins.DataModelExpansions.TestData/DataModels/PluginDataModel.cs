@@ -25,6 +25,7 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
 
         public SKColor TestColorA { get; set; }
         public SKColor TestColorB { get; set; }
+        public SKColor TestColorC { get; set; } = new SKColor(255, 0, 0);
 
         // You can even have classes in your datamodel, just don't forget to instantiate them ;)
         [DataModelProperty(Name = "A class within the datamodel")]
@@ -32,6 +33,8 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
 
         public Team Team { get; set; }
         public bool IsWinning { get; set; }
+
+        public int Rotation { get; set; }
 
         public List<SomeListItem> ListItems { get; set; }
     }

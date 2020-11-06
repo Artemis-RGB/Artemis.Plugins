@@ -23,6 +23,10 @@ namespace Artemis.Plugins.DataModelExpansions.TestData
         {
             // You can access your data model here and update it however you like
             DataModel.TemplateDataModelString = $"The last delta time was {deltaTime} seconds";
+
+            DataModel.Rotation++;
+            if (DataModel.Rotation > 360)
+                DataModel.Rotation = 0;
         }
 
         private void TimedUpdate(double deltaTime)

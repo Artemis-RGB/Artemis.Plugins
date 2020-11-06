@@ -1,5 +1,4 @@
 ﻿using System.Windows.Navigation;
-using Artemis.Core;
 using Artemis.Core.LayerEffects;
 
 namespace Artemis.Plugins.LayerEffects.Filter.ViewModels
@@ -15,7 +14,7 @@ namespace Artemis.Plugins.LayerEffects.Filter.ViewModels
 
         public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
         {
-            Utilities.OpenUrl(e.Uri.AbsoluteUri);
+            Core.Utilities.OpenUrl(e.Uri.AbsoluteUri);
         }
     }
 }
