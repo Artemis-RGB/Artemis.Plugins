@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
-using Artemis.Core.Services;
 using Artemis.Plugins.LayerBrushes.Noise.Utilities;
 using SkiaSharp;
 
@@ -11,19 +10,11 @@ namespace Artemis.Plugins.LayerBrushes.Noise
     public class NoiseBrush : PerLedLayerBrush<NoiseBrushProperties>
     {
         private static readonly Random Rand = new Random();
-        private readonly IRgbService _rgbService;
-        private SKBitmap _bitmap;
         private SKColor[] _colorMap;
         private OpenSimplexNoise _noise;
-        private float _renderScale;
         private float _x;
         private float _y;
         private float _z;
-
-        public NoiseBrush(IRgbService rgbService)
-        {
-            _rgbService = rgbService;
-        }
 
         public override void EnableLayerBrush()
         {
@@ -34,13 +25,10 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 
             Properties.GradientColor.BaseValue.PropertyChanged += GradientColorChanged;
             CreateColorMap();
-            DetermineRenderScale();
         }
 
         public override void DisableLayerBrush()
         {
-            _bitmap?.Dispose();
-            _bitmap = null;
         }
 
         public override void Update(double deltaTime)
@@ -56,8 +44,6 @@ namespace Artemis.Plugins.LayerBrushes.Noise
                 _y = 0;
             if (float.IsPositiveInfinity(_z) || float.IsNegativeInfinity(_z) || float.IsNaN(_z))
                 _z = 0;
-
-            DetermineRenderScale();
         }
 
         public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
@@ -74,8 +60,7 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             float scrolledY = renderPoint.Y + _y;
             if (float.IsNaN(scrolledY) || float.IsInfinity(scrolledY))
                 scrolledY = 0;
-
-
+            
             float evalX = scrolledX * (scale.Width * -1) / 1000f;
             float evalY = scrolledY * (scale.Height * -1) / 1000f;
 
@@ -89,90 +74,9 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             return SKColor.Empty;
         }
 
-        // public override void Render(SKCanvas canvas, SKImageInfo canvasInfo, SKPath path, SKPaint paint)
-        // {
-        //     var mainColor = Properties.MainColor.CurrentValue;
-        //     var secondColor = Properties.SecondaryColor.CurrentValue;
-        //     var gradientColor = Properties.GradientColor.CurrentValue;
-        //     var scale = Properties.Scale.CurrentValue;
-        //     var hardness = Properties.Hardness.CurrentValue / 100f;
-        //
-        //     // Scale down the render path to avoid computing a value for every pixel
-        //     var width = (int) Math.Floor(path.Bounds.Width * _renderScale);
-        //     var height = (int) Math.Floor(path.Bounds.Height * _renderScale);
-        //
-        //     // This lil' snippet renders per LED, it's neater but doesn't support translations
-        //     Layer.ExcludeCanvasFromTranslation(canvas);
-        //
-        //     var shapePath = new SKPath(Layer.LayerShape.Path);
-        //     Layer.IncludePathInTranslation(shapePath);
-        //     canvas.ClipPath(shapePath);
-        //
-        //     using var ledPaint = new SKPaint();
-        //     foreach (var artemisLed in Layer.Leds)
-        //     {
-        //         var ledRectangle = SKRect.Create(
-        //             artemisLed.AbsoluteRenderRectangle.Left - Layer.Bounds.Left,
-        //             artemisLed.AbsoluteRenderRectangle.Top - Layer.Bounds.Top,
-        //             artemisLed.AbsoluteRenderRectangle.Width,
-        //             artemisLed.AbsoluteRenderRectangle.Height
-        //         );
-        //
-        //         var scrolledX = ledRectangle.MidX + _x;
-        //         if (float.IsNaN(scrolledX))
-        //             scrolledX = 0;
-        //         var scrolledY = ledRectangle.MidY + _y;
-        //         if (float.IsNaN(scrolledY))
-        //             scrolledY = 0;
-        //
-        //
-        //         var evalPath = new SKPath();
-        //         evalPath.AddPoly(new[] {new SKPoint(0, 0), new SKPoint(scrolledX, scrolledY)});
-        //         Layer.ExcludePathFromTranslation(evalPath);
-        //
-        //         if (evalPath.Bounds.IsEmpty)
-        //             continue;
-        //
-        //         scrolledX = evalPath.Points[1].X;
-        //         scrolledY = evalPath.Points[1].Y;
-        //
-        //         var evalX = 0.1 * scale.Width * scrolledX / width;
-        //         var evalY = 0.1 * scale.Height * scrolledY / height;
-        //
-        //         var v = (float) _noise.Evaluate(evalX, evalY, _z) * hardness;
-        //         var amount = Math.Max(0f, Math.Min(1f, v));
-        //
-        //         if (Properties.ColorType.BaseValue == ColorMappingType.Simple)
-        //             ledPaint.Color = mainColor.Interpolate(secondColor, amount);
-        //         else if (gradientColor != null && _colorMap.Length == 101)
-        //             ledPaint.Color = _colorMap[(int) Math.Round(amount * 100, MidpointRounding.AwayFromZero)];
-        //         else
-        //             ledPaint.Color = SKColor.Empty;
-        //
-        //         canvas.DrawRect(ledRectangle, ledPaint);
-        //     }
-        // }
-
         private void GradientColorChanged(object sender, PropertyChangedEventArgs e)
         {
             CreateColorMap();
-        }
-
-
-        private void DetermineRenderScale()
-        {
-            _renderScale = (float) (0.25f / _rgbService.RenderScale);
-        }
-
-        private void CreateBitmap(int width, int height)
-        {
-            if (_bitmap == null)
-                _bitmap = new SKBitmap(new SKImageInfo(width, height));
-            else if (_bitmap.Width != width || _bitmap.Height != height)
-            {
-                _bitmap.Dispose();
-                _bitmap = new SKBitmap(new SKImageInfo(width, height));
-            }
         }
 
         private void CreateColorMap()

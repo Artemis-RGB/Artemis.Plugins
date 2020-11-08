@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Color.PropertyGroups;
 using SkiaSharp;
@@ -45,24 +44,12 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 CreateLinearGradient();
         }
 
-        public override void Render(SKCanvas canvas, SKImageInfo canvasInfo, SKPath path, SKPaint paint)
+        public override void Render(SKCanvas canvas, SKPath path, SKPaint paint)
         {
-            if (Layer.General.ResizeMode.CurrentValue == LayerResizeMode.Clip)
+            if (path.Bounds != _shaderBounds)
             {
-                SKRect layerBounds = new SKRect(0, 0, Layer.Bounds.Width, Layer.Bounds.Height);
-                if (layerBounds != _shaderBounds)
-                {
-                    _shaderBounds = layerBounds;
-                    CreateShader();
-                }
-            }
-            else
-            {
-                if (path.Bounds != _shaderBounds)
-                {
-                    _shaderBounds = path.Bounds;
-                    CreateShader();
-                }
+                _shaderBounds = path.Bounds;
+                CreateShader();
             }
 
             paint.Shader = _shader;
@@ -128,7 +115,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 new SKPoint(_shaderBounds.Right, _shaderBounds.Top),
                 Properties.Colors.BaseValue.GetColorsArray(repeat),
                 Properties.Colors.BaseValue.GetPositionsArray(repeat),
-                Properties.TileMode.CurrentValue,
+                SKShaderTileMode.Clamp,
                 SKMatrix.MakeRotationDegrees(_linearGradientRotation, _shaderBounds.Left, _shaderBounds.MidY)
             );
             UpdatePaint();
@@ -139,13 +126,46 @@ namespace Artemis.Plugins.LayerBrushes.Color
             int repeat = Properties.ColorsMultiplier.CurrentValue;
 
             _shader?.Dispose();
-            _shader = SKShader.CreateRadialGradient(
-                new SKPoint(_shaderBounds.MidX, _shaderBounds.MidY),
-                Math.Max(_shaderBounds.Width, _shaderBounds.Height) / 2f,
-                Properties.Colors.BaseValue.GetColorsArray(repeat),
-                Properties.Colors.BaseValue.GetPositionsArray(repeat),
-                Properties.TileMode.CurrentValue
+
+            SKPoint position = new SKPoint(
+                _shaderBounds.MidX + _shaderBounds.MidX * (Properties.RadialGradient.CenterOffset.CurrentValue.X / 100f),
+                _shaderBounds.MidY + _shaderBounds.MidY * (Properties.RadialGradient.CenterOffset.CurrentValue.Y / 100f)
             );
+
+            switch (Properties.RadialGradient.ResizeMode.CurrentValue)
+            {
+                case RadialGradientProperties.RadialGradientResizeMode.Fit:
+                    _shader = SKShader.CreateRadialGradient(
+                        position,
+                        Math.Min(_shaderBounds.Width, _shaderBounds.Height) / 2f,
+                        Properties.Colors.BaseValue.GetColorsArray(repeat),
+                        Properties.Colors.BaseValue.GetPositionsArray(repeat),
+                        SKShaderTileMode.Clamp
+                    );
+                    break;
+                case RadialGradientProperties.RadialGradientResizeMode.Fill:
+                    _shader = SKShader.CreateRadialGradient(
+                        position,
+                        Math.Max(_shaderBounds.Width, _shaderBounds.Height) / 2f,
+                        Properties.Colors.BaseValue.GetColorsArray(repeat),
+                        Properties.Colors.BaseValue.GetPositionsArray(repeat),
+                        SKShaderTileMode.Clamp
+                    );
+                    break;
+                case RadialGradientProperties.RadialGradientResizeMode.Stretch:
+                    _shader = SKShader.CreateRadialGradient(
+                        new SKPoint(0, 0),
+                        0.5f,
+                        Properties.Colors.BaseValue.GetColorsArray(repeat),
+                        Properties.Colors.BaseValue.GetPositionsArray(repeat),
+                        SKShaderTileMode.Clamp,
+                        SKMatrix.CreateScale(_shaderBounds.Width, _shaderBounds.Height, 0, 0).PostConcat(SKMatrix.CreateTranslation(position.X, position.Y))
+                    );
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             UpdatePaint();
         }
 
@@ -158,7 +178,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 new SKPoint(_shaderBounds.MidX, _shaderBounds.MidY),
                 Properties.Colors.BaseValue.GetColorsArray(repeat),
                 Properties.Colors.BaseValue.GetPositionsArray(repeat),
-                Properties.TileMode.CurrentValue,
+                SKShaderTileMode.Clamp,
                 0,
                 360
             );

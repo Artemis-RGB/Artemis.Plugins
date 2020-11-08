@@ -19,11 +19,11 @@ namespace Artemis.Plugins.LayerEffects.Filter
         {
         }
 
-        public override void PreProcess(SKCanvas canvas, SKImageInfo canvasInfo, SKPath renderBounds, SKPaint paint)
+        public override void PreProcess(SKCanvas canvas, SKPath renderBounds, SKPaint paint)
         {
         }
 
-        public override void PostProcess(SKCanvas canvas, SKImageInfo canvasInfo, SKPath renderBounds, SKPaint paint)
+        public override void PostProcess(SKCanvas canvas, SKPath renderBounds, SKPaint paint)
         {
             SKColorFilter filter;
             switch (Properties.Type.CurrentValue)

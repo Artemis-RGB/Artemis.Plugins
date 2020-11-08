@@ -10,9 +10,6 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         [PropertyDescription(Name = "Type", Description = "The type of color brush to draw")]
         public EnumLayerProperty<ColorType> GradientType { get; set; }
 
-        [PropertyDescription(Description = "How to handle the layer having to stretch beyond it's regular size")]
-        public EnumLayerProperty<SKShaderTileMode> TileMode { get; set; }
-
         [PropertyDescription(Description = "The color of the brush")]
         public SKColorLayerProperty Color { get; set; }
 
@@ -39,17 +36,12 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         protected override void EnableProperties()
         {
             GradientType.CurrentValueSet += GradientTypeOnCurrentValueSet;
-            if (ProfileElement is Layer layer)
-                layer.General.ResizeMode.CurrentValueSet += ResizeModeOnCurrentValueSet;
-
             UpdateVisibility();
         }
 
         protected override void DisableProperties()
         {
             GradientType.CurrentValueSet -= GradientTypeOnCurrentValueSet;
-            if (ProfileElement is Layer layer)
-                layer.General.ResizeMode.CurrentValueSet -= ResizeModeOnCurrentValueSet;
         }
 
         private void GradientTypeOnCurrentValueSet(object sender, LayerPropertyEventArgs<ColorType> e)
@@ -57,17 +49,9 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
             UpdateVisibility();
         }
 
-        private void ResizeModeOnCurrentValueSet(object sender, LayerPropertyEventArgs<LayerResizeMode> e)
-        {
-            UpdateVisibility();
-        }
 
         private void UpdateVisibility()
         {
-            bool normalRender = false;
-            if (ProfileElement is Layer layer)
-                normalRender = layer.General.ResizeMode.CurrentValue == LayerResizeMode.Normal;
-
             // Solid settings
             Color.IsHidden = GradientType.BaseValue != ColorType.Solid;
 
@@ -78,24 +62,17 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
             // Linear-gradient settings
             LinearGradientRotation.IsHidden = GradientType.BaseValue != ColorType.LinearGradient;
             RadialGradient.IsHidden = GradientType.BaseValue != ColorType.RadialGradient;
-
-            // Normal render settings
-            TileMode.IsHidden = normalRender;
         }
 
         public enum ColorType
         {
-            [Description("Solid")]
-            Solid,
+            [Description("Solid")] Solid,
 
-            [Description("Linear Gradient")]
-            LinearGradient,
+            [Description("Linear Gradient")] LinearGradient,
 
-            [Description("Radial Gradient")]
-            RadialGradient,
+            [Description("Radial Gradient")] RadialGradient,
 
-            [Description("Sweep Gradient")]
-            SweepGradient
+            [Description("Sweep Gradient")] SweepGradient
         }
     }
 }
