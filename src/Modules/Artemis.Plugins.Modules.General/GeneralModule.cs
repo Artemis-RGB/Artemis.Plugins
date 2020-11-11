@@ -21,7 +21,7 @@ namespace Artemis.Plugins.Modules.General
             _quantizerService = quantizerService;
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
             DisplayName = "General";
             DisplayIcon = "Images/bow.svg";
@@ -30,7 +30,7 @@ namespace Artemis.Plugins.Modules.General
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
         }
 
-        public override void DisablePlugin()
+        public override void Disable()
         {
         }
 

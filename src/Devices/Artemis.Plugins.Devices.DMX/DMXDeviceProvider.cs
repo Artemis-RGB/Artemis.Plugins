@@ -15,10 +15,8 @@ namespace Artemis.Plugins.Devices.DMX
             _rgbService = rgbService;
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
-            ConfigurationDialog = new PluginConfigurationDialog<DMXConfigurationViewModel>();
-
             // TODO: Load from configuration
             // RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.AddDeviceDefinition();
             _rgbService.AddDeviceProvider(RgbDeviceProvider);

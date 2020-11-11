@@ -8,7 +8,7 @@ namespace Artemis.Plugins.Modules.Overlay
     public class OverlayModule : ProfileModule
     {
         // This is the beginning of your plugin life cycle. Use this instead of a constructor.
-        public override void EnablePlugin()
+        public override void Enable()
         {
             DisplayName = "Overlay";
             DisplayIcon = "ArrangeBringToFront";
@@ -16,7 +16,7 @@ namespace Artemis.Plugins.Modules.Overlay
         }
 
         // This is the end of your plugin life cycle.
-        public override void DisablePlugin()
+        public override void Disable()
         {
             // Make sure to clean up resources where needed (dispose IDisposables etc.)
         }

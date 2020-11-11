@@ -6,7 +6,6 @@ using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.PhilipsHue.DataModels;
 using Artemis.Plugins.PhilipsHue.Models;
-using Artemis.Plugins.PhilipsHue.ViewModels;
 using Q42.HueApi;
 using Q42.HueApi.Interfaces;
 using Q42.HueApi.Models;
@@ -22,8 +21,8 @@ namespace Artemis.Plugins.PhilipsHue
         private readonly PluginSetting<int> _pollingRateSetting;
         private readonly PluginSetting<List<PhilipsHueBridge>> _storedBridgesSetting;
 
-        private PluginUpdateRegistration _groupsTimedUpdate;
-        private PluginUpdateRegistration _hueTimedUpdate;
+        private TimedUpdateRegistration _groupsTimedUpdate;
+        private TimedUpdateRegistration _hueTimedUpdate;
 
         public PluginDataModelExpansion(PluginSettings settings, ILogger logger)
         {
@@ -41,9 +40,8 @@ namespace Artemis.Plugins.PhilipsHue
             };
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
-            ConfigurationDialog = new PluginConfigurationDialog<PhilipsHueConfigurationViewModel>();
             Task.Run(EnablePluginAsync);
 
             _storedBridgesSetting.SettingSaved += StoredBridgesSettingOnSettingSaved;
@@ -58,7 +56,7 @@ namespace Artemis.Plugins.PhilipsHue
             SetupTimedUpdate();
         }
 
-        public override void DisablePlugin()
+        public override void Disable()
         {
             _storedBridgesSetting.SettingSaved -= StoredBridgesSettingOnSettingSaved;
             _pollingRateSetting.SettingSaved -= PollingRateSettingOnSettingSaved;
@@ -125,10 +123,8 @@ namespace Artemis.Plugins.PhilipsHue
             locator = new SsdpBridgeLocator();
             IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
             foreach (LocatedBridge extraBridge in extraBridges)
-            {
                 if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
                     bridges.Add(extraBridge);
-            }
 
             int updatedBridges = 0;
             foreach (LocatedBridge locatedBridge in bridges)

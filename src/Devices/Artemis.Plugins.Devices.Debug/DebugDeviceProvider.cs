@@ -5,7 +5,6 @@ using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.Debug.Settings;
-using Artemis.Plugins.Devices.Debug.ViewModels;
 using RGB.NET.Core;
 using RGB.NET.Devices.Debug;
 using Serilog;
@@ -26,9 +25,8 @@ namespace Artemis.Plugins.Devices.Debug
             _rgbService = rgbService;
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
-            ConfigurationDialog = new PluginConfigurationDialog<DebugConfigurationViewModel>();
             PathHelper.ResolvingAbsolutePath += PathHelperOnResolvingAbsolutePath;
 
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
@@ -48,7 +46,7 @@ namespace Artemis.Plugins.Devices.Debug
             }
         }
 
-        public override void DisablePlugin()
+        public override void Disable()
         {
             // TODO: Remove the device provider from the surface
         }
@@ -56,13 +54,11 @@ namespace Artemis.Plugins.Devices.Debug
         private void PathHelperOnResolvingAbsolutePath(object sender, ResolvePathEventArgs e)
         {
             if (sender is DebugRGBDevice debugRgbDevice)
-            {
                 if (debugRgbDevice.LayoutPath.Contains("\\Layouts\\"))
                 {
                     string rootDirectory = debugRgbDevice.LayoutPath.Split("\\Layouts")[0];
                     e.FinalPath = Path.Combine(rootDirectory, e.RelativePath);
                 }
-            }
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Artemis.Plugins.Devices.Corsair
             _rgbService = rgbService;
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
             PathHelper.ResolvingAbsolutePath += (sender, args) => ResolveAbsolutePath(typeof(CorsairRGBDevice<>), sender, args);
-            RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(PluginInfo.Directory.FullName, "x64", "CUESDK.x64_2017.dll"));
-            RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(PluginInfo.Directory.FullName, "x86", "CUESDK_2017.dll"));
+            RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2017.dll"));
+            RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2017.dll"));
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Artemis.Core;
 using Artemis.Plugins.DataModelExpansions.TestData.DataModels;
+using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.DataModelExpansions.TestData.ViewModels
 {
@@ -7,12 +8,14 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.ViewModels
     {
         private string _event2Argument;
 
-        public TestPluginConfigurationViewModel(PluginDataModelExpansion plugin) : base(plugin)
+        public TestPluginConfigurationViewModel(Plugin plugin) : base(plugin)
         {
-            Plugin = plugin;
+            DataModelExpansion = Plugin.GetFeature<PluginDataModelExpansion>();
         }
 
-        public new PluginDataModelExpansion Plugin { get; }
+        public PluginDataModelExpansion DataModelExpansion { get; }
+        public bool CanTriggerEvent1 => DataModelExpansion != null;
+        public bool CanTriggerEvent2 => DataModelExpansion != null;
 
         public string Event2Argument
         {
@@ -22,12 +25,12 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.ViewModels
 
         public void TriggerEvent1()
         {
-            Plugin.DataModel.Event1.Trigger();
+            DataModelExpansion?.DataModel.Event1.Trigger();
         }
 
         public void TriggerEvent2()
         {
-            Plugin.DataModel.Event2.Trigger(new TestEventArgs(Event2Argument));
+            DataModelExpansion?.DataModel.Event2.Trigger(new TestEventArgs(Event2Argument));
         }
     }
 }

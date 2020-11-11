@@ -57,6 +57,9 @@
     <None Update="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\hue.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Views\PhilipsHueConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

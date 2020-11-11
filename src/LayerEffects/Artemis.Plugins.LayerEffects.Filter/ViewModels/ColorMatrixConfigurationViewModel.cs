@@ -1,5 +1,5 @@
 ﻿using System.Windows.Navigation;
-using Artemis.Core.LayerEffects;
+using Artemis.UI.Shared.LayerEffects;
 
 namespace Artemis.Plugins.LayerEffects.Filter.ViewModels
 {

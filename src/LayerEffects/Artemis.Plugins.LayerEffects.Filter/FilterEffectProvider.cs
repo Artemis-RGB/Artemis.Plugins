@@ -4,7 +4,7 @@ namespace Artemis.Plugins.LayerEffects.Filter
 {
     public class FilterEffectProvider : LayerEffectProvider
     {
-        public override void EnablePlugin()
+        public override void Enable()
         {
             RegisterLayerEffectDescriptor<BlurEffect>(
                 "Blur",
@@ -20,7 +20,7 @@ namespace Artemis.Plugins.LayerEffects.Filter
             RegisterLayerEffectDescriptor<ColorMatrixEffect>("Color matrix", "A layer effect allowing you to apply a custom color matrix", "Matrix");
         }
 
-        public override void DisablePlugin()
+        public override void Disable()
         {
         }
     }

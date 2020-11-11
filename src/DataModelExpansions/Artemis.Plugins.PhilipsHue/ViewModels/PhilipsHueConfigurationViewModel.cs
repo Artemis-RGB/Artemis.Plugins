@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Plugins.PhilipsHue.Models;
+using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
-using MaterialDesignThemes.Wpf;
 using Q42.HueApi;
 using Q42.HueApi.Interfaces;
 using Q42.HueApi.Models.Bridge;
@@ -19,7 +19,6 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
     {
         private readonly IDialogService _dialogService;
         private readonly PluginSetting<int> _pollingRateSetting;
-        private readonly ISnackbarMessageQueue _snackbarMessageQueue;
         private readonly PluginSetting<List<PhilipsHueBridge>> _storedBridgesSetting;
         private bool _foundNewBridge;
         private string _lightDisplay;
@@ -32,11 +31,9 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
 
         public PhilipsHueConfigurationViewModel(Plugin plugin,
             PluginSettings settings,
-            ISnackbarMessageQueue snackbarMessageQueue,
             IDialogService dialogService,
             IModelValidator<PhilipsHueConfigurationViewModel> validator) : base(plugin, validator)
         {
-            _snackbarMessageQueue = snackbarMessageQueue;
             _dialogService = dialogService;
 
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
@@ -105,21 +102,19 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
         #endregion
 
         #region Bridge discovery
-        
+
         public async Task FindHueBridge()
         {
             LocatingBridges = true;
             IBridgeLocator locator = new HttpBridgeLocator();
             List<LocatedBridge> bridges = (await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5))).ToList();
-            
+
             // Lets try to find some more 
             locator = new SsdpBridgeLocator();
             IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
             foreach (LocatedBridge extraBridge in extraBridges)
-            {
                 if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
                     bridges.Add(extraBridge);
-            }
 
             await Task.Delay(1000);
 

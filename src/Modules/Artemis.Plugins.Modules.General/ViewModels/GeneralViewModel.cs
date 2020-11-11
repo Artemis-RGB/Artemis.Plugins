@@ -1,4 +1,4 @@
-﻿using Artemis.Core.Modules;
+﻿using Artemis.UI.Shared.Modules;
 
 namespace Artemis.Plugins.Modules.General.ViewModels
 {
