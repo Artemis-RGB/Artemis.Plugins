@@ -4,7 +4,7 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.PhilipsHue
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class HueBootstrapper : IPluginBootstrapper
     {
         public void Enable(Plugin plugin)
         {
