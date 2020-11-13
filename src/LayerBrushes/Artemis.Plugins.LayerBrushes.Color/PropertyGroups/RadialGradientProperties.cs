@@ -1,5 +1,4 @@
 ﻿using Artemis.Core;
-using Artemis.Core.DefaultTypes;
 
 namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 {
