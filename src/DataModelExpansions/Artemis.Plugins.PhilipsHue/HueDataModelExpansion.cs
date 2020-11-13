@@ -9,24 +9,25 @@ using Artemis.Plugins.PhilipsHue.DataModels;
 using Artemis.Plugins.PhilipsHue.Models;
 using Artemis.Plugins.PhilipsHue.Services;
 using Q42.HueApi;
-using Q42.HueApi.Interfaces;
+using Q42.HueApi.ColorConverters;
 using Q42.HueApi.Models;
-using Q42.HueApi.Models.Bridge;
 using Q42.HueApi.Models.Groups;
+using Q42.HueApi.Streaming;
+using Q42.HueApi.Streaming.Models;
 using Serilog;
 
 namespace Artemis.Plugins.PhilipsHue
 {
     public class HueDataModelExpansion : DataModelExpansion<HueDataModel>
     {
-        private readonly ILogger _logger;
         private readonly IHueService _hueService;
+        private readonly ILogger _logger;
         private readonly PluginSetting<int> _pollingRateSetting;
         private readonly PluginSetting<List<PhilipsHueBridge>> _storedBridgesSetting;
+        private CancellationTokenSource _enableCancel;
 
         private TimedUpdateRegistration _groupsTimedUpdate;
         private TimedUpdateRegistration _hueTimedUpdate;
-        private CancellationTokenSource _enableCancel;
 
         public HueDataModelExpansion(PluginSettings settings, ILogger logger, IHueService hueService)
         {
@@ -56,15 +57,15 @@ namespace Artemis.Plugins.PhilipsHue
 
         public async Task EnablePluginAsync()
         {
-            await UpdateExistingBridges();
-            await ConnectToBridges();
-
+            await _hueService.UpdateExistingBridges();
+            await _hueService.ConnectToBridges();
+            
             SetupTimedUpdate();
         }
 
         public override void Disable()
         {
-            _enableCancel.Cancel();
+            _enableCancel?.Cancel();
             _storedBridgesSetting.SettingSaved -= StoredBridgesSettingOnSettingSaved;
             _pollingRateSetting.SettingSaved -= PollingRateSettingOnSettingSaved;
         }
@@ -75,7 +76,8 @@ namespace Artemis.Plugins.PhilipsHue
 
         private void StoredBridgesSettingOnSettingSaved(object? sender, EventArgs e)
         {
-            ConnectToBridges();
+            DataModel.ClearDynamicChildren();
+            _hueService.ConnectToBridges();
         }
 
         private void PollingRateSettingOnSettingSaved(object? sender, EventArgs e)
@@ -93,7 +95,7 @@ namespace Artemis.Plugins.PhilipsHue
 
         private async Task UpdateGroups(double delta)
         {
-            foreach (PhilipsHueBridge bridge in _storedBridgesSetting.Value)
+            foreach (PhilipsHueBridge bridge in _hueService.Bridges)
             {
                 // Add or update current groups
                 List<Group> groups = (await bridge.Client.GetGroupsAsync()).Where(g => g.Type == GroupType.Room || g.Type == GroupType.Zone).ToList();
@@ -107,7 +109,7 @@ namespace Artemis.Plugins.PhilipsHue
             if (!DataModel.Rooms.Groups.Any() && !DataModel.Zones.Groups.Any())
                 await UpdateGroups(delta);
 
-            foreach (PhilipsHueBridge bridge in _storedBridgesSetting.Value)
+            foreach (PhilipsHueBridge bridge in _hueService.Bridges)
             {
                 List<Light> lights = (await bridge.Client.GetLightsAsync()).ToList();
                 List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).Where(s => s.Capabilities != null).ToList();
@@ -118,65 +120,5 @@ namespace Artemis.Plugins.PhilipsHue
                 DataModel.Accessories.UpdateContents(bridge, sensors);
             }
         }
-
-        #region Bridge management
-
-        public async Task UpdateExistingBridges()
-        {
-            IBridgeLocator locator = new HttpBridgeLocator();
-            List<LocatedBridge> bridges = (await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5))).ToList();
-
-            // Lets try to find some more 
-            locator = new SsdpBridgeLocator();
-            IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
-            foreach (LocatedBridge extraBridge in extraBridges)
-                if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
-                    bridges.Add(extraBridge);
-
-            int updatedBridges = 0;
-            foreach (LocatedBridge locatedBridge in bridges)
-            {
-                PhilipsHueBridge storedBridge = _storedBridgesSetting.Value.FirstOrDefault(s => s.BridgeId == locatedBridge.BridgeId);
-                if (storedBridge != null && storedBridge.IpAddress != locatedBridge.IpAddress)
-                {
-                    storedBridge.IpAddress = locatedBridge.IpAddress;
-                    updatedBridges++;
-                }
-            }
-
-            if (updatedBridges > 0)
-            {
-                _storedBridgesSetting.Save();
-                _logger.Information("Updated IP addresses of {updatedBridges} Hue Bridge(s)", updatedBridges);
-            }
-        }
-
-        private async Task ConnectToBridges()
-        {
-            _enableCancel.Token.ThrowIfCancellationRequested();
-            DataModel.ClearDynamicChildren();
-            foreach (PhilipsHueBridge philipsHueBridge in _storedBridgesSetting.Value)
-            {
-                _enableCancel.Token.ThrowIfCancellationRequested();
-
-                ILocalHueClient client = new LocalHueClient(philipsHueBridge.IpAddress);
-                client.Initialize(philipsHueBridge.AppKey);
-
-                bool success = await client.CheckConnection();
-                if (success)
-                {
-                    Bridge bridgeInfo = await client.GetBridgeAsync();
-                    philipsHueBridge.Client = client;
-                    philipsHueBridge.BridgeInfo = bridgeInfo;
-                    _logger.Information("Connected to Hue bridge at {ip}", philipsHueBridge.IpAddress);
-                }
-                else
-                {
-                    _logger.Warning("Failed to connect to Hue bridge at {ip}", philipsHueBridge.IpAddress);
-                }
-            }
-        }
-
-        #endregion
     }
 }

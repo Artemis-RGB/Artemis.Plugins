@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Plugins.PhilipsHue.Models;
+using Artemis.Plugins.PhilipsHue.Services;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
 using Q42.HueApi;
@@ -17,6 +18,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
 {
     public class PhilipsHueConfigurationViewModel : PluginConfigurationViewModel
     {
+        private readonly IHueService _hueService;
         private readonly IDialogService _dialogService;
         private readonly PluginSetting<int> _pollingRateSetting;
         private readonly PluginSetting<List<PhilipsHueBridge>> _storedBridgesSetting;
@@ -29,11 +31,14 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
         private int _wizardPage;
 
 
-        public PhilipsHueConfigurationViewModel(Plugin plugin,
-            PluginSettings settings,
-            IDialogService dialogService,
-            IModelValidator<PhilipsHueConfigurationViewModel> validator) : base(plugin, validator)
+        public PhilipsHueConfigurationViewModel(Plugin plugin, 
+            PluginSettings settings, 
+            IHueService hueService,
+            IDialogService dialogService, 
+            IModelValidator<PhilipsHueConfigurationViewModel> validator)
+            : base(plugin, validator)
         {
+            _hueService = hueService;
             _dialogService = dialogService;
 
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
@@ -41,9 +46,10 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
 
             PollingRate = _pollingRateSetting.Value;
 
-            if (_storedBridgesSetting.Value.Any())
+            if (_storedBridgesSetting.Value.Any()) 
                 WizardPage = 3;
         }
+
 
         public int PollingRate
         {
@@ -140,7 +146,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             WizardPage = 1;
 
             ILocalHueClient client = new LocalHueClient(_newBridge.IpAddress);
-            string registrationResult = null;
+            RegisterEntertainmentResult registrationResult = null;
             int attempts = 0;
 
             void OnClosed(object? sender, CloseEventArgs args)
@@ -153,7 +159,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             {
                 try
                 {
-                    registrationResult = await client.RegisterAsync("artemis-hue-plugin", Environment.MachineName);
+                    registrationResult = await client.RegisterAsync("artemis-hue-plugin", Environment.MachineName, true);
                 }
                 catch (LinkButtonNotPressedException)
                 {
@@ -172,7 +178,8 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
                 return;
             }
 
-            _newBridge.AppKey = registrationResult;
+            _newBridge.AppKey = registrationResult.Username;
+            _newBridge.StreamingClientKey = registrationResult.StreamingClientKey;
             _storedBridgesSetting.Value.Add(_newBridge);
             _storedBridgesSetting.Save();
 

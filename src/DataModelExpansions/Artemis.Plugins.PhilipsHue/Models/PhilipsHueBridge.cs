@@ -26,5 +26,6 @@ namespace Artemis.Plugins.PhilipsHue.Models
         public string BridgeId { get; set; }
         public string IpAddress { get; set; }
         public string AppKey { get; set; }
+        public string StreamingClientKey { get; set; }
     }
 }
