@@ -2,6 +2,7 @@
 using System.Linq;
 using Artemis.Core;
 using Artemis.Plugins.Devices.Debug.Settings;
+using Artemis.UI.Shared;
 using Stylet;
 
 namespace Artemis.Plugins.Devices.Debug.ViewModels

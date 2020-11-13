@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.PhilipsHue.DataModels;
 using Artemis.Plugins.PhilipsHue.Models;
-using Artemis.Plugins.PhilipsHue.ViewModels;
+using Artemis.Plugins.PhilipsHue.Services;
 using Q42.HueApi;
 using Q42.HueApi.Interfaces;
 using Q42.HueApi.Models;
@@ -16,18 +17,21 @@ using Serilog;
 
 namespace Artemis.Plugins.PhilipsHue
 {
-    public class PluginDataModelExpansion : DataModelExpansion<HueDataModel>
+    public class HueDataModelExpansion : DataModelExpansion<HueDataModel>
     {
         private readonly ILogger _logger;
+        private readonly IHueService _hueService;
         private readonly PluginSetting<int> _pollingRateSetting;
         private readonly PluginSetting<List<PhilipsHueBridge>> _storedBridgesSetting;
 
-        private PluginUpdateRegistration _groupsTimedUpdate;
-        private PluginUpdateRegistration _hueTimedUpdate;
+        private TimedUpdateRegistration _groupsTimedUpdate;
+        private TimedUpdateRegistration _hueTimedUpdate;
+        private CancellationTokenSource _enableCancel;
 
-        public PluginDataModelExpansion(PluginSettings settings, ILogger logger)
+        public HueDataModelExpansion(PluginSettings settings, ILogger logger, IHueService hueService)
         {
             _logger = logger;
+            _hueService = hueService;
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
             _pollingRateSetting = settings.GetSetting("PollingRate", 2);
         }
@@ -41,10 +45,10 @@ namespace Artemis.Plugins.PhilipsHue
             };
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
-            ConfigurationDialog = new PluginConfigurationDialog<PhilipsHueConfigurationViewModel>();
-            Task.Run(EnablePluginAsync);
+            _enableCancel = new CancellationTokenSource();
+            Task.Run(EnablePluginAsync, _enableCancel.Token);
 
             _storedBridgesSetting.SettingSaved += StoredBridgesSettingOnSettingSaved;
             _pollingRateSetting.SettingSaved += PollingRateSettingOnSettingSaved;
@@ -58,8 +62,9 @@ namespace Artemis.Plugins.PhilipsHue
             SetupTimedUpdate();
         }
 
-        public override void DisablePlugin()
+        public override void Disable()
         {
+            _enableCancel.Cancel();
             _storedBridgesSetting.SettingSaved -= StoredBridgesSettingOnSettingSaved;
             _pollingRateSetting.SettingSaved -= PollingRateSettingOnSettingSaved;
         }
@@ -125,10 +130,8 @@ namespace Artemis.Plugins.PhilipsHue
             locator = new SsdpBridgeLocator();
             IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
             foreach (LocatedBridge extraBridge in extraBridges)
-            {
                 if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
                     bridges.Add(extraBridge);
-            }
 
             int updatedBridges = 0;
             foreach (LocatedBridge locatedBridge in bridges)
@@ -150,9 +153,12 @@ namespace Artemis.Plugins.PhilipsHue
 
         private async Task ConnectToBridges()
         {
+            _enableCancel.Token.ThrowIfCancellationRequested();
             DataModel.ClearDynamicChildren();
             foreach (PhilipsHueBridge philipsHueBridge in _storedBridgesSetting.Value)
             {
+                _enableCancel.Token.ThrowIfCancellationRequested();
+
                 ILocalHueClient client = new LocalHueClient(philipsHueBridge.IpAddress);
                 client.Initialize(philipsHueBridge.AppKey);
 

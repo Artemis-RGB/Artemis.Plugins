@@ -14,7 +14,7 @@ namespace Artemis.Plugins.Devices.Asus
             _rgbService = rgbService;
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
             PathHelper.ResolvingAbsolutePath += (sender, args) => ResolveAbsolutePath(typeof(AsusRGBDevice<>), sender, args);
             RGB.NET.Devices.Asus.AsusDeviceProvider.Instance.Initialize(RGBDeviceType.All, false, true);

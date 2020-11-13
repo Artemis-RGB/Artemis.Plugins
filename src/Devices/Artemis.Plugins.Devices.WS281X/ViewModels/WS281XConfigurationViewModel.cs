@@ -4,6 +4,7 @@ using System.Windows.Navigation;
 using Artemis.Core;
 using Artemis.Plugins.Devices.WS281X.Settings;
 using Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs;
+using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
 using Stylet;
 

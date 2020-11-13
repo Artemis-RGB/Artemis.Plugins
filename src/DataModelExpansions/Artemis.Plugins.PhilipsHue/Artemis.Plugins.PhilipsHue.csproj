@@ -36,6 +36,9 @@
       <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1\Artemis.UI.Shared.dll</HintPath>
 	  <Private>false</Private>
     </Reference>
+    <Reference Include="RGB.NET.Core">
+      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +58,9 @@
 
   <ItemGroup>
     <None Update="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\hue.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Views\PhilipsHueConfigurationView.xaml">

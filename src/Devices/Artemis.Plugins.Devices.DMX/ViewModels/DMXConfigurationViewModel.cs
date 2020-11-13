@@ -1,4 +1,5 @@
 ﻿using Artemis.Core;
+using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Devices.DMX.ViewModels
 {

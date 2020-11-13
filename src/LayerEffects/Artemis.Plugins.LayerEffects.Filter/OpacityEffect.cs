@@ -1,5 +1,4 @@
 ﻿using Artemis.Core;
-using Artemis.Core.DefaultTypes;
 using Artemis.Core.LayerEffects;
 using SkiaSharp;
 

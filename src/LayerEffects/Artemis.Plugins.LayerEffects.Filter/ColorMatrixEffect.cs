@@ -1,5 +1,6 @@
 ﻿using Artemis.Core.LayerEffects;
 using Artemis.Plugins.LayerEffects.Filter.ViewModels;
+using Artemis.UI.Shared.LayerEffects;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerEffects.Filter

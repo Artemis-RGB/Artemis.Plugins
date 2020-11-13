@@ -15,7 +15,7 @@ namespace Artemis.Plugins.Devices.SteelSeries
             _rgbService = rgbService;
         }
 
-        public override void EnablePlugin()
+        public override void Enable()
         {
             // TODO Check to see if this works, it's usually a generic type after all
             PathHelper.ResolvingAbsolutePath += (sender, args) => ResolveAbsolutePath(typeof(SteelSeriesRGBDevice), sender, args);
