@@ -17,7 +17,11 @@ steps:
 - checkout: self
   path: s/Artemis.Plugins
 
-- task: NuGetToolInstaller@1
+- task: UseDotNet@2
+  displayName: 'Install .Net 5 SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.100'
 
 - task: DownloadPipelineArtifact@2
   displayName: 'Download RGB.NET build artifacts'
@@ -37,12 +41,14 @@ steps:
     buildVersionToDownload: 'latest'
     artifactName: 'Artemis build'
     itemPattern: '!Plugins/**'
-    targetPath: '$(Pipeline.Workspace)\s\Artemis\src\Artemis.UI\bin\x64\Debug\netcoreapp3.1'
+    targetPath: '$(Pipeline.Workspace)\s\Artemis\src\Artemis.UI\bin\x64\Debug\net5.0-windows'
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore Artemis.Plugins'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore Artemis.Plugins'
   inputs:
-    restoreSolution: '$(pluginSolution)'
+    command: 'restore'
+    projects: '$(pluginSolution)'
+    feedsToUse: 'select'
 
 - task: PowerShell@2
   displayName: 'Insert build number into plugin.json'
