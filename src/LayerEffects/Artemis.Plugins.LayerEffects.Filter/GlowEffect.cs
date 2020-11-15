@@ -27,8 +27,8 @@ namespace Artemis.Plugins.LayerEffects.Filter
                 Properties.GlowOffset.CurrentValue.X,
                 Properties.GlowOffset.CurrentValue.Y,
                 Properties.GlowBlurAmount.CurrentValue.Width,
-                Properties.GlowBlurAmount.CurrentValue.Height, Properties.GlowColor,
-                SKDropShadowImageFilterShadowMode.DrawShadowAndForeground,
+                Properties.GlowBlurAmount.CurrentValue.Height,
+                Properties.GlowColor,
                 paint.ImageFilter
             );
         }

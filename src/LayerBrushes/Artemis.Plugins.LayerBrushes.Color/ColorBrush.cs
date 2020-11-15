@@ -116,7 +116,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 Properties.Colors.BaseValue.GetColorsArray(repeat),
                 Properties.Colors.BaseValue.GetPositionsArray(repeat),
                 SKShaderTileMode.Clamp,
-                SKMatrix.MakeRotationDegrees(_linearGradientRotation, _shaderBounds.Left, _shaderBounds.MidY)
+                SKMatrix.CreateRotationDegrees(_linearGradientRotation, _shaderBounds.Left, _shaderBounds.MidY)
             );
             UpdatePaint();
         }

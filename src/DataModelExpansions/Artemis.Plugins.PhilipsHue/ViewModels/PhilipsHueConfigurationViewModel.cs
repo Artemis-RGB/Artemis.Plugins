@@ -138,7 +138,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             LocatingBridges = false;
 
             if (FoundNewBridge)
-                RegisterHueBridge();
+                await RegisterHueBridge();
         }
 
         private async Task RegisterHueBridge()
@@ -149,7 +149,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             RegisterEntertainmentResult registrationResult = null;
             int attempts = 0;
 
-            void OnClosed(object? sender, CloseEventArgs args)
+            void OnClosed(object sender, CloseEventArgs args)
             {
                 attempts = 12;
             }

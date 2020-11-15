@@ -74,13 +74,13 @@ namespace Artemis.Plugins.PhilipsHue
         {
         }
 
-        private void StoredBridgesSettingOnSettingSaved(object? sender, EventArgs e)
+        private void StoredBridgesSettingOnSettingSaved(object sender, EventArgs e)
         {
             DataModel.ClearDynamicChildren();
             _hueService.ConnectToBridges();
         }
 
-        private void PollingRateSettingOnSettingSaved(object? sender, EventArgs e)
+        private void PollingRateSettingOnSettingSaved(object sender, EventArgs e)
         {
             SetupTimedUpdate();
         }
