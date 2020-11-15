@@ -44,16 +44,16 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 CreateLinearGradient();
         }
 
-        public override void Render(SKCanvas canvas, SKPath path, SKPaint paint)
+        public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            if (path.Bounds != _shaderBounds)
+            if (bounds != _shaderBounds)
             {
-                _shaderBounds = path.Bounds;
+                _shaderBounds = bounds;
                 CreateShader();
             }
 
             paint.Shader = _shader;
-            canvas.DrawPath(path, paint);
+            canvas.DrawRect(bounds, paint);
         }
 
         private void BaseValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
