@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LayerEffects", "LayerEffect
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{82496F91-3977-44EE-A1B8-B301A8B03E20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.PhilipsHue", "DataModelExpansions\Artemis.Plugins.PhilipsHue\Artemis.Plugins.PhilipsHue.csproj", "{E688CC77-ED24-48BA-B4E7-0BDF77466789}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.DataModelExpansions.TestData", "DataModelExpansions\Artemis.Plugins.DataModelExpansions.TestData\Artemis.Plugins.DataModelExpansions.TestData.csproj", "{7E91CDE2-E2F7-409C-89E4-A9324A48E6A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.Asus", "Devices\Artemis.Plugins.Devices.Asus\Artemis.Plugins.Devices.Asus.csproj", "{328F31B6-30B3-46DA-BE99-B2502780608C}"
@@ -55,16 +53,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Modules.Gen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Modules.Overlay", "Modules\Artemis.Plugins.Modules.Overlay\Artemis.Plugins.Modules.Overlay.csproj", "{49B59D78-E8EB-47C1-8080-8287643D2BE4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{798DB72F-F2F9-47BB-AB25-1297AB49D20D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.PhilipsHue", "Collections\Artemis.Plugins.PhilipsHue\Artemis.Plugins.PhilipsHue.csproj", "{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Input", "Collections\Artemis.Plugins.Input\Artemis.Plugins.Input.csproj", "{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E688CC77-ED24-48BA-B4E7-0BDF77466789}.Debug|x64.ActiveCfg = Debug|x64
-		{E688CC77-ED24-48BA-B4E7-0BDF77466789}.Debug|x64.Build.0 = Debug|x64
-		{E688CC77-ED24-48BA-B4E7-0BDF77466789}.Release|x64.ActiveCfg = Release|x64
-		{E688CC77-ED24-48BA-B4E7-0BDF77466789}.Release|x64.Build.0 = Release|x64
 		{7E91CDE2-E2F7-409C-89E4-A9324A48E6A4}.Debug|x64.ActiveCfg = Debug|x64
 		{7E91CDE2-E2F7-409C-89E4-A9324A48E6A4}.Debug|x64.Build.0 = Debug|x64
 		{7E91CDE2-E2F7-409C-89E4-A9324A48E6A4}.Release|x64.ActiveCfg = Release|x64
@@ -145,12 +145,19 @@ Global
 		{49B59D78-E8EB-47C1-8080-8287643D2BE4}.Debug|x64.Build.0 = Debug|x64
 		{49B59D78-E8EB-47C1-8080-8287643D2BE4}.Release|x64.ActiveCfg = Release|x64
 		{49B59D78-E8EB-47C1-8080-8287643D2BE4}.Release|x64.Build.0 = Release|x64
+		{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC}.Debug|x64.ActiveCfg = Debug|x64
+		{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC}.Debug|x64.Build.0 = Debug|x64
+		{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC}.Release|x64.ActiveCfg = Release|x64
+		{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC}.Release|x64.Build.0 = Release|x64
+		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Debug|x64.ActiveCfg = Debug|x64
+		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Debug|x64.Build.0 = Debug|x64
+		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Release|x64.ActiveCfg = Release|x64
+		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E688CC77-ED24-48BA-B4E7-0BDF77466789} = {AC55B463-0A84-468A-865D-B95897E8BC51}
 		{7E91CDE2-E2F7-409C-89E4-A9324A48E6A4} = {AC55B463-0A84-468A-865D-B95897E8BC51}
 		{328F31B6-30B3-46DA-BE99-B2502780608C} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{C345E992-BEAA-4CAF-8E47-74C814E5A16F} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
@@ -171,6 +178,8 @@ Global
 		{3AC139CC-C960-4750-B882-D588012CE1DE} = {5FF45587-35D8-4D94-89FA-C04C40E781BC}
 		{2BA2D5AF-16CB-4C2D-8C43-337ACA9EB366} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{49B59D78-E8EB-47C1-8080-8287643D2BE4} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
+		{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC} = {798DB72F-F2F9-47BB-AB25-1297AB49D20D}
+		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48} = {798DB72F-F2F9-47BB-AB25-1297AB49D20D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}

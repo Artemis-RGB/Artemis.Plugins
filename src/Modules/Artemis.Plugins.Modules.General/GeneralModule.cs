@@ -15,10 +15,12 @@ namespace Artemis.Plugins.Modules.General
     public class GeneralModule : ProfileModule<GeneralDataModel>
     {
         private readonly IColorQuantizerService _quantizerService;
+        private readonly IInputService _inputService;
 
-        public GeneralModule(IColorQuantizerService quantizerService)
+        public GeneralModule(IColorQuantizerService quantizerService, IInputService inputService)
         {
             _quantizerService = quantizerService;
+            _inputService = inputService;
         }
 
         public override void Enable()

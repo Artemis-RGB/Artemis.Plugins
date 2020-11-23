@@ -32,6 +32,17 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
         [DataModelProperty(Name = "A class within the datamodel")]
         public PluginSubDataModel PluginSubDataModel { get; set; }
 
+        [DataModelProperty(Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis lectus sit amet " +
+                                         "ligula consequat tincidunt. Ut feugiat, est in lacinia egestas, dui nulla blandit erat, " +
+                                         "et tincidunt libero ligula nec risus. Curabitur eu dui volutpat, pulvinar nunc nec," +
+                                         " commodo nisi. Suspendisse eleifend sapien eget rutrum dapibus. In placerat aliquet " +
+                                         "fringilla. Pellentesque cursus turpis augue, at cursus ipsum viverra ut. Maecenas at mi " +
+                                         "et enim aliquet convallis. Cras pretium tellus vitae ex sagittis, at maximus tellus " +
+                                         "hendrerit. Vestibulum sodales suscipit nisi convallis malesuada. Donec fermentum semper " +
+                                         "erat, id varius velit volutpat nec. Quisque sit amet lectus neque. Nulla nec nibh at " +
+                                         "turpis varius auctor. Ut at augue in orci rhoncus rhoncus et ut risus. Nam sed odio elit." +
+                                         " Maecenas lacus nunc, placerat vel mattis at, vulputate vel leo. Etiam sollicitudin, " +
+                                         "leo quis ultrices pretium, nisi dui scelerisque ex, ac dictum augue lorem nec est.")]
         public Team Team { get; set; }
         public bool IsWinning { get; set; }
 
