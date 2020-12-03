@@ -77,11 +77,6 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs
 
             Session.Close(_device);
         }
-
-        public void Cancel()
-        {
-            Session.Close();
-        }
     }
 
     public class DeviceConfigurationDialogViewModelValidator : AbstractValidator<DeviceConfigurationDialogViewModel>

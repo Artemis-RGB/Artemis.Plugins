@@ -25,7 +25,7 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
             if (File.Exists(ProgramLocation))
             {
                 using MemoryStream mem = new MemoryStream();
-                Icon.ExtractAssociatedIcon(ProgramLocation).Save(mem);
+                Icon.ExtractAssociatedIcon(ProgramLocation)?.Save(mem);
                 mem.Seek(0, SeekOrigin.Begin);
                 using SKBitmap skbm = SKBitmap.Decode(mem);
                 mem.Close();
