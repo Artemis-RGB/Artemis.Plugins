@@ -52,7 +52,7 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             SKColor secondColor = Properties.SecondaryColor.CurrentValue;
             ColorGradient gradientColor = Properties.GradientColor.CurrentValue;
             SKSize scale = Properties.Scale.CurrentValue;
-            float hardness = Properties.Hardness.CurrentValue / 100f;
+            float hardness = Properties.Hardness.CurrentValue / 50f;
 
             float scrolledX = renderPoint.X + _x;
             if (float.IsNaN(scrolledX) || float.IsInfinity(scrolledX))
@@ -60,9 +60,9 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             float scrolledY = renderPoint.Y + _y;
             if (float.IsNaN(scrolledY) || float.IsInfinity(scrolledY))
                 scrolledY = 0;
-            
-            float evalX = scrolledX * (scale.Width * -1) / 1000f;
-            float evalY = scrolledY * (scale.Height * -1) / 1000f;
+
+            float evalX = scrolledX * (scale.Width / 4000f);
+            float evalY = scrolledY * (scale.Height / 4000f);
 
             float v = (float) _noise.Evaluate(evalX, evalY, _z) * hardness;
             float amount = Math.Max(0f, Math.Min(1f, v));
