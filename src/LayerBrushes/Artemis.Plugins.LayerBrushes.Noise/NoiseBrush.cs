@@ -61,8 +61,11 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             if (float.IsNaN(scrolledY) || float.IsInfinity(scrolledY))
                 scrolledY = 0;
 
-            float evalX = scrolledX * (scale.Width / 4000f);
-            float evalY = scrolledY * (scale.Height / 4000f);
+            float width = 1f / (MathF.Max(scale.Width, 0.001f) / 100f);
+            float height = 1f / (MathF.Max(scale.Height, 0.001f) / 100f);
+
+            float evalX = scrolledX * (width / 40f);
+            float evalY = scrolledY * (height / 40f);
 
             float v = (float) _noise.Evaluate(evalX, evalY, _z) * hardness;
             float amount = Math.Max(0f, Math.Min(1f, v));
