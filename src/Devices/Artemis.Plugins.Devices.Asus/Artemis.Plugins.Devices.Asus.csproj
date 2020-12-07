@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <PreserveCompilationContext>false</PreserveCompilationContext>
@@ -6,6 +6,7 @@
     <RootNamespace>Artemis.Plugins.Devices.Asus</RootNamespace>
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -73,7 +74,7 @@
   <!-- Override the published DLLs with the built DLLs to enable edit & continue -->
   <Target Name="PostBuildLocalDlls" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
     <ItemGroup>
-      <DllFiles Include="$(TargetDir)\!ref\*.dll" />
+      <DllFiles Include="$(TargetDir)\**\*.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ProgramData)\Artemis\Plugins\$(ProjectName)" />
   </Target>
