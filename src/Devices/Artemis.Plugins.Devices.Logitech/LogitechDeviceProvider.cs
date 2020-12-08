@@ -16,8 +16,8 @@ namespace Artemis.Plugins.Devices.Logitech
     public class LogitechDeviceProvider : DeviceProvider
     {
         private const int VENDOR_ID = 0x046D;
-        private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
+        private readonly ILogger _logger;
 
         public LogitechDeviceProvider(IRgbService rgbService, ILogger logger) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
         {
