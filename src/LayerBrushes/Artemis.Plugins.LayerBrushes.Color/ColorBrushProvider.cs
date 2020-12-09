@@ -6,7 +6,10 @@ namespace Artemis.Plugins.LayerBrushes.Color
     {
         public override void Enable()
         {
-            RegisterLayerBrushDescriptor<ColorBrush>("Color", "A brush supporting solid colors and multiple types of gradients", "Brush");
+            RegisterLayerBrushDescriptor<SolidBrush>("Solid", "Fills the entire layer with a solid color", "Water");
+            RegisterLayerBrushDescriptor<LinearGradientBrush>("Linear Gradient", "Fills the entire layer with a linear gradient", "Gradient");
+            RegisterLayerBrushDescriptor<RadialGradientBrush>("Radial Gradient", "Fills the entire layer with a radial gradient", "BlurRadial");
+            RegisterLayerBrushDescriptor<SweepGradientBrush>("Sweep Gradient", "Fills the entire layer with a sweep gradient", "Radar");
         }
 
         public override void Disable()

@@ -2,14 +2,13 @@
 
 namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 {
-    public class RadialGradientProperties : LayerPropertyGroup
+    public class RadialGradientBrushProperties : LayerPropertyGroup
     {
-        public enum RadialGradientResizeMode
-        {
-            Fit,
-            Fill,
-            Stretch
-        }
+        [PropertyDescription(Description = "The gradient of the brush")]
+        public ColorGradientLayerProperty Colors { get; set; }
+
+        [PropertyDescription(Name = "Colors multiplier", Description = "How many times to repeat the colors in the selected gradient", DisableKeyframes = true, MinInputValue = 0, MaxInputValue = 10)]
+        public IntLayerProperty ColorsMultiplier { get; set; }
 
         [PropertyDescription(Name = "Center offset", Description = "Change the position of the gradient by offsetting it from the center of the layer", InputAffix = "%")]
         public SKPointLayerProperty CenterOffset { get; set; }
@@ -24,15 +23,17 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 
         protected override void EnableProperties()
         {
-            UpdateVisibility();
         }
 
         protected override void DisableProperties()
         {
         }
+    }
 
-        private void UpdateVisibility()
-        {
-        }
+    public enum RadialGradientResizeMode
+    {
+        Fit,
+        Fill,
+        Stretch
     }
 }
