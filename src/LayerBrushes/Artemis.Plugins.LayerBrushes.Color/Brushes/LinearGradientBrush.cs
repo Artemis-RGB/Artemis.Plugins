@@ -6,19 +6,25 @@ namespace Artemis.Plugins.LayerBrushes.Color
 {
     public class LinearGradientBrush : LayerBrush<LinearGradientBrushProperties>
     {
+        private float _scrollX;
+        private float _scrollY;
+
         #region Overrides of LayerBrush<LinearGradientBrushProperties>
 
         /// <inheritdoc />
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            // TODO: Investigate performance
+            SKMatrix matrix = SKMatrix.Concat(
+                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY),
+                SKMatrix.CreateTranslation(_scrollX, _scrollY)
+            );
             paint.Shader = SKShader.CreateLinearGradient(
                 new SKPoint(bounds.Left, bounds.Top),
                 new SKPoint(bounds.Right, bounds.Top),
                 Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier),
                 Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier),
                 SKShaderTileMode.Repeat,
-                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY)
+                matrix
             );
             canvas.DrawRect(bounds, paint);
             paint.Shader?.Dispose();
@@ -39,6 +45,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
         public override void Update(double deltaTime)
         {
+            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
+            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
         }
 
         #endregion

@@ -7,6 +7,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
 {
     public class SweepGradientBrush : LayerBrush<SweepGradientBrushProperties>
     {
+        private float _rotation;
+
         #region Overrides of LayerBrush<SweepGradientBrushProperties>
 
         /// <inheritdoc />
@@ -18,8 +20,9 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier),
                 Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier),
                 SKShaderTileMode.Clamp,
-                0 + Properties.Rotation,
-                360 + Properties.Rotation
+                Properties.StartAngle,
+                Properties.EndAngle,
+                SKMatrix.CreateRotationDegrees(_rotation, bounds.MidX, bounds.MidY)
             );
 
             canvas.DrawRect(bounds, paint);
@@ -41,6 +44,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
         public override void Update(double deltaTime)
         {
+            _rotation += Properties.RotateSpeed * (float) deltaTime % 360f;
         }
 
         #endregion

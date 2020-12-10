@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Artemis.Core;
+﻿using Artemis.Core;
 
 namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 {
-   public class SweepGradientBrushProperties : LayerPropertyGroup
+    public class SweepGradientBrushProperties : LayerPropertyGroup
     {
         [PropertyDescription(Description = "The gradient of the brush")]
         public ColorGradientLayerProperty Colors { get; set; }
@@ -15,14 +10,22 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         [PropertyDescription(Name = "Colors multiplier", Description = "How many times to repeat the colors in the selected gradient", DisableKeyframes = true, MinInputValue = 0, MaxInputValue = 10)]
         public IntLayerProperty ColorsMultiplier { get; set; }
 
-        [PropertyDescription(Description = "Change the rotation of the gradient without affecting the rotation of the shape", InputAffix = "°")]
-        public FloatLayerProperty Rotation { get; set; }
+        [PropertyDescription(Description = "Change the angle at which the sweep starts with the first color", InputAffix = "°")]
+        public FloatLayerProperty StartAngle { get; set; }
+
+        [PropertyDescription(Description = "Change the angle at which the sweep ends with the last color", InputAffix = "°")]
+        public FloatLayerProperty EndAngle { get; set; }
+
+        [PropertyDescription(Description = "Change speed at which the gradient rotates in degrees per second. \r\n" +
+                                           "A positive value will result in a clockwise rotation and a negative value in a counter-clockwise rotation", InputAffix = "°/s")]
+        public FloatLayerProperty RotateSpeed { get; set; }
 
         #region Overrides of LayerPropertyGroup
 
         protected override void PopulateDefaults()
         {
             Colors.DefaultValue = ColorGradient.GetUnicornBarf();
+            EndAngle.DefaultValue = 360;
         }
 
         protected override void EnableProperties()

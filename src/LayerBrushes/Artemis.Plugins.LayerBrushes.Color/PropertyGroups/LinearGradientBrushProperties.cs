@@ -13,6 +13,9 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         [PropertyDescription(Description = "Change the rotation of the gradient without affecting the rotation of the shape", InputAffix = "°")]
         public FloatLayerProperty Rotation { get; set; }
 
+        [PropertyDescription(Description = "The speed at which the gradient moves vertically and horizontally in cm per second.", InputAffix = "cm/s")]
+        public SKPointLayerProperty ScrollSpeed { get; set; }
+
         #region Overrides of LayerPropertyGroup
 
         protected override void PopulateDefaults()
