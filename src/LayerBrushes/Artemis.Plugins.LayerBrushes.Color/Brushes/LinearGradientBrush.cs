@@ -15,8 +15,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
             SKMatrix matrix = SKMatrix.Concat(
-                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY),
-                SKMatrix.CreateTranslation(_scrollX, _scrollY)
+                SKMatrix.CreateTranslation(_scrollX, _scrollY),
+                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY)
             );
             paint.Shader = SKShader.CreateLinearGradient(
                 new SKPoint(bounds.Left, bounds.Top),
