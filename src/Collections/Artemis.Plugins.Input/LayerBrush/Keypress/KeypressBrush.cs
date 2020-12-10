@@ -99,7 +99,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
                 return;
 
             // Get the position of the LED relative to the layer
-            SKPoint relativeLedPosition = new SKPoint(e.Led.AbsoluteRenderRectangle.MidX - Layer.Bounds.Left, e.Led.AbsoluteRenderRectangle.MidY - Layer.Bounds.Top);
+            SKPoint relativeLedPosition = new SKPoint(e.Led.AbsoluteRectangle.MidX - Layer.Bounds.Left, e.Led.AbsoluteRectangle.MidY - Layer.Bounds.Top);
             SpawnWave(e.Led, relativeLedPosition);
         }
 
