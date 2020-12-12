@@ -4,5 +4,6 @@
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control lighting on select SteelSeries mice and keyboards",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.SteelSeries.dll"
+  "Main": "Artemis.Plugins.Devices.SteelSeries.dll",
+  "AutoEnableFeatures": false
 }

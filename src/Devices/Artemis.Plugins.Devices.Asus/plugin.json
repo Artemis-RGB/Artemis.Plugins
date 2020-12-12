@@ -4,5 +4,6 @@
   "Icon": "Chip",
   "Description": "Allows Artemis to control lighting on different ASUS devices such as motherboards, GPUs, headsets, RAM, keyboards and PC cases.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.Asus.dll"
+  "Main": "Artemis.Plugins.Devices.Asus.dll",
+  "AutoEnableFeatures": false 
 }

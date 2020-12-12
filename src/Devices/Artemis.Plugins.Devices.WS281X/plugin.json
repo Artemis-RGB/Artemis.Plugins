@@ -4,5 +4,6 @@
   "Icon": "Memory",
   "Description": "Allows Artemis to control WS281X lighting strips via an Arduino or BitWizard.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.WS281X.dll"
+  "Main": "Artemis.Plugins.Devices.WS281X.dll",
+  "AutoEnableFeatures": false
 }

@@ -4,5 +4,6 @@
   "Icon": "TuneVertical",
   "Description": "Allows Artemis to control lighting on DMX controllers via a COM port.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.DMX.dll"
+  "Main": "Artemis.Plugins.Devices.DMX.dll",
+  "AutoEnableFeatures": false
 }

@@ -4,5 +4,6 @@
   "Icon": "Chip",
   "Description": "Allows Artemis to control the lighting on MSI GPUs and motherboards.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.Msi.dll"
+  "Main": "Artemis.Plugins.Devices.Msi.dll",
+  "AutoEnableFeatures": false
 }

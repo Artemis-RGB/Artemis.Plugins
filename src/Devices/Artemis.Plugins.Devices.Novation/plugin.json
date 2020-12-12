@@ -4,5 +4,6 @@
   "Icon": "DotsGrid",
   "Description": "Allows Artemis to control the lighting on Novation launchpads.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.Novation.dll"
+  "Main": "Artemis.Plugins.Devices.Novation.dll",
+  "AutoEnableFeatures": false
 }

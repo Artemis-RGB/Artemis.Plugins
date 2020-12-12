@@ -4,5 +4,6 @@
   "Icon": "Keyboard",
   "Description": "Not yet implemented, sorry!",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.Roccat.dll"
+  "Main": "Artemis.Plugins.Devices.Roccat.dll",
+  "AutoEnableFeatures": false
 }

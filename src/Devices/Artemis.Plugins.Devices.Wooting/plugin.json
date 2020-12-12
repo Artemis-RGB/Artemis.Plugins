@@ -4,5 +4,6 @@
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control lighting on Wooting keyboards. Will eventually also expose analog key data.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Devices.Wooting.dll"
+  "Main": "Artemis.Plugins.Devices.Wooting.dll",
+  "AutoEnableFeatures": false
 }
