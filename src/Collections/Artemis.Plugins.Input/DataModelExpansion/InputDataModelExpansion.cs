@@ -19,6 +19,11 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             _inputService.KeyboardKeyUpDown += InputServiceOnKeyboardKeyUpDown;
             _inputService.MouseButtonUpDown += InputServiceOnMouseButtonUpDown;
             _inputService.MouseMove += InputServiceOnMouseMove;
+            _inputService.KeyboardToggleStatusChanged += InputServiceOnKeyboardToggleStatusChanged;
+
+            DataModel.Keyboard.IsNumLockEnabled = _inputService.KeyboardToggleStatus.NumLock;
+            DataModel.Keyboard.IsCapsLockEnabled = _inputService.KeyboardToggleStatus.CapsLock;
+            DataModel.Keyboard.IsScrollLockEnabled = _inputService.KeyboardToggleStatus.ScrollLock;
         }
 
         public override void Disable()
@@ -26,6 +31,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             _inputService.KeyboardKeyUpDown -= InputServiceOnKeyboardKeyUpDown;
             _inputService.MouseButtonUpDown -= InputServiceOnMouseButtonUpDown;
             _inputService.MouseMove -= InputServiceOnMouseMove;
+            _inputService.KeyboardToggleStatusChanged -= InputServiceOnKeyboardToggleStatusChanged;
         }
 
         public override void Update(double deltaTime)
@@ -69,6 +75,13 @@ namespace Artemis.Plugins.Input.DataModelExpansion
         {
             DataModel.Mouse.PositionX = e.CursorX;
             DataModel.Mouse.PositionY = e.CursorY;
+        }
+
+        private void InputServiceOnKeyboardToggleStatusChanged(object sender, ArtemisKeyboardToggleStatusArgs e)
+        {
+            DataModel.Keyboard.IsCapsLockEnabled = e.NewStatus.CapsLock;
+            DataModel.Keyboard.IsNumLockEnabled = e.NewStatus.NumLock;
+            DataModel.Keyboard.IsScrollLockEnabled = e.NewStatus.ScrollLock;
         }
 
         #endregion

@@ -95,7 +95,7 @@ namespace Artemis.Plugins.PhilipsHue
 
         private async Task UpdateGroups(double delta)
         {
-            foreach (PhilipsHueBridge bridge in _hueService.Bridges)
+            foreach (PhilipsHueBridge bridge in _hueService.Bridges.Where(b => b.Client != null))
             {
                 // Add or update current groups
                 List<Group> groups = (await bridge.Client.GetGroupsAsync()).Where(g => g.Type == GroupType.Room || g.Type == GroupType.Zone).ToList();

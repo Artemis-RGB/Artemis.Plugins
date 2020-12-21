@@ -28,6 +28,10 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
         public bool IsAltDown { get; set; }
         public bool IsWindowsDown { get; set; }
 
+        public bool IsCapsLockEnabled { get; set; }
+        public bool IsNumLockEnabled { get; set; }
+        public bool IsScrollLockEnabled { get; set; }
+
         [DataModelProperty(Description = "A list containing all currently pressed keys")]
         public List<KeyboardKey> PressedKeys { get; set; }
     }
