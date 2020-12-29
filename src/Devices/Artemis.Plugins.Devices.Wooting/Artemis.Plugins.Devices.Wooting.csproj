@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
@@ -39,11 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Core.dll</HintPath>
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="RGB.NET.Devices.Wooting">
-      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Devices.Wooting.dll</HintPath>
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Wooting.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

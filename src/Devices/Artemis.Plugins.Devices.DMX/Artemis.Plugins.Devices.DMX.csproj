@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
@@ -43,11 +43,11 @@
 
   <ItemGroup>
     <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Core.dll</HintPath>
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="RGB.NET.Devices.DMX">
-      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Devices.DMX.dll</HintPath>
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.DMX.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <PreserveCompilationContext>false</PreserveCompilationContext>
@@ -48,11 +48,11 @@
 
   <ItemGroup>
     <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Core.dll</HintPath>
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="RGB.NET.Devices.Corsair">
-      <HintPath>..\..\..\..\RGB.NET\bin\netstandard2.0\RGB.NET.Devices.Corsair.dll</HintPath>
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Corsair.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
