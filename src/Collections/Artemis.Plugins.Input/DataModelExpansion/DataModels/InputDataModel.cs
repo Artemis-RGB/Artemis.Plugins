@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Core.Services;
 
@@ -14,6 +15,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
 
         public KeyboardInputDataModel Keyboard { get; }
         public MouseInputDataModel Mouse { get; }
+        public TimeSpan TimeSinceLastInput { get; set; }
     }
 
     public class KeyboardInputDataModel : DataModel

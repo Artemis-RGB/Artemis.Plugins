@@ -2,6 +2,7 @@
 using Artemis.Core.Services;
 using Artemis.Plugins.Input.DataModelExpansion.DataModels;
 using Serilog;
+using System;
 
 namespace Artemis.Plugins.Input.DataModelExpansion
 {
@@ -36,12 +37,14 @@ namespace Artemis.Plugins.Input.DataModelExpansion
 
         public override void Update(double deltaTime)
         {
+            DataModel.TimeSinceLastInput += TimeSpan.FromSeconds(deltaTime);
         }
 
         #region Event handlers
 
         private void InputServiceOnKeyboardKeyUpDown(object sender, ArtemisKeyboardKeyUpDownEventArgs e)
         {
+            DataModel.TimeSinceLastInput = TimeSpan.Zero;
             if (e.IsDown)
             {
                 if (!DataModel.Keyboard.PressedKeys.Contains(e.Key))
@@ -60,6 +63,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion
 
         private void InputServiceOnMouseButtonUpDown(object sender, ArtemisMouseButtonUpDownEventArgs e)
         {
+            DataModel.TimeSinceLastInput = TimeSpan.Zero;
             if (e.IsDown)
             {
                 if (!DataModel.Mouse.PressedButtons.Contains(e.Button))
@@ -73,12 +77,14 @@ namespace Artemis.Plugins.Input.DataModelExpansion
 
         private void InputServiceOnMouseMove(object sender, ArtemisMouseMoveEventArgs e)
         {
+            DataModel.TimeSinceLastInput = TimeSpan.Zero;
             DataModel.Mouse.PositionX = e.CursorX;
             DataModel.Mouse.PositionY = e.CursorY;
         }
 
         private void InputServiceOnKeyboardToggleStatusChanged(object sender, ArtemisKeyboardToggleStatusArgs e)
         {
+            DataModel.TimeSinceLastInput = TimeSpan.Zero;
             DataModel.Keyboard.IsCapsLockEnabled = e.NewStatus.CapsLock;
             DataModel.Keyboard.IsNumLockEnabled = e.NewStatus.NumLock;
             DataModel.Keyboard.IsScrollLockEnabled = e.NewStatus.ScrollLock;
