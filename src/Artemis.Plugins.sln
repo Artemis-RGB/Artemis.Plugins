@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.PhilipsHue"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Input", "Collections\Artemis.Plugins.Input\Artemis.Plugins.Input.csproj", "{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.OpenRGB", "Devices\Artemis.Plugins.Devices.OpenRGB\Artemis.Plugins.Devices.OpenRGB.csproj", "{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -153,6 +155,10 @@ Global
 		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Debug|x64.Build.0 = Debug|x64
 		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Release|x64.ActiveCfg = Release|x64
 		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48}.Release|x64.Build.0 = Release|x64
+		{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72}.Debug|x64.ActiveCfg = Debug|x64
+		{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72}.Debug|x64.Build.0 = Debug|x64
+		{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72}.Release|x64.ActiveCfg = Release|x64
+		{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +186,7 @@ Global
 		{49B59D78-E8EB-47C1-8080-8287643D2BE4} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{20E1592E-918F-4CBD-ACC7-EBF4EA0F70EC} = {798DB72F-F2F9-47BB-AB25-1297AB49D20D}
 		{CEF2A65A-07CD-4D4B-8B88-1B095137CF48} = {798DB72F-F2F9-47BB-AB25-1297AB49D20D}
+		{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}

@@ -1,0 +1,9 @@
+{
+  "Guid": "821cf18b-2bbe-4877-b68f-d6a2a8bddc28",
+  "Name": "OpenRGB Device",
+  "Icon": "OpenRGB.svg",
+  "Description": "OpenRGB device support",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Devices.OpenRGB.dll",
+  "AutoEnableFeatures": false
+}
