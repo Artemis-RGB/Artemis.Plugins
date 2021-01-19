@@ -1,8 +1,9 @@
 {
   "Guid": "184ce933-b8ff-465f-b3d2-a23a17b35f65",
   "Name": "Philips Hue",
-  "Icon": "Resources/hue.svg", 
+  "Icon": "Resources/hue.svg",
   "Description": "Provides info on rooms, zones and individual lights/accessories",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.PhilipsHue.dll"
+  "Main": "Artemis.Plugins.PhilipsHue.dll",
+  "AutoEnableFeatures": false
 }

@@ -43,25 +43,13 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 
         protected override void EnableProperties()
         {
-            ColorType.CurrentValueSet += ColorTypeOnCurrentValueSet;
-            UpdateVisibility();
+            GradientColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Gradient);
+            MainColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Simple);
+            SecondaryColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Simple);
         }
 
         protected override void DisableProperties()
         {
-            ColorType.CurrentValueSet -= ColorTypeOnCurrentValueSet;
-        }
-
-        private void ColorTypeOnCurrentValueSet(object sender, LayerPropertyEventArgs<ColorMappingType> e)
-        {
-            UpdateVisibility();
-        }
-
-        private void UpdateVisibility()
-        {
-            GradientColor.IsHidden = ColorType.BaseValue != ColorMappingType.Gradient;
-            MainColor.IsHidden = ColorType.BaseValue != ColorMappingType.Simple;
-            SecondaryColor.IsHidden = ColorType.BaseValue != ColorMappingType.Simple;
         }
     }
 }

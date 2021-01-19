@@ -4,6 +4,7 @@ using System.Linq;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Core.Services;
+using Artemis.Plugins.Input.LayerBrush.Keypress.Effects;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Input.LayerBrush.Keypress
@@ -11,19 +12,19 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
     public class KeypressBrush : LayerBrush<KeypressBrushProperties>
     {
         private readonly IInputService _inputService;
-        private readonly List<KeypressWave> _waves;
-        private Random _rand;
+        private readonly List<IKeyPressEffect> _effects;
+
+        public Random Rand { get; set; }
 
         public KeypressBrush(IInputService inputService)
         {
             _inputService = inputService;
-            _waves = new List<KeypressWave>();
+            _effects = new List<IKeyPressEffect>();
         }
 
         public override void EnableLayerBrush()
         {
-            int hash = Layer.EntityId.GetHashCode();
-            _rand = new Random(Layer.EntityId.GetHashCode());
+            Rand = new Random(Layer.EntityId.GetHashCode());
 
             _inputService.KeyboardKeyDown += InputServiceOnKeyboardKeyDown;
             _inputService.KeyboardKeyUp += InputServiceOnKeyboardKeyUp;
@@ -38,10 +39,14 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
 
         public override void Update(double deltaTime)
         {
-            lock (_waves)
+            // Ignore negative updates coming from the editor, no negativity here!
+            if (deltaTime <= 0)
+                return;
+
+            lock (_effects)
             {
-                _waves.RemoveAll(w => w.Size < 0);
-                foreach (KeypressWave keypressWave in _waves)
+                _effects.RemoveAll(w => w.Finished);
+                foreach (IKeyPressEffect keypressWave in _effects)
                     keypressWave.Update(deltaTime);
             }
         }
@@ -49,45 +54,51 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
 
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            lock (_waves)
+            lock (_effects)
             {
-                foreach (KeypressWave keypressWave in _waves)
-                    keypressWave.Render(canvas);
+                foreach (IKeyPressEffect effect in _effects)
+                    effect.Render(canvas);
             }
         }
 
-        private void SpawnWave(ArtemisLed led, SKPoint relativeLedPosition)
+        private void SpawnEffect(ArtemisLed led, SKPoint relativeLedPosition)
         {
-            lock (_waves)
+            lock (_effects)
             {
-                List<KeypressWave> existing = _waves.Where(w => w.Led == led).ToList();
-                if (existing.Any())
+                List<IKeyPressEffect> effects = _effects.Where(w => w.Led == led).ToList();
+                foreach (IKeyPressEffect effect in effects)
                 {
-                    foreach (KeypressWave keypressWave in existing)
-                    {
-                        keypressWave.Shrink = false;
-                        keypressWave.Size = Math.Max(keypressWave.Size, 0);
-                    }
-
-                    return;
+                    effect.Respawn();
                 }
 
-                KeypressWave wave = new KeypressWave(
-                    led,
-                    relativeLedPosition,
-                    new SKPaint {Color = SKColor.FromHsv(_rand.Next(0, 360), 100, 100)}
-                );
-                _waves.Add(wave);
+                // Create another one
+                if (!effects.Any() || effects.All(e => e.AllowDuplicates))
+                {
+                    switch (Properties.Animation.CurrentValue)
+                    {
+                        case AnimationType.CircleWhilePressed:
+                            _effects.Add(new KeypressWhilePressed(this, led, relativeLedPosition));
+                            break;
+                        // case AnimationType.CircleOnPress:
+                        //     _effects.Add(new KeypressOnPress(this, led, relativeLedPosition));
+                        //     break;
+                        case AnimationType.Echo:
+                            _effects.Add(new KeyPressEcho(this, led, relativeLedPosition));
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
         }
 
         private void DespawnWave(ArtemisLed led)
         {
-            lock (_waves)
+            lock (_effects)
             {
-                List<KeypressWave> waves = _waves.Where(w => w.Led == led).ToList();
-                foreach (KeypressWave keypressWave in waves)
-                    keypressWave.Shrink = true;
+                List<IKeyPressEffect> effects = _effects.Where(w => w.Led == led).ToList();
+                foreach (IKeyPressEffect effect in effects)
+                    effect.Despawn();
             }
         }
 
@@ -100,7 +111,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
 
             // Get the position of the LED relative to the layer
             SKPoint relativeLedPosition = new SKPoint(e.Led.AbsoluteRectangle.MidX - Layer.Bounds.Left, e.Led.AbsoluteRectangle.MidY - Layer.Bounds.Top);
-            SpawnWave(e.Led, relativeLedPosition);
+            SpawnEffect(e.Led, relativeLedPosition);
         }
 
         private void InputServiceOnKeyboardKeyUp(object sender, ArtemisKeyboardKeyEventArgs e)

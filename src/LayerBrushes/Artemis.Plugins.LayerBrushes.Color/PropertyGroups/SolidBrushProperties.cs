@@ -37,7 +37,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         }
 
 
-        private void EnableColorAnimationOnCurrentValueSet(object sender, LayerPropertyEventArgs<bool> e)
+        private void EnableColorAnimationOnCurrentValueSet(object sender, LayerPropertyEventArgs e)
         {
             Color.IsHidden = EnableColorAnimation.CurrentValue;
             Colors.IsHidden = !EnableColorAnimation.CurrentValue;
