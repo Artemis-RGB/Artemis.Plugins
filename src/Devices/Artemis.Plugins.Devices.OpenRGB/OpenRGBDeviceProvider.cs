@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Artemis.Plugins.Devices.OpenRGB
 {
+    [PluginFeature(Name = "OpenRGB Device Provider")]
     public class OpenRGBDeviceProvider : DeviceProvider
     {
         private readonly IRgbService _rgbService;

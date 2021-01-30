@@ -1,6 +1,6 @@
 # Artemis Plugins
 [![Build Status](https://dev.azure.com/artemis-rgb/Artemis/_apis/build/status/Artemis-RGB.Artemis.Plugins?repoName=Artemis-RGB%2FArtemis.Plugins&branchName=master)](https://dev.azure.com/artemis-rgb/Artemis/_build/latest?definitionId=2&repoName=Artemis-RGB%2FArtemis.Plugins&branchName=master)
-[![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-noncommercial-blue.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Artemis-RGB/Artemis.Plugins.svg)](https://github.com/Artemis-RGB/Artemis.Plugins/stargazers)
 [![Discord](https://img.shields.io/discord/392093058352676874?logo=discord&logoColor=white)](https://discord.gg/S3MVaC9) 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VQBAEJYUFLU4J) 

@@ -12,9 +12,9 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
             PluginSubDataModel = new PluginSubDataModel();
             ListItems = new List<SomeListItem>();
             for (int i = 0; i < 20; i++)
-                ListItems.Add(new SomeListItem { ItemName = $"Item {i + 1}", Number = i });
+                ListItems.Add(new SomeListItem {ItemName = $"Item {i + 1}", Number = i});
 
-            GenericTest = new Test<string> { Value = "Generic string value" };
+            GenericTest = new Test<string> {Value = "Generic string value"};
         }
 
         // Your datamodel can have regular properties and you can annotate them if you'd like
@@ -44,6 +44,7 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
                                          " Maecenas lacus nunc, placerat vel mattis at, vulputate vel leo. Etiam sollicitudin, " +
                                          "leo quis ultrices pretium, nisi dui scelerisque ex, ac dictum augue lorem nec est.")]
         public Team Team { get; set; }
+
         public bool IsWinning { get; set; }
 
         public int Rotation { get; set; }
@@ -55,6 +56,11 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
 
         [DataModelProperty(Description = "Event with arguments")]
         public DataModelEvent<TestEventArgs> Event2 { get; set; } = new DataModelEvent<TestEventArgs>();
+
+        public string JsonString { get; set; }
+        public string JsonString2 { get; set; }
+        public RemoteData JsonData { get; set; }
+        public RemoteData JsonData2 { get; set; }
     }
 
     public class TestEventArgs : DataModelEventArgs
@@ -88,7 +94,7 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
     {
         public PluginSubDataModel()
         {
-            ListOfInts = new List<int> { 1, 2, 3, 4, 5 };
+            ListOfInts = new List<int> {1, 2, 3, 4, 5};
         }
 
         // You don't need to annotate properties, they will still show up 

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;
@@ -7,6 +8,7 @@ using RGB.NET.Devices.Msi;
 namespace Artemis.Plugins.Devices.Msi
 {
     // ReSharper disable once UnusedMember.Global
+    [PluginFeature(Name = "MSI Device Provider")]
     public class MsiDeviceProvider : DeviceProvider
     {
         private readonly IRgbService _rgbService;

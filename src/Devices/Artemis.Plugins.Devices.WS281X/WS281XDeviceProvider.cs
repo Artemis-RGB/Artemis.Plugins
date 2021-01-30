@@ -7,7 +7,6 @@ using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.WS281X.Settings;
-using Artemis.Plugins.Devices.WS281X.ViewModels;
 using RGB.NET.Devices.WS281X.Arduino;
 using RGB.NET.Devices.WS281X.Bitwizard;
 using RGB.NET.Devices.WS281X.NodeMCU;
@@ -16,11 +15,12 @@ using Serilog;
 namespace Artemis.Plugins.Devices.WS281X
 {
     // ReSharper disable once UnusedMember.Global
+    [PluginFeature(Name = "WS281X Device Provider")]
     public class WS281XDeviceProvider : DeviceProvider
     {
+        private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
-        private readonly ILogger _logger;
 
         public WS281XDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger) : base(RGB.NET.Devices.WS281X.WS281XDeviceProvider.Instance)
         {
@@ -46,7 +46,7 @@ namespace Artemis.Plugins.Devices.WS281X
 
                 if (deviceDefinition.Type == DeviceDefinitionType.ESP8266)
                 {
-                    UdpClient client = new UdpClient();
+                    UdpClient client = new();
                     try
                     {
                         client.Connect(deviceDefinition.Hostname, 1872);

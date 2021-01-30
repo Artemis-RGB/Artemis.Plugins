@@ -13,6 +13,7 @@ using Serilog.Events;
 namespace Artemis.Plugins.Devices.SteelSeries
 {
     // ReSharper disable once UnusedMember.Global
+    [PluginFeature(Name = "SteelSeries Device Provider")]
     public class SteelSeriesDeviceProvider : DeviceProvider
     {
         private const int VENDOR_ID = 0x1038;

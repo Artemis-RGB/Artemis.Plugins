@@ -1,0 +1,9 @@
+{
+  "Guid": "1e46d22e-6299-4af3-b826-2d64a655f366",
+  "Name": "Artemis Web API",
+  "Icon": "Api",
+  "Description": "Providers a RESTful web API accessible on the local web server",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.WebAPI.dll",
+  "AutoEnableFeatures": true
+}
