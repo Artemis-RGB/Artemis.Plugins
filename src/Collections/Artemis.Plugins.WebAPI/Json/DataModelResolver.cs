@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Artemis.Core.DataModelExpansions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Artemis.Core.Services
+namespace Artemis.Plugins.WebAPI.Json
 {
     internal class DataModelResolver : DefaultContractResolver
     {
@@ -15,7 +16,7 @@ namespace Artemis.Core.Services
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {
             IList<JsonProperty> props = base.CreateProperties(type, memberSerialization);
-            return props.Where(p => !p.AttributeProvider.GetAttributes(typeof(DataModelIgnoreAttribute), true).Any()).ToList();
+            return props.Where(p => p.PropertyType == typeof(ReadOnlyDictionary<string, DataModel>) || !p.AttributeProvider.GetAttributes(typeof(DataModelIgnoreAttribute), true).Any()).ToList();
         }
 
         #endregion
