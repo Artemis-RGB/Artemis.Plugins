@@ -76,10 +76,5 @@ namespace Artemis.Plugins.Devices.WS281X
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
-
-        public override void Disable()
-        {
-            // TODO: Remove the device provider from the surface
-        }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.Debug.Settings;
-using RGB.NET.Core;
-using RGB.NET.Devices.Debug;
 using Serilog;
 
 namespace Artemis.Plugins.Devices.Debug
@@ -27,14 +24,12 @@ namespace Artemis.Plugins.Devices.Debug
 
         public override void Enable()
         {
-            PathHelper.ResolvingAbsolutePath += PathHelperOnResolvingAbsolutePath;
-
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
             if (definitions.Value == null)
                 definitions.Value = new List<DeviceDefinition>();
 
-            foreach (DeviceDefinition deviceDefinition in definitions.Value)
-                RGB.NET.Devices.Debug.DebugDeviceProvider.Instance.AddFakeDeviceDefinition(deviceDefinition.Layout, deviceDefinition.ImageLayout);
+            // foreach (DeviceDefinition deviceDefinition in definitions.Value)
+            // RGB.NET.Devices.Debug.DebugDeviceProvider.Instance.AddFakeDeviceDefinition(deviceDefinition.Layout, deviceDefinition.ImageLayout);
 
             try
             {
@@ -44,21 +39,6 @@ namespace Artemis.Plugins.Devices.Debug
             {
                 _logger.Warning(e, "Debug device provided failed to initialize, check paths");
             }
-        }
-
-        public override void Disable()
-        {
-            // TODO: Remove the device provider from the surface
-        }
-
-        private void PathHelperOnResolvingAbsolutePath(object sender, ResolvePathEventArgs e)
-        {
-            if (sender is DebugRGBDevice debugRgbDevice)
-                if (debugRgbDevice.LayoutPath.Contains("\\Layouts\\"))
-                {
-                    string rootDirectory = debugRgbDevice.LayoutPath.Split("\\Layouts")[0];
-                    e.FinalPath = Path.Combine(rootDirectory, e.RelativePath);
-                }
         }
     }
 }

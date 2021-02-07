@@ -25,42 +25,32 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
         private void InitializeLayout()
         {
             // Models based on https://developers.meethue.com/develop/hue-api/supported-devices/#Supported-lights
-            switch (DeviceInfo.Model)
+            Led led = DeviceInfo.Model switch
             {
                 // Hue bulb A19 (E27)
-                case "LCA001":
-                case "LCA007":
-                case "LCA0010":
-                case "LCA0014":
-                case "LCA0015":
-                case "LCA0016":
-                    InitializeLed(LedId.Custom1, new Point(0, 0), new Size(62)).Shape = Shape.Circle;
-                    break;
+                "LCA001" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
+                "LCA007" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
+                "LCA0010" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
+                "LCA0014" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
+                "LCA0015" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
+                "LCA0016" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
                 // Hue Spot BR30 (quick Google search makes it seem like an older generation)
-                case "LCT002":
-                case "LCT011":
-                    InitializeLed(LedId.Custom1, new Point(0, 0), new Size(62)).Shape = Shape.Circle;
-                    break;
+                "LCT002" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
+                "LCT011" => AddLed(LedId.Custom1, new Point(0, 0), new Size(62)),
                 // Hue Spot GU10
-                case "LCT003":
-                    InitializeLed(LedId.Custom1, new Point(0, 0), new Size(50)).Shape = Shape.Circle;
-                    break;
+                "LCT003" => AddLed(LedId.Custom1, new Point(0, 0), new Size(50)),
                 // Hue Go
-                case "LLC020":
-                    InitializeLed(LedId.Custom1, new Point(0, 0), new Size(150)).Shape = Shape.Circle;
-                    break;
+                "LLC020" => AddLed(LedId.Custom1, new Point(0, 0), new Size(150)),
                 // Hue LightStrips Plus
-                case "LCL001":
-                    InitializeLed(LedId.LedStripe1, new Point(0, 0), new Size(2000, 14));
-                    break;
+                "LCL001" => AddLed(LedId.LedStripe1, new Point(0, 0), new Size(2000, 14)),
                 // Hue color candle	
-                case "LCT012":
-                    InitializeLed(LedId.Custom1, new Point(0, 0), new Size(39)).Shape = Shape.Circle;
-                    break;
-                default:
-                    InitializeLed(LedId.Custom1, new Point(0, 0), new Size(10));
-                    break;
-            }
+                "LCT012" => AddLed(LedId.Custom1, new Point(0, 0), new Size(39)),
+                _ => AddLed(LedId.Custom1, new Point(0, 0), new Size(50))
+            };
+
+            // Everything but the LED strip represents a light bulb of some sort and can be a circle
+            if (led != null && DeviceInfo.Model != "LCL001")
+                led.Shape = Shape.Circle;
         }
 
         public HueUpdateQueue UpdateQueue { get; private set; }

@@ -30,7 +30,7 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET
         public IEnumerable<IRGBDevice> Devices { get; private set; }
         public bool HasExclusiveAccess { get; } = false;
 
-        public bool Initialize(RGBDeviceType loadFilter = RGBDeviceType.All, bool exclusiveAccessIfPossible = false, bool throwExceptions = false)
+        public bool Initialize(RGBDeviceType loadFilter = RGBDeviceType.All, bool throwExceptions = false)
         {
             IsInitialized = false;
 

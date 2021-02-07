@@ -1,8 +1,6 @@
-﻿using System.IO;
-using Artemis.Core;
+﻿using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
-using RGB.NET.Core;
 using RGB.NET.Devices.Razer;
 
 namespace Artemis.Plugins.Devices.Razer
@@ -19,7 +17,7 @@ namespace Artemis.Plugins.Devices.Razer
 
         public override void Enable()
         {
-            PathHelper.ResolvingAbsolutePath += (sender, args) => ResolveAbsolutePath(typeof(RazerRGBDevice<>), sender, args);
+            // TODO: Turn into a setting
             // RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.LoadEmulatorDevices = true;
 
             try

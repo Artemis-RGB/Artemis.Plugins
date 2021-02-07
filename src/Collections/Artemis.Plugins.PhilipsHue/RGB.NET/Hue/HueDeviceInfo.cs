@@ -31,7 +31,7 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
         public string DeviceName { get; }
         public string Manufacturer { get; }
         public string Model { get; }
-        public RGBDeviceLighting Lighting => RGBDeviceLighting.Device;
+        public object LayoutMetadata { get; set; }
 
         // This is possible but requires a bit more effort
         public bool SupportsSyncBack => false;

@@ -1,7 +1,5 @@
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
-using RGB.NET.Core;
-using RGB.NET.Devices.Novation;
 
 namespace Artemis.Plugins.Devices.Novation
 {
@@ -17,7 +15,6 @@ namespace Artemis.Plugins.Devices.Novation
 
         public override void Enable()
         {
-            PathHelper.ResolvingAbsolutePath += (sender, args) => ResolveAbsolutePath(typeof(NovationRGBDevice<>), sender, args);
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
     }
