@@ -18,8 +18,8 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
             UpdateQueue = updateQueue;
             InitializeLayout();
 
-            Rectangle ledRectangle = new Rectangle(this.Select(x => x.LedRectangle));
-            Size = ledRectangle.Size + new Size(ledRectangle.Location.X, ledRectangle.Location.Y);
+            Rectangle ledBoundary = new Rectangle(this.Select(x => x.Boundary));
+            Size = ledBoundary.Size + new Size(ledBoundary.Location.X, ledBoundary.Location.Y);
         }
 
         private void InitializeLayout()
