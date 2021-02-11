@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Corsair K95 RGB PLATINUM XT - Physical US</Name>
+  <Description>Physical UK-Layout of Corsairs K95 RGB PLATINUM (Logical: NA)</Description>
+  <Type>Keyboard</Type>
+  <Lighting>Key</Lighting>
+  <Vendor>Corsair</Vendor>
+  <Model>K95 RGB Platinum XT</Model>
+  <Width>465</Width>
+  <Height>169</Height>
+  <CustomData>	
+	<DeviceImage>K95 RGB PLATINUM.png</DeviceImage>
+  </CustomData>
+  <Leds>
+    <Led Id="Keyboard_Brightness">
+      <X>91.5</X>
+      <Y>8.333</Y>
+      <Width>14.5mm</Width>
+      <Height>12mm</Height>
+    </Led>
+    <Led Id="Keyboard_WinLock">
+      <Width>14.5mm</Width>
+      <Height>12mm</Height>
+    </Led>
+    <Led Id="Keyboard_MediaMute">
+      <X>382</X>
+      <Y>8.333</Y>
+      <Height>12mm</Height>
+    </Led>
+    <Led Id="Keyboard_Escape">
+      <X>30</X>
+      <Y>32</Y>
+	  <CustomData>
+	    <LogicalLayouts>
+		  <LogicalLayout Image="Strafe_Keys/Escape.png"/>
+	    </LogicalLayouts>
+	  </CustomData>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <X>+12.667</X>
+    </Led>
+    <Led Id="Keyboard_F2" />
+    <Led Id="Keyboard_F3" />
+    <Led Id="Keyboard_F4" />
+    <Led Id="Keyboard_F5">
+      <X>+12.667</X>
+    </Led>
+    <Led Id="Keyboard_F6" />
+    <Led Id="Keyboard_F7" />
+    <Led Id="Keyboard_F8" />
+    <Led Id="Keyboard_F9">
+      <X>+12.667</X>
+    </Led>
+    <Led Id="Keyboard_F10" />
+    <Led Id="Keyboard_F11" />
+    <Led Id="Keyboard_F12" />
+    <Led Id="Keyboard_PrintScreen">
+      <X>+5</X>
+    </Led>
+    <Led Id="Keyboard_ScrollLock" />
+    <Led Id="Keyboard_PauseBreak" />
+    <Led Id="Keyboard_MediaStop">
+      <X>+5</X>
+      <Y>31</Y>
+      <Height>17mm</Height>
+    </Led>
+    <Led Id="Keyboard_MediaPreviousTrack">
+      <Height>17mm</Height>
+    </Led>
+    <Led Id="Keyboard_MediaPlay">
+      <Height>17mm</Height>
+    </Led>
+    <Led Id="Keyboard_MediaNextTrack">
+      <Height>17mm</Height>
+    </Led>
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>30</X>
+      <Y>53</Y>
+    </Led>
+    <Led Id="Keyboard_1" />
+    <Led Id="Keyboard_2" />
+    <Led Id="Keyboard_3" />
+    <Led Id="Keyboard_4" />
+    <Led Id="Keyboard_5" />
+    <Led Id="Keyboard_6" />
+    <Led Id="Keyboard_7" />
+    <Led Id="Keyboard_8" />
+    <Led Id="Keyboard_9" />
+    <Led Id="Keyboard_0" />
+    <Led Id="Keyboard_MinusAndUnderscore" />
+    <Led Id="Keyboard_EqualsAndPlus" />
+    <Led Id="Keyboard_Backspace">
+      <Width>2</Width>
+    </Led>
+    <Led Id="Keyboard_Insert">
+      <X>+5</X>
+    </Led>
+    <Led Id="Keyboard_Home" />
+    <Led Id="Keyboard_PageUp" />
+    <Led Id="Keyboard_NumLock">
+      <X>+5</X>
+    </Led>
+    <Led Id="Keyboard_NumSlash" />
+    <Led Id="Keyboard_NumAsterisk" />
+    <Led Id="Keyboard_NumMinus" />
+    <Led Id="Keyboard_Tab">
+      <X>30</X>
+      <Y>+</Y>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_Q" />
+    <Led Id="Keyboard_W" />
+    <Led Id="Keyboard_E" />
+    <Led Id="Keyboard_R" />
+    <Led Id="Keyboard_T" />
+    <Led Id="Keyboard_Y" />
+    <Led Id="Keyboard_U" />
+    <Led Id="Keyboard_I" />
+    <Led Id="Keyboard_O" />
+    <Led Id="Keyboard_P" />
+    <Led Id="Keyboard_BracketLeft" />
+    <Led Id="Keyboard_BracketRight" />
+    <Led Id="Keyboard_Backslash">
+      <Width>1.5</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Keyboard_Delete">
+      <X>+5</X>
+    </Led>
+    <Led Id="Keyboard_End" />
+    <Led Id="Keyboard_PageDown" />
+    <Led Id="Keyboard_Num7">
+      <X>+5</X>
+    </Led>
+    <Led Id="Keyboard_Num8" />
+    <Led Id="Keyboard_Num9" />
+    <Led Id="Keyboard_NumPlus">
+      <Height>2</Height>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X>30</X>
+      <Y>~</Y>
+      <Width>1.75</Width>
+    </Led>
+    <Led Id="Keyboard_A" />
+    <Led Id="Keyboard_S" />
+    <Led Id="Keyboard_D" />
+    <Led Id="Keyboard_F" />
+    <Led Id="Keyboard_G" />
+    <Led Id="Keyboard_H" />
+    <Led Id="Keyboard_J" />
+    <Led Id="Keyboard_K" />
+    <Led Id="Keyboard_L" />
+    <Led Id="Keyboard_SemicolonAndColon" />
+    <Led Id="Keyboard_ApostropheAndDoubleQuote" />
+    <Led Id="Keyboard_Enter">
+      <Width>2.25</Width>
+    </Led>
+    <Led Id="Keyboard_Num4">
+      <X>+67</X>
+    </Led>
+    <Led Id="Keyboard_Num5" />
+    <Led Id="Keyboard_Num6" />
+    <Led Id="Keyboard_LeftShift">
+      <X>30</X>
+      <Y>+</Y>
+      <Width>2.25</Width>
+    </Led>
+    <Led Id="Keyboard_Z" />
+    <Led Id="Keyboard_X" />
+    <Led Id="Keyboard_C" />
+    <Led Id="Keyboard_V" />
+    <Led Id="Keyboard_B" />
+    <Led Id="Keyboard_N" />
+    <Led Id="Keyboard_M" />
+    <Led Id="Keyboard_CommaAndLessThan" />
+    <Led Id="Keyboard_PeriodAndBiggerThan" />
+    <Led Id="Keyboard_SlashAndQuestionMark" />
+    <Led Id="Keyboard_RightShift">
+      <Width>2.75</Width>
+    </Led>
+    <Led Id="Keyboard_ArrowUp">
+      <X>+24</X>
+    </Led>
+    <Led Id="Keyboard_Num1">
+      <X>+24</X>
+    </Led>
+    <Led Id="Keyboard_Num2" />
+    <Led Id="Keyboard_Num3" />
+    <Led Id="Keyboard_NumEnter">
+      <Height>2</Height>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>30</X>
+      <Y>~</Y>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_LeftGui" />
+    <Led Id="Keyboard_LeftAlt">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <Width>6.5</Width>
+    </Led>
+    <Led Id="Keyboard_RightAlt">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_RightGui" />
+    <Led Id="Keyboard_Application" />
+    <Led Id="Keyboard_RightCtrl">
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <X>+5</X>
+    </Led>
+    <Led Id="Keyboard_ArrowDown" />
+    <Led Id="Keyboard_ArrowRight" />
+    <Led Id="Keyboard_Num0">
+      <X>+5</X>
+      <Width>2</Width>
+    </Led>
+    <Led Id="Keyboard_NumPeriodAndDelete" />
+    <Led Id="Keyboard_Programmable3">
+      <X>7</X>
+      <Y>32</Y>
+    </Led>
+    <Led Id="Keyboard_Programmable6">
+      <X>7</X>
+      <Y>+</Y>
+    </Led>
+    <Led Id="Keyboard_Programmable1">
+      <X>7</X>
+      <Y>+1</Y>
+    </Led>
+    <Led Id="Keyboard_Programmable2">
+      <X>7</X>
+      <Y>+</Y>
+    </Led>
+    <Led Id="Keyboard_Programmable4">
+      <X>7</X>
+      <Y>+1</Y>
+    </Led>
+    <Led Id="Keyboard_Programmable5">
+      <X>7</X>
+      <Y>+</Y>
+    </Led>
+    <Led Id="Keyboard_Custom1">
+      <X>0</X>
+      <Y>0</Y>
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom2">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom3">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom4">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom5">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom6">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom7">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom8">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom9">
+      <Shape>M0.2,1 L1,1 L1,0 L0,0z</Shape>
+      <Width>24.47368mm</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Keyboard_Custom10">
+      <Width>24.47368mm</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Keyboard_Custom11">
+      <Shape>M0,0 L0,1 L0.8,1 L1,0z</Shape>
+      <Width>24.47368mm</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Keyboard_Custom12">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom13">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom14">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom15">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom16">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom17">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom18">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+    <Led Id="Keyboard_Custom19">
+      <Width>24.47368mm</Width>
+      <Height>4mm</Height>
+    </Led>
+  </Leds>
+</Device>
