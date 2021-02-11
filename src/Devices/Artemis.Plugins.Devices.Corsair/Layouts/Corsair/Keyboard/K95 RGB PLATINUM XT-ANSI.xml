@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Corsair K95 RGB PLATINUM - Physical US</Name>
+  <Name>Corsair K95 RGB PLATINUM XT - Physical US</Name>
   <Description>Physical UK-Layout of Corsairs K95 RGB PLATINUM (Logical: NA)</Description>
   <Type>Keyboard</Type>
   <Lighting>Key</Lighting>
   <Vendor>Corsair</Vendor>
-  <Model>K95 RGB Platinum</Model>
+  <Model>K95 RGB Platinum XT</Model>
   <Width>465</Width>
   <Height>169</Height>
   <CustomData>	
