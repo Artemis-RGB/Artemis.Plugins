@@ -26,6 +26,7 @@ namespace Artemis.Plugins.Devices.Debug.ViewModels
             _definitions.Value.AddRange(Definitions.Where(d => !string.IsNullOrWhiteSpace(d.Layout) || !string.IsNullOrWhiteSpace(d.ImageLayout)));
             _definitions.Save();
 
+            Plugin.GetFeature<DebugDeviceProvider>().PopulateDevices();
             RequestClose();
         }
 
