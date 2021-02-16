@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Corsair Virtuoso</Name>
-  <Description>Physical layout of Corsairs Virtuoso</Description>
+  <Name>Corsair VOID RGB</Name>
+  <Description>Physical layout of Corsairs VOID RGB</Description>
   <Type>Headset</Type>
   <Lighting>Key</Lighting>
   <Vendor>Corsair</Vendor>
-  <Model>VIRTUOSO</Model>
+  <Model>VOIDRGB</Model>
   <Width>242</Width>
   <Height>228</Height>
   <LedUnitWidth>35</LedUnitWidth>
@@ -23,6 +23,6 @@
     </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>VIRTUOSO.png</DeviceImage>
+    <DeviceImage>VOIDRGB.png</DeviceImage>
   </CustomData>
 </Device>

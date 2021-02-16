@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair GLAIVE RGB</Name>
   <Description>Physical layout of Corsairs GLAIVE RGB</Description>
@@ -11,9 +10,6 @@
   <Height>134</Height>
   <LedUnitWidth>1</LedUnitWidth>
   <LedUnitHeight>1</LedUnitHeight>
-  <CustomData>
-    <DeviceImage>GLAIVE RGB.png</DeviceImage>
-  </CustomData>
   <Leds>
     <Led Id="Mouse1">
       <Shape>M0.031,0.869 L0.042,0.815 L0.057,0.745 L0.076,0.708 L0.115,0.63 L0.18,0.511 L0.247,0.412 L0.309,0.322 L0.361,0.264 L0.401,0.219 L0.418,0.206 L0.427,0.215 L0.435,0.235 L0.441,0.28 L0.447,0.206 L0.446,0.124 L0.438,0.079 L0.412,0.058 L0.379,0.079 L0.309,0.169 L0.25,0.252 L0.199,0.326 L0.136,0.424 L0.064,0.569 L0.032,0.634 L0.021,0.717 L0.02,0.783z M0.608,0.322 L0.615,0.285 L0.631,0.268 L0.649,0.285 L0.695,0.363 L0.746,0.449 L0.805,0.564 L0.858,0.667 L0.898,0.745 L0.927,0.82 L0.943,0.885 L0.955,0.964 L0.964,0.935 L0.968,0.873 L0.968,0.795 L0.951,0.704 L0.912,0.61 L0.863,0.515 L0.815,0.42 L0.768,0.326 L0.712,0.219 L0.659,0.149 L0.625,0.112 L0.609,0.153 L0.601,0.227z</Shape>
@@ -37,4 +33,7 @@
       <Height>19</Height>
     </Led>
   </Leds>
+  <CustomData>
+    <DeviceImage>GLAIVE RGB.png</DeviceImage>
+  </CustomData>
 </Device>

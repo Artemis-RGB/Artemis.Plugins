@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair IRONCLAW RGB</Name>
   <Description>Physical layout of Corsairs IRONCLAW RGB</Description>
@@ -11,9 +10,6 @@
   <Height>135</Height>
   <LedUnitWidth>1</LedUnitWidth>
   <LedUnitHeight>1</LedUnitHeight>
-  <CustomData>
-    <DeviceImage>IRONCLAW RGB.png</DeviceImage>
-  </CustomData>
   <Leds>
     <Led Id="Mouse1">
       <Shape>M0.213,0.367 L0.208,0.296 L0.165,0.172 L0.146,0.182 L0.16,0.367 L0.156,0.628 L0.146,0.751 L0.17,0.756 L0.213,0.609z M0.82,0.301 L0.82,0.64 L0.842,0.753 L0.872,0.762 L0.875,0.59 L0.875,0.315 L0.889,0.174 L0.845,0.19z</Shape>
@@ -30,4 +26,7 @@
       <Height>19</Height>
     </Led>
   </Leds>
+  <CustomData>
+    <DeviceImage>IRONCLAW RGB.png</DeviceImage>
+  </CustomData>
 </Device>

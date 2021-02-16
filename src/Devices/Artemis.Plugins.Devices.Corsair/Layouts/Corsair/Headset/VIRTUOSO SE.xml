@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair Virtuoso SE</Name>
   <Description>Physical layout of Corsairs Virtuoso SE</Description>
@@ -11,8 +10,6 @@
   <Height>228</Height>
   <LedUnitWidth>35</LedUnitWidth>
   <LedUnitHeight>85</LedUnitHeight>
-  <ImageBasePath>Images\Corsair\Headsets</ImageBasePath>
-  <DeviceImage>VOIDRGB.png</DeviceImage>
   <Leds>
     <Led Id="Headset1">
       <Shape>M0.766,0.059 L0.685,0.044 L0.497,0.053 L0.326,0.123 L0.17,0.276 L0.113,0.454 L0.109,0.649 L0.142,0.822 L0.232,0.896 L0.305,0.851 L0.399,0.826 L0.468,0.809 L0.428,0.663 L0.423,0.501 L0.489,0.332 L0.64,0.148z</Shape>
@@ -25,16 +22,7 @@
       <X>+170</X>
     </Led>
   </Leds>
-  <LedImageLayouts>
-    <LedImageLayout>
-      <LedImages>
-        <LedImage Id="Headset1" />
-      </LedImages>
-    </LedImageLayout>
-    <LedImageLayout>
-      <LedImages>
-        <LedImage Id="Headset2" />
-      </LedImages>
-    </LedImageLayout>
-  </LedImageLayouts>
+  <CustomData>
+    <DeviceImage>VIRTUOSO SE.png</DeviceImage>
+  </CustomData>
 </Device>

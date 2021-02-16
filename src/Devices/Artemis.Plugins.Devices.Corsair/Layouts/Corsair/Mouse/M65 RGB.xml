@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair M65 RGB</Name>
   <Description>Physical layout of Corsairs M65 RGB</Description>
@@ -11,9 +10,6 @@
   <Height>122</Height>
   <LedUnitWidth>1</LedUnitWidth>
   <LedUnitHeight>1</LedUnitHeight>
-  <CustomData>
-    <DeviceImage>M65 RGB.png</DeviceImage>
-  </CustomData>
   <Leds>
     <Led Id="Mouse1">
       <Shape>M0.289,0.255 L0.214,0.287 L0.218,0.403 L0.221,0.72 L0.229,0.88 L0.296,0.931 L0.161,0.928 L0.165,0.724 L0.15,0.447 L0.15,0.282 L0.161,0.073 L0.832,0.034 L0.851,0.31 L0.839,0.74 L0.832,0.936 L0.723,0.938 L0.757,0.878 L0.761,0.483 L0.764,0.287 L0.723,0.253z</Shape>
@@ -30,4 +26,7 @@
       <Height>18</Height>
     </Led>
   </Leds>
+  <CustomData>
+    <DeviceImage>M65 RGB.png</DeviceImage>
+  </CustomData>
 </Device>

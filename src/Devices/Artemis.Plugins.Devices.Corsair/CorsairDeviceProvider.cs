@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
-using Artemis.Core;
+﻿using System.IO;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
+using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
 
 namespace Artemis.Plugins.Devices.Corsair
@@ -26,16 +25,23 @@ namespace Artemis.Plugins.Devices.Corsair
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
-        public override void DetectDeviceLayout(ArtemisDevice rgbDevice)
+        public override void Disable()
         {
-            if (rgbDevice.RgbDevice.DeviceInfo is CorsairKeyboardRGBDeviceInfo keyboardInfo)
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Dispose();
+        }
+
+        public override string GetLogicalLayout(IKeyboard keyboard)
+        {
+            if (keyboard.DeviceInfo is CorsairKeyboardRGBDeviceInfo keyboardInfo)
             {
                 // Simply use two-letter country code
                 if (keyboardInfo.LogicalLayout == CorsairLogicalKeyboardLayout.US_Int)
-                    rgbDevice.LogicalLayout = "US";
-                else
-                    rgbDevice.LogicalLayout = keyboardInfo.LogicalLayout.ToString();
+                    return "US";
+                return keyboardInfo.LogicalLayout.ToString();
             }
+
+            return null;
         }
     }
 }

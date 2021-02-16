@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair NIGHTSWORD RGB</Name>
   <Description>Physical layout of Corsairs NIGHTSWORD RGB</Description>
@@ -11,9 +10,6 @@
   <Height>142</Height>
   <LedUnitWidth>1</LedUnitWidth>
   <LedUnitHeight>1</LedUnitHeight>
-  <CustomData>
-    <DeviceImage>NIGHTSWORD RGB.png</DeviceImage>
-  </CustomData>
   <Leds>
     <Led Id="Mouse1">
       <Shape>M0.429,0.14 L0.422,0.118 L0.41,0.112 L0.401,0.134 L0.377,0.207 L0.331,0.321 L0.264,0.464 L0.205,0.591 L0.164,0.673 L0.154,0.696 L0.154,0.772 L0.153,0.807 L0.151,0.864 L0.147,0.867 L0.148,0.832 L0.147,0.826 L0.144,0.813 L0.141,0.772 L0.139,0.743 L0.122,0.778 L0.109,0.832 L0.109,0.766 L0.115,0.677 L0.148,0.6 L0.204,0.48 L0.251,0.382 L0.306,0.259 L0.351,0.151 L0.378,0.079 L0.402,0.045 L0.418,0.062 L0.424,0.087z M0.597,0.144 L0.604,0.121 L0.613,0.114 L0.624,0.134 L0.638,0.183 L0.674,0.28 L0.719,0.387 L0.765,0.493 L0.806,0.583 L0.848,0.678 L0.883,0.781 L0.889,0.807 L0.888,0.757 L0.882,0.673 L0.872,0.613 L0.842,0.547 L0.806,0.471 L0.768,0.383 L0.729,0.299 L0.7,0.222 L0.672,0.157 L0.647,0.071 L0.629,0.043 L0.614,0.037 L0.6,0.054 L0.595,0.097z</Shape>
@@ -44,4 +40,7 @@
       <Height>18</Height>
     </Led>
   </Leds>
+  <CustomData>
+    <DeviceImage>NIGHTSWORD RGB.png</DeviceImage>
+  </CustomData>
 </Device>
