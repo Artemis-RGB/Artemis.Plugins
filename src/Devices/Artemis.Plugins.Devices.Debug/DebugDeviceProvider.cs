@@ -43,7 +43,7 @@ namespace Artemis.Plugins.Devices.Debug
             debugDeviceProvider.ClearFakeDeviceDefinitions();
             foreach (DeviceDefinition definition in definitions.Value)
             {
-                ArtemisLayout layout = new(definition.Layout);
+                ArtemisLayout layout = new(definition.Layout, LayoutSource.Plugin);
                 _deviceLayouts.Add(layout);
                 // imageLayout is not used
                 debugDeviceProvider.AddFakeDeviceDefinition(layout.RgbLayout, null!);
