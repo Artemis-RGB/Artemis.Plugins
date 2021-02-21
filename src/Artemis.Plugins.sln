@@ -33,8 +33,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.Nov
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.Razer", "Devices\Artemis.Plugins.Devices.Razer\Artemis.Plugins.Devices.Razer.csproj", "{5516A899-7FD3-4CDC-A0E9-7BBBB8F8F50D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.Roccat", "Devices\Artemis.Plugins.Devices.Roccat\Artemis.Plugins.Devices.Roccat.csproj", "{8E3F1894-2C20-4219-B058-DB65BA21EE45}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.SteelSeries", "Devices\Artemis.Plugins.Devices.SteelSeries\Artemis.Plugins.Devices.SteelSeries.csproj", "{3D5119CB-82BA-4A9D-988E-E7E3B27BEACF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.Wooting", "Devices\Artemis.Plugins.Devices.Wooting\Artemis.Plugins.Devices.Wooting.csproj", "{A4293C66-0246-4488-9B4C-C10303B92ECF}"
@@ -61,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Input", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.OpenRGB", "Devices\Artemis.Plugins.Devices.OpenRGB\Artemis.Plugins.Devices.OpenRGB.csproj", "{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.WebAPI", "Collections\Artemis.Plugins.WebAPI\Artemis.Plugins.WebAPI.csproj", "{A2C08559-A52C-4BDF-873A-272EDEAE4437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.WebAPI", "Collections\Artemis.Plugins.WebAPI\Artemis.Plugins.WebAPI.csproj", "{A2C08559-A52C-4BDF-873A-272EDEAE4437}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,10 +107,6 @@ Global
 		{5516A899-7FD3-4CDC-A0E9-7BBBB8F8F50D}.Debug|x64.Build.0 = Debug|x64
 		{5516A899-7FD3-4CDC-A0E9-7BBBB8F8F50D}.Release|x64.ActiveCfg = Release|x64
 		{5516A899-7FD3-4CDC-A0E9-7BBBB8F8F50D}.Release|x64.Build.0 = Release|x64
-		{8E3F1894-2C20-4219-B058-DB65BA21EE45}.Debug|x64.ActiveCfg = Debug|x64
-		{8E3F1894-2C20-4219-B058-DB65BA21EE45}.Debug|x64.Build.0 = Debug|x64
-		{8E3F1894-2C20-4219-B058-DB65BA21EE45}.Release|x64.ActiveCfg = Release|x64
-		{8E3F1894-2C20-4219-B058-DB65BA21EE45}.Release|x64.Build.0 = Release|x64
 		{3D5119CB-82BA-4A9D-988E-E7E3B27BEACF}.Debug|x64.ActiveCfg = Debug|x64
 		{3D5119CB-82BA-4A9D-988E-E7E3B27BEACF}.Debug|x64.Build.0 = Debug|x64
 		{3D5119CB-82BA-4A9D-988E-E7E3B27BEACF}.Release|x64.ActiveCfg = Release|x64
@@ -180,7 +174,6 @@ Global
 		{928CAC1C-0394-40FB-8740-5FA5AAB0DAA1} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{14613E9E-1F69-4F30-9952-5D7FDB5C3906} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{5516A899-7FD3-4CDC-A0E9-7BBBB8F8F50D} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
-		{8E3F1894-2C20-4219-B058-DB65BA21EE45} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{3D5119CB-82BA-4A9D-988E-E7E3B27BEACF} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{A4293C66-0246-4488-9B4C-C10303B92ECF} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{E12EA7BE-5413-4468-B930-E19C4E8C98FF} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}

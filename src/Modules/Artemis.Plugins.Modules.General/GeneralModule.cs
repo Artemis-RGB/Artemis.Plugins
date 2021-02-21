@@ -51,7 +51,7 @@ namespace Artemis.Plugins.Modules.General
             UpdateCurrentWindow();
         }
 
-        public override void Render(double deltaTime, ArtemisSurface surface, SKCanvas canvas, SKImageInfo canvasInfo)
+        public override void Render(double deltaTime, SKCanvas canvas, SKImageInfo canvasInfo)
         {
         }
 
