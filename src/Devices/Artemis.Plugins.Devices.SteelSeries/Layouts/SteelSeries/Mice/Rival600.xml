@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Rival 600</Name>
+  <Description>Steelseries Rival 600 mouse</Description>
+  <Type>Mouse</Type>
+  <Lighting>None</Lighting>
+  <Vendor>steelseries</Vendor>
+  <Model>Rival600</Model>
+  <Width>70</Width>
+  <Height>160</Height>
+  <ImageBasePath>Images\SteelSeries\Mice</ImageBasePath>
+  <DeviceImage>rival600.png</DeviceImage>
+  <Leds>
+    <Led Id="Mouse1">
+      <X>28</X>
+      <Y>45</Y>
+      <Width>0.5</Width>
+      <Height>1.1</Height>
+    </Led>
+    <Led Id="Mouse2">
+      <Shape>Circle</Shape>
+      <X>23</X>
+      <Y>138</Y>
+    </Led>
+    <Led Id="Mouse3">
+      <X>18</X>
+      <Y>85</Y>
+      <Width>0.2</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Mouse4">
+      <X>+21</X>
+      <Width>0.2</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Mouse5">
+      <Shape> M0.481,0.044 L0.812,0.034 L0.602,0.626 L0.12,0.918 L0.105,0.739 L0.391,0.57 L0.526,0.062z</Shape>
+      <X>13</X>
+      <Y>+</Y>
+      <Width>0.5</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Mouse6">
+      <Shape>  M0.293,0.025 L0.008,0.025 L0.113,0.598 L0.774,0.974 L0.774,0.786 L0.444,0.579 L0.278,0.044z</Shape>
+      <X>+22</X>
+      <Width>0.5</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Mouse7">
+      <Shape> M0.87,0.019 L0.881,0.201 L0.44,0.556 L0.161,0.921 L0.097,0.835 L0.376,0.416 L0.816,0.083z</Shape>
+      <X>2</X>
+      <Y>108</Y>
+      <Width>0.7</Width>
+      <Height>0.7</Height>
+    </Led>
+    <Led Id="Mouse8">
+      <Shape> M0.01,0.062 L0.01,0.277 L0.375,0.61 L0.762,0.985 L0.815,0.857 L0.482,0.491 L0.074,0.126z</Shape>
+      <X>+37</X>
+      <Width>0.7</Width>
+      <Height>0.7</Height>
+    </Led>
+  </Leds>
+  <LedImageLayouts>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse1" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse2" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse3" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse4" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse5" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse6" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse7" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse8" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse7" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse5" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse6" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse3" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse4" />
+      </LedImages>
+    </LedImageLayout>
+    <LedImageLayout>
+      <LedImages>
+        <LedImage Id="Mouse8" />
+      </LedImages>
+    </LedImageLayout>
+  </LedImageLayouts>
+</Device>
