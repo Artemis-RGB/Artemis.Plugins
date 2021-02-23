@@ -1,6 +1,5 @@
 ﻿using Artemis.Core;
 using Artemis.Core.LayerBrushes;
-using RGB.NET.Brushes;
 using RGB.NET.Core;
 
 namespace Artemis.Plugins.LayerBrushes.ColorRgbNet
