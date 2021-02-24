@@ -15,25 +15,31 @@ namespace Artemis.Plugins.Modules.General
     public class GeneralModule : ProfileModule<GeneralDataModel>
     {
         private readonly IColorQuantizerService _quantizerService;
-        private readonly IInputService _inputService;
+        private readonly PluginSetting<bool> _enableActiveWindow;
 
-        public GeneralModule(IColorQuantizerService quantizerService, IInputService inputService)
+        public GeneralModule(IColorQuantizerService quantizerService, PluginSettings settings)
         {
             _quantizerService = quantizerService;
-            _inputService = inputService;
+            _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
         }
 
         public override void Enable()
         {
+            _enableActiveWindow.SettingChanged += EnableActiveWindowOnSettingChanged;
+
             DisplayName = "General";
             DisplayIcon = "Images/bow.svg";
             ExpandsDataModel = true;
 
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
+            AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow());
+
+            ApplyEnableActiveWindow();
         }
 
         public override void Disable()
         {
+            _enableActiveWindow.SettingChanged -= EnableActiveWindowOnSettingChanged;
         }
 
         public override void ModuleActivated(bool isOverride)
@@ -48,7 +54,6 @@ namespace Artemis.Plugins.Modules.General
         {
             DataModel.TimeDataModel.CurrentTime = DateTimeOffset.Now;
             DataModel.TimeDataModel.TimeSinceMidnight = DateTimeOffset.Now - DateTimeOffset.Now.Date;
-            UpdateCurrentWindow();
         }
 
         public override void Render(double deltaTime, SKCanvas canvas, SKImageInfo canvasInfo)
@@ -59,6 +64,9 @@ namespace Artemis.Plugins.Modules.General
 
         public void UpdateCurrentWindow()
         {
+            if (!_enableActiveWindow.Value)
+                return;
+
             int processId = WindowUtilities.GetActiveProcessId();
             if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
                 DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService);
@@ -67,5 +75,18 @@ namespace Artemis.Plugins.Modules.General
         }
 
         #endregion
+
+        private void EnableActiveWindowOnSettingChanged(object? sender, EventArgs e)
+        {
+            ApplyEnableActiveWindow();
+        }
+
+        private void ApplyEnableActiveWindow()
+        {
+            if (_enableActiveWindow.Value)
+                ShowProperty(d => d.ActiveWindow);
+            else
+                HideProperty(d => d.ActiveWindow);
+        }
     }
 }
