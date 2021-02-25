@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Logitech G910 - Physical UK</Name>
+  <Name>Logitech G910 - Physical ANSI</Name>
   <Description>Physical UK-Layout of Logitech G910 (Logical: ???)</Description>
-  <Author>Darth Affe</Author>
   <Type>Keyboard</Type>
-  <Lighting>Key</Lighting>
   <Vendor>Logitech</Vendor>
   <Model>G910</Model>
   <Width>491</Width>
   <Height>238</Height>
   <Leds>
-    <!-- Esc -> Pause -->
     <Led Id="Keyboard_Escape">
       <X>42</X>
       <Y>28</Y>
@@ -129,7 +126,6 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <!-- ^ -> Num- -->
     <Led Id="Keyboard_GraveAccentAndTilde">
       <X>42</X>
       <Y>52</Y>
@@ -282,7 +278,6 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <!-- Tab -> Num+ -->
     <Led Id="Keyboard_Tab">
       <X>42</X>
       <Y>+</Y>
@@ -377,13 +372,12 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Enter">
-      <Shape>M0,0 L0,0.5 L0.16666666666,0.5 L0.16666666666,1 L1,1 L1,0 Z</Shape>
+    <Led Id="Keyboard_Backslash">
       <Width>1.5</Width>
-      <Height>2</Height>
+      <Height>1</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Enter.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Menu.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -439,7 +433,6 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <!-- CapsLock -> Num6 -->
     <Led Id="Keyboard_CapsLock">
       <X>42</X>
       <Y>~</Y>
@@ -527,15 +520,16 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_NonUsTilde">
+    <Led Id="Keyboard_Enter">
+      <Width>2.25</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Hash_Apostrophe.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Menu.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Num4">
-      <X>+94.25</X>
+      <X>+70.5</X>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num4_ArrowLeft.png" />
@@ -556,21 +550,13 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <!-- LShift -> NumEnter -->
     <Led Id="Keyboard_LeftShift">
       <X>42</X>
       <Y>+</Y>
-      <Width>1.25</Width>
+      <Width>2.25</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Shift.png" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NonUsBackslash">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/LessThan_GreaterThan_Pipe.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/ShiftBig.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -690,7 +676,6 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <!-- LCtrl -> NumPeriod -->
     <Led Id="Keyboard_LeftCtrl">
       <X>42</X>
       <Y>~</Y>
@@ -795,7 +780,6 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <!-- G-Keys -->
     <Led Id="Keyboard_Programmable1">
       <X>18</X>
       <Y>52</Y>
@@ -875,6 +859,12 @@
       <Shape>M 0.43535,0.91509 c -0.083,-0.013 -0.1809,-0.0541 -0.24123,-0.11683 -0.21672,-0.2247 -0.10831,-0.63995 0.19645,-0.71442 0.044,-0.0108 0.44173,-0.0156 0.47505,-0.006 0.0632,0.0184 0.0708,0.15184 0.0119,0.18175 -0.0174,0.009 -0.0369,0.009 -0.21797,0.009 -0.23755,0 -0.25559,-0.002 -0.3144,0.067 -0.14073,0.16404 -0.0357,0.36697 0.16357,0.40076 0.0569,0.01 0.0835,0.0391 0.0831,0.0846 -4.5e-4,0.0636 -0.0621,0.10873 -0.15647,0.0941 z m 0.36491,6.7e-4 c -0.0366,-0.0138 -0.0539,-0.0325 -0.0567,-0.0973 -0.006,-0.14226 -0.0741,-0.23758 -0.21563,-0.24355 -0.0562,-0.003 -0.0629,-0.004 -0.0811,-0.0233 -0.0344,-0.0359 -0.021,-0.11984 0.0238,-0.14402 0.0129,-0.007 0.0145,-0.007 0.19631,-0.007 0.25897,0 0.25297,0.005 0.25151,0.27271 -8e-4,0.17441 -8e-4,0.19394 -0.0107,0.20972 -0.0183,0.0297 -0.0769,0.0443 -0.10753,0.0326 Z</Shape>
       <X>18</X>
       <Y>28</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="Raptor_Keys/" />
+          <LogicalLayout Image="Raptor_Keys/" Name="DE" />
+        </LogicalLayouts>
+      </CustomData>
     </Led>
     <Led Id="Keyboard_Custom1">
       <Shape>M 0,0 L0.15,1 0.85,1 L 1,0 Z</Shape>
@@ -882,6 +872,12 @@
       <Y>166.5</Y>
       <Width>55mm</Width>
       <Height>9mm</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="Raptor_Keys/" />
+          <LogicalLayout Image="Raptor_Keys/" Name="DE" />
+        </LogicalLayouts>
+      </CustomData>
     </Led>
   </Leds>
   <CustomData>

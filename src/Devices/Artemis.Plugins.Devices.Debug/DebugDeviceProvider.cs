@@ -29,7 +29,11 @@ namespace Artemis.Plugins.Devices.Debug
         public override void Enable()
         {
             PopulateDevices();
+        }
 
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
         }
 
         public void PopulateDevices()

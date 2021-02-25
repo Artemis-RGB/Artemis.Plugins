@@ -134,7 +134,7 @@
       <Y>+</Y>
       <Width>1.25</Width>
     </Led>
-    <Led Id="Keyboard_Backslash" />
+    <Led Id="Keyboard_NonUsBackslash" />
     <Led Id="Keyboard_Z" />
     <Led Id="Keyboard_X" />
     <Led Id="Keyboard_C" />
