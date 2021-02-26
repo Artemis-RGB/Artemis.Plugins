@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Logitech G910 - Physical ANSI</Name>
-  <Description>Physical UK-Layout of Logitech G910 (Logical: ???)</Description>
+  <Description>Physical US - Layout of Logitech G910</Description>
   <Type>Keyboard</Type>
   <Vendor>Logitech</Vendor>
   <Model>G910</Model>
@@ -14,6 +14,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Escape.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -22,6 +23,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F1.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -29,6 +31,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F2.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -36,6 +39,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F3.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -43,6 +47,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F4.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -51,6 +56,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F5.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -58,6 +64,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F6.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -65,6 +72,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F7.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -72,6 +80,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F8.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -80,6 +89,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F9.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -87,6 +97,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F10.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -94,6 +105,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F11.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -101,6 +113,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F12.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -108,21 +121,24 @@
       <X>+6.75</X>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Drucken.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/PrintScreen.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_ScrollLock">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Rollen.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/ScrollLock.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_PauseBreak">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/PauseUntbr.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Pause_Break.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -131,7 +147,8 @@
       <Y>52</Y>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Circumflex_Degree.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Grave_Tilde.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -139,20 +156,23 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/1_ExclamationMark.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_2">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/2_QuotationMark_Exponent2.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/2_At.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_3">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/3_SectionSign_Exponent3.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/3_Hash.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -160,6 +180,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/4_Dollar.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -167,55 +188,63 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/5_Percent.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_6">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/6_Ampersand.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/6_Caret.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_7">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/7_Slash_CurlyBracketLeft.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/7_Ampersand.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_8">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/8_BracketLeft_SquareBracketLeft.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/8_Asterisk.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_9">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/9_BracketRight_SquareBracketRight.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/9_BracketLeft.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_0">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/0_Equals_CurlyBracketRight.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/0_BracketRight.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_MinusAndUnderscore">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/QuestionMark_SharpS_Backslash.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Dash_Underscore.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_EqualsAndPlus">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/AccentGrave_AccentAcute.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Plus_Equals.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -224,6 +253,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Backspace.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -231,21 +261,24 @@
       <X>+6.75</X>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Einfg.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Insert.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Home">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Pos1.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Home.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_PageUp">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/BildUp.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/PageUp.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -254,6 +287,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -261,6 +295,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Slash.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -268,6 +303,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Asterisk.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -275,6 +311,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Minus.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -285,13 +322,15 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Tab.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Q">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Q_At.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Q.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -299,13 +338,15 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/W.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_E">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/E_Euro.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/E.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -313,6 +354,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/R.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -320,13 +362,15 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/T.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Y">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Z.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Y.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -334,6 +378,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/U.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -341,6 +386,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/I.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -348,6 +394,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/O.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -355,20 +402,23 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/P.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_BracketLeft">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/UE.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/SquareBracketLeft_CurlyBracketLeft.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_BracketRight">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Plus_Asterisk_Tilde.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/SquareBracketRight_CurlyBracketRight.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -377,7 +427,8 @@
       <Height>1</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Menu.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Pipe_Backslash.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -385,21 +436,24 @@
       <X>+6.75</X>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Entf.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Delete.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_End">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Ende.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/End.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_PageDown">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/BildDown.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/PageDown.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -407,7 +461,8 @@
       <X>+6.75</X>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Num7_Pos1.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Num7_Home.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -415,13 +470,15 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num8_ArrowUp.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Num9">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Num9_BildUp.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Num9_PageUp.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -430,6 +487,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/NumPlus.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -439,7 +497,8 @@
       <Width>1.75</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/CapsLockA.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/CapsLock.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -447,6 +506,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/A.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -454,6 +514,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/S.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -461,6 +522,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/D.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -468,6 +530,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/F.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -475,6 +538,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -482,6 +546,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/H.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -489,6 +554,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/J.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -496,6 +562,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/K.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -503,20 +570,23 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/L.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_SemicolonAndColon">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/OE.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Colon_Semicolon.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_ApostropheAndDoubleQuote">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/AE.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/SingleQuote_DoubleQuote.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -524,7 +594,8 @@
       <Width>2.25</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Menu.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/US_Enter.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -533,6 +604,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num4_ArrowLeft.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -540,6 +612,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num5.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -547,6 +620,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num6_ArrowRight.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -556,14 +630,16 @@
       <Width>2.25</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/ShiftBig.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/LeftShift.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Z">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Y.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Z.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -571,6 +647,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/X.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -578,6 +655,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/C.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -585,6 +663,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/V.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -592,6 +671,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/B.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -599,34 +679,39 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/N.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_M">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/M_Mu.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/M.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_CommaAndLessThan">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Comma_Semicolon.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Comma_GreaterThan.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_PeriodAndBiggerThan">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Dot_Colon.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Period_LessThan.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_SlashAndQuestionMark">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Hyphen_Underscore.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/QuestionMark_Slash.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -634,7 +719,8 @@
       <Width>2.75</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/ShiftBig.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/RightShift.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -643,6 +729,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/CaretUp.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -650,7 +737,8 @@
       <X>+25.75</X>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Num1_Ende.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Num1_End.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -658,13 +746,15 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Num2_ArrowDown.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_Num3">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Num3_BildDown.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Num3_PageDown.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -673,6 +763,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/NumEnter.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -682,7 +773,8 @@
       <Width>1.5</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Strg.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Control.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -691,6 +783,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Windows.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -699,6 +792,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Alt.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -707,6 +801,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Space.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -714,7 +809,8 @@
       <Width>1.25</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/AltGr.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Alt.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -723,6 +819,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Windows.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -731,6 +828,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/Menu.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -738,7 +836,8 @@
       <Width>1.5</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Strg.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Control.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -747,6 +846,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/CaretLeft.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -754,6 +854,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/CaretDown.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -761,6 +862,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/CaretRight.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -769,14 +871,16 @@
       <Width>2</Width>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Num0_Einfg.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/Num0_Insert.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keyboard_NumPeriodAndDelete">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Raptor_Keys/Comma_Entf.png" />
+          <LogicalLayout Name="DE" Image="Raptor_Keys/NumPeriod_Delete.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -786,6 +890,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G1.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -795,6 +900,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G2.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -804,6 +910,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G3.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -813,6 +920,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G4.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -822,6 +930,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G5.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -831,6 +940,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G6.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -838,6 +948,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G7.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -845,6 +956,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G8.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -852,6 +964,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Raptor_Keys/G9.png" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -863,6 +976,7 @@
         <LogicalLayouts>
           <LogicalLayout Image="Raptor_Keys/" />
           <LogicalLayout Image="Raptor_Keys/" Name="DE" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -876,6 +990,7 @@
         <LogicalLayouts>
           <LogicalLayout Image="Raptor_Keys/" />
           <LogicalLayout Image="Raptor_Keys/" Name="DE" />
+          <LogicalLayout Image="Raptor_Keys/" Name="US" />
         </LogicalLayouts>
       </CustomData>
     </Led>
