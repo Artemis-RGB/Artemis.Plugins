@@ -20,5 +20,11 @@ namespace Artemis.Plugins.Devices.Wooting
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "wooting-rgb-sdk.dll"));
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.Wooting.WootingDeviceProvider.Instance.Dispose();
+        }
     }
 }

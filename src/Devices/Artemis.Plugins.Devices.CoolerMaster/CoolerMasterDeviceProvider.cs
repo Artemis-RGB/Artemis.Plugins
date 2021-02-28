@@ -22,5 +22,11 @@ namespace Artemis.Plugins.Devices.CoolerMaster
             RGB.NET.Devices.CoolerMaster.CoolerMasterDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CMSDK.dll"));
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.CoolerMaster.CoolerMasterDeviceProvider.Instance.Dispose();
+        }
     }
 }

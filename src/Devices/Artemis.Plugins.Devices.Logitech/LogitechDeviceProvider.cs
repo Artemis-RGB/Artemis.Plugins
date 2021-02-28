@@ -33,6 +33,13 @@ namespace Artemis.Plugins.Devices.Logitech
                 LogDeviceIds();
         }
 
+        public override void Disable()
+        {
+            RGB.NET.Devices.Logitech.LogitechDeviceProvider logitechProvider = (RGB.NET.Devices.Logitech.LogitechDeviceProvider) RgbDeviceProvider;
+            logitechProvider.Dispose();
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+        }
+
         private void LogDeviceIds()
         {
             List<HidDevice> devices = DeviceList.Local.GetHidDevices(VENDOR_ID).DistinctBy(d => d.ProductID).ToList();

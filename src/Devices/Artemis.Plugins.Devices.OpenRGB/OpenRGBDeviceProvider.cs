@@ -39,5 +39,11 @@ namespace Artemis.Plugins.Devices.OpenRGB
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Dispose();
+        }
     }
 }

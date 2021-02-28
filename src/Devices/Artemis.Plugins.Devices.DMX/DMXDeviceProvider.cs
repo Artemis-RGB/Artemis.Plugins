@@ -19,5 +19,11 @@ namespace Artemis.Plugins.Devices.DMX
             // RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.AddDeviceDefinition();
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.Dispose();
+        }
     }
 }

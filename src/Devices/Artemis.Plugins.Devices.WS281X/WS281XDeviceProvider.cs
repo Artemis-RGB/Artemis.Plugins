@@ -76,5 +76,11 @@ namespace Artemis.Plugins.Devices.WS281X
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.WS281X.WS281XDeviceProvider.Instance.Dispose();
+        }
     }
 }

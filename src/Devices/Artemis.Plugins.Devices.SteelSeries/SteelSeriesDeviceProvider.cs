@@ -32,6 +32,12 @@ namespace Artemis.Plugins.Devices.SteelSeries
                 LogDeviceIds();
         }
 
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance.Dispose();
+        }
+
         private void LogDeviceIds()
         {
             List<HidDevice> devices = DeviceList.Local.GetHidDevices(VENDOR_ID).DistinctBy(d => d.ProductID).ToList();

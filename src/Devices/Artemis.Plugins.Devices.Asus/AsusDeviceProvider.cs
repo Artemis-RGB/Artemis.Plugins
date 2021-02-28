@@ -19,5 +19,11 @@ namespace Artemis.Plugins.Devices.Asus
         {
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.Asus.AsusDeviceProvider.Instance.Dispose();
+        }
     }
 }
