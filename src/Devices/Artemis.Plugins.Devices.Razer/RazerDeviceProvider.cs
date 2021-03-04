@@ -1,29 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
+using HidSharp;
 using RGB.NET.Devices.Razer;
+using Serilog;
+using Serilog.Events;
 
 namespace Artemis.Plugins.Devices.Razer
 {
     // ReSharper disable once UnusedMember.Global
     public class RazerDeviceProvider : DeviceProvider
     {
+        private const int VENDOR_ID = 0x1532;
+
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _pluginSettings;
+        private readonly ILogger _logger;
         private PluginSetting<bool> _loadEmulatorDevices;
 
-        public RazerDeviceProvider(IRgbService rgbService, PluginSettings pluginSettings) : base(RGB.NET.Devices.Razer.RazerDeviceProvider.Instance)
+        public RazerDeviceProvider(IRgbService rgbService, PluginSettings pluginSettings, ILogger logger) : base(RGB.NET.Devices.Razer.RazerDeviceProvider.Instance)
         {
             _rgbService = rgbService;
             _pluginSettings = pluginSettings;
+            _logger = logger;
 
             _loadEmulatorDevices = _pluginSettings.GetSetting("LoadEmulatorDevices", false);
             _loadEmulatorDevices.SettingChanged += LoadEmulatorDevicesOnSettingChanged;
         }
 
-        private void LoadEmulatorDevicesOnSettingChanged(object? sender, EventArgs e)
+        private void LoadEmulatorDevicesOnSettingChanged(object sender, EventArgs e)
         {
             if (IsEnabled)
             {
@@ -48,12 +57,32 @@ namespace Artemis.Plugins.Devices.Razer
             {
                 throw new ArtemisPluginException("Failed to activate Razer plugin, error code: " + e.ErrorCode, e);
             }
+
+            if (_logger.IsEnabled(LogEventLevel.Debug))
+                LogDeviceIds();
         }
 
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.Dispose();
+        }
+
+        private void LogDeviceIds()
+        {
+            List<HidDevice> devices = DeviceList.Local.GetHidDevices(VENDOR_ID).DistinctBy(d => d.ProductID).ToList();
+            _logger.Debug("Found {count} Razer device(s)", devices.Count);
+            foreach (HidDevice hidDevice in devices)
+            {
+                try
+                {
+                    _logger.Debug("Found Razer device {name} with PID 0x{pid}", hidDevice.GetFriendlyName(), hidDevice.ProductID.ToString("X"));
+                }
+                catch (Exception)
+                {
+                    _logger.Debug("Found Razer device with PID 0x{pid}", hidDevice.ProductID.ToString("X"));
+                }
+            }
         }
     }
 }

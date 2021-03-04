@@ -24,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="HidSharp" Version="2.1.0" />
 		<PackageReference Include="MaterialDesignExtensions" Version="3.2.0" PrivateAssets="All" />
 		<PackageReference Include="MaterialDesignThemes" Version="3.2.0" PrivateAssets="All" />
 		<PackageReference Include="FluentValidation" Version="9.3.0" PrivateAssets="All" />
@@ -33,8 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Page Include="Properties\DesignTimeResources.xaml"
-		      Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+		<Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
 			<Generator>MSBuild:Compile</Generator>
 			<SubType>Designer</SubType>
 			<ContainsDesignTimeResources>true</ContainsDesignTimeResources>
