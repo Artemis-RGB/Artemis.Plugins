@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Plugins.PhilipsHue.Models;
@@ -31,10 +32,10 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
         private int _wizardPage;
 
 
-        public PhilipsHueConfigurationViewModel(Plugin plugin, 
-            PluginSettings settings, 
+        public PhilipsHueConfigurationViewModel(Plugin plugin,
+            PluginSettings settings,
             IHueService hueService,
-            IDialogService dialogService, 
+            IDialogService dialogService,
             IModelValidator<PhilipsHueConfigurationViewModel> validator)
             : base(plugin, validator)
         {
@@ -46,7 +47,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
 
             PollingRate = _pollingRateSetting.Value;
 
-            if (_storedBridgesSetting.Value.Any()) 
+            if (_storedBridgesSetting.Value.Any())
                 WizardPage = 3;
         }
 
@@ -87,6 +88,21 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             set => SetAndNotify(ref _lightDisplay, value);
         }
 
+        public async Task ReloadDeviceProvider()
+        {
+            HueDeviceProvider feature = Plugin.GetFeature<HueDeviceProvider>();
+            if (feature == null || !feature.IsEnabled)
+                return;
+
+            // Take this off the UI thread
+            Task.Run(() =>
+            {
+                feature.Disable();
+                Thread.Sleep(100);
+                feature.Enable();
+            });
+        }
+
         #region Settings
 
         public async void ResetPlugin()
@@ -103,6 +119,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             _storedBridgesSetting.Save();
 
             WizardPage = 0;
+            await ReloadDeviceProvider();
         }
 
         #endregion
@@ -184,6 +201,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             _storedBridgesSetting.Save();
 
             FinishWizard();
+            await ReloadDeviceProvider();
         }
 
         private async void FinishWizard()

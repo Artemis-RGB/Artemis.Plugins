@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Q42.HueApi;
 using Q42.HueApi.Models.Groups;
@@ -32,9 +31,5 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
         public string Manufacturer { get; }
         public string Model { get; }
         public object LayoutMetadata { get; set; }
-
-        // This is possible but requires a bit more effort
-        public bool SupportsSyncBack => false;
-        public Uri Image { get; set; }
     }
 }

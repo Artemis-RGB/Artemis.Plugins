@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using Q42.HueApi.Streaming.Models;
 using RGB.NET.Core;
@@ -8,19 +8,32 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
 {
     public class HueUpdateQueue : UpdateQueue
     {
+        #region Properties & Fields
+
         private readonly StreamingLight _light;
 
-        public HueUpdateQueue(IDeviceUpdateTrigger updateTrigger, string lightId, StreamingGroup group) : base(updateTrigger)
+        #endregion
+
+        #region Constructors
+
+        public HueUpdateQueue(IDeviceUpdateTrigger updateTrigger, string lightId, StreamingGroup group)
+            : base(updateTrigger)
         {
             _light = group.First(l => l.Id == byte.Parse(lightId));
         }
 
-        protected override void Update(Dictionary<object, Color> dataSet)
+        #endregion
+
+        #region Methods
+
+        protected override void Update(in ReadOnlySpan<(object key, Color color)> dataSet)
         {
-            Color color = dataSet.Values.First();
+            Color color = dataSet[0].color;
 
             _light.State.SetBrightness(1);
             _light.State.SetRGBColor(new RGBColor(color.R, color.G, color.B));
         }
+
+        #endregion
     }
 }
