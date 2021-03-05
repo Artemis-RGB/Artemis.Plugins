@@ -27,12 +27,18 @@ namespace Artemis.Plugins.DataModelExpansions.TestData
                 DataModel.JsonString2 = s;
                 return "la lu lo";
             });
-            _webServerService.AddJsonEndPoint<RemoteData>(this, "JsonEndPoint", d => DataModel.JsonData = d);
+            JsonPluginEndPoint<RemoteData> jsonPluginEndPoint = _webServerService.AddJsonEndPoint<RemoteData>(this, "JsonEndPoint", d => DataModel.JsonData = d);
+            jsonPluginEndPoint.RequestException += JsonPluginEndPointOnRequestException;
             _webServerService.AddResponsiveJsonEndPoint<RemoteData>(this, "JsonEndPointWithResponse", d =>
             {
                 DataModel.JsonData2 = d;
                 return new List<string> {"la", "lu", "lo"};
             });
+        }
+
+        private void JsonPluginEndPointOnRequestException(object sender, EndpointExceptionEventArgs e)
+        {
+            throw e.Exception;
         }
 
 

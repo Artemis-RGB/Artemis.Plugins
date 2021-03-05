@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.Debug.Settings;
-using RGB.NET.Core;
 using RGB.NET.Devices.Debug;
+using RGB.NET.Layout;
 using Serilog;
 
 namespace Artemis.Plugins.Devices.Debug
@@ -14,6 +14,7 @@ namespace Artemis.Plugins.Devices.Debug
     // ReSharper disable once UnusedMember.Global
     public class DebugDeviceProvider : DeviceProvider
     {
+        private readonly List<ArtemisLayout> _deviceLayouts = new();
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
@@ -27,14 +28,30 @@ namespace Artemis.Plugins.Devices.Debug
 
         public override void Enable()
         {
-            PathHelper.ResolvingAbsolutePath += PathHelperOnResolvingAbsolutePath;
+            PopulateDevices();
+        }
 
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+        }
+
+        public void PopulateDevices()
+        {
+            RGB.NET.Devices.Debug.DebugDeviceProvider debugDeviceProvider = (RGB.NET.Devices.Debug.DebugDeviceProvider) RgbDeviceProvider;
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
             if (definitions.Value == null)
                 definitions.Value = new List<DeviceDefinition>();
 
-            foreach (DeviceDefinition deviceDefinition in definitions.Value)
-                RGB.NET.Devices.Debug.DebugDeviceProvider.Instance.AddFakeDeviceDefinition(deviceDefinition.Layout, deviceDefinition.ImageLayout);
+            _deviceLayouts.Clear();
+            debugDeviceProvider.ClearFakeDeviceDefinitions();
+            foreach (DeviceDefinition definition in definitions.Value)
+            {
+                ArtemisLayout layout = new(definition.Layout, LayoutSource.Plugin);
+                _deviceLayouts.Add(layout);
+                // imageLayout is not used
+                debugDeviceProvider.AddFakeDeviceDefinition(layout.RgbLayout, null!);
+            }
 
             try
             {
@@ -46,19 +63,15 @@ namespace Artemis.Plugins.Devices.Debug
             }
         }
 
-        public override void Disable()
+        public override ArtemisLayout LoadLayout(ArtemisDevice rgbDevice)
         {
-            // TODO: Remove the device provider from the surface
-        }
+            if (rgbDevice.RgbDevice is DebugRGBDevice debugRgbDevice)
+            {
+                ArtemisLayout artemisLayout = _deviceLayouts.FirstOrDefault(d => d.RgbLayout == debugRgbDevice.Layout);
+                return artemisLayout ?? base.LoadLayout(rgbDevice);
+            }
 
-        private void PathHelperOnResolvingAbsolutePath(object sender, ResolvePathEventArgs e)
-        {
-            if (sender is DebugRGBDevice debugRgbDevice)
-                if (debugRgbDevice.LayoutPath.Contains("\\Layouts\\"))
-                {
-                    string rootDirectory = debugRgbDevice.LayoutPath.Split("\\Layouts")[0];
-                    e.FinalPath = Path.Combine(rootDirectory, e.RelativePath);
-                }
+            return base.LoadLayout(rgbDevice);
         }
     }
 }

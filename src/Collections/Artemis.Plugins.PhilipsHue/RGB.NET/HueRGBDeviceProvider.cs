@@ -27,10 +27,10 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET
         public List<HueClientDefinition> ClientDefinitions { get; } = new List<HueClientDefinition>();
 
         public bool IsInitialized { get; private set; }
-        public IEnumerable<IRGBDevice> Devices { get; private set; }
+        public IEnumerable<IRGBDevice> Devices { get; private set; } = new List<IRGBDevice>();
         public bool HasExclusiveAccess { get; } = false;
 
-        public bool Initialize(RGBDeviceType loadFilter = RGBDeviceType.All, bool exclusiveAccessIfPossible = false, bool throwExceptions = false)
+        public bool Initialize(RGBDeviceType loadFilter = RGBDeviceType.All, bool throwExceptions = false)
         {
             IsInitialized = false;
 
@@ -87,6 +87,7 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET
 
         public void Dispose()
         {
+            Devices = Enumerable.Empty<IRGBDevice>();
             UpdateTrigger.Dispose();
         }
 

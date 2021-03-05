@@ -35,7 +35,7 @@ namespace Artemis.Plugins.Modules.Overlay
         {
         }
 
-        public override void Render(double deltaTime, ArtemisSurface surface, SKCanvas canvas, SKImageInfo canvasInfo)
+        public override void Render(double deltaTime, SKCanvas canvas, SKImageInfo canvasInfo)
         {
         }
     }

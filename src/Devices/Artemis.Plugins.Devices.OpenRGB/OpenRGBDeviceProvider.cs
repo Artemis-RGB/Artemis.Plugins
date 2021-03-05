@@ -1,9 +1,8 @@
-﻿using Artemis.Core;
+﻿using System.Collections.Generic;
+using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
-using RGB.NET.Core;
 using RGB.NET.Devices.OpenRGB;
-using System.Collections.Generic;
 
 namespace Artemis.Plugins.Devices.OpenRGB
 {
@@ -20,12 +19,12 @@ namespace Artemis.Plugins.Devices.OpenRGB
         }
 
         public override void Enable()
-        {     
+        {
             PluginSetting<List<OpenRGBServerDefinition>> definitions = _settings.GetSetting<List<OpenRGBServerDefinition>>("DeviceDefinitions");
             if (definitions.Value is null)
             {
                 definitions.Value = new List<OpenRGBServerDefinition>();
-                OpenRGBServerDefinition definition = new OpenRGBServerDefinition
+                OpenRGBServerDefinition definition = new()
                 {
                     ClientName = "Artemis",
                     Ip = "127.0.0.1",
@@ -35,13 +34,16 @@ namespace Artemis.Plugins.Devices.OpenRGB
                 definitions.Save();
             }
 
-            foreach (OpenRGBServerDefinition def in definitions.Value)
-            {
+            foreach (OpenRGBServerDefinition def in definitions.Value) 
                 RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.Add(def);
-            }
-            PathHelper.ResolvingAbsolutePath += (sender, args) => ResolveAbsolutePath(typeof(AbstractOpenRGBDevice<>), sender, args);
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
+        }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Dispose();
         }
     }
 }

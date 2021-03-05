@@ -1,7 +1,5 @@
-﻿using Artemis.Core;
-using Artemis.Core.DeviceProviders;
+﻿using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
-using Artemis.Plugins.Devices.DMX.ViewModels;
 
 namespace Artemis.Plugins.Devices.DMX
 {
@@ -20,6 +18,12 @@ namespace Artemis.Plugins.Devices.DMX
             // TODO: Load from configuration
             // RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.AddDeviceDefinition();
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
+        }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.Dispose();
         }
     }
 }

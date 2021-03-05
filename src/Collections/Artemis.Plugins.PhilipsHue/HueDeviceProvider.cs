@@ -24,9 +24,13 @@ namespace Artemis.Plugins.PhilipsHue
             foreach (PhilipsHueBridge bridge in _hueService.Bridges)
                 HueRGBDeviceProvider.Instance.ClientDefinitions.Add(new HueClientDefinition(bridge.IpAddress, bridge.AppKey, bridge.StreamingClientKey));
 
-            HueRGBDeviceProvider.Instance.Initialize();
-
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
+        }
+
+        public override void Disable()
+        {
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Dispose();
         }
     }
 }

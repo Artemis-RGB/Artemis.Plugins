@@ -79,7 +79,8 @@ namespace Artemis.Plugins.Devices.WS281X
 
         public override void Disable()
         {
-            // TODO: Remove the device provider from the surface
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RGB.NET.Devices.WS281X.WS281XDeviceProvider.Instance.Dispose();
         }
     }
 }
