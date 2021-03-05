@@ -52,18 +52,18 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET
                 client.Initialize(clientDefinition.AppKey);
 
                 // Get the entertainment groups, no point continuing without any entertainment groups
-                IReadOnlyList<Group> entertainmentGroups = client.GetEntertainmentGroups().GetAwaiter().GetResult();
+                IReadOnlyList<Group> entertainmentGroups = AsyncHelper.RunSync(client.GetEntertainmentGroups);
                 if (!entertainmentGroups.Any())
                     continue;
 
                 // Get all lights once, all devices can use this list to identify themselves
-                List<Light> lights = client.GetLightsAsync().GetAwaiter().GetResult().ToList();
+                List<Light> lights = AsyncHelper.RunSync(client.GetLightsAsync).ToList();
 
                 foreach (Group entertainmentGroup in entertainmentGroups.OrderBy(g => int.Parse(g.Id)))
                 {
                     StreamingHueClient streamingClient = new(clientDefinition.Ip, clientDefinition.AppKey, clientDefinition.ClientKey);
                     StreamingGroup streamingGroup = new(entertainmentGroup.Locations);
-                    streamingClient.Connect(entertainmentGroup.Id).GetAwaiter().GetResult();
+                    AsyncHelper.RunSync(async () => await streamingClient.Connect(entertainmentGroup.Id));
                     
                     updateTrigger.ClientGroups.Add(streamingClient, streamingGroup);
                     foreach (string lightId in entertainmentGroup.Lights.OrderBy(int.Parse))
