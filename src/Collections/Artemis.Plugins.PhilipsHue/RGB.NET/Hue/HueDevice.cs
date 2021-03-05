@@ -1,25 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using RGB.NET.Core;
+﻿using RGB.NET.Core;
 
 namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
 {
     public class HueDevice : AbstractRGBDevice<HueDeviceInfo>
     {
-        public HueDevice(HueDeviceInfo deviceInfo)
+        public HueDevice(HueDeviceInfo deviceInfo, HueUpdateQueue updateQueue) : base(deviceInfo, updateQueue)
         {
-            DeviceInfo = deviceInfo;
-        }
-
-        public override HueDeviceInfo DeviceInfo { get; }
-
-        public void Initialize(HueUpdateQueue updateQueue)
-        {
-            UpdateQueue = updateQueue;
             InitializeLayout();
-
-            Rectangle ledBoundary = new Rectangle(this.Select(x => x.Boundary));
-            Size = ledBoundary.Size + new Size(ledBoundary.Location.X, ledBoundary.Location.Y);
         }
 
         private void InitializeLayout()
@@ -52,8 +39,5 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
             if (led != null && DeviceInfo.Model != "LCL001")
                 led.Shape = Shape.Circle;
         }
-
-        public HueUpdateQueue UpdateQueue { get; private set; }
-        protected override void UpdateLeds(IEnumerable<Led> ledsToUpdate) => UpdateQueue.SetData(ledsToUpdate);
     }
 }

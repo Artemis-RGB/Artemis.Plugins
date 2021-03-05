@@ -22,7 +22,20 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
 
         #endregion
 
-        public Dictionary<StreamingHueClient, StreamingGroup> ClientGroups { get; set; }
+        public Dictionary<StreamingHueClient, StreamingGroup> ClientGroups { get; }
+
+        #region IDisposable
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            foreach ((StreamingHueClient client, StreamingGroup _) in ClientGroups)
+                client.Dispose();
+            ClientGroups.Clear();
+        }
+
+        #endregion
 
         #region Constructors
 
@@ -31,6 +44,7 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
         /// </summary>
         public HueDeviceUpdateTrigger()
         {
+            ClientGroups = new Dictionary<StreamingHueClient, StreamingGroup>();
         }
 
         /// <summary>
@@ -40,6 +54,7 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
         public HueDeviceUpdateTrigger(double updateRateHardLimit)
             : base(updateRateHardLimit)
         {
+            ClientGroups = new Dictionary<StreamingHueClient, StreamingGroup>();
         }
 
         #endregion
@@ -52,7 +67,6 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
             OnStartup();
 
             while (!UpdateToken.IsCancellationRequested)
-            {
                 if (HasDataEvent.WaitOne(Timeout))
                 {
                     long preUpdateTicks = Stopwatch.GetTimestamp();
@@ -71,7 +85,6 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
                 {
                     OnUpdate(new CustomUpdateData(("refresh", true)));
                 }
-            }
         }
 
         /// <inheritdoc />
@@ -88,19 +101,5 @@ namespace Artemis.Plugins.PhilipsHue.RGB.NET.Hue
         }
 
         #endregion
-
-        #region IDisposable
-
-        public override void Dispose()
-        {
-            base.Dispose();
-
-            foreach ((StreamingHueClient client, StreamingGroup _) in ClientGroups) 
-                client.Dispose();
-            ClientGroups = null;
-        }
-
-        #endregion
-
     }
 }
