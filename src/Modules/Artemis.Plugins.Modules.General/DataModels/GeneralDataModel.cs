@@ -1,4 +1,5 @@
 ﻿using System;
+using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.Modules.General.DataModels.Windows;
 using SkiaSharp;
@@ -14,6 +15,13 @@ namespace Artemis.Plugins.Modules.General.DataModels
 
         public WindowDataModel ActiveWindow { get; set; }
         public TimeDataModel TimeDataModel { get; set; }
+        public VolumeDataModel VolumeModel { get; set; } = new VolumeDataModel();
+    }
+
+    public class VolumeDataModel
+    {
+        public int Volume { get; set; }
+        public DataModelEvent VolumeChanged { get; set; } = new DataModelEvent();
     }
 
     public class TimeDataModel : DataModel

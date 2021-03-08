@@ -9,6 +9,7 @@ using Artemis.Plugins.Modules.General.DataModels.Windows;
 using Artemis.Plugins.Modules.General.Utilities;
 using Artemis.Plugins.Modules.General.ViewModels;
 using SkiaSharp;
+using NAudio.CoreAudioApi;
 
 namespace Artemis.Plugins.Modules.General
 {
@@ -16,6 +17,7 @@ namespace Artemis.Plugins.Modules.General
     {
         private readonly IColorQuantizerService _quantizerService;
         private readonly PluginSetting<bool> _enableActiveWindow;
+        private MMDevice _playbackDevice;
 
         public GeneralModule(IColorQuantizerService quantizerService, PluginSettings settings)
         {
@@ -34,12 +36,16 @@ namespace Artemis.Plugins.Modules.General
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
             AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow());
 
+            var enumerator = new MMDeviceEnumerator();
+            _playbackDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+
             ApplyEnableActiveWindow();
         }
 
         public override void Disable()
         {
             _enableActiveWindow.SettingChanged -= EnableActiveWindowOnSettingChanged;
+            _playbackDevice.Dispose();
         }
 
         public override void ModuleActivated(bool isOverride)
@@ -54,6 +60,10 @@ namespace Artemis.Plugins.Modules.General
         {
             DataModel.TimeDataModel.CurrentTime = DateTimeOffset.Now;
             DataModel.TimeDataModel.TimeSinceMidnight = DateTimeOffset.Now - DateTimeOffset.Now.Date;
+            
+            int volume = (int)(_playbackDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100);
+            if (DataModel.VolumeModel.Volume != volume) DataModel.VolumeModel.VolumeChanged.Trigger();
+            DataModel.VolumeModel.Volume = volume;
         }
 
         public override void Render(double deltaTime, SKCanvas canvas, SKImageInfo canvasInfo)
