@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;
@@ -22,7 +24,14 @@ namespace Artemis.Plugins.Devices.Corsair
         {
             RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2017.dll"));
             RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2017.dll"));
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            try
+            {
+                _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            }
+            catch (CUEException e)
+            {
+                throw new ArtemisPluginException($"Corsair SDK threw error: {e.Error}", e);
+            }
         }
 
         public override void Disable()
