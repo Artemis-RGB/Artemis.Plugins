@@ -28,19 +28,12 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 
         protected override void EnableProperties()
         {
-            EnableColorAnimation.CurrentValueSet += EnableColorAnimationOnCurrentValueSet;
+            Color.IsHiddenWhen(EnableColorAnimation, p => p.CurrentValue);
+            Colors.IsHiddenWhen(EnableColorAnimation, p => !p.CurrentValue);
         }
 
         protected override void DisableProperties()
         {
-            EnableColorAnimation.CurrentValueSet -= EnableColorAnimationOnCurrentValueSet;
-        }
-
-
-        private void EnableColorAnimationOnCurrentValueSet(object sender, LayerPropertyEventArgs e)
-        {
-            Color.IsHidden = EnableColorAnimation.CurrentValue;
-            Colors.IsHidden = !EnableColorAnimation.CurrentValue;
         }
 
         #endregion

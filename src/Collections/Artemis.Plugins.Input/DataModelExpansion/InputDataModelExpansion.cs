@@ -59,6 +59,11 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             DataModel.Keyboard.IsControlDown = e.Modifiers.HasFlag(KeyboardModifierKey.Control);
             DataModel.Keyboard.IsShiftDown = e.Modifiers.HasFlag(KeyboardModifierKey.Shift);
             DataModel.Keyboard.IsWindowsDown = e.Modifiers.HasFlag(KeyboardModifierKey.Windows);
+
+            if (e.IsDown)
+                DataModel.Keyboard.KeyDown.Trigger(new KeyboardEventArgs(e.Key, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
+            else
+                DataModel.Keyboard.KeyUp.Trigger(new KeyboardEventArgs(e.Key, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
         }
 
         private void InputServiceOnMouseButtonUpDown(object sender, ArtemisMouseButtonUpDownEventArgs e)
@@ -73,6 +78,11 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             {
                 DataModel.Mouse.PressedButtons.RemoveAll(k => k == e.Button);
             }
+
+            if (e.IsDown)
+                DataModel.Mouse.ButtonDown.Trigger(new MouseEventArgs(e.Button, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
+            else                
+                DataModel.Mouse.ButtonUp.Trigger(new MouseEventArgs(e.Button, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
         }
 
         private void InputServiceOnMouseMove(object sender, ArtemisMouseMoveEventArgs e)

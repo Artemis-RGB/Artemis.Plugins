@@ -1,66 +1,71 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
-    <AssemblyName>Artemis.Plugins.Input</AssemblyName>
-    <RootNamespace>Artemis.Plugins.Input</RootNamespace>
-	<UseWPF>true</UseWPF>
-	<Platforms>x64</Platforms>
-	<GenerateDependencyFile>False</GenerateDependencyFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
- 
-  <ItemGroup>
-    <PackageReference Include="MaterialDesignExtensions" Version="3.2.0" PrivateAssets="All" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="9.3.0" PrivateAssets="All" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
-    <PackageReference Include="Stylet" Version="1.3.5" PrivateAssets="All" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
+        <AssemblyName>Artemis.Plugins.Input</AssemblyName>
+        <RootNamespace>Artemis.Plugins.Input</RootNamespace>
+        <UseWPF>true</UseWPF>
+        <Platforms>x64</Platforms>
+        <GenerateDependencyFile>False</GenerateDependencyFile>
+        <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
-    </Page>
-  </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\net5.0-windows\Artemis.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Artemis.UI.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\net5.0-windows\Artemis.UI.Shared.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="plugin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
-  <Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <Message Text="------ Artemis plugin publish ------" Importance="High" />
-      <Exec Command="dotnet publish --verbosity q --output &quot;%25ProgramData%25\Artemis\Plugins\$(ProjectName)&quot;" />
-      <Message Text="Published $(ProjectName) at file:\\$(ProgramData)\Artemis\Plugins\$(ProjectName)" Importance="High" />
-      <Message Text="If distributing outside the workshop, share this folder." Importance="High" />
-  </Target>
-
-  <!-- Override the published DLLs with the built DLLs to enable edit & continue -->
-  <Target Name="PostBuildLocalDlls" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
     <ItemGroup>
-      <DllFiles Include="$(TargetDir)\**\*.dll" />
+        <PackageReference Include="MaterialDesignExtensions" Version="3.2.0" PrivateAssets="All" />
+        <PackageReference Include="MaterialDesignThemes" Version="3.2.0" PrivateAssets="All" />
+        <PackageReference Include="FluentValidation" Version="9.3.0" PrivateAssets="All" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
+        <PackageReference Include="Stylet" Version="1.3.5" PrivateAssets="All" />
     </ItemGroup>
-    <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ProgramData)\Artemis\Plugins\$(ProjectName)" />
-  </Target>
+
+    <ItemGroup>
+        <Page Include="Properties\DesignTimeResources.xaml"
+              Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+            <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+        </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Artemis.Core">
+            <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\net5.0-windows\Artemis.Core.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Artemis.UI.Shared">
+            <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\x64\Debug\net5.0-windows\Artemis.UI.Shared.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="RGB.NET.Core">
+            <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="plugin.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
+    <Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+        <Message Text="------ Artemis plugin publish ------" Importance="High" />
+        <Exec Command="dotnet publish --verbosity q --output &quot;%25ProgramData%25\Artemis\Plugins\$(ProjectName)&quot;" />
+        <Message Text="Published $(ProjectName) at file:\\$(ProgramData)\Artemis\Plugins\$(ProjectName)" Importance="High" />
+        <Message Text="If distributing outside the workshop, share this folder." Importance="High" />
+    </Target>
+
+    <!-- Override the published DLLs with the built DLLs to enable edit & continue -->
+    <Target Name="PostBuildLocalDlls" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+        <ItemGroup>
+            <DllFiles Include="$(TargetDir)\**\*.dll" />
+        </ItemGroup>
+        <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ProgramData)\Artemis\Plugins\$(ProjectName)" />
+    </Target>
 </Project>
