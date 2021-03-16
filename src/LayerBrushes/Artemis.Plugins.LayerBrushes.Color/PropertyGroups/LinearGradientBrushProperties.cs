@@ -13,7 +13,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         [PropertyDescription(Description = "Change the rotation of the gradient without affecting the rotation of the shape", InputAffix = "°")]
         public IntLayerProperty WaveSize { get; set; }
 
-        [PropertyDescription(Description = "Change the base orientation of the gradient", InputAffix = "°")]
+        [PropertyDescription(Description = "Change the base orientation of the gradient")]
         public EnumLayerProperty<LinearGradientOrientatonMode> Orientation { get; set; }
 
         [PropertyDescription(Description = "Change the lenght of the visible portion of the gradient", InputAffix = "°")]
