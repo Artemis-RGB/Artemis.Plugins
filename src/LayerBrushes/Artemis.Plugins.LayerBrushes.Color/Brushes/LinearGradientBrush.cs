@@ -25,8 +25,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
                     ((Properties.Orientation == LinearGradientOrientatonMode.Horizontal) ? bounds.Right : bounds.Left) * Properties.WaveSize / 100,
                     ((Properties.Orientation == LinearGradientOrientatonMode.Horizontal) ? bounds.Top : bounds.Bottom) * Properties.WaveSize / 100
                     ),
-                Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier),
-                Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier),
+                Properties.Colors.BaseValue.GetColorsArray(0),
+                Properties.Colors.BaseValue.GetPositionsArray(0),
                 SKShaderTileMode.Repeat,
                 matrix
             );
