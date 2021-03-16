@@ -1,6 +1,7 @@
 ﻿using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Color.PropertyGroups;
 using SkiaSharp;
+using System;
 
 namespace Artemis.Plugins.LayerBrushes.Color
 {
@@ -27,9 +28,10 @@ namespace Artemis.Plugins.LayerBrushes.Color
                     ),
                 Properties.Colors.BaseValue.GetColorsArray(0),
                 Properties.Colors.BaseValue.GetPositionsArray(0),
-                SKShaderTileMode.Repeat,
+                (SKShaderTileMode)Enum.ToObject(typeof(SKShaderTileMode), Properties.RepeatMode),
                 matrix
             );
+
             canvas.DrawRect(bounds, paint);
             paint.Shader?.Dispose();
             paint.Shader = null;

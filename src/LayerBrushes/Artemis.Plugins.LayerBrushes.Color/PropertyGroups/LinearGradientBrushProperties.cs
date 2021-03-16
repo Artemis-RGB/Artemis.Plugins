@@ -1,4 +1,5 @@
 ﻿using Artemis.Core;
+using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 {
@@ -13,6 +14,9 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         [PropertyDescription(Description = "Change the orientation of the gradient without affecting the orientation of the shape")]
         public EnumLayerProperty<LinearGradientOrientatonMode> Orientation { get; set; }
 
+        [PropertyDescription(Description = "Change how the gradient will be handled when it is painted outside shape bounds")]
+        public EnumLayerProperty<LinearGradientRepeatmode> RepeatMode { get; set; }
+
         [PropertyDescription(Description = "Change the rotation of the gradient without affecting the rotation of the shape", InputAffix = "°")]
         public FloatLayerProperty Rotation { get; set; }
 
@@ -26,6 +30,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
             Colors.DefaultValue = ColorGradient.GetUnicornBarf();
             WaveSize.DefaultValue = 100;
             Orientation.DefaultValue = LinearGradientOrientatonMode.Horizontal;
+            RepeatMode.DefaultValue = LinearGradientRepeatmode.Repeat;
         }
 
         protected override void EnableProperties()
@@ -43,5 +48,11 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
     {
         Horizontal,
         Vertical
+    }
+
+    public enum LinearGradientRepeatmode
+    {
+        Repeat = 1,
+        Mirror = 2
     }
 }
