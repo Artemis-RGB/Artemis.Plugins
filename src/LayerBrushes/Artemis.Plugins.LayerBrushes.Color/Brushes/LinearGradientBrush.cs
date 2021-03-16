@@ -18,9 +18,13 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 SKMatrix.CreateTranslation(_scrollX, _scrollY),
                 SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY)
             );
+
             paint.Shader = SKShader.CreateLinearGradient(
                 new SKPoint(bounds.Left, bounds.Top),
-                new SKPoint(bounds.Right, bounds.Top),
+                new SKPoint(
+                    ((Properties.Orientation == LinearGradientOrientatonMode.Horizontal) ? bounds.Right : bounds.Left) * Properties.WaveSize / 100,
+                    ((Properties.Orientation == LinearGradientOrientatonMode.Horizontal) ? bounds.Top : bounds.Bottom) * Properties.WaveSize / 100
+                    ),
                 Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier),
                 Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier),
                 SKShaderTileMode.Repeat,
@@ -45,8 +49,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
         public override void Update(double deltaTime)
         {
-            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
-            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
+            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float)deltaTime;
+            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float)deltaTime;
         }
 
         #endregion
