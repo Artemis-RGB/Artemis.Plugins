@@ -22,11 +22,11 @@ namespace Artemis.Plugins.LayerEffects.Filter
 
         public override void PreProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
+            paint.ImageFilter = SKImageFilter.CreateColorFilter(SKColorFilter.CreateColorMatrix(Properties.ColorMatrix.CurrentValue), paint.ImageFilter);
         }
 
         public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            paint.ImageFilter = SKImageFilter.CreateColorFilter(SKColorFilter.CreateColorMatrix(Properties.ColorMatrix.CurrentValue), paint.ImageFilter);
         }
     }
 }

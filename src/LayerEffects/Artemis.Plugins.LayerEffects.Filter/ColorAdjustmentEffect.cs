@@ -21,10 +21,6 @@ namespace Artemis.Plugins.LayerEffects.Filter
 
         public override void PreProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-        }
-
-        public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
-        {
             SKColorFilter filter;
             switch (Properties.Type.CurrentValue)
             {
@@ -45,6 +41,10 @@ namespace Artemis.Plugins.LayerEffects.Filter
             }
 
             paint.ImageFilter = SKImageFilter.CreateColorFilter(filter, paint.ImageFilter);
+        }
+
+        public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
+        {
         }
     }
 }

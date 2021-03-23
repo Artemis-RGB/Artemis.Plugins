@@ -25,12 +25,10 @@ namespace Artemis.Plugins.LayerEffects.Filter
                 if (Properties.BlurAmount.CurrentValue.Width <= 0 && Properties.BlurAmount.CurrentValue.Height <= 0)
                     _imageFilter = null;
                 else
-                {
                     _imageFilter = SKImageFilter.CreateBlur(
                         Properties.BlurAmount.CurrentValue.Width,
                         Properties.BlurAmount.CurrentValue.Height
                     );
-                }
 
                 _lastWidth = Properties.BlurAmount.CurrentValue.Width;
                 _lastHeight = Properties.BlurAmount.CurrentValue.Height;
@@ -39,12 +37,12 @@ namespace Artemis.Plugins.LayerEffects.Filter
 
         public override void PreProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
+            if (_imageFilter != null)
+                paint.ImageFilter = SKImageFilter.CreateMerge(paint.ImageFilter, _imageFilter);
         }
 
         public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            if (_imageFilter != null)
-                paint.ImageFilter = SKImageFilter.CreateMerge(paint.ImageFilter, _imageFilter);
         }
 
         private void UpdateFilterType()

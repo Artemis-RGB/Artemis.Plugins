@@ -1,5 +1,4 @@
-﻿using Artemis.Core;
-using Artemis.Core.LayerEffects;
+﻿using Artemis.Core.LayerEffects;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerEffects.Filter
@@ -24,25 +23,6 @@ namespace Artemis.Plugins.LayerEffects.Filter
         }
 
         public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
-        {
-        }
-    }
-
-    public class OpacityEffectProperties : LayerPropertyGroup
-    {
-        [PropertyDescription(Description = "The opacity of the shape", InputAffix = "%", MinInputValue = 0f, MaxInputValue = 100f)]
-        public FloatLayerProperty Opacity { get; set; }
-
-        protected override void PopulateDefaults()
-        {
-            Opacity.DefaultValue = 100f;
-        }
-
-        protected override void EnableProperties()
-        {
-        }
-
-        protected override void DisableProperties()
         {
         }
     }

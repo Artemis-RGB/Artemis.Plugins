@@ -19,10 +19,6 @@ namespace Artemis.Plugins.LayerEffects.Filter
 
         public override void PreProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-        }
-
-        public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
-        {
             paint.ImageFilter = SKImageFilter.CreateDropShadow(
                 Properties.GlowOffset.CurrentValue.X,
                 Properties.GlowOffset.CurrentValue.Y,
@@ -31,6 +27,10 @@ namespace Artemis.Plugins.LayerEffects.Filter
                 Properties.GlowColor,
                 paint.ImageFilter
             );
+        }
+
+        public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
+        {
         }
     }
 }

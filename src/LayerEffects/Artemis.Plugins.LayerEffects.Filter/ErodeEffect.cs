@@ -19,15 +19,15 @@ namespace Artemis.Plugins.LayerEffects.Filter
 
         public override void PreProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-        }
-
-        public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
-        {
             paint.ImageFilter = SKImageFilter.CreateErode(
                 (int) Properties.ErodeRadius.CurrentValue.Width,
                 (int) Properties.ErodeRadius.CurrentValue.Height,
                 paint.ImageFilter
             );
+        }
+
+        public override void PostProcess(SKCanvas canvas, SKRect bounds, SKPaint paint)
+        {
         }
     }
 }
