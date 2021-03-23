@@ -63,6 +63,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.WebAPI", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerEffects.AudioVisualization", "LayerEffects\Artemis.Plugins.LayerEffects.AudioVisualization\Artemis.Plugins.LayerEffects.AudioVisualization.csproj", "{535C79CC-8808-4217-B4BE-A4CCD71962D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.LayerBrushes.Particle", "LayerBrushes\Artemis.Plugins.LayerBrushes.Particle\Artemis.Plugins.LayerBrushes.Particle.csproj", "{78293A28-7DF4-4398-AA7A-2459E0B650CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -165,6 +167,10 @@ Global
 		{535C79CC-8808-4217-B4BE-A4CCD71962D7}.Debug|x64.Build.0 = Debug|x64
 		{535C79CC-8808-4217-B4BE-A4CCD71962D7}.Release|x64.ActiveCfg = Release|x64
 		{535C79CC-8808-4217-B4BE-A4CCD71962D7}.Release|x64.Build.0 = Release|x64
+		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Debug|x64.ActiveCfg = Debug|x64
+		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Debug|x64.Build.0 = Debug|x64
+		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Release|x64.ActiveCfg = Release|x64
+		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,6 +200,7 @@ Global
 		{FCC3F08B-B55C-4E4F-9C73-7C6D17237B72} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 		{A2C08559-A52C-4BDF-873A-272EDEAE4437} = {798DB72F-F2F9-47BB-AB25-1297AB49D20D}
 		{535C79CC-8808-4217-B4BE-A4CCD71962D7} = {5FF45587-35D8-4D94-89FA-C04C40E781BC}
+		{78293A28-7DF4-4398-AA7A-2459E0B650CA} = {BAB14EFE-03B4-4D79-A1C9-D47D3E59D1C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}
