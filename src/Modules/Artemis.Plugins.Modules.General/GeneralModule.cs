@@ -33,8 +33,16 @@ namespace Artemis.Plugins.Modules.General
 
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
             AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow());
+            AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance());
 
             ApplyEnableActiveWindow();
+        }
+
+        private void UpdatePerformance()
+        {
+            DataModel.PerformanceDataModel.CpuUsage = Performance.GetCpuUsage();
+            DataModel.PerformanceDataModel.AvailableRam = Performance.GetPhysicalAvailableMemoryInMiB();
+            DataModel.PerformanceDataModel.TotalRam = Performance.GetTotalMemoryInMiB();
         }
 
         public override void Disable()

@@ -89,9 +89,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
     public enum SKConfettiEmitterSide
     {
         Top,
-        Left,
         Right,
         Bottom,
+        Left,
         Center,
         Bounds
     }

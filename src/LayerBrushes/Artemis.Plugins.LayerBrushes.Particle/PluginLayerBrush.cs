@@ -17,7 +17,11 @@ namespace Artemis.Plugins.LayerBrushes.Particle
 
         public override void EnableLayerBrush()
         {
-            _particleSystem = new SKConfettiSystem {Emitter = new SKConfettiEmitter(200, -1), IsRunning = true};
+            _particleSystem = new SKConfettiSystem
+            {
+                Emitter = new SKConfettiEmitter(),
+                IsRunning = true
+            };
         }
 
         public override void DisableLayerBrush()
@@ -27,25 +31,37 @@ namespace Artemis.Plugins.LayerBrushes.Particle
         public override void Update(double deltaTime)
         {
             _lastDelta = deltaTime;
-            _particleSystem.StartAngle = Properties.Angle - Properties.Spread / 2f;
-            _particleSystem.EndAngle = Properties.Angle + Properties.Spread / 2f;
+            _particleSystem.StartAngle = Properties.Emitter.Angle - Properties.Emitter.Spread / 2f;
+            _particleSystem.EndAngle = Properties.Emitter.Angle + Properties.Emitter.Spread / 2f;
 
-            _particleSystem.MinimumInitialVelocity = Properties.InitialVelocity.CurrentValue.Start;
-            _particleSystem.MaximumInitialVelocity = Properties.InitialVelocity.CurrentValue.End;
-            _particleSystem.MinimumRotationVelocity = Properties.RotationVelocity.CurrentValue.Start;
-            _particleSystem.MaximumRotationVelocity = Properties.RotationVelocity.CurrentValue.End;
-            _particleSystem.MaximumVelocity = Properties.MaximumVelocity.CurrentValue;
-            _particleSystem.Lifetime = Properties.Lifetime.CurrentValue;
-            _particleSystem.FadeOut = Properties.FadeOut.CurrentValue;
-            _particleSystem.Gravity = Properties.Gravity.CurrentValue;
-            _particleSystem.EmitterBounds = new SKConfettiEmitterBounds(Properties.EmitterSide.CurrentValue);
-
-            _particleSystem.Colors = Properties.Colors.CurrentValue.GetColorsArray().ToList();
-            _particleSystem.Emitter.ParticleRate = Properties.ParticleRate.CurrentValue;
+            _particleSystem.MinimumInitialVelocity = Properties.Particles.InitialVelocity.CurrentValue.Start;
+            _particleSystem.MaximumInitialVelocity = Properties.Particles.InitialVelocity.CurrentValue.End;
+            _particleSystem.MinimumRotationVelocity = Properties.Particles.RotationVelocity.CurrentValue.Start;
+            _particleSystem.MaximumRotationVelocity = Properties.Particles.RotationVelocity.CurrentValue.End;
+            _particleSystem.MaximumVelocity = Properties.Particles.MaximumVelocity;
+            _particleSystem.Lifetime = Properties.Particles.Lifetime;
+            _particleSystem.FadeOut = Properties.Particles.FadeOut;
+            _particleSystem.Gravity = Properties.Gravity;
+            _particleSystem.Colors = Properties.Particles.Colors.CurrentValue.GetColorsArray().ToList();
+            _particleSystem.Emitter.ParticleRate = Properties.Emitter.ParticleRate;
         }
 
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
+            if (Properties.Emitter.EmitterPosition != EmitterPosition.Custom)
+            {
+                _particleSystem.EmitterBounds = new SKConfettiEmitterBounds((SKConfettiEmitterSide) Properties.Emitter.EmitterPosition.CurrentValue);
+            }
+            else
+            {
+                _particleSystem.EmitterBounds = new SKConfettiEmitterBounds(
+                    Properties.Emitter.CustomEmitterPosition.CurrentValue.X / 100f * bounds.Width,
+                    Properties.Emitter.CustomEmitterPosition.CurrentValue.Y / 100f * bounds.Height,
+                    Properties.Emitter.CustomEmitterSize.CurrentValue.Width / 100f * bounds.Width,
+                    Properties.Emitter.CustomEmitterSize.CurrentValue.Height / 100f * bounds.Height
+                );
+            }
+
             _particleSystem.UpdateEmitterBounds(bounds.Width, bounds.Height);
             _particleSystem.Draw(canvas, TimeSpan.FromSeconds(Math.Max(0, _lastDelta)), paint);
         }
