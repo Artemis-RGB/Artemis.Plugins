@@ -12,10 +12,10 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         public IntLayerProperty WaveSize { get; set; }
 
         [PropertyDescription(Description = "Change the orientation of the gradient without affecting the orientation of the shape")]
-        public EnumLayerProperty<LinearGradientOrientatonMode> Orientation { get; set; }
+        public EnumLayerProperty<LinearGradientOrientationMode> Orientation { get; set; }
 
         [PropertyDescription(Description = "Change how the gradient will be handled when it is painted outside shape bounds")]
-        public EnumLayerProperty<LinearGradientRepeatmode> RepeatMode { get; set; }
+        public EnumLayerProperty<LinearGradientRepeatMode> RepeatMode { get; set; }
 
         [PropertyDescription(Description = "Change de rotation of the gradient without affecting the rotation of the shape", InputAffix = "°")]
         public FloatLayerProperty Rotation { get; set; }
@@ -29,8 +29,8 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         {
             Colors.DefaultValue = ColorGradient.GetUnicornBarf();
             WaveSize.DefaultValue = 100;
-            Orientation.DefaultValue = LinearGradientOrientatonMode.Horizontal;
-            RepeatMode.DefaultValue = LinearGradientRepeatmode.Repeat;
+            Orientation.DefaultValue = LinearGradientOrientationMode.Horizontal;
+            RepeatMode.DefaultValue = LinearGradientRepeatMode.Repeat;
         }
 
         protected override void EnableProperties()
@@ -44,13 +44,13 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         #endregion
     }
 
-    public enum LinearGradientOrientatonMode
+    public enum LinearGradientOrientationMode
     {
         Horizontal,
         Vertical
     }
 
-    public enum LinearGradientRepeatmode
+    public enum LinearGradientRepeatMode
     {
         Repeat = 1,
         RepeatSeamless = 2,
