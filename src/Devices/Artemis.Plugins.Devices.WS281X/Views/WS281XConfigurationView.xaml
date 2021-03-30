@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -12,7 +13,9 @@
             <Style x:Key="CenteredTextColumn" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
+            <shared:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         </ResourceDictionary>
+
     </UserControl.Resources>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -23,26 +26,21 @@
                     <StackPanel Margin="15">
                         <Grid>
                             <StackPanel>
-                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Introduction</TextBlock>
-                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
-                                    This plugin supports both Arduino and Bitwizard devices in combination with WS2812B- and WS2811-Led-devices.<LineBreak />
+                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}">Introduction</TextBlock>
+                                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" TextWrapping="Wrap">
+                                    This plugin supports Arduino, Bitwizard and ESP8266 devices in combination with WS2812B- and WS2811-LED strips.<LineBreak />
                                     To get started you can use the sketches found on the RGB.NET repository.
                                 </TextBlock>
 
-                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
-                                    - For Arduino use
-                                    <Hyperlink NavigateUri="https://github.com/DarthAffe/RGB.NET/blob/master/RGB.NET.Devices.WS281X/Sketches/RGB.NET_Arduino.ino"
+                                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                           Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}"
+                                           TextWrapping="Wrap"
+                                           Margin="0 5">
+                                    More details and instructions can be found on the
+                                    <Hyperlink NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/ws281x"
                                                RequestNavigate="{s:Action OpenHyperlink}"
                                                Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-                                        this sketch
-                                    </Hyperlink>
-                                    .
-                                    <LineBreak />
-                                    - For Bitwizard use
-                                    <Hyperlink NavigateUri="https://github.com/DarthAffe/RGB.NET/blob/master/RGB.NET.Devices.WS281X/Sketches/RGB.NET_Bitwizard_compatible.ino"
-                                               RequestNavigate="{s:Action OpenHyperlink}"
-                                               Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-                                        this sketch
+                                        WS281X wiki page
                                     </Hyperlink>
                                     .
                                 </TextBlock>
@@ -50,77 +48,112 @@
                         </Grid>
                         <Separator Style="{StaticResource MaterialDesignSeparator}" Margin="-15 5" />
 
+                        <DataGrid ItemsSource="{Binding Definitions}"
+                                  AutoGenerateColumns="False"
+                                  CanUserSortColumns="True"
+                                  CanUserAddRows="False"
+                                  HeadersVisibility="Column"
+                                  materialDesign:DataGridAssist.CellPadding="8"
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                                  Background="{StaticResource MaterialDesignCardBackground}"
+                                  MaxHeight="300">
+                            <DataGrid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                        <Setter Property="Background" Value="{x:Null}" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{x:Null}" />
+                                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    <Style TargetType="{x:Type DataGridRow}">
+                                        <Setter Property="Background" Value="{x:Null}" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{x:Null}" />
+                                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ResourceDictionary>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <materialDesign:DataGridTextColumn Width="2*"
+                                                                   Binding="{Binding Name}"
+                                                                   Header="Name"
+                                                                   IsReadOnly="True"
+                                                                   ElementStyle="{StaticResource CenteredTextColumn}" />
+                                <materialDesign:DataGridTextColumn Width="0.5*"
+                                                                   Binding="{Binding Type}"
+                                                                   Header="Type"
+                                                                   IsReadOnly="True"
+                                                                   ElementStyle="{StaticResource CenteredTextColumn}" />
+
+                                <DataGridTemplateColumn Width="1*" Header="COM port" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Port}" Visibility="{Binding Port, Converter={StaticResource NullToVisibilityConverter}}" />
+                                                <TextBlock Visibility="{Binding Port, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Inverted}">N/A</TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="1*" Header="Hostname" IsReadOnly="True" CanUserResize="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Hostname}" Visibility="{Binding Hostname, Converter={StaticResource NullToVisibilityConverter}}" />
+                                                <TextBlock Visibility="{Binding Hostname, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Inverted}">N/A</TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserResize="False" Width="60">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" HorizontalAlignment="Right">
+                                                <StackPanel>
+                                                    <Button Content="Edit" Command="{s:Action EditDevice}" CommandParameter="{Binding}" />
+                                                    <Button Content="Remove from list" Command="{s:Action RemoveDevice}" CommandParameter="{Binding}" />
+                                                </StackPanel>
+                                            </materialDesign:PopupBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- General settings -->
+                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 15">General</TextBlock>
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Stretch" Margin="0,0,5,0">
+                    <StackPanel Margin="15">
                         <Grid>
-                            <DataGrid ItemsSource="{Binding Definitions}"
-                                      AutoGenerateColumns="False"
-                                      CanUserSortColumns="True"
-                                      CanUserAddRows="False"
-                                      HeadersVisibility="Column"
-                                      materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-                                      materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                                      Background="{StaticResource MaterialDesignCardBackground}">
-                                <DataGrid.Resources>
-                                    <ResourceDictionary>
-                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
-                                            <Setter Property="Background" Value="{x:Null}" />
-                                            <Setter Property="BorderBrush" Value="{x:Null}" />
-                                            <Style.Triggers>
-                                                <Trigger Property="IsSelected" Value="True">
-                                                    <Setter Property="Background" Value="{x:Null}" />
-                                                    <Setter Property="BorderBrush" Value="{x:Null}" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                        <Style TargetType="{x:Type DataGridRow}">
-                                            <Setter Property="Background" Value="{x:Null}" />
-                                            <Setter Property="BorderBrush" Value="{x:Null}" />
-                                            <Style.Triggers>
-                                                <Trigger Property="IsSelected" Value="True">
-                                                    <Setter Property="Background" Value="{x:Null}" />
-                                                    <Setter Property="BorderBrush" Value="{x:Null}" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </ResourceDictionary>
-                                </DataGrid.Resources>
-                                <DataGrid.Columns>
-                                    <materialDesign:DataGridTextColumn Width="2*"
-                                                                       Binding="{Binding Name}"
-                                                                       Header="Name"
-                                                                       IsReadOnly="True"
-                                                                       ElementStyle="{StaticResource CenteredTextColumn}" />
-                                    <materialDesign:DataGridTextColumn Width="0.5*"
-                                                                       Binding="{Binding Type}"
-                                                                       Header="Type"
-                                                                       IsReadOnly="True"
-                                                                       ElementStyle="{StaticResource CenteredTextColumn}" />
-                                    <materialDesign:DataGridTextColumn Width="1*"
-                                                                       Binding="{Binding Port}"
-                                                                       Header="COM port"
-                                                                       IsReadOnly="True"
-                                                                       ElementStyle="{StaticResource CenteredTextColumn}" />
-                                    <materialDesign:DataGridTextColumn Width="1*"
-                                                                       Binding="{Binding Hostname}"
-                                                                       Header="Hostname"
-                                                                       IsReadOnly="True"
-                                                                       ElementStyle="{StaticResource CenteredTextColumn}" />
-                                    <DataGridTemplateColumn CanUserResize="False" Width="60">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="MaterialDesignIconForegroundButton" Height="35" Width="35">
-                                                    <materialDesign:PackIcon Kind="DotsVertical" />
-                                                    <Button.ContextMenu>
-                                                        <ContextMenu>
-                                                            <MenuItem Header="Edit" Command="{s:Action EditDevice}" CommandParameter="{Binding}" />
-                                                            <MenuItem Header="Remove from list" Command="{s:Action RemoveDevice}" CommandParameter="{Binding}" />
-                                                        </ContextMenu>
-                                                    </Button.ContextMenu>
-                                                </Button>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Turn off LEDs on shutdown</TextBlock>
+                                <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
+                                        If enabled, all LEDs are turned off before the plugin is disabled (which happens on Artemis shutdown).
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding TurnOffLedsOnShutdown}" />
+                            </StackPanel>
                         </Grid>
                     </StackPanel>
                 </materialDesign:Card>

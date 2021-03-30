@@ -1,7 +1,9 @@
-﻿using Artemis.Core.LayerEffects;
+﻿using Artemis.Core;
+using Artemis.Core.LayerEffects;
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
+    [PluginFeature(AlwaysEnabled = true)]
     public class FilterEffectProvider : LayerEffectProvider
     {
         public override void Enable()

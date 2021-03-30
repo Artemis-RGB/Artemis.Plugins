@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "Artemis.Plugins.LayerBrushes.ColorRgbNet": {
-      "commandName": "Executable",
-      "executablePath": ".\\Artemis.UI.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"
-    }
-  }
-}
