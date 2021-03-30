@@ -75,7 +75,7 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs
             _device.Port = Port;
             _device.Hostname = Hostname;
 
-            Session.Close(_device);
+            Session.Close(true);
         }
     }
 

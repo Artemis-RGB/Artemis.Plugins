@@ -1,7 +1,9 @@
-﻿using Artemis.Core.LayerBrushes;
+﻿using Artemis.Core;
+using Artemis.Core.LayerBrushes;
 
 namespace Artemis.Plugins.LayerBrushes.Color
 {
+    [PluginFeature(AlwaysEnabled = true)]
     public class ColorBrushProvider : LayerBrushProvider
     {
         public override void Enable()

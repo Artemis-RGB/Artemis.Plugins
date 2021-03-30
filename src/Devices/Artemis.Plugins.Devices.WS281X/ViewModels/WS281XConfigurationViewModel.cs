@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using Artemis.Core;
+using Artemis.Core.Services;
 using Artemis.Plugins.Devices.WS281X.Settings;
 using Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs;
 using Artemis.UI.Shared;
@@ -12,18 +13,31 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
 {
     public class WS281XConfigurationViewModel : PluginConfigurationViewModel
     {
-        private readonly IDialogService _dialogService;
         private readonly PluginSetting<List<DeviceDefinition>> _definitions;
+        private readonly IDialogService _dialogService;
+        private readonly IPluginManagementService _pluginManagementService;
+        private readonly PluginSettings _settings;
+        private bool _turnOffLedsOnShutdown;
 
-        public WS281XConfigurationViewModel(Plugin plugin, PluginSettings settings, IDialogService dialogService) : base(plugin)
+        public WS281XConfigurationViewModel(Plugin plugin, PluginSettings settings, IDialogService dialogService, IPluginManagementService pluginManagementService)
+            : base(plugin)
         {
+            _settings = settings;
             _dialogService = dialogService;
-            _definitions = settings.GetSetting<List<DeviceDefinition>>("DeviceDefinitions");
-            
+            _pluginManagementService = pluginManagementService;
+            _definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
+
+            TurnOffLedsOnShutdown = _settings.GetSetting("TurnOffLedsOnShutdown", false).Value;
             Definitions = new BindableCollection<DeviceDefinition>(_definitions.Value);
         }
 
         public BindableCollection<DeviceDefinition> Definitions { get; }
+
+        public bool TurnOffLedsOnShutdown
+        {
+            get => _turnOffLedsOnShutdown;
+            set => SetAndNotify(ref _turnOffLedsOnShutdown, value);
+        }
 
         public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
         {
@@ -32,11 +46,11 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
 
         public async Task AddDevice()
         {
-            DeviceDefinition device = new DeviceDefinition {Name = $"Device {_definitions.Value.Count + 1}"};
-            Dictionary<string, object> parameters = new Dictionary<string, object> {{"device", device}};
+            DeviceDefinition device = new() {Name = $"Device {_definitions.Value.Count + 1}"};
+            Dictionary<string, object> parameters = new() {{"device", device}};
             object result = await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
 
-            if (result == null)
+            if (result is bool boolResult && boolResult == false || result is not bool)
                 return;
 
             _definitions.Value.Add(device);
@@ -47,7 +61,7 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
 
         public async Task EditDevice(DeviceDefinition device)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object> {{"device", device}};
+            Dictionary<string, object> parameters = new() {{"device", device}};
             await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
 
             _definitions.Save();
@@ -60,5 +74,27 @@ namespace Artemis.Plugins.Devices.WS281X.ViewModels
 
             _definitions.Save();
         }
+
+        #region Overrides of Screen
+
+        /// <inheritdoc />
+        protected override void OnClose()
+        {
+            _settings.GetSetting("TurnOffLedsOnShutdown", false).Value = TurnOffLedsOnShutdown;
+            _settings.GetSetting("TurnOffLedsOnShutdown", false).Save();
+
+            // Fire & forget re-enabling the plugin
+            Task.Run(() =>
+            {
+                WS281XDeviceProvider deviceProvider = Plugin.GetFeature<WS281XDeviceProvider>();
+                if (deviceProvider == null || !deviceProvider.IsEnabled) return;
+                _pluginManagementService.DisablePluginFeature(deviceProvider, false);
+                _pluginManagementService.EnablePluginFeature(deviceProvider, false);
+            });
+            
+            base.OnClose();
+        }
+
+        #endregion
     }
 }

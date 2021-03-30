@@ -1,4 +1,5 @@
-﻿using Artemis.Core.LayerBrushes;
+﻿using Artemis.Core;
+using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Color.PropertyGroups;
 using SkiaSharp;
 
@@ -14,18 +15,32 @@ namespace Artemis.Plugins.LayerBrushes.Color
         /// <inheritdoc />
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
+            // For brevity's sake
+            ColorGradient gradient = Properties.Colors.BaseValue;
+            
             SKMatrix matrix = SKMatrix.Concat(
                 SKMatrix.CreateTranslation(_scrollX, _scrollY),
                 SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY)
             );
+            
+            // LinearGradientRepeatMode.Mirror is currently the only setting that requires a different tile mode
+            SKShaderTileMode tileMode = Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.Mirror
+                ? SKShaderTileMode.Mirror
+                : SKShaderTileMode.Repeat;
+
+            // Render gradient
             paint.Shader = SKShader.CreateLinearGradient(
                 new SKPoint(bounds.Left, bounds.Top),
-                new SKPoint(bounds.Right, bounds.Top),
-                Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier),
-                Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier),
-                SKShaderTileMode.Repeat,
+                new SKPoint(
+                    (Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Right : bounds.Left) * Properties.WaveSize / 100,
+                    (Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Top : bounds.Bottom) * Properties.WaveSize / 100
+                ),
+                gradient.GetColorsArray(0, Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.RepeatSeamless),
+                gradient.GetPositionsArray(0, Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.RepeatSeamless),
+                tileMode,
                 matrix
             );
+
             canvas.DrawRect(bounds, paint);
             paint.Shader?.Dispose();
             paint.Shader = null;

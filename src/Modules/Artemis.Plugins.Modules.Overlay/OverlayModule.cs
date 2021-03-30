@@ -4,7 +4,7 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.Overlay
 {
-    // The core of your module. Hover over the method names to see a description.
+    [PluginFeature(AlwaysEnabled = true)]
     public class OverlayModule : ProfileModule
     {
         // This is the beginning of your plugin life cycle. Use this instead of a constructor.

@@ -1,20 +1,23 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
+using Serilog;
+using RGBDeviceProvider = RGB.NET.Devices.Corsair.CorsairDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Corsair
 {
     // ReSharper disable once UnusedMember.Global
     public class CorsairDeviceProvider : DeviceProvider
     {
+        private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
 
-        public CorsairDeviceProvider(IRgbService rgbService) : base(RGB.NET.Devices.Corsair.CorsairDeviceProvider.Instance)
+        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService) : base(RGBDeviceProvider.Instance)
         {
+            _logger = logger;
             _rgbService = rgbService;
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
@@ -22,11 +25,18 @@ namespace Artemis.Plugins.Devices.Corsair
 
         public override void Enable()
         {
-            RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2017.dll"));
-            RGB.NET.Devices.Corsair.CorsairDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2017.dll"));
+            RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2017.dll"));
+            RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2017.dll"));
             try
             {
                 _rgbService.AddDeviceProvider(RgbDeviceProvider);
+                
+                if (RGBDeviceProvider.Instance.ProtocolDetails == null) return;
+                _logger.Debug("Corsair SDK details");
+                _logger.Debug(" - SDK version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkVersion);
+                _logger.Debug(" - SDK protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkProtocolVersion);
+                _logger.Debug(" - Server version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerVersion);
+                _logger.Debug(" - Server protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerProtocolVersion);
             }
             catch (CUEException e)
             {

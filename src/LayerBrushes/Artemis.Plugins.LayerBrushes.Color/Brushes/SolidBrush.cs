@@ -7,17 +7,20 @@ namespace Artemis.Plugins.LayerBrushes.Color
 {
     public class SolidBrush : LayerBrush<SolidBrushProperties>
     {
-        private float _position;
+        private float _animationPosition;
 
         #region Overrides of LayerBrush<SolidBrushProperties>
 
         /// <inheritdoc />
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            if (Properties.EnableColorAnimation)
-                paint.Shader = SKShader.CreateColor(Properties.Colors.CurrentValue.GetColor(_position));
-            else
-                paint.Shader = SKShader.CreateColor(Properties.Color);
+            paint.Shader = Properties.ColorMode.CurrentValue switch
+            {
+                SolidBrushColorMode.Static => SKShader.CreateColor(Properties.Color),
+                SolidBrushColorMode.GradientPosition => SKShader.CreateColor(Properties.Colors.CurrentValue.GetColor(Properties.GradientPosition / 100f)),
+                SolidBrushColorMode.GradientAnimation => SKShader.CreateColor(Properties.Colors.CurrentValue.GetColor(_animationPosition)),
+                _ => SKShader.CreateColor(Properties.Color)
+            };
 
             canvas.DrawRect(bounds, paint);
             paint.Shader?.Dispose();
@@ -38,9 +41,9 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
         public override void Update(double deltaTime)
         {
-            // Take 4 seconds for a full rotation at 100%
-            float newPosition = _position + Properties.AnimationSpeed / 400f * (float) deltaTime;
-            _position = newPosition - 1f * (float) Math.Floor(newPosition / 1f);
+            // Take 1 sec for a full rotation at 100%
+            float newPosition = _animationPosition + Properties.AnimationSpeed / 100f * (float) deltaTime;
+            _animationPosition = newPosition - 1f * (float) Math.Floor(newPosition / 1f);
         }
 
         #endregion

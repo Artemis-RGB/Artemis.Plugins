@@ -3,7 +3,7 @@
     "Artemis.Plugins.LayerBrushes.Noise": {
       "commandName": "Executable",
       "executablePath": ".\\Artemis.UI.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\x64\\Debug\\net5.0-windows"
+      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"
     }
   }
 }

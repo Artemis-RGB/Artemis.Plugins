@@ -12,6 +12,7 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.General
 {
+    [PluginFeature(AlwaysEnabled = true)]
     public class GeneralModule : ProfileModule<GeneralDataModel>
     {
         private readonly IColorQuantizerService _quantizerService;
