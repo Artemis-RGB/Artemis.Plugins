@@ -3,6 +3,8 @@ using System.Linq;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Particle.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Particle.SKParticle;
+using Artemis.Plugins.LayerBrushes.Particle.ViewModels;
+using Artemis.UI.Shared.LayerBrushes;
 using SkiaSharp;
 
 
@@ -17,6 +19,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle
 
         public override void EnableLayerBrush()
         {
+            ConfigurationDialog = new LayerBrushConfigurationDialog<ParticlesConfigurationViewModel>();
+
             _particleSystem = new SKConfettiSystem
             {
                 Emitter = new SKConfettiEmitter(),
