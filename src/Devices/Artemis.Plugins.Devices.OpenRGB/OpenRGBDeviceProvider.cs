@@ -10,32 +10,31 @@ namespace Artemis.Plugins.Devices.OpenRGB
     public class OpenRGBDeviceProvider : DeviceProvider
     {
         private readonly IRgbService _rgbService;
-        private readonly PluginSettings _settings;
+
+        private readonly PluginSetting<List<OpenRGBServerDefinition>> _deviceDefinitionsSettings;
+        private readonly PluginSetting<bool> _forceAddAllDevicesSetting;
 
         public OpenRGBDeviceProvider(IRgbService rgbService, PluginSettings settings) : base(RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance)
         {
             _rgbService = rgbService;
-            _settings = settings;
-        }
-
-        public override void Enable()
-        {
-            PluginSetting<List<OpenRGBServerDefinition>> definitions = _settings.GetSetting<List<OpenRGBServerDefinition>>("DeviceDefinitions");
-            if (definitions.Value is null)
+            _forceAddAllDevicesSetting = settings.GetSetting("ForceAddAllDevices", false);
+            _deviceDefinitionsSettings = settings.GetSetting("DeviceDefinitions", new List<OpenRGBServerDefinition>
             {
-                definitions.Value = new List<OpenRGBServerDefinition>();
-                OpenRGBServerDefinition definition = new()
+                new()
                 {
                     ClientName = "Artemis",
                     Ip = "127.0.0.1",
                     Port = 6742
-                };
-                definitions.Value.Add(definition);
-                definitions.Save();
-            }
+                }
+            });
+        }
 
-            foreach (OpenRGBServerDefinition def in definitions.Value) 
+        public override void Enable()
+        {
+            foreach (OpenRGBServerDefinition def in _deviceDefinitionsSettings.Value)
                 RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.Add(def);
+
+            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.ForceAddAllDevices = _forceAddAllDevicesSetting.Value;
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
