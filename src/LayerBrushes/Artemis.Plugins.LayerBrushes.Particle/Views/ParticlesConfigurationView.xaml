@@ -31,7 +31,7 @@
 
                         <Separator Style="{StaticResource MaterialDesignSeparator}" Margin="-15 5" />
 
-                        <DataGrid ItemsSource="{Binding Definitions}"
+                        <DataGrid ItemsSource="{Binding ParticleViewModels}"
                                   AutoGenerateColumns="False"
                                   CanUserSortColumns="True"
                                   CanUserAddRows="False"
@@ -65,27 +65,55 @@
                                 </ResourceDictionary>
                             </DataGrid.Resources>
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn Width="1*" Header="Preview" IsReadOnly="True" CanUserResize="False">
+                                <DataGridTemplateColumn Width="80" Header="Preview" IsReadOnly="True" CanUserResize="False" CanUserReorder="False">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel VerticalAlignment="Center">
-                                                <TextBlock Text="{Binding Port}" Visibility="{Binding Port, Converter={StaticResource NullToVisibilityConverter}}" />
-                                                <TextBlock Visibility="{Binding Port, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Inverted}">N/A</TextBlock>
-                                            </StackPanel>
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Rectangle Visibility="{Binding IsRectangleType, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                                                           Fill="{DynamicResource MaterialDesignBody}"
+                                                           Width="22"
+                                                           Height="22" />
+                                                <Ellipse Visibility="{Binding IsEllipseType, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                                                         Fill="{DynamicResource MaterialDesignBody}"
+                                                         Width="22"
+                                                         Height="22" />
+                                                <Path Data="{Binding PathGeometry}"
+                                                      Fill="{DynamicResource MaterialDesignBody}"
+                                                      Stretch="Fill"
+                                                      Width="22"
+                                                      Height="22" />
+                                            </Grid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <materialDesign:DataGridTextColumn Width="0.5*"
-                                                                   Binding="{Binding Type}"
+                                <materialDesign:DataGridTextColumn Width="*"
+                                                                   Binding="{Binding ParticleType}"
                                                                    Header="Type"
                                                                    IsReadOnly="True"
                                                                    ElementStyle="{StaticResource CenteredTextColumn}" />
+                              
+                                <DataGridTemplateColumn Width="*" Header="Width" IsReadOnly="True" CanUserResize="False" CanUserReorder="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center">
+                                                <Run Text="{Binding ParticleConfiguration.MinWidth}" /><Run Text="px -" />
+                                                <Run Text="{Binding ParticleConfiguration.MaxWidth}" /><Run Text="px" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                                <materialDesign:DataGridTextColumn Width="1*"
-                                                                   Binding="{Binding SpawnChance}"
-                                                                   Header="Spawn chance"
-                                                                   IsReadOnly="True"
-                                                                   ElementStyle="{StaticResource CenteredTextColumn}" />
+                                <DataGridTemplateColumn Width="*" Header="Height" IsReadOnly="True" CanUserResize="False" CanUserReorder="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center">
+                                                <Run Text="{Binding ParticleConfiguration.MinHeight}" /><Run Text="px -" />
+                                                <Run Text="{Binding ParticleConfiguration.MaxHeight}" /><Run Text="px" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
 
                                 <DataGridTemplateColumn CanUserResize="False" Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -107,11 +135,11 @@
         </ScrollViewer>
         <Button Grid.Row="0"
                 Style="{StaticResource MaterialDesignFloatingActionButton}"
-                Command="{s:Action AddDevice}"
+                Command="{s:Action AddParticle}"
                 Margin="0 0 20 20"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                ToolTip="Add a new device">
+                ToolTip="Add a new particle">
             <materialDesign:PackIcon Kind="Add" Height="24" Width="24" />
         </Button>
     </Grid>

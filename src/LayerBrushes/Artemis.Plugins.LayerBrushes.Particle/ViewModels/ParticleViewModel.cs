@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Windows.Media;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using Stylet;
 
@@ -7,27 +7,21 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
 {
     public class ParticleViewModel : Screen
     {
-        private readonly ParticleConfiguration _particleConfiguration;
-        private float _minHeight;
-
+        private readonly Random _rand;
         private ParticleType _particleType;
-        private float _spawnChance;
-        private float _minWidth;
-        private float _maxWidth;
-        private float _maxHeight;
+        private Geometry _pathGeometry;
+        private double _previewHeight;
+        private double _previewWidth;
 
         public ParticleViewModel(ParticleConfiguration particleConfiguration)
         {
-            _particleConfiguration = particleConfiguration;
+            _rand = new Random();
 
-            ParticleType = particleConfiguration.ParticleType;
-            SpawnChance = particleConfiguration.SpawnChance;
-            MinWidth = particleConfiguration.MinWidth;
-            MaxWidth = particleConfiguration.MaxWidth;
-            MinHeight = particleConfiguration.MinHeight;
-            MaxHeight = particleConfiguration.MaxHeight;
-            Points = particleConfiguration.Points.ToList();
+            ParticleConfiguration = particleConfiguration;
+            Update();
         }
+
+        public ParticleConfiguration ParticleConfiguration { get; }
 
         public ParticleType ParticleType
         {
@@ -35,49 +29,46 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
             set => SetAndNotify(ref _particleType, value);
         }
 
-        public float SpawnChance
+        public double PreviewWidth
         {
-            get => _spawnChance;
-            set => SetAndNotify(ref _spawnChance, value);
+            get => _previewWidth;
+            set => SetAndNotify(ref _previewWidth, value);
         }
 
-        public float MinWidth
+        public double PreviewHeight
         {
-            get => _minWidth;
-            set => SetAndNotify(ref _minWidth, value);
+            get => _previewHeight;
+            set => SetAndNotify(ref _previewHeight, value);
         }
 
-        public float MaxWidth
+        public Geometry PathGeometry
         {
-            get => _maxWidth;
-            set => SetAndNotify(ref _maxWidth, value);
+            get => _pathGeometry;
+            set => SetAndNotify(ref _pathGeometry, value);
         }
 
-        public float MinHeight
+        public bool IsRectangleType => ParticleType == ParticleType.Rectangle;
+        public bool IsEllipseType => ParticleType == ParticleType.Ellipse;
+        public bool IsPathType => ParticleType == ParticleType.Path;
+
+        public void Update()
         {
-            get => _minHeight;
-            set => SetAndNotify(ref _minHeight, value);
+            ParticleType = ParticleConfiguration.ParticleType;
+            if (IsPathType)
+                PathGeometry = Geometry.Parse(ParticleConfiguration.Path);
+
+            NotifyOfPropertyChange(nameof(ParticleConfiguration));
+            NotifyOfPropertyChange(nameof(IsRectangleType));
+            NotifyOfPropertyChange(nameof(IsEllipseType));
+            NotifyOfPropertyChange(nameof(IsPathType));
+
+            RandomizePreview();
         }
 
-        public float MaxHeight
+        public void RandomizePreview()
         {
-            get => _maxHeight;
-            set => SetAndNotify(ref _maxHeight, value);
-        }
-
-        public List<float> Points { get; }
-
-        public void Apply()
-        {
-            _particleConfiguration.ParticleType = ParticleType;
-            _particleConfiguration.SpawnChance = SpawnChance;
-            _particleConfiguration.MinWidth = MinWidth;
-            _particleConfiguration.MaxWidth = MaxWidth;
-            _particleConfiguration.MinHeight = MinHeight;
-            _particleConfiguration.MaxHeight = MaxHeight;
-            _particleConfiguration.Points = Points.ToArray();
-
-            RequestClose();
+            PreviewWidth = _rand.Next((int) (ParticleConfiguration.MinWidth * 100), (int) (ParticleConfiguration.MaxWidth * 100)) / 100.0;
+            PreviewHeight = _rand.Next((int) (ParticleConfiguration.MinHeight * 100), (int) (ParticleConfiguration.MaxHeight * 100)) / 100.0;
         }
     }
 }

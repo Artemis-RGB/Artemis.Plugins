@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Artemis.Core.LayerBrushes;
+using Artemis.Plugins.LayerBrushes.Particle.Models;
 using Artemis.Plugins.LayerBrushes.Particle.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Particle.SKParticle;
+using Artemis.Plugins.LayerBrushes.Particle.SKParticle.Shapes;
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels;
 using Artemis.UI.Shared.LayerBrushes;
 using SkiaSharp;
@@ -68,6 +71,30 @@ namespace Artemis.Plugins.LayerBrushes.Particle
 
             _particleSystem.UpdateEmitterBounds(bounds.Width, bounds.Height);
             _particleSystem.Draw(canvas, TimeSpan.FromSeconds(Math.Max(0, _lastDelta)), paint);
+        }
+
+        public void LoadParticles()
+        {
+            List<SKConfettiShape> shapes = new();
+            foreach (ParticleConfiguration particleConfiguration in Properties.ParticleConfigurations.CurrentValue)
+            {
+                switch (particleConfiguration.ParticleType)
+                {
+                    case ParticleType.Rectangle:
+                        shapes.Add(new SKConfettiRectShape(1));
+                        break;
+                    case ParticleType.Ellipse:
+                        shapes.Add(new SKConfettiCircleShape());
+                        break;
+                    case ParticleType.Path:
+                        shapes.Add(new SKConfettiPathShape(SKPath.ParseSvgPathData(particleConfiguration.Path)));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            _particleSystem.Shapes = shapes;
         }
     }
 }

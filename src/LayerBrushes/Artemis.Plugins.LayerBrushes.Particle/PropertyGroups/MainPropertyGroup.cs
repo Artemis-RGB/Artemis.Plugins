@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Artemis.Core;
-using Artemis.Plugins.LayerBrushes.Particle.SKParticle;
+using Artemis.Plugins.LayerBrushes.Particle.Models;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
@@ -15,9 +15,13 @@ namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
         [PropertyDescription]
         public SKPointLayerProperty Gravity { get; set; }
 
+        [PropertyDescription]
+        public LayerProperty<List<ParticleConfiguration>> ParticleConfigurations { get; set; }
+
         protected override void PopulateDefaults()
         {
             Gravity.DefaultValue = new SKPoint(0, 9.81f);
+            ParticleConfigurations.DefaultValue = new List<ParticleConfiguration>();
         }
 
         protected override void EnableProperties()
@@ -73,7 +77,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
     {
         [PropertyDescription]
         public ColorGradientLayerProperty Colors { get; set; }
-        
+
         [PropertyDescription]
         public FloatRangeLayerProperty InitialVelocity { get; set; }
 
@@ -92,7 +96,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
 
         protected override void PopulateDefaults()
         {
-            Colors.DefaultValue = new ColorGradient()
+            Colors.DefaultValue = new ColorGradient
             {
                 Stops =
                 {
@@ -101,7 +105,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
                     new ColorGradientStop(new SKColor(255, 80, 0), 1f)
                 }
             };
-            
+
             InitialVelocity.DefaultValue = new FloatRange(100f, 200f);
             RotationVelocity.DefaultValue = new FloatRange(10f, 75f);
             MaximumVelocity.DefaultValue = 0f;
