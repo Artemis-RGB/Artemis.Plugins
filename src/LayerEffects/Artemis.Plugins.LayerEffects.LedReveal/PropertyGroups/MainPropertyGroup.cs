@@ -7,26 +7,36 @@ namespace Artemis.Plugins.LayerEffects.LedReveal.PropertyGroups
         [PropertyDescription(InputAffix = "%", MinInputValue = 0, MaxInputValue = 100)]
         public FloatLayerProperty Percentage { get; set; }
 
-        [PropertyDescription]
-        public BoolLayerProperty ShowAllRevealedLeds { get; set; }
+        [PropertyDescription(Description = "The rounding function to apply to the percentage")]
+        public EnumLayerProperty<RoundingFunction> RoundingFunction { get; set; }
 
-        [PropertyDescription(MinInputValue = 1)]
-        public IntLayerProperty MaxShownLeds { get; set; }
+        [PropertyDescription(Name = "Limit visible LEDs", Description = "Enables the max visible LEDs option")]
+        public BoolLayerProperty LimitVisibleLeds { get; set; }
+
+        [PropertyDescription(Name = "Max visible LEDs", Description = "The last X amount of LEDs to show", MinInputValue = 1)]
+        public IntLayerProperty MaxVisibleLeds { get; set; }
 
         protected override void PopulateDefaults()
         {
-            ShowAllRevealedLeds.DefaultValue = true;
-            MaxShownLeds.DefaultValue = 1;
+            LimitVisibleLeds.DefaultValue = false;
+            MaxVisibleLeds.DefaultValue = 1;
             Percentage.DefaultValue = 100f;
         }
 
         protected override void EnableProperties()
         {
-            MaxShownLeds.IsVisibleWhen(ShowAllRevealedLeds, s => !s);
+            MaxVisibleLeds.IsVisibleWhen(LimitVisibleLeds, s => s);
         }
 
         protected override void DisableProperties()
         {
         }
+    }
+
+    public enum RoundingFunction
+    {
+        Round,
+        Floor,
+        Ceiling
     }
 }
