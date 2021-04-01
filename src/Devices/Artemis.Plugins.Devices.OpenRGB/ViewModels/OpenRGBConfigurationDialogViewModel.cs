@@ -33,6 +33,11 @@ namespace Artemis.Plugins.Devices.OpenRGB
             ForceAddAllDevices = _forceAddAllDevicesSetting.Value;
         }
 
+        public void AddDefinition()
+        {
+            Definitions.Add(new OpenRGBServerDefinition());
+        }
+
         public void DeleteRow(object def)
         {
             if (def is OpenRGBServerDefinition serverDefinition)

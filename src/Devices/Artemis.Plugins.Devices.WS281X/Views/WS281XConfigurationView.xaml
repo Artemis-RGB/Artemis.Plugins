@@ -15,8 +15,8 @@
             </Style>
             <shared:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         </ResourceDictionary>
-
     </UserControl.Resources>
+
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel Margin="15" MaxWidth="800">
@@ -55,7 +55,7 @@
                                   HeadersVisibility="Column"
                                   materialDesign:DataGridAssist.CellPadding="8"
                                   materialDesign:DataGridAssist.ColumnHeaderPadding="8"
-                                  Background="{StaticResource MaterialDesignCardBackground}"
+                                  Background="{DynamicResource MaterialDesignCardBackground}"
                                   MaxHeight="300">
                             <DataGrid.Resources>
                                 <ResourceDictionary>
