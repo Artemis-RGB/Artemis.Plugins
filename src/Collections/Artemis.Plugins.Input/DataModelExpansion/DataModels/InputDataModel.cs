@@ -60,10 +60,33 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
         [DataModelProperty(Description = "A list containing all currently pressed buttons")]
         public List<MouseButton> PressedButtons { get; set; }
 
+        [DataModelProperty(Name = "Scroll events", Description = "Set of events that are triggered when mouse scroll is done")]
+        public MouseScrollDataModel ScrollEvents { get; set; } = new();
+
         [DataModelProperty(Description = "An event that triggers each time a mouse button is pressed down")]
         public DataModelEvent<MouseEventArgs> ButtonDown { get; set; } = new();
         [DataModelProperty(Description = "An event that triggers each time a mouse button is released")]
         public DataModelEvent<MouseEventArgs> ButtonUp { get; set; } = new();
+    }
+
+    public class MouseScrollDataModel : DataModel
+    {
+        public MouseScrollDataModel()
+        {
+          
+        }
+
+        [DataModelProperty(Name = "Scroll Up", Description = "An event that triggers each time a mouse scroll up is done.")]
+        public DataModelEvent IsScrollingUp { get; set; } = new DataModelEvent();
+
+        [DataModelProperty(Name = "Scroll Down", Description = "An event that triggers each time a mouse scroll down is done.")]
+        public DataModelEvent IsScrollingDown { get; set; } = new DataModelEvent();
+
+        [DataModelProperty(Name = "Scroll Left", Description = "An event that triggers each time a mouse scroll left is done.")]
+        public DataModelEvent IsScrollingLeft { get; set; } = new DataModelEvent();
+
+        [DataModelProperty(Name = "Scroll Right", Description = "An event that triggers each time a mouse scroll right is done.")]
+        public DataModelEvent IsScrollingRight { get; set; } = new DataModelEvent();
     }
 
     public class KeyboardEventArgs : DataModelEventArgs
