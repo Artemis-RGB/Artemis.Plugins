@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
@@ -79,9 +80,9 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
                         case AnimationType.CircleWhilePressed:
                             _effects.Add(new KeypressWhilePressed(this, led, relativeLedPosition));
                             break;
-                        // case AnimationType.CircleOnPress:
-                        //     _effects.Add(new KeypressOnPress(this, led, relativeLedPosition));
-                        //     break;
+                        case AnimationType.Ripple:
+                             _effects.Add(new KeypressRipple(this, led, relativeLedPosition));
+                             break;
                         case AnimationType.Echo:
                             _effects.Add(new KeyPressEcho(this, led, relativeLedPosition));
                             break;
