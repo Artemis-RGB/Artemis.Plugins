@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Page Include="Properties\DesignTimeResources.xaml"
-          Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+          Condition="'$(DesignTime)'=='true'">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>

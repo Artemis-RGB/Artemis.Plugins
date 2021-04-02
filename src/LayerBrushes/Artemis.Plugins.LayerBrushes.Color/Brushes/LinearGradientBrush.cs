@@ -9,20 +9,21 @@ namespace Artemis.Plugins.LayerBrushes.Color
     {
         private float _scrollX;
         private float _scrollY;
-
-        #region Overrides of LayerBrush<LinearGradientBrushProperties>
+        private SKRect _lastBounds;
 
         /// <inheritdoc />
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
+            _lastBounds = bounds;
+
             // For brevity's sake
             ColorGradient gradient = Properties.Colors.BaseValue;
-            
+
             SKMatrix matrix = SKMatrix.Concat(
-                SKMatrix.CreateTranslation(_scrollX, _scrollY),
-                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY)
+                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY),
+                SKMatrix.CreateTranslation(_scrollX, _scrollY)
             );
-            
+
             // LinearGradientRepeatMode.Mirror is currently the only setting that requires a different tile mode
             SKShaderTileMode tileMode = Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.Mirror
                 ? SKShaderTileMode.Mirror
@@ -46,10 +47,6 @@ namespace Artemis.Plugins.LayerBrushes.Color
             paint.Shader = null;
         }
 
-        #endregion
-
-        #region Overrides of BaseLayerBrush
-
         public override void EnableLayerBrush()
         {
         }
@@ -62,8 +59,13 @@ namespace Artemis.Plugins.LayerBrushes.Color
         {
             _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
             _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
-        }
 
-        #endregion
+            if (_lastBounds.IsEmpty)
+                return;
+            
+            // Look at twice the width and height to support mirror repeat mode
+            _scrollX %= (_lastBounds.Width * 2);
+            _scrollY %= (_lastBounds.Height * 2);
+        }
     }
 }

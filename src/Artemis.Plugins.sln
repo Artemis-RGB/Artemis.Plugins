@@ -63,6 +63,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerEffect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.LayerBrushes.Particle", "LayerBrushes\Artemis.Plugins.LayerBrushes.Particle\Artemis.Plugins.LayerBrushes.Particle.csproj", "{78293A28-7DF4-4398-AA7A-2459E0B650CA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerEffects.LedReveal", "LayerEffects\Artemis.Plugins.LayerEffects.LedReveal\Artemis.Plugins.LayerEffects.LedReveal.csproj", "{2A0261BB-528D-4854-AFB8-E6EF0790619A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -165,6 +167,10 @@ Global
 		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Debug|x64.Build.0 = Debug|x64
 		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Release|x64.ActiveCfg = Release|x64
 		{78293A28-7DF4-4398-AA7A-2459E0B650CA}.Release|x64.Build.0 = Release|x64
+		{2A0261BB-528D-4854-AFB8-E6EF0790619A}.Debug|x64.ActiveCfg = Debug|x64
+		{2A0261BB-528D-4854-AFB8-E6EF0790619A}.Debug|x64.Build.0 = Debug|x64
+		{2A0261BB-528D-4854-AFB8-E6EF0790619A}.Release|x64.ActiveCfg = Release|x64
+		{2A0261BB-528D-4854-AFB8-E6EF0790619A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

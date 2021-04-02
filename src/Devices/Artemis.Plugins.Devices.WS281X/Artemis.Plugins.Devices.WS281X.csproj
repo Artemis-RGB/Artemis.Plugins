@@ -33,7 +33,7 @@
 
 	<ItemGroup>
 		<Page Include="Properties\DesignTimeResources.xaml"
-		      Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+		      Condition="'$(DesignTime)'=='true'">
 			<Generator>MSBuild:Compile</Generator>
 			<SubType>Designer</SubType>
 			<ContainsDesignTimeResources>true</ContainsDesignTimeResources>
@@ -88,11 +88,6 @@
 	<!--Workaround for the wrong System.IO.Ports being copied (https://github.com/dotnet/runtime/issues/25375) -->
 	<ItemGroup>
 		<TestPath Include="$(PublishDir)\runtimes" />
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="Properties\DesignTimeResources.xaml">
-			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-		</Page>
 	</ItemGroup>
 	<Target Name="SystemIOPortsWorkaround" AfterTargets="Publish" Condition="Exists(@(TestPath))">
 		<Copy SourceFiles="$(PublishDir)\runtimes\win\lib\netstandard2.0\System.IO.Ports.dll" DestinationFolder="$(PublishDir)" />

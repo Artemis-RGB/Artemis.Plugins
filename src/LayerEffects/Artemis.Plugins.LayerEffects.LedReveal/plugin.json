@@ -1,0 +1,7 @@
+{
+  "Guid": "b16b8abe-44c6-4422-a8c7-d05631229d0f",
+  "Name": "LED reveal effect",
+  "Description": "Provides the LED reveal layer effect",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.LayerEffects.LedReveal.dll"
+}

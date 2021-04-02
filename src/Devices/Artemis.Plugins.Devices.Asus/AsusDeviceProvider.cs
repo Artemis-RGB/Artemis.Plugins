@@ -13,6 +13,9 @@ namespace Artemis.Plugins.Devices.Asus
         public AsusDeviceProvider(IRgbService rgbService) : base(RGB.NET.Devices.Asus.AsusDeviceProvider.Instance)
         {
             _rgbService = rgbService;
+
+            // The ASUS SDK does not handle extra LEDs very well at all (stack corruption and all that!)
+            CreateMissingLedsSupported = false;
         }
 
         public override void Enable()
