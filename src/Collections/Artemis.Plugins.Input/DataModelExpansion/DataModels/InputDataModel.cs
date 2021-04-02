@@ -77,16 +77,16 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
         }
 
         [DataModelProperty(Name = "Scroll Up", Description = "An event that triggers each time a mouse scroll up is done.")]
-        public DataModelEvent<MouseScrollEventArgs> IsScrollingUp { get; set; } = new();
+        public DataModelEvent<MouseScrollEventArgs> ScrollUp { get; set; } = new();
 
         [DataModelProperty(Name = "Scroll Down", Description = "An event that triggers each time a mouse scroll down is done.")]
-        public DataModelEvent<MouseScrollEventArgs> IsScrollingDown { get; set; } = new();
+        public DataModelEvent<MouseScrollEventArgs> ScrollDown { get; set; } = new();
 
         [DataModelProperty(Name = "Scroll Left", Description = "An event that triggers each time a mouse scroll left is done.")]
-        public DataModelEvent<MouseScrollEventArgs> IsScrollingLeft { get; set; } = new();
+        public DataModelEvent<MouseScrollEventArgs> ScrollLeft { get; set; } = new();
 
         [DataModelProperty(Name = "Scroll Right", Description = "An event that triggers each time a mouse scroll right is done.")]
-        public DataModelEvent<MouseScrollEventArgs> IsScrollingRight { get; set; } = new();
+        public DataModelEvent<MouseScrollEventArgs> ScrollRight { get; set; } = new();
     }
 
     public class KeyboardEventArgs : DataModelEventArgs
@@ -127,7 +127,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
 
         [DataModelProperty(Description = "Amount of scroll steps")]
         public int Delta { get; set; }
-        [DataModelProperty(Description = "The name of the device on which the key was pressed")]
+        [DataModelProperty(Description = "The name of the device which was used to scroll")]
         public string Device { get; set; }
     }
 }

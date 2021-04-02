@@ -31,10 +31,10 @@ namespace Artemis.Plugins.Input.DataModelExpansion
         private void InputServiceOnMouseScrollStatusChanged(object sender, ArtemisMouseScrollEventArgs e)
         {
             DataModel.TimeSinceLastInput = TimeSpan.Zero;
-            if (e.IsScrollingUp) { DataModel.Mouse.ScrollEvents.IsScrollingUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingDown) { DataModel.Mouse.ScrollEvents.IsScrollingDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingLeft) { DataModel.Mouse.ScrollEvents.IsScrollingLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingRight) { DataModel.Mouse.ScrollEvents.IsScrollingRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            if (e.IsScrollingUp) { DataModel.Mouse.ScrollEvents.ScrollUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingDown) { DataModel.Mouse.ScrollEvents.ScrollDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingLeft) { DataModel.Mouse.ScrollEvents.ScrollLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingRight) { DataModel.Mouse.ScrollEvents.ScrollRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
         }
 
         public override void Disable()
