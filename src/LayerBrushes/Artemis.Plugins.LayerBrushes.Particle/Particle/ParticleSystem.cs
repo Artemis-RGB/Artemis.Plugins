@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Artemis.Plugins.LayerBrushes.Particle.SKParticle.Shapes;
+using Artemis.Plugins.LayerBrushes.Particle.Models;
 using SkiaSharp;
 
-namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
+namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 {
-    public class SKConfettiSystem
+    public class ParticleSystem
     {
-        private readonly List<SKConfettiParticle> _particles = new();
+        private readonly List<Particle> _particles = new();
         private readonly Random _random = new();
         private SKRect _actualEmitterBounds;
-        private SKConfettiEmitter _emitter;
+        private ParticleEmitter _emitter;
         private bool _isRunning;
-        private SKRect _lastViewBounds;
 
         public bool IsRunning
         {
@@ -24,21 +23,21 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
             }
         }
 
-        public SKConfettiEmitter Emitter
+        public ParticleEmitter Emitter
         {
             get => _emitter;
             set
             {
-                SKConfettiEmitter oldValue = _emitter;
+                ParticleEmitter oldValue = _emitter;
                 _emitter = value;
                 OnEmitterChanged(oldValue, _emitter);
             }
         }
 
-        public SKConfettiEmitterBounds EmitterBounds { get; set; } = SKConfettiEmitterBounds.Top;
+        public ParticleEmitterBounds EmitterBounds { get; set; } = new(SKConfettiEmitterSide.Center);
         public List<SKColor> Colors { get; set; } = CreateDefaultColors();
-        public List<SKConfettiPhysics> Physics { get; set; } = CreateDefaultPhysics();
-        public List<SKConfettiShape> Shapes { get; set; } = CreateDefaultShapes();
+        public List<float> Masses { get; set; } = CreateDefaultMasses();
+        public List<ParticleConfiguration> Configurations { get; set; } = new();
         public float StartAngle { get; set; }
         public float EndAngle { get; set; } = 360f;
         public float MinimumInitialVelocity { get; set; } = 100f;
@@ -50,7 +49,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
         public bool FadeOut { get; set; } = true;
         public SKPoint Gravity { get; set; } = new(0, 9.81f);
         public bool IsComplete { get; set; }
-        internal int ParticleCount => _particles.Count;
 
         public void Draw(SKCanvas canvas, TimeSpan deltaTime, SKPaint paint)
         {
@@ -62,11 +60,11 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
             bool removed = false;
             for (int i = _particles.Count - 1; i >= 0; i--)
             {
-                SKConfettiParticle particle = _particles[i];
+                Particle particle = _particles[i];
 
                 particle.ApplyForce(g, deltaTime);
 
-                if (!particle.IsComplete && _lastViewBounds.IntersectsWith(particle.Bounds))
+                if (!particle.IsComplete)
                 {
                     particle.Draw(canvas, deltaTime, paint);
                 }
@@ -83,8 +81,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
 
         public void UpdateEmitterBounds(float width, float height)
         {
-            _lastViewBounds = new SKRect(0, 0, width, height);
-
             _actualEmitterBounds = EmitterBounds.Side switch
             {
                 SKConfettiEmitterSide.Top => SKRect.Create(0, -10, width, 0),
@@ -99,28 +95,21 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
         private void OnCreateParticle(int count)
         {
             if (Colors == null || Colors.Count == 0 ||
-                Physics == null || Physics.Count == 0 ||
-                Shapes == null || Shapes.Count == 0)
+                Masses == null || Masses.Count == 0 ||
+                Configurations == null || Configurations.Count == 0)
                 return;
 
             for (int i = 0; i < count; i++)
             {
                 SKColor c = Colors[_random.Next(Colors.Count)];
-                SKConfettiPhysics p = Physics[_random.Next(Physics.Count)];
-                SKConfettiShape s = Shapes[_random.Next(Shapes.Count)];
-
-                SKConfettiParticle particle = new()
+                float mass = Masses[_random.Next(Masses.Count)];
+                ParticleConfiguration conf = Configurations[_random.Next(Configurations.Count)];
+                Particle particle = new(conf)
                 {
                     Location = GetNewLocation(),
                     Velocity = GetNewVelocity(),
-                    RotationVelocity = GetNewRotationVelocity(),
-
                     Color = c,
-                    Size = p.Size,
-                    Mass = p.Mass,
-                    Shape = s,
-                    Rotation = GetNewRotation(),
-
+                    Mass = mass,
                     MaximumVelocity = new SKPoint(MaximumVelocity, MaximumVelocity),
                     FadeOut = FadeOut,
                     Lifetime = Lifetime
@@ -150,22 +139,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
 
                 return new SKPoint(vx, vy);
             }
-
-            float GetNewRotationVelocity()
-            {
-                if (MaximumRotationVelocity < MinimumRotationVelocity)
-                    return 0;
-
-                return MinimumRotationVelocity + (float) _random.NextDouble() * (MaximumRotationVelocity - MinimumRotationVelocity);
-            }
-
-            float GetNewRotation()
-            {
-                return (float) _random.NextDouble() * 360f;
-            }
         }
 
-        private void OnEmitterChanged(SKConfettiEmitter oldValue, SKConfettiEmitter newValue)
+        private void OnEmitterChanged(ParticleEmitter oldValue, ParticleEmitter newValue)
         {
             if (oldValue != null)
                 oldValue.ParticlesCreated -= OnCreateParticle;
@@ -197,24 +173,12 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
             };
         }
 
-        private static List<SKConfettiPhysics> CreateDefaultPhysics()
+        private static List<float> CreateDefaultMasses()
         {
             return new()
             {
-                new SKConfettiPhysics(60, 2),
-                new SKConfettiPhysics(80, 3)
-            };
-        }
-
-        private static List<SKConfettiShape> CreateDefaultShapes()
-        {
-            return new()
-            {
-                new SKConfettiSquareShape(),
-                new SKConfettiCircleShape(),
-                new SKConfettiRectShape(0.5),
-                new SKConfettiOvalShape(0.5),
-                new SKConfettiRectShape(0.1)
+                2,
+                3
             };
         }
     }

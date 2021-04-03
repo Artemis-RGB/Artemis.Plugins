@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using Artemis.Plugins.LayerBrushes.Particle.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs;
 using Artemis.UI.Shared.LayerBrushes;
 using Artemis.UI.Shared.Services;
-using MaterialDesignThemes.Wpf;
 using Stylet;
 
 namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
@@ -17,7 +15,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
         private readonly IDialogService _dialogService;
         private readonly IProfileEditorService _profileEditorService;
 
-        public ParticlesConfigurationViewModel(PluginLayerBrush particlesBrush,
+        public ParticlesConfigurationViewModel(ParticleLayerBrush particlesBrush,
             IDialogService dialogService,
             IProfileEditorService profileEditorService) : base(particlesBrush)
         {
@@ -30,7 +28,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
             LoadConfiguration();
         }
 
-        public PluginLayerBrush ParticlesBrush { get; }
+        public ParticleLayerBrush ParticlesBrush { get; }
         public MainPropertyGroup Properties { get; }
         public BindableCollection<ParticleViewModel> ParticleViewModels { get; }
 
@@ -71,7 +69,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
         private void Save()
         {
             _profileEditorService.UpdateSelectedProfileElement();
-            ParticlesBrush.LoadParticles();
         }
 
         private void LoadConfiguration()

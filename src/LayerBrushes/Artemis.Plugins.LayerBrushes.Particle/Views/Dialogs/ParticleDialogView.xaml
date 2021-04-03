@@ -3,71 +3,124 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Artemis.Plugins.LayerBrushes.Particle.Views.Dialogs"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:dialogs="clr-namespace:Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance dialogs:ParticleDialogViewModel}">
-    <StackPanel Margin="20" Width="240">
-        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0 0 0 25">
+    <Grid Margin="20" Width="480">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0 0 0 25">
             Add/edit Particle
         </TextBlock>
 
-        <ComboBox materialDesign:HintAssist.Hint="Type"
-                  Margin="0 5"
-                  SelectedValue="{Binding ParticleType}"
-                  ItemsSource="{Binding ParticleTypes}"
-                  SelectedValuePath="Value"
-                  DisplayMemberPath="Description"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <ComboBox materialDesign:HintAssist.Hint="Type"
+                      Margin="0 5"
+                      SelectedValue="{Binding ParticleType}"
+                      ItemsSource="{Binding ParticleTypes}"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
-        <TextBox Visibility="{Binding IsCustomPath, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
-                 materialDesign:HintAssist.Hint="SVG path data"
-                 Margin="0 5"
-                 Text="{Binding Path}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Height="100"
-                 AcceptsReturn="True"
-                 TextWrapping="Wrap"
-                 VerticalScrollBarVisibility="Auto"/>
-        <TextBlock Visibility="{Binding IsCustomPath, Converter={x:Static s:BoolToVisibilityConverter.Instance}}" 
-                   Margin="0 0 0 10"
-                   TextWrapping="Wrap">
-            Tools to get path data can be found on the
-            <Hyperlink NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/profiles/brushes/particle"
-                       RequestNavigate="{s:Action OpenHyperlink}"
-                       Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-                Particle Brush wiki page
-            </Hyperlink>.
-        </TextBlock>
+            <TextBox Visibility="{Binding IsCustomPath, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                     materialDesign:HintAssist.Hint="SVG path data"
+                     Margin="0 5"
+                     Text="{Binding Path}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Height="100"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" />
+            <TextBlock Visibility="{Binding IsCustomPath, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                       Margin="0 0 0 10"
+                       TextWrapping="Wrap">
+                Tools to get path data can be found on the
+                <Hyperlink NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/profiles/brushes/particle"
+                           RequestNavigate="{s:Action OpenHyperlink}"
+                           Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                    Particle Brush wiki page
+                </Hyperlink>
+                .
+            </TextBlock>
 
-        <TextBox materialDesign:HintAssist.Hint="Minimum width"
-                 materialDesign:TextFieldAssist.SuffixText="px"
-                 Margin="0 5"
-                 Text="{Binding MinWidth, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox materialDesign:HintAssist.Hint="Minimum width"
+                     materialDesign:TextFieldAssist.SuffixText="px"
+                     Margin="0 5"
+                     Text="{Binding MinWidth, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <TextBox materialDesign:HintAssist.Hint="Maximum width"
-                 materialDesign:TextFieldAssist.SuffixText="px"
-                 Margin="0 5"
-                 Text="{Binding MaxWidth, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox materialDesign:HintAssist.Hint="Maximum width"
+                     materialDesign:TextFieldAssist.SuffixText="px"
+                     Margin="0 5"
+                     Text="{Binding MaxWidth, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <TextBox materialDesign:HintAssist.Hint="Minimum height"
-                 materialDesign:TextFieldAssist.SuffixText="px"
-                 Margin="0 5"
-                 Text="{Binding MinHeight, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox materialDesign:HintAssist.Hint="Minimum height"
+                     materialDesign:TextFieldAssist.SuffixText="px"
+                     Margin="0 5"
+                     Text="{Binding MinHeight, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <TextBox materialDesign:HintAssist.Hint="Maximum height"
-                 materialDesign:TextFieldAssist.SuffixText="px"
-                 Margin="0 5"
-                 Text="{Binding MaxHeight, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox materialDesign:HintAssist.Hint="Maximum height"
+                     materialDesign:TextFieldAssist.SuffixText="px"
+                     Margin="0 5"
+                     Text="{Binding MaxHeight, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 35 0 0">
+        </StackPanel>
+
+        <Rectangle Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" Fill="{StaticResource MaterialDesignTextBoxBorder}" Width="1" Margin="0 0 0 5" />
+
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <TextBox materialDesign:HintAssist.Hint="Min. X rotation speed"
+                     materialDesign:TextFieldAssist.SuffixText="deg/s"
+                     Margin="0 5"
+                     Text="{Binding MinRotationVelocityX, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Max. X rotation speed"
+                     materialDesign:TextFieldAssist.SuffixText="deg/s"
+                     Margin="0 5"
+                     Text="{Binding MaxRotationVelocityX, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Min. Y rotation speed"
+                     materialDesign:TextFieldAssist.SuffixText="deg/s"
+                     Margin="0 5"
+                     Text="{Binding MinRotationVelocityY, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Max. Y rotation speed"
+                     materialDesign:TextFieldAssist.SuffixText="deg/s"
+                     Margin="0 5"
+                     Text="{Binding MaxRotationVelocityY, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Min. Z rotation speed"
+                     materialDesign:TextFieldAssist.SuffixText="deg/s"
+                     Margin="0 5"
+                     Text="{Binding MinRotationVelocityZ, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Max. Z rotation speed"
+                     materialDesign:TextFieldAssist.SuffixText="deg/s"
+                     Margin="0 5"
+                     Text="{Binding MaxRotationVelocityZ, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 35 0 0">
             <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Margin="0 0 8 0" Command="{s:Action Cancel}">
                 <Button.CommandParameter>
                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
@@ -85,5 +138,5 @@
                 ACCEPT
             </Button>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </UserControl>

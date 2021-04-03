@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Artemis.Plugins.LayerBrushes.Particle.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared"
@@ -14,7 +13,6 @@
             <Style x:Key="CenteredTextColumn" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <shared:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -91,7 +89,7 @@
                                                                    Header="Type"
                                                                    IsReadOnly="True"
                                                                    ElementStyle="{StaticResource CenteredTextColumn}" />
-                              
+
                                 <DataGridTemplateColumn Width="*" Header="Width" IsReadOnly="True" CanUserResize="False" CanUserReorder="False">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>

@@ -17,8 +17,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
         private readonly ParticleConfiguration _particleConfiguration;
         private readonly ParticleViewModel _particleViewModel;
         private float _maxHeight;
+        private float _maxRotationVelocityX;
+        private float _maxRotationVelocityY;
+        private float _maxRotationVelocityZ;
         private float _maxWidth;
         private float _minHeight;
+        private float _minRotationVelocityX;
+        private float _minRotationVelocityY;
+        private float _minRotationVelocityZ;
         private float _minWidth;
 
         private ParticleType _particleType;
@@ -34,6 +40,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             MaxWidth = _particleConfiguration.MaxWidth;
             MinHeight = _particleConfiguration.MinHeight;
             MaxHeight = _particleConfiguration.MaxHeight;
+
+            MinRotationVelocityX = _particleConfiguration.MinRotationVelocityX;
+            MaxRotationVelocityX = _particleConfiguration.MaxRotationVelocityX;
+            MinRotationVelocityY = _particleConfiguration.MinRotationVelocityY;
+            MaxRotationVelocityY = _particleConfiguration.MaxRotationVelocityY;
+            MinRotationVelocityZ = _particleConfiguration.MinRotationVelocityZ;
+            MaxRotationVelocityZ = _particleConfiguration.MaxRotationVelocityZ;
+
             Path = _particleConfiguration.Path;
 
             ParticleTypes = new BindableCollection<ValueDescription>(EnumUtilities.GetAllValuesAndDescriptions(typeof(ParticleType)));
@@ -89,6 +103,42 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             }
         }
 
+        public float MinRotationVelocityX
+        {
+            get => _minRotationVelocityX;
+            set => SetAndNotify(ref _minRotationVelocityX, value);
+        }
+
+        public float MaxRotationVelocityX
+        {
+            get => _maxRotationVelocityX;
+            set => SetAndNotify(ref _maxRotationVelocityX, value);
+        }
+
+        public float MinRotationVelocityY
+        {
+            get => _minRotationVelocityY;
+            set => SetAndNotify(ref _minRotationVelocityY, value);
+        }
+
+        public float MaxRotationVelocityY
+        {
+            get => _maxRotationVelocityY;
+            set => SetAndNotify(ref _maxRotationVelocityY, value);
+        }
+
+        public float MinRotationVelocityZ
+        {
+            get => _minRotationVelocityZ;
+            set => SetAndNotify(ref _minRotationVelocityZ, value);
+        }
+
+        public float MaxRotationVelocityZ
+        {
+            get => _maxRotationVelocityZ;
+            set => SetAndNotify(ref _maxRotationVelocityZ, value);
+        }
+
         public string Path
         {
             get => _path;
@@ -116,6 +166,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             _particleConfiguration.MaxWidth = MaxWidth;
             _particleConfiguration.MinHeight = MinHeight;
             _particleConfiguration.MaxHeight = MaxHeight;
+
+            _particleConfiguration.MinRotationVelocityX = MinRotationVelocityX;
+            _particleConfiguration.MaxRotationVelocityX = MaxRotationVelocityX;
+            _particleConfiguration.MinRotationVelocityY = MinRotationVelocityY;
+            _particleConfiguration.MaxRotationVelocityY = MaxRotationVelocityY;
+            _particleConfiguration.MinRotationVelocityZ = MinRotationVelocityZ;
+            _particleConfiguration.MaxRotationVelocityZ = MaxRotationVelocityZ;
+
             _particleConfiguration.Path = Path;
 
             _particleViewModel.Update();

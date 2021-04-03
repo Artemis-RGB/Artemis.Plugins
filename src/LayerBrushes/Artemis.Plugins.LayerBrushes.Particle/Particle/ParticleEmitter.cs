@@ -1,20 +1,10 @@
 ﻿using System;
 
-namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
+namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 {
-    public class SKConfettiEmitter
+    public class ParticleEmitter
     {
         private double _totalParticles;
-
-        public SKConfettiEmitter()
-        {
-        }
-
-        public SKConfettiEmitter(int particleRate, int maxParticles)
-        {
-            ParticleRate = particleRate;
-            MaxParticles = maxParticles;
-        }
 
         public int ParticleRate { get; set; } = 100;
         public int MaxParticles { get; set; } = -1;
@@ -27,17 +17,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle
 
             int before = (int) _totalParticles;
 
-            double particles = (ParticleRate * deltaTime.TotalSeconds);
+            double particles = ParticleRate * deltaTime.TotalSeconds;
             if (MaxParticles > 0)
                 particles = Math.Min(particles, MaxParticles);
 
             _totalParticles += particles;
 
             int after = (int) _totalParticles;
-            if (before < after)
-            {
-                OnParticlesCreated(after - before);
-            }
+            if (before < after) OnParticlesCreated(after - before);
 
 
             IsComplete = MaxParticles > 0 && _totalParticles >= MaxParticles;

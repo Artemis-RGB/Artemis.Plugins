@@ -1,23 +1,20 @@
 ﻿using System;
 using SkiaSharp;
 
-namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle.Shapes
+namespace Artemis.Plugins.LayerBrushes.Particle.Particle.Shapes
 {
-    public class SKConfettiPathShape : SKConfettiShape
+    public class ParticlePathShape : ParticleShape
     {
-        private SKPath _path;
         private SKSize _baseSize;
+        private SKPath _path;
 
-        public SKConfettiPathShape()
-        {
-        }
-
-        public SKConfettiPathShape(SKPath path)
+        public ParticlePathShape(SKPath path)
         {
             Path = path ?? throw new ArgumentNullException(nameof(path));
+            Path.Transform(SKMatrix.CreateTranslation(Path.Bounds.Left * -1 + Path.Bounds.Width / 2f * -1, Path.Bounds.Top * -1 + Path.Bounds.Height / 2f * -1));
         }
 
-        public SKPath? Path
+        public SKPath Path
         {
             get => _path;
             set
@@ -27,16 +24,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle.SKParticle.Shapes
             }
         }
 
-        protected override void OnDraw(SKCanvas canvas, SKPaint paint, float size)
+        protected override void OnDraw(SKCanvas canvas, SKPaint paint, float width, float height)
         {
             if (_baseSize.Width <= 0 || _baseSize.Height <= 0 || Path == null)
                 return;
 
             canvas.Save();
-            canvas.Scale(size / _baseSize.Width, size / _baseSize.Height);
-
+            canvas.Scale(width / _baseSize.Width, width / _baseSize.Height);
             canvas.DrawPath(Path, paint);
-
             canvas.Restore();
         }
     }
