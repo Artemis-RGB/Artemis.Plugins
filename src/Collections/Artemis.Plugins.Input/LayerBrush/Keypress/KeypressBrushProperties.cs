@@ -24,10 +24,10 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         {
             Color.DefaultValue = new SKColor(255, 0, 0);
             Colors.DefaultValue = new ColorGradient();
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 255, 0, 255), 0.0f));
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.7f));
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.85f));
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 0, 0, 0), 1.0f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 255, 0, 255), 0.0f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.7f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.85f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 0), 1.0f));
 
             FadeEcho.DefaultValue = true;
             EchoLifetime.DefaultValue = 1;

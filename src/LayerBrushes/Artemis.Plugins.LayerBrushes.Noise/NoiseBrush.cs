@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
@@ -23,12 +24,13 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             _z = Rand.Next(0, 4096);
             _noise = new OpenSimplexNoise(Rand.Next(0, 4096));
 
-            Properties.GradientColor.BaseValue.PropertyChanged += GradientColorChanged;
+            Properties.GradientColor.BaseValue.CollectionChanged += GradientOnCollectionChanged;
             CreateColorMap();
         }
 
         public override void DisableLayerBrush()
         {
+            Properties.GradientColor.BaseValue.CollectionChanged -= GradientOnCollectionChanged;
         }
 
         public override void Update(double deltaTime)
@@ -77,7 +79,7 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             return SKColor.Empty;
         }
 
-        private void GradientColorChanged(object sender, PropertyChangedEventArgs e)
+        private void GradientOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             CreateColorMap();
         }
