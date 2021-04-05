@@ -3,7 +3,7 @@ using Artemis.Core;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using SkiaSharp;
 
-namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
+namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
 {
     public class MainPropertyGroup : LayerPropertyGroup
     {
@@ -64,8 +64,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
 
         protected override void EnableProperties()
         {
-            CustomEmitterPosition.IsVisibleWhen(EmitterPosition, p => p.CurrentValue == PropertyGroups.EmitterPosition.Custom);
-            CustomEmitterSize.IsVisibleWhen(EmitterPosition, p => p.CurrentValue == PropertyGroups.EmitterPosition.Custom);
+            CustomEmitterPosition.IsVisibleWhen(EmitterPosition, p => p.CurrentValue == LayerBrushes.Particle.LayerProperties.EmitterPosition.Custom);
+            CustomEmitterSize.IsVisibleWhen(EmitterPosition, p => p.CurrentValue == LayerBrushes.Particle.LayerProperties.EmitterPosition.Custom);
         }
 
         protected override void DisableProperties()
@@ -98,12 +98,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle.PropertyGroups
         {
             Colors.DefaultValue = new ColorGradient
             {
-                Stops =
-                {
-                    new ColorGradientStop(new SKColor(255, 60, 0), 0f),
-                    new ColorGradientStop(new SKColor(255, 128, 0), 0.5f),
-                    new ColorGradientStop(new SKColor(255, 80, 0), 1f)
-                }
+                new(new SKColor(255, 60, 0), 0f),
+                new(new SKColor(255, 128, 0), 0.5f),
+                new(new SKColor(255, 80, 0), 1f)
             };
 
             InitialVelocity.DefaultValue = new FloatRange(100f, 200f);

@@ -29,13 +29,23 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
             if (RotationVelocityZ != 0)
                 RotationZ = Rand.Next(0, 360);
 
-            Shape = configuration.ParticleType switch
+            switch (configuration.ParticleType)
             {
-                ParticleType.Rectangle => new ParticleRectShape(),
-                ParticleType.Ellipse => new ParticleCircleShape(),
-                ParticleType.Path => new ParticlePathShape(SKPath.ParseSvgPathData(Configuration.Path)),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+                case ParticleType.Rectangle:
+                    Shape = new ParticleRectShape();
+                    break;
+                case ParticleType.Ellipse:
+                    Shape = new ParticleCircleShape();
+                    break;
+                case ParticleType.Path:
+                {
+                    SKPath path = SKPath.ParseSvgPathData(Configuration.Path);
+                    Shape = path != null ? new ParticlePathShape(path) : new ParticleRectShape();
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public ParticleConfiguration Configuration { get; }
@@ -86,15 +96,18 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         public double Lifetime { get; set; }
         public SKRect Bounds { get; private set; }
         public bool IsComplete { get; private set; }
+        public bool HasBeenDrawn { get; set; }
 
-        public void Draw(SKCanvas canvas, TimeSpan deltaTime, SKPaint paint)
+        public void Draw(SKCanvas canvas, SKPaint paint)
         {
             if (IsComplete || Shape == null)
                 return;
 
+            HasBeenDrawn = true;
+
             canvas.Save();
             SKMatrix matrix = SKMatrix.CreateTranslation(Location.X, Location.Y);
-
+            
             // Use 3D matrix for 3D rotations and perspective
             SKMatrix44 matrix44 = SKMatrix44.CreateIdentity();
             if (RotationX != 0)
@@ -103,7 +116,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                 matrix44.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, RotationY));
             if (RotationZ != 0)
                 matrix44.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, RotationZ));
-
+            
             matrix = matrix.PreConcat(matrix44.Matrix);
             canvas.SetMatrix(canvas.TotalMatrix.PreConcat(matrix));
 

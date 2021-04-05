@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using SkiaSharp;
 
@@ -35,7 +36,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         }
 
         public ParticleEmitterBounds EmitterBounds { get; set; } = new(SKConfettiEmitterSide.Center);
-        public List<SKColor> Colors { get; set; } = CreateDefaultColors();
+        public SKRect Bounds { get; set; }
+        public List<SKColor> Colors { get; set; } = new();
         public List<float> Masses { get; set; } = CreateDefaultMasses();
         public List<ParticleConfiguration> Configurations { get; set; } = new();
         public float StartAngle { get; set; }
@@ -50,25 +52,20 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         public SKPoint Gravity { get; set; } = new(0, 9.81f);
         public bool IsComplete { get; set; }
 
-        public void Draw(SKCanvas canvas, TimeSpan deltaTime, SKPaint paint)
+        public void Update(TimeSpan deltaTime)
         {
             if (IsRunning)
                 Emitter?.Update(deltaTime);
 
             SKPoint g = Gravity;
-
             bool removed = false;
+
             for (int i = _particles.Count - 1; i >= 0; i--)
             {
                 Particle particle = _particles[i];
-
                 particle.ApplyForce(g, deltaTime);
 
-                if (!particle.IsComplete)
-                {
-                    particle.Draw(canvas, deltaTime, paint);
-                }
-                else
+                if (particle.IsComplete || particle.HasBeenDrawn && !Bounds.IntersectsWithInclusive(particle.Bounds))
                 {
                     _particles.RemoveAt(i);
                     removed = true;
@@ -77,6 +74,15 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 
             if (removed)
                 UpdateIsComplete();
+        }
+
+        public void Draw(SKCanvas canvas, SKPaint paint)
+        {
+            for (int i = _particles.Count - 1; i >= 0; i--)
+            {
+                Particle particle = _particles[i];
+                particle.Draw(canvas, paint);
+            }
         }
 
         public void UpdateEmitterBounds(float width, float height)
@@ -156,21 +162,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                 _particles.Count == 0 &&
                 Emitter?.IsComplete != false &&
                 IsRunning;
-        }
-
-        private static List<SKColor> CreateDefaultColors()
-        {
-            return new()
-            {
-                new SKColor(0xfffce18a),
-                new SKColor(0xffff726d),
-                new SKColor(0xffb48def),
-                new SKColor(0xfff4306d),
-                new SKColor(0xff3aaab8),
-                new SKColor(0xff38ba9e),
-                new SKColor(0xffbb3d72),
-                new SKColor(0xff006ded)
-            };
         }
 
         private static List<float> CreateDefaultMasses()

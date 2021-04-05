@@ -30,7 +30,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle.Shapes
                 return;
 
             canvas.Save();
-            canvas.Scale(width / _baseSize.Width, width / _baseSize.Height);
+            canvas.Scale(width / _baseSize.Width, height / _baseSize.Height);
             canvas.DrawPath(Path, paint);
             canvas.Restore();
         }

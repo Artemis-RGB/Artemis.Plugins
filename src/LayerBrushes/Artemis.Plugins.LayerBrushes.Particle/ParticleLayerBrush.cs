@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Artemis.Core.LayerBrushes;
+using Artemis.Plugins.LayerBrushes.Particle.LayerProperties;
 using Artemis.Plugins.LayerBrushes.Particle.Particle;
-using Artemis.Plugins.LayerBrushes.Particle.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels;
 using Artemis.UI.Shared.LayerBrushes;
 using SkiaSharp;
@@ -13,9 +14,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle
     // Artemis may create multiple instances of it, one instance for each profile element (folder/layer) it is applied to
     public class ParticleLayerBrush : LayerBrush<MainPropertyGroup>
     {
-        private double _lastDelta;
         private ParticleSystem _particleSystem;
         private SKPaint _paint;
+
+        public override List<ILayerBrushPreset> Presets => new()
+        {
+            new FireplacePreset(this),
+            new SnowPreset(this)
+        };
 
         public override void EnableLayerBrush()
         {
@@ -37,7 +43,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle
 
         public override void Update(double deltaTime)
         {
-            _lastDelta = deltaTime;
             _particleSystem.StartAngle = Properties.Emitter.Angle - Properties.Emitter.Spread / 2f;
             _particleSystem.EndAngle = Properties.Emitter.Angle + Properties.Emitter.Spread / 2f;
 
@@ -52,6 +57,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle
             _particleSystem.Colors = Properties.Particles.Colors.CurrentValue.GetColorsArray().ToList();
             _particleSystem.Configurations = Properties.ParticleConfigurations.CurrentValue;
             _particleSystem.Emitter.ParticleRate = Properties.Emitter.ParticleRate;
+
+            if (deltaTime > 0)
+                _particleSystem.Update(TimeSpan.FromSeconds(deltaTime));
         }
 
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
@@ -67,8 +75,11 @@ namespace Artemis.Plugins.LayerBrushes.Particle
                 );
 
             _particleSystem.UpdateEmitterBounds(bounds.Width, bounds.Height);
+            _particleSystem.Bounds = SKRect.Create(-10,-10,bounds.Width+20, bounds.Height+20);
+
             canvas.SaveLayer(paint);
-            _particleSystem.Draw(canvas, TimeSpan.FromSeconds(Math.Max(0, _lastDelta)), _paint);
+            canvas.Translate(bounds.Left,bounds.Top);
+            _particleSystem.Draw(canvas, _paint);
             _paint.Reset();
             canvas.Restore();
         }

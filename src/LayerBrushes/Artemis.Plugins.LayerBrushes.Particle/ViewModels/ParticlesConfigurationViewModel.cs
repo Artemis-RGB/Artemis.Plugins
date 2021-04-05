@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Artemis.Plugins.LayerBrushes.Particle.LayerProperties;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
-using Artemis.Plugins.LayerBrushes.Particle.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs;
 using Artemis.UI.Shared.LayerBrushes;
 using Artemis.UI.Shared.Services;
