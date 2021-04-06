@@ -48,7 +48,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
 
         public void Update(double deltaTime)
         {
-            if (_brush.Properties.RippleBehivor.CurrentValue==RippleBehivor.ContinuousWhileKeyPressed)
+            if (_brush.Properties.RippleBehivor.CurrentValue == RippleBehivor.ContinuousWhileKeyPressed)
                 UpdateContinuous(deltaTime);
             else
                 UpdateOne(deltaTime);
@@ -60,8 +60,6 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                 Size += (float)(deltaTime * _brush.Properties.RippleGrowthSpeed.CurrentValue);
             else
                 Size = -1;
-
-
 
             if (Size > _brush.Properties.RippleSize)
             {
@@ -76,7 +74,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             if (Expand)
                 Size += (float)(deltaTime * _brush.Properties.RippleGrowthSpeed.CurrentValue);
             else
-                 Size = -1;
+                Size = -1;
 
             if (Size > _brush.Properties.RippleSize)
             {
@@ -86,11 +84,27 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             UpdatePaint();
         }
 
-
         public void Render(SKCanvas canvas)
         {
+            //Animiation finished. Nothing to see here.
+            if (Size < 0)
+                return;
+
+            //Just a check to avoid ripple goes beyond their desired size
+            if (Size > _brush.Properties.RippleSize)
+                Size = _brush.Properties.RippleSize;
+
+            //Set ripple size.
             Paint.Style = SKPaintStyle.Stroke;
+            Paint.IsAntialias = true;
             Paint.StrokeWidth = _brush.Properties.RippleWidth.CurrentValue;
+
+            //Add fade away effect
+            if (_brush.Properties.RippleFadeAway != RippleFadeOutMode.None)
+            {
+                Paint.Color = Paint.Color.WithAlpha((byte)(255 * Easings.Interpolate(1 - Size / _brush.Properties.RippleSize, (Easings.Functions)_brush.Properties.RippleFadeAway.BaseValue)));
+            }
+
             if (Size > 0 && Paint != null)
                 canvas.DrawCircle(Position, Size, Paint);
         }

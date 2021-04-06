@@ -29,6 +29,9 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         [PropertyDescription(Description = "Set how ripple will respond to a keypress.")]
         public EnumLayerProperty<RippleBehivor> RippleBehivor { get; set; }
 
+        [PropertyDescription(Description = "Fade away ripple effect mode.")]
+        public EnumLayerProperty<RippleFadeOutMode> RippleFadeAway { get; set; }
+
         [PropertyDescription(Description = "Width of the ripple.")]
         public FloatLayerProperty RippleWidth { get; set; }
 
@@ -52,10 +55,10 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         {
             Color.DefaultValue = new SKColor(255, 0, 0);
             Colors.DefaultValue = new ColorGradient();
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 255, 0, 255), 0.0f));
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.7f));
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.85f));
-            Colors.DefaultValue.Stops.Add(new ColorGradientStop(new SKColor(255, 0, 0, 0), 1.0f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 255, 0, 255), 0.0f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.7f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.85f));
+            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 0), 1.0f));
 
             //Echo
             FadeEcho.DefaultValue = true;
@@ -66,6 +69,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             RippleSize.DefaultValue = 100;
             RippleGrowthSpeed.DefaultValue = 300;
             RippleBehivor.DefaultValue = Keypress.RippleBehivor.OneAtATime;
+            RippleFadeAway.DefaultValue = RippleFadeOutMode.Sine;
 
             //Circle
             CircleSize.DefaultValue = 100;
@@ -84,6 +88,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
 
             //Ripple
             RippleWidth.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
+            RippleFadeAway.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleSize.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleGrowthSpeed.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleBehivor.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
@@ -103,6 +108,13 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         Random,
         Solid,
         Gradient
+    }
+
+    public enum RippleFadeOutMode
+    {
+        None = -1,
+        Linear = 0,
+        Sine = 14
     }
 
     public enum AnimationType
