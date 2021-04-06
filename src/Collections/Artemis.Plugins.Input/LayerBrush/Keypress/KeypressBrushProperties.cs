@@ -1,4 +1,4 @@
-﻿using Artemis.Core;
+using Artemis.Core;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Input.LayerBrush.Keypress
@@ -65,11 +65,11 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             EchoLifetime.DefaultValue = 1;
 
             //Ripple
-            RippleWidth.DefaultValue = 20;
-            RippleSize.DefaultValue = 100;
+            RippleWidth.DefaultValue = 50;
+            RippleSize.DefaultValue = 200;
             RippleGrowthSpeed.DefaultValue = 300;
             RippleBehivor.DefaultValue = Keypress.RippleBehivor.OneAtATime;
-            RippleFadeAway.DefaultValue = RippleFadeOutMode.Sine;
+            RippleFadeAway.DefaultValue = RippleFadeOutMode.Linear;
 
             //Circle
             CircleSize.DefaultValue = 100;
