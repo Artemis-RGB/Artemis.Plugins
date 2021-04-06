@@ -6,6 +6,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
     public class KeypressRipple : IKeyPressEffect
     {
         private readonly KeypressBrush _brush;
+        private float _progress;
 
         public KeypressRipple(KeypressBrush brush, ArtemisLed led, SKPoint position)
         {
@@ -44,6 +45,22 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                     )
                 };
             }
+            else if (_brush.Properties.ColorMode.CurrentValue == ColorType.ColorChange)
+            {
+                Paint = new SKPaint { Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress) };
+            }
+
+            //Add fade away effect
+            if (_brush.Properties.RippleFadeAway != RippleFadeOutMode.None)
+            {
+                Paint.Color = Paint.Color.WithAlpha((byte)(255 * Easings.Interpolate(1 - _progress, (Easings.Functions)_brush.Properties.RippleFadeAway.BaseValue)));
+            }
+
+            //Set ripple size
+            Paint.Style = SKPaintStyle.Stroke;
+            Paint.IsAntialias = true;
+            Paint.StrokeWidth = _brush.Properties.RippleWidth.CurrentValue;
+
         }
 
         public void Update(double deltaTime)
@@ -52,6 +69,8 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                 UpdateContinuous(deltaTime);
             else
                 UpdateOne(deltaTime);
+
+            _progress = Size / _brush.Properties.RippleSize;
         }
 
         public void UpdateOne(double deltaTime)
@@ -89,21 +108,6 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             //Animiation finished. Nothing to see here.
             if (Size < 0)
                 return;
-
-            //Just a check to avoid ripple goes beyond their desired size
-            if (Size > _brush.Properties.RippleSize)
-                Size = _brush.Properties.RippleSize;
-
-            //Set ripple size.
-            Paint.Style = SKPaintStyle.Stroke;
-            Paint.IsAntialias = true;
-            Paint.StrokeWidth = _brush.Properties.RippleWidth.CurrentValue;
-
-            //Add fade away effect
-            if (_brush.Properties.RippleFadeAway != RippleFadeOutMode.None)
-            {
-                Paint.Color = Paint.Color.WithAlpha((byte)(255 * Easings.Interpolate(1 - Size / _brush.Properties.RippleSize, (Easings.Functions)_brush.Properties.RippleFadeAway.BaseValue)));
-            }
 
             if (Size > 0 && Paint != null)
                 canvas.DrawCircle(Position, Size, Paint);

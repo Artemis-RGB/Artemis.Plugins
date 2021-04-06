@@ -54,11 +54,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         protected override void PopulateDefaults()
         {
             Color.DefaultValue = new SKColor(255, 0, 0);
-            Colors.DefaultValue = new ColorGradient();
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 255, 0, 255), 0.0f));
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.7f));
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.85f));
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 0), 1.0f));
+            Colors.DefaultValue = ColorGradient.GetUnicornBarf();
 
             //Echo
             FadeEcho.DefaultValue = true;
@@ -79,7 +75,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         protected override void EnableProperties()
         {
             // Shared
-            Colors.IsVisibleWhen(ColorMode, c => c.CurrentValue == ColorType.Gradient);
+            Colors.IsVisibleWhen(ColorMode, c => c.CurrentValue == ColorType.Gradient || c.CurrentValue == ColorType.ColorChange);
             Color.IsVisibleWhen(ColorMode, c => c.CurrentValue == ColorType.Solid);
 
             // Echo
@@ -107,14 +103,18 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
     {
         Random,
         Solid,
-        Gradient
+        Gradient,
+        ColorChange
+
     }
 
     public enum RippleFadeOutMode
     {
         None = -1,
         Linear = 0,
-        Sine = 14
+        Sine = 14,
+        Expo = 20
+
     }
 
     public enum AnimationType
