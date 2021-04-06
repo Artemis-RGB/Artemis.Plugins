@@ -1,4 +1,4 @@
-﻿using Artemis.Core.DataModelExpansions;
+using Artemis.Core.DataModelExpansions;
 using Artemis.Core.Services;
 using Artemis.Plugins.Input.DataModelExpansion.DataModels;
 using Serilog;
@@ -21,10 +21,20 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             _inputService.MouseButtonUpDown += InputServiceOnMouseButtonUpDown;
             _inputService.MouseMove += InputServiceOnMouseMove;
             _inputService.KeyboardToggleStatusChanged += InputServiceOnKeyboardToggleStatusChanged;
+            _inputService.MouseScroll += InputServiceOnMouseScrollStatusChanged;
 
             DataModel.Keyboard.IsNumLockEnabled = _inputService.KeyboardToggleStatus.NumLock;
             DataModel.Keyboard.IsCapsLockEnabled = _inputService.KeyboardToggleStatus.CapsLock;
             DataModel.Keyboard.IsScrollLockEnabled = _inputService.KeyboardToggleStatus.ScrollLock;
+        }
+
+        private void InputServiceOnMouseScrollStatusChanged(object sender, ArtemisMouseScrollEventArgs e)
+        {
+            DataModel.TimeSinceLastInput = TimeSpan.Zero;
+            if (e.IsScrollingUp) { DataModel.Mouse.ScrollEvents.ScrollUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingDown) { DataModel.Mouse.ScrollEvents.ScrollDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingLeft) { DataModel.Mouse.ScrollEvents.ScrollLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingRight) { DataModel.Mouse.ScrollEvents.ScrollRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
         }
 
         public override void Disable()
@@ -33,6 +43,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             _inputService.MouseButtonUpDown -= InputServiceOnMouseButtonUpDown;
             _inputService.MouseMove -= InputServiceOnMouseMove;
             _inputService.KeyboardToggleStatusChanged -= InputServiceOnKeyboardToggleStatusChanged;
+            _inputService.MouseScroll -= InputServiceOnMouseScrollStatusChanged;
         }
 
         public override void Update(double deltaTime)

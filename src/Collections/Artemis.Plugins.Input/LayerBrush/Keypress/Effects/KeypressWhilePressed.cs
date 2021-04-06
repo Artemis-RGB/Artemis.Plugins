@@ -18,8 +18,6 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
 
         public SKPaint Paint { get; set; }
         public float Size { get; set; }
-        public float GrowthSpeed { get; set; } = 500;
-        public float MaxSize { get; set; } = 100;
         public bool Shrink { get; set; }
         public bool AllowDuplicates => false;
         public bool Finished => Size < 0;
@@ -50,12 +48,12 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         public void Update(double deltaTime)
         {
             if (!Shrink)
-                Size += (float) (deltaTime * GrowthSpeed);
+                Size += (float) (deltaTime * _brush.Properties.CircleGrowthSpeed);
             else
-                Size -= (float) (deltaTime * GrowthSpeed);
+                Size -= (float) (deltaTime * _brush.Properties.CircleGrowthSpeed);
 
-            if (Size > MaxSize)
-                Size = MaxSize;
+            if (Size > _brush.Properties.CircleSize)
+                Size = _brush.Properties.CircleSize;
 
             UpdatePaint();
         }
@@ -69,6 +67,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         public void Respawn()
         {
             Shrink = false;
+            Size = 0;
         }
 
         public void Despawn()
