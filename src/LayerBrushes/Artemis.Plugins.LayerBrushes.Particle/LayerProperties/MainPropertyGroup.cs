@@ -37,6 +37,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
 
     public class EmitterPropertyGroup : LayerPropertyGroup
     {
+        [PropertyDescription(Description = "Whether or not particles should be emitted using the configured rate")]
+        public BoolLayerProperty EmitParticles { get; set; }
+
         [PropertyDescription(Description = "How many particles to emit per second")]
         public IntLayerProperty ParticleRate { get; set; }
 
@@ -57,6 +60,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
 
         protected override void PopulateDefaults()
         {
+            EmitParticles.DefaultValue = true;
             ParticleRate.DefaultValue = 40;
             Angle.DefaultValue = -90f;
             Spread.DefaultValue = 15f;
@@ -78,19 +82,16 @@ namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
         [PropertyDescription]
         public ColorGradientLayerProperty Colors { get; set; }
 
-        [PropertyDescription]
+        [PropertyDescription(Description = "The velocity at which particles are emitted, they can later be slowed down by gravity")]
         public FloatRangeLayerProperty InitialVelocity { get; set; }
 
-        [PropertyDescription]
-        public FloatRangeLayerProperty RotationVelocity { get; set; }
-
-        [PropertyDescription]
+        [PropertyDescription(Description = "The maximum velocity a particle can reach after gravity is applied. When set to 0 there is no maximum.")]
         public FloatLayerProperty MaximumVelocity { get; set; }
 
-        [PropertyDescription]
+        [PropertyDescription(Description = "The maximum lifetime of the particle in seconds")]
         public FloatLayerProperty Lifetime { get; set; }
 
-        [PropertyDescription]
+        [PropertyDescription(Description = "Whether or not to fade the particle out when the life time has passed")]
         public BoolLayerProperty FadeOut { get; set; }
 
 
@@ -104,7 +105,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
             };
 
             InitialVelocity.DefaultValue = new FloatRange(100f, 200f);
-            RotationVelocity.DefaultValue = new FloatRange(10f, 75f);
             MaximumVelocity.DefaultValue = 0f;
             Lifetime.DefaultValue = 2f;
             FadeOut.DefaultValue = true;

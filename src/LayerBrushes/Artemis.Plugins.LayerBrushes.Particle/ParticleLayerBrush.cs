@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Particle.LayerProperties;
+using Artemis.Plugins.LayerBrushes.Particle.LayerProperties.Presets;
 using Artemis.Plugins.LayerBrushes.Particle.Particle;
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels;
 using Artemis.UI.Shared.LayerBrushes;
@@ -14,13 +15,14 @@ namespace Artemis.Plugins.LayerBrushes.Particle
     // Artemis may create multiple instances of it, one instance for each profile element (folder/layer) it is applied to
     public class ParticleLayerBrush : LayerBrush<MainPropertyGroup>
     {
-        private ParticleSystem _particleSystem;
         private SKPaint _paint;
+        private ParticleSystem _particleSystem;
 
         public override List<ILayerBrushPreset> Presets => new()
         {
             new FireplacePreset(this),
-            new SnowPreset(this)
+            new SnowPreset(this),
+            new StarsPreset(this)
         };
 
         public override void EnableLayerBrush()
@@ -48,15 +50,13 @@ namespace Artemis.Plugins.LayerBrushes.Particle
 
             _particleSystem.MinimumInitialVelocity = Properties.Particles.InitialVelocity.CurrentValue.Start;
             _particleSystem.MaximumInitialVelocity = Properties.Particles.InitialVelocity.CurrentValue.End;
-            _particleSystem.MinimumRotationVelocity = Properties.Particles.RotationVelocity.CurrentValue.Start;
-            _particleSystem.MaximumRotationVelocity = Properties.Particles.RotationVelocity.CurrentValue.End;
             _particleSystem.MaximumVelocity = Properties.Particles.MaximumVelocity;
             _particleSystem.Lifetime = Properties.Particles.Lifetime;
             _particleSystem.FadeOut = Properties.Particles.FadeOut;
             _particleSystem.Gravity = Properties.Gravity;
             _particleSystem.Colors = Properties.Particles.Colors.CurrentValue.GetColorsArray().ToList();
             _particleSystem.Configurations = Properties.ParticleConfigurations.CurrentValue;
-            _particleSystem.Emitter.ParticleRate = Properties.Emitter.ParticleRate;
+            _particleSystem.Emitter.ParticleRate = Properties.Emitter.EmitParticles ? Properties.Emitter.ParticleRate : 0;
 
             if (deltaTime > 0)
                 _particleSystem.Update(TimeSpan.FromSeconds(deltaTime));
@@ -75,10 +75,10 @@ namespace Artemis.Plugins.LayerBrushes.Particle
                 );
 
             _particleSystem.UpdateEmitterBounds(bounds.Width, bounds.Height);
-            _particleSystem.Bounds = SKRect.Create(-10,-10,bounds.Width+20, bounds.Height+20);
+            _particleSystem.Bounds = SKRect.Create(-10, -10, bounds.Width + 20, bounds.Height + 20);
 
             canvas.SaveLayer(paint);
-            canvas.Translate(bounds.Left,bounds.Top);
+            canvas.Translate(bounds.Left, bounds.Top);
             _particleSystem.Draw(canvas, _paint);
             _paint.Reset();
             canvas.Restore();

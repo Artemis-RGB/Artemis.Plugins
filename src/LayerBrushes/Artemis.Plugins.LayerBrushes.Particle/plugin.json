@@ -2,7 +2,7 @@
   "Guid": "c4c0a8e0-29b7-4003-ba44-e095ef329a69",
   "Name": "Particles brush",
   "Description": "A layer-brush rendering highly configurable particles",
-  "Icon": "Flame",
+  "Icon": "Meteor",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.LayerBrushes.Particle.dll"
 }

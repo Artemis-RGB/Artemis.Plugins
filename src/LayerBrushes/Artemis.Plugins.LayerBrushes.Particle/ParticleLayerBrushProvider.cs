@@ -9,7 +9,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle
         public override void Enable()
         {
             // This is where we can register our effect for use, we can also register multiple effects if we'd like
-            RegisterLayerBrushDescriptor<ParticleLayerBrush>("Particles", "Renders configurable particles", "Flame");
+            RegisterLayerBrushDescriptor<ParticleLayerBrush>("Particles", "Renders configurable particles", "Meteor");
         }
 
         public override void Disable()

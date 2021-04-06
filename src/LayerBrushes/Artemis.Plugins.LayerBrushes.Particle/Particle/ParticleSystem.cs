@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using SkiaSharp;
 
@@ -44,8 +43,6 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         public float EndAngle { get; set; } = 360f;
         public float MinimumInitialVelocity { get; set; } = 100f;
         public float MaximumInitialVelocity { get; set; } = 200f;
-        public float MinimumRotationVelocity { get; set; } = 10f;
-        public float MaximumRotationVelocity { get; set; } = 75f;
         public float MaximumVelocity { get; set; } = 0f;
         public float Lifetime { get; set; } = 2f;
         public bool FadeOut { get; set; } = true;
