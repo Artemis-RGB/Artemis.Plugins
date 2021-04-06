@@ -10,10 +10,12 @@ namespace Artemis.Plugins.Modules.General.DataModels
         public GeneralDataModel()
         {
             TimeDataModel = new TimeDataModel();
+            PerformanceDataModel = new PerformanceDataModel();
         }
 
         public WindowDataModel ActiveWindow { get; set; }
         public TimeDataModel TimeDataModel { get; set; }
+        public PerformanceDataModel PerformanceDataModel { get; set; }
     }
 
     public class TimeDataModel : DataModel
@@ -22,6 +24,16 @@ namespace Artemis.Plugins.Modules.General.DataModels
         public TimeSpan TimeSinceMidnight { get; set; }
     }
 
+    public class PerformanceDataModel : DataModel
+    {
+        [DataModelProperty(Name = "CPU usage", Affix = "%")]
+        public float CpuUsage { get; set; }
+        [DataModelProperty(Name = "Available RAM", Affix = "MB")]
+        public long AvailableRam { get; set; }
+        [DataModelProperty(Name = "Total RAM", Affix = "MB")]
+        public long TotalRam { get; set; }
+    }
+    
     public class IconColorsDataModel : DataModel 
     {
         public SKColor Vibrant { get; set; }
