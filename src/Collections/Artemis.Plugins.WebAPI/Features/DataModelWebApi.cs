@@ -16,13 +16,11 @@ namespace Artemis.Plugins.WebAPI.Features
 
         public override void Enable()
         {
-            _webServerService.AddController<DataModelController>();
+            _webServerService.AddController<DataModelController>(this);
         }
-
 
         public override void Disable()
         {
-            _webServerService.RemoveController<DataModelController>();
         }
     }
 }
