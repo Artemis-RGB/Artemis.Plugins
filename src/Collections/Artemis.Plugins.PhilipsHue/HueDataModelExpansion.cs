@@ -9,19 +9,14 @@ using Artemis.Plugins.PhilipsHue.DataModels;
 using Artemis.Plugins.PhilipsHue.Models;
 using Artemis.Plugins.PhilipsHue.Services;
 using Q42.HueApi;
-using Q42.HueApi.ColorConverters;
 using Q42.HueApi.Models;
 using Q42.HueApi.Models.Groups;
-using Q42.HueApi.Streaming;
-using Q42.HueApi.Streaming.Models;
-using Serilog;
 
 namespace Artemis.Plugins.PhilipsHue
 {
     public class HueDataModelExpansion : DataModelExpansion<HueDataModel>
     {
         private readonly IHueService _hueService;
-        private readonly ILogger _logger;
         private readonly PluginSetting<int> _pollingRateSetting;
         private readonly PluginSetting<List<PhilipsHueBridge>> _storedBridgesSetting;
         private CancellationTokenSource _enableCancel;
@@ -29,17 +24,20 @@ namespace Artemis.Plugins.PhilipsHue
         private TimedUpdateRegistration _groupsTimedUpdate;
         private TimedUpdateRegistration _hueTimedUpdate;
 
-        public HueDataModelExpansion(PluginSettings settings, ILogger logger, IHueService hueService)
+        public HueDataModelExpansion(PluginSettings settings, IHueService hueService)
         {
-            _logger = logger;
             _hueService = hueService;
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
-            _pollingRateSetting = settings.GetSetting("PollingRate", 2);
+            _pollingRateSetting = settings.GetSetting("PollingRate", 2000);
+
+            // Reset to default if the setting is below 100ms because the scale changed from seconds to milliseconds
+            if (_pollingRateSetting.Value < 100)
+                _pollingRateSetting.Value = 2000;
         }
 
         public override DataModelPropertyAttribute GetDataModelDescription()
         {
-            return new DataModelPropertyAttribute
+            return new()
             {
                 Name = "Philips Hue",
                 Description = "A data model containing all your Philips Hue bridges and their systems"
@@ -59,7 +57,7 @@ namespace Artemis.Plugins.PhilipsHue
         {
             await _hueService.UpdateExistingBridges();
             await _hueService.ConnectToBridges();
-            
+
             SetupTimedUpdate();
         }
 
@@ -90,7 +88,7 @@ namespace Artemis.Plugins.PhilipsHue
             _groupsTimedUpdate?.Stop();
             _groupsTimedUpdate = AddTimedUpdate(TimeSpan.FromMinutes(1), UpdateGroups);
             _hueTimedUpdate?.Stop();
-            _hueTimedUpdate = AddTimedUpdate(TimeSpan.FromSeconds(_pollingRateSetting.Value), UpdateHue);
+            _hueTimedUpdate = AddTimedUpdate(TimeSpan.FromMilliseconds(_pollingRateSetting.Value), UpdateHue);
         }
 
         private async Task UpdateGroups(double delta)

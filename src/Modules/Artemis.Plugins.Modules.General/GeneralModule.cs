@@ -85,7 +85,7 @@ namespace Artemis.Plugins.Modules.General
 
         #endregion
 
-        private void EnableActiveWindowOnSettingChanged(object? sender, EventArgs e)
+        private void EnableActiveWindowOnSettingChanged(object sender, EventArgs e)
         {
             ApplyEnableActiveWindow();
         }

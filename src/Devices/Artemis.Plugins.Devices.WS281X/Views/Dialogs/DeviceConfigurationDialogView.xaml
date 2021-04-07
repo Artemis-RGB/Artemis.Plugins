@@ -10,14 +10,14 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance dialogs:DeviceConfigurationDialogViewModel}">
     <StackPanel Margin="20" Width="240">
-        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0 0 0 20">
             Add/edit device
         </TextBlock>
 
         <TextBox materialDesign:HintAssist.Hint="Display name"
                  Margin="0 5"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                 Style="{StaticResource MaterialDesignFilledTextBox}" />
 
         <ComboBox materialDesign:HintAssist.Hint="Type"
                   Margin="0 5"
@@ -25,20 +25,20 @@
                   ItemsSource="{Binding DeviceTypes}"
                   SelectedValuePath="Value"
                   DisplayMemberPath="Description"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                  Style="{StaticResource MaterialDesignFilledComboBox}" />
 
         <ComboBox Visibility="{Binding IsUdpBased, Converter={x:Static s:BoolToVisibilityConverter.InverseInstance}}"
                   materialDesign:HintAssist.Hint="COM port"
                   Margin="0 5"
                   SelectedValue="{Binding Port}"
                   ItemsSource="{Binding Ports}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                  Style="{StaticResource MaterialDesignFilledComboBox}" />
 
         <TextBox Visibility="{Binding IsUdpBased, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
                  materialDesign:HintAssist.Hint="Hostname"
                  Margin="0 5"
                  Text="{Binding Hostname, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                 Style="{StaticResource MaterialDesignFilledTextBox}" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 35 0 0">
             <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Margin="0 0 8 0" Command="{s:Action Cancel}">

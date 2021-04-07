@@ -16,14 +16,13 @@
   <ItemGroup>
     <PackageReference Include="EmbedIO" Version="3.4.3" PrivateAssets="All" />
     <PackageReference Include="FluentValidation" Version="9.3.0" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
-    <PackageReference Include="Stylet" Version="1.3.5" PrivateAssets="All" />
+    <PackageReference Include="Stylet" Version="1.3.6" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Include="Properties\DesignTimeResources.xaml"
-          Condition="'$(DesignTime)'=='true'">
+    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true'">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>

@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.WebAPI", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerEffects.AudioVisualization", "LayerEffects\Artemis.Plugins.LayerEffects.AudioVisualization\Artemis.Plugins.LayerEffects.AudioVisualization.csproj", "{535C79CC-8808-4217-B4BE-A4CCD71962D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.LayerBrushes.Particle", "LayerBrushes\Artemis.Plugins.LayerBrushes.Particle\Artemis.Plugins.LayerBrushes.Particle.csproj", "{78293A28-7DF4-4398-AA7A-2459E0B650CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerBrushes.Particle", "LayerBrushes\Artemis.Plugins.LayerBrushes.Particle\Artemis.Plugins.LayerBrushes.Particle.csproj", "{78293A28-7DF4-4398-AA7A-2459E0B650CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerEffects.LedReveal", "LayerEffects\Artemis.Plugins.LayerEffects.LedReveal\Artemis.Plugins.LayerEffects.LedReveal.csproj", "{2A0261BB-528D-4854-AFB8-E6EF0790619A}"
 EndProject
@@ -200,6 +200,7 @@ Global
 		{A2C08559-A52C-4BDF-873A-272EDEAE4437} = {798DB72F-F2F9-47BB-AB25-1297AB49D20D}
 		{535C79CC-8808-4217-B4BE-A4CCD71962D7} = {5FF45587-35D8-4D94-89FA-C04C40E781BC}
 		{78293A28-7DF4-4398-AA7A-2459E0B650CA} = {BAB14EFE-03B4-4D79-A1C9-D47D3E59D1C8}
+		{2A0261BB-528D-4854-AFB8-E6EF0790619A} = {5FF45587-35D8-4D94-89FA-C04C40E781BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}

@@ -11,7 +11,7 @@
              d:DataContext="{d:DesignInstance viewModels:PhilipsHueConfigurationViewModel}">
     <Grid>
 
-        <materialDesign:Transitioner SelectedIndex="{Binding WizardPage}" AutoApplyTransitionOrigins="True"  >
+        <materialDesign:Transitioner SelectedIndex="{Binding WizardPage}" AutoApplyTransitionOrigins="True">
             <!-- Step 1 -->
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Grid.Background>
@@ -159,7 +159,11 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBox Text="{Binding PollingRate}" materialDesign:TextFieldAssist.SuffixText="s" Width="80" />
+                                    <TextBox Style="{StaticResource MaterialDesignFilledTextBox}"
+                                             Width="100"
+                                             Text="{Binding PollingRate}"
+                                             materialDesign:TextFieldAssist.SuffixText="ms"
+                                             materialDesign:HintAssist.IsFloating="false" />
                                 </StackPanel>
                             </Grid>
                             <Separator Style="{StaticResource MaterialDesignSeparator}" Margin="-15 5" />
@@ -218,7 +222,7 @@
                             <StackPanel>
                                 <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Behaviour when synchronization stops</TextBlock>
                                 <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
-                                    To change what colors your lights will be when Artemis releases control, open your Hue app head into: <LineBreak/> Settings > Entertainment rooms > Select your room > Behaviour when synchronization stops > Pick an option.
+                                    To change what colors your lights will be when Artemis releases control, open your Hue app head into: <LineBreak /> Settings > Entertainment rooms > Select your room > Behaviour when synchronization stops > Pick an option.
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>

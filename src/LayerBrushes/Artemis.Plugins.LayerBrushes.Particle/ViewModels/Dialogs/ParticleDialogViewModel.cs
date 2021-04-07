@@ -199,17 +199,17 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             When(m => m.IsCustomPath, () => RuleFor(m => m.Path).Custom(ValidatePath));
         }
 
-        private void ValidatePath(string arg1, CustomContext arg2)
+        private void ValidatePath(string input, ValidationContext<ParticleDialogViewModel> validationContext)
         {
             try
             {
-                SKPath path = SKPath.ParseSvgPathData(arg1);
+                SKPath path = SKPath.ParseSvgPathData(input);
                 if (path == null)
-                    arg2.AddFailure("Path must contain valid SVG path data");
+                    validationContext.AddFailure("Path must contain valid SVG path data");
             }
             catch (Exception)
             {
-                arg2.AddFailure("Path must contain valid SVG path data");
+                validationContext.AddFailure("Path must contain valid SVG path data");
             }
         }
     }

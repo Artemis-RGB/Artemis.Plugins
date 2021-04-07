@@ -43,8 +43,11 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             _dialogService = dialogService;
 
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
-            _pollingRateSetting = settings.GetSetting("PollingRate", 2);
-
+            _pollingRateSetting = settings.GetSetting("PollingRate", 2000);
+            // Reset to default if the setting is below 100ms because the scale changed from seconds to milliseconds
+            if (_pollingRateSetting.Value < 100)
+                _pollingRateSetting.Value = 2000;
+            
             PollingRate = _pollingRateSetting.Value;
 
             if (_storedBridgesSetting.Value.Any())
@@ -88,7 +91,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             set => SetAndNotify(ref _lightDisplay, value);
         }
 
-        public async Task ReloadDeviceProvider()
+        public void ReloadDeviceProvider()
         {
             HueDeviceProvider feature = Plugin.GetFeature<HueDeviceProvider>();
             if (feature == null || !feature.IsEnabled)
@@ -119,7 +122,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             _storedBridgesSetting.Save();
 
             WizardPage = 0;
-            await ReloadDeviceProvider();
+            ReloadDeviceProvider();
         }
 
         #endregion
@@ -201,7 +204,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             _storedBridgesSetting.Save();
 
             FinishWizard();
-            await ReloadDeviceProvider();
+            ReloadDeviceProvider();
         }
 
         private async void FinishWizard()

@@ -15,12 +15,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignExtensions" Version="3.2.0" PrivateAssets="All" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="9.3.0" PrivateAssets="All" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" PrivateAssets="All" />
+    <PackageReference Include="FluentValidation" Version="10.0.0" PrivateAssets="All" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
-    <PackageReference Include="Stylet" Version="1.3.5" PrivateAssets="All" />
+    <PackageReference Include="Stylet" Version="1.3.6" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +39,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+	<ItemGroup>
+		<Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true'">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+			<ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+		</Page>
+	</ItemGroup>
 
   <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
   <Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">

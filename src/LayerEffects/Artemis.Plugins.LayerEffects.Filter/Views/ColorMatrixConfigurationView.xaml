@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Artemis.Plugins.LayerEffects.Filter.ViewModels"
              xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:ColorMatrixConfigurationViewModel}">
@@ -16,6 +17,7 @@
         <TextBlock TextWrapping="Wrap" Margin="0 25">
             If you are still not deterred,
             <Hyperlink NavigateUri="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/color-filters"
+                       Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                        RequestNavigate="{s:Action OpenHyperlink}">
                 click here
             </Hyperlink>
@@ -23,11 +25,11 @@
         </TextBlock>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -35,29 +37,29 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Properties.ColorMatrix.CurrentValue[0]}" Margin="2" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Properties.ColorMatrix.CurrentValue[1]}" Margin="2" />
-            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Properties.ColorMatrix.CurrentValue[2]}" Margin="2" />
-            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Properties.ColorMatrix.CurrentValue[3]}" Margin="2" />
-            <TextBox Grid.Row="0" Grid.Column="4" Text="{Binding Properties.ColorMatrix.CurrentValue[4]}" Margin="2" />
+            <TextBox Grid.Row="0" Grid.Column="0" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[0]}" Margin="2" />
+            <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[1]}" Margin="2" />
+            <TextBox Grid.Row="0" Grid.Column="2" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[2]}" Margin="2" />
+            <TextBox Grid.Row="0" Grid.Column="3" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[3]}" Margin="2" />
+            <TextBox Grid.Row="0" Grid.Column="4" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[4]}" Margin="2" />
 
-            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Properties.ColorMatrix.CurrentValue[5]}" Margin="2" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Properties.ColorMatrix.CurrentValue[6]}" Margin="2" />
-            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Properties.ColorMatrix.CurrentValue[7]}" Margin="2" />
-            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Properties.ColorMatrix.CurrentValue[8]}" Margin="2" />
-            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding Properties.ColorMatrix.CurrentValue[9]}" Margin="2" />
+            <TextBox Grid.Row="1" Grid.Column="0" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[5]}" Margin="2" />
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[6]}" Margin="2" />
+            <TextBox Grid.Row="1" Grid.Column="2" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[7]}" Margin="2" />
+            <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[8]}" Margin="2" />
+            <TextBox Grid.Row="1" Grid.Column="4" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[9]}" Margin="2" />
 
-            <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Properties.ColorMatrix.CurrentValue[10]}" Margin="2" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Properties.ColorMatrix.CurrentValue[11]}" Margin="2" />
-            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Properties.ColorMatrix.CurrentValue[12]}" Margin="2" />
-            <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Properties.ColorMatrix.CurrentValue[13]}" Margin="2" />
-            <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding Properties.ColorMatrix.CurrentValue[14]}" Margin="2" />
+            <TextBox Grid.Row="2" Grid.Column="0" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[10]}" Margin="2" />
+            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[11]}" Margin="2" />
+            <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[12]}" Margin="2" />
+            <TextBox Grid.Row="2" Grid.Column="3" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[13]}" Margin="2" />
+            <TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[14]}" Margin="2" />
 
-            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding Properties.ColorMatrix.CurrentValue[15]}" Margin="2" />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Properties.ColorMatrix.CurrentValue[16]}" Margin="2" />
-            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Properties.ColorMatrix.CurrentValue[17]}" Margin="2" />
-            <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Properties.ColorMatrix.CurrentValue[18]}" Margin="2" />
-            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding Properties.ColorMatrix.CurrentValue[19]}" Margin="2" />
+            <TextBox Grid.Row="3" Grid.Column="0" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[15]}" Margin="2" />
+            <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[16]}" Margin="2" />
+            <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[17]}" Margin="2" />
+            <TextBox Grid.Row="3" Grid.Column="3" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[18]}" Margin="2" />
+            <TextBox Grid.Row="3" Grid.Column="4" Style="{StaticResource MaterialDesignFilledTextBox}" materialDesign:HintAssist.IsFloating="False" Text="{Binding Properties.ColorMatrix.CurrentValue[19]}" Margin="2" />
         </Grid>
     </StackPanel>
 

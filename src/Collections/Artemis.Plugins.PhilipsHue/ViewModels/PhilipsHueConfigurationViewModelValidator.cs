@@ -7,7 +7,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
         public PhilipsHueConfigurationViewModelValidator()
         {
             RuleFor(m => m.PollingRate).NotEmpty().WithMessage("A polling rate is required");
-            RuleFor(m => m.PollingRate).GreaterThanOrEqualTo(1).WithMessage("Polling rate must be 1 second or higher");
+            RuleFor(m => m.PollingRate).GreaterThanOrEqualTo(100).WithMessage("Polling rate must be 100 ms or higher");
         }
     }
 }
