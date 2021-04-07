@@ -20,20 +20,33 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         public SKPaint Paint { get; set; }
         public float Size { get; set; }
         public bool Expand { get; set; }
-        public bool KeepExpanding { get; set; }
-        public bool AllowDuplicates => _brush.Properties.RippleBehivor == RippleBehivor.CreateNewRipple;
-        public bool Finished => Size < 0;
-        public ArtemisLed Led { get; }
-        public SKPoint Position { get; set; }
+
+        public void UpdateOne(double deltaTime)
+        {
+            if (Expand)
+                Size += (float) (deltaTime * _brush.Properties.RippleGrowthSpeed.CurrentValue);
+            else
+                Size = -1;
+
+            if (Size > _brush.Properties.RippleSize) Expand = false;
+
+            UpdatePaint();
+        }
 
         private void UpdatePaint()
         {
             if (_brush.Properties.ColorMode.CurrentValue == ColorType.Random && Paint == null)
-                Paint = new SKPaint { Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100) };
+            {
+                Paint = new SKPaint {Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100)};
+            }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Solid)
-                Paint = new SKPaint { Color = _brush.Properties.Color.CurrentValue };
+            {
+                Paint?.Dispose();
+                Paint = new SKPaint {Color = _brush.Properties.Color.CurrentValue};
+            }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Gradient)
             {
+                Paint?.Dispose();
                 Paint = new SKPaint
                 {
                     Shader = SKShader.CreateRadialGradient(
@@ -47,21 +60,36 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.ColorChange)
             {
-                Paint = new SKPaint { Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress) };
+                Paint?.Dispose();
+                Paint = new SKPaint {Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress)};
             }
 
-            //Add fade away effect
+            // Add fade away effect
             if (_brush.Properties.RippleFadeAway != RippleFadeOutMode.None)
-            {
-                Paint.Color = Paint.Color.WithAlpha((byte)(255 * Easings.Interpolate(1 - _progress, (Easings.Functions)_brush.Properties.RippleFadeAway.BaseValue)));
-            }
+                Paint.Color = Paint.Color.WithAlpha((byte) (255 * Easings.Interpolate(1 - _progress, (Easings.Functions) _brush.Properties.RippleFadeAway.BaseValue)));
 
-            //Set ripple size
+            // Set ripple size
             Paint.Style = SKPaintStyle.Stroke;
             Paint.IsAntialias = true;
             Paint.StrokeWidth = _brush.Properties.RippleWidth.CurrentValue;
-
         }
+
+        private void UpdateContinuous(double deltaTime)
+        {
+            if (Expand)
+                Size += (float) (deltaTime * _brush.Properties.RippleGrowthSpeed.CurrentValue);
+            else
+                Size = -1;
+
+            if (Size > _brush.Properties.RippleSize) Size = 0;
+
+            UpdatePaint();
+        }
+
+        public bool AllowDuplicates => _brush.Properties.RippleBehivor == RippleBehivor.CreateNewRipple;
+        public bool Finished => Size < 0;
+        public ArtemisLed Led { get; }
+        public SKPoint Position { get; set; }
 
         public void Update(double deltaTime)
         {
@@ -73,39 +101,9 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             _progress = Size / _brush.Properties.RippleSize;
         }
 
-        public void UpdateOne(double deltaTime)
-        {
-            if (Expand)
-                Size += (float)(deltaTime * _brush.Properties.RippleGrowthSpeed.CurrentValue);
-            else
-                Size = -1;
-
-            if (Size > _brush.Properties.RippleSize)
-            {
-                Expand = false;
-            }
-
-            UpdatePaint();
-        }
-
-        private void UpdateContinuous(double deltaTime)
-        {
-            if (Expand)
-                Size += (float)(deltaTime * _brush.Properties.RippleGrowthSpeed.CurrentValue);
-            else
-                Size = -1;
-
-            if (Size > _brush.Properties.RippleSize)
-            {
-                Size = 0;
-            }
-
-            UpdatePaint();
-        }
-
         public void Render(SKCanvas canvas)
         {
-            //Animiation finished. Nothing to see here.
+            // Animation finished. Nothing to see here.
             if (Size < 0)
                 return;
 

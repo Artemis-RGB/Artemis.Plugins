@@ -30,8 +30,13 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             if (_brush.Properties.ColorMode.CurrentValue == ColorType.Random && Paint == null)
                 Paint = new SKPaint { Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100) };
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Solid)
+            {
+                Paint?.Dispose();
                 Paint = new SKPaint { Color = _brush.Properties.Color.CurrentValue };
+            }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Gradient)
+            {
+                Paint?.Dispose();
                 Paint = new SKPaint
                 {
                     Shader = SKShader.CreateRadialGradient(
@@ -42,6 +47,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                         SKShaderTileMode.Clamp
                     )
                 };
+            }
         }
         
         public void Update(double deltaTime)

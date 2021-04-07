@@ -29,11 +29,20 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         private void UpdatePaint(bool respawn)
         {
             if (_brush.Properties.ColorMode.CurrentValue == ColorType.Random && (Paint == null || respawn))
+            {
+                Paint?.Dispose();
                 Paint = new SKPaint {Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100)};
+            }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Solid)
+            {
+                Paint?.Dispose();
                 Paint = new SKPaint {Color = _brush.Properties.Color.CurrentValue};
+            }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Gradient || _brush.Properties.ColorMode.CurrentValue == ColorType.ColorChange)
+            {
+                Paint?.Dispose();
                 Paint = new SKPaint {Color = _brush.Properties.Colors.CurrentValue.GetColor((float) Progress)};
+            }
         }
 
         public void Update(double deltaTime)

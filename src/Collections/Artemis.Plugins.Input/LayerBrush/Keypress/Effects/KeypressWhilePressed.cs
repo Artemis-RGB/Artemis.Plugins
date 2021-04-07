@@ -28,11 +28,15 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         private void UpdatePaint()
         {
             if (_brush.Properties.ColorMode.CurrentValue == ColorType.Random && Paint == null)
-                Paint = new SKPaint { Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100) };
+                Paint = new SKPaint {Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100)};
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Solid)
-                Paint = new SKPaint { Color = _brush.Properties.Color.CurrentValue };
+            {
+                Paint?.Dispose();
+                Paint = new SKPaint {Color = _brush.Properties.Color.CurrentValue};
+            }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Gradient)
             {
+                Paint?.Dispose();
                 Paint = new SKPaint
                 {
                     Shader = SKShader.CreateRadialGradient(
@@ -46,16 +50,17 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.ColorChange)
             {
-                Paint = new SKPaint { Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress) };
+                Paint?.Dispose();
+                Paint = new SKPaint {Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress)};
             }
         }
 
         public void Update(double deltaTime)
         {
             if (!Shrink)
-                Size += (float)(deltaTime * _brush.Properties.CircleGrowthSpeed);
+                Size += (float) (deltaTime * _brush.Properties.CircleGrowthSpeed);
             else
-                Size -= (float)(deltaTime * _brush.Properties.CircleGrowthSpeed);
+                Size -= (float) (deltaTime * _brush.Properties.CircleGrowthSpeed);
 
             if (Size > _brush.Properties.CircleSize)
                 Size = _brush.Properties.CircleSize;
