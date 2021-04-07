@@ -6,6 +6,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
     public class KeypressWhilePressed : IKeyPressEffect
     {
         private readonly KeypressBrush _brush;
+        private float _progress;
 
         public KeypressWhilePressed(KeypressBrush brush, ArtemisLed led, SKPoint position)
         {
@@ -43,19 +44,25 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                     )
                 };
             }
+            else if (_brush.Properties.ColorMode.CurrentValue == ColorType.ColorChange)
+            {
+                Paint = new SKPaint { Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress) };
+            }
         }
 
         public void Update(double deltaTime)
         {
             if (!Shrink)
-                Size += (float) (deltaTime * _brush.Properties.CircleGrowthSpeed);
+                Size += (float)(deltaTime * _brush.Properties.CircleGrowthSpeed);
             else
-                Size -= (float) (deltaTime * _brush.Properties.CircleGrowthSpeed);
+                Size -= (float)(deltaTime * _brush.Properties.CircleGrowthSpeed);
 
             if (Size > _brush.Properties.CircleSize)
                 Size = _brush.Properties.CircleSize;
 
             UpdatePaint();
+
+            _progress = Size / _brush.Properties.RippleSize;
         }
 
         public void Render(SKCanvas canvas)
