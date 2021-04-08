@@ -27,6 +27,8 @@ namespace Artemis.Plugins.Devices.OpenRGB
                     Port = 6742
                 }
             });
+            CreateMissingLedsSupported = false;
+            RemoveExcessiveLedsSupported = true;
         }
 
         public override void Enable()
