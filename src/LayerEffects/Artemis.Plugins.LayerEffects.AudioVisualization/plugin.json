@@ -3,7 +3,7 @@
   "Name": "Audio Visualization",
   "Icon": "Music",
   "Description": "Some super awesome audio-visualization.",
-  "Version": "1.0.0.0",
+  "Version": "1.0.0.1",
   "Main": "Artemis.Plugins.LayerEffects.AudioVisualization.dll",
   "AutoEnableFeatures": true
 }

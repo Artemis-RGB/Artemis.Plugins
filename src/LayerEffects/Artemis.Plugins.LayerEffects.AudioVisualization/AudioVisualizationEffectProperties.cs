@@ -3,6 +3,15 @@ using Artemis.Core;
 
 namespace Artemis.Plugins.LayerEffects.AudioVisualization
 {
+    public enum ChannelMode
+    {
+        [Description("Both")] Both = 1,
+
+        [Description("Left")] Left = 2,
+
+        [Description("Right")] Right = 3
+    }
+
     public enum ValueMode
     {
         [Description("Sum")] Sum = 1,
@@ -24,6 +33,9 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
     public class AudioVisualizationEffectProperties : LayerPropertyGroup
     {
         #region Properties & Fields
+
+        [PropertyDescription(Description = "The audio channel to generate the visualization from (Both, Left or Right)")]
+        public EnumLayerProperty<ChannelMode> ChannelMode { get; set; }
 
         [PropertyDescription(Description = "The method to calculate the value (Sum, Average or Max)")]
         public EnumLayerProperty<ValueMode> ValueMode { get; set; }
@@ -58,6 +70,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
         protected override void PopulateDefaults()
         {
+            ChannelMode.DefaultValue = AudioVisualization.ChannelMode.Both;
             ValueMode.DefaultValue = AudioVisualization.ValueMode.Sum;
             SpectrumMode.DefaultValue = AudioVisualization.SpectrumMode.Logarithmic;
             Bars.DefaultValue = 48;

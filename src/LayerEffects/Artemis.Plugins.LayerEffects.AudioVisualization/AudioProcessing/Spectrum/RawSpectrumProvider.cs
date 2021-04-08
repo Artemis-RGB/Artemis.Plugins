@@ -6,14 +6,14 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectr
     {
         #region Constructors
 
-        public RawSpectrumProvider(float[] data)
+        public RawSpectrumProvider(float[][] data, int audioChannel)
         {
-            int dataReferenceCount = (data.Length - 1) * 2;
+            int dataReferenceCount = (data[audioChannel - 1].Length - 1) * 2;
 
-            Bands = new Band[data.Length];
+            Bands = new Band[data[audioChannel - 1].Length];
 
             for (int i = 0; i < Bands.Length; i++)
-                Bands[i] = new Band(FrequencyHelper.GetFrequencyOfIndex(i, dataReferenceCount), FrequencyHelper.GetFrequencyOfIndex(i, dataReferenceCount), new[] { data[i] });
+                Bands[i] = new Band(FrequencyHelper.GetFrequencyOfIndex(i, dataReferenceCount), FrequencyHelper.GetFrequencyOfIndex(i, dataReferenceCount), new[] { data[audioChannel - 1][i] });
         }
 
         #endregion

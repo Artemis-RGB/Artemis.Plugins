@@ -75,7 +75,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
             RecalculateConfigValues();
 
-            ISpectrum spectrum = GetSpectrum();
+            ISpectrum spectrum = GetSpectrum(GetChannelValue());
             if (spectrum == null) return;
 
             for (int i = 0; i < spectrum.BandCount; i++)
@@ -97,17 +97,28 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
             }
         }
 
-        private ISpectrum GetSpectrum()
+        private ISpectrum GetSpectrum(int channels)
         {
             return Properties.SpectrumMode.CurrentValue switch
             {
                 SpectrumMode.Gamma => _audioVisualizationService.SpectrumProvider.GetGammaSpectrum(Properties.Bars.CurrentValue, Properties.Gamma.CurrentValue, Properties.MinFrequency.CurrentValue,
-                    Properties.MaxFrequency.CurrentValue),
+                    Properties.MaxFrequency.CurrentValue, channels),
                 SpectrumMode.Logarithmic => _audioVisualizationService.SpectrumProvider.GetLogarithmicSpectrum(Properties.Bars.CurrentValue, Properties.MinFrequency.CurrentValue,
-                    Properties.MaxFrequency.CurrentValue),
+                    Properties.MaxFrequency.CurrentValue, channels),
                 SpectrumMode.Linear => _audioVisualizationService.SpectrumProvider.GetLinearSpectrum(Properties.Bars.CurrentValue, Properties.MinFrequency.CurrentValue,
-                    Properties.MaxFrequency.CurrentValue),
+                    Properties.MaxFrequency.CurrentValue, channels),
                 _ => null
+            };
+        }
+
+        private int GetChannelValue()
+        {
+            return Properties.ChannelMode.CurrentValue switch
+            {
+                ChannelMode.Both => 1,
+                ChannelMode.Left => 2,
+                ChannelMode.Right => 3,
+                _ => 0
             };
         }
 
