@@ -2,13 +2,14 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair VENGEANCE RGB PRO</Name>
   <Description>Physical layout of Corsairs VENGEANCE RGB PRO</Description>
+  <Author>KanzakiRanko1 & WeedWyvern</Author>
   <Type>DRAM</Type>
   <Lighting>Key</Lighting>
   <Vendor>Corsair</Vendor>
   <Model>VENGEANCE RGB PRO</Model>
-  <Width>12.5</Width>
+  <Width>7.5</Width>
   <Height>135</Height>
-  <LedUnitWidth>12.5</LedUnitWidth>
+  <LedUnitWidth>7.5</LedUnitWidth>
   <LedUnitHeight>13.5</LedUnitHeight>
   <Leds>
     <Led Id="DRAM1" />
@@ -50,6 +51,6 @@
     </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>VENGEANCE RGB PRO.png</DeviceImage>
+    <DeviceImage>VANGEANCE RGB PRO.png</DeviceImage>
   </CustomData>
 </Device>
