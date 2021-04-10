@@ -30,6 +30,8 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
                 using SKBitmap skbm = SKBitmap.Decode(mem);
                 mem.Close();
 
+                if (skbm == null) return;
+
                 List<SKColor> skClrs = quantizerService.Quantize(skbm.Pixels.ToList(), 256).ToList();
                 Colors = new IconColorsDataModel
                 {
