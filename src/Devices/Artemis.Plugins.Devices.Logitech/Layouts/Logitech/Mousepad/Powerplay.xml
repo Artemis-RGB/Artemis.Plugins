@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Logitech Powerplay</Name>
   <Description>Layout of the Logitech Powerplay</Description>
+  <Author>F-Lehmann</Author>
   <Type>Mousepad</Type>
-  <Lighting>Device</Lighting>
   <Vendor>Logitech</Vendor>
   <Model>Powerplay</Model>
   <Width>320</Width>

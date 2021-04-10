@@ -2,6 +2,7 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair K95 RGB PLATINUM XT - Physical US</Name>
   <Description>Physical UK-Layout of Corsairs K95 RGB PLATINUM (Logical: NA)</Description>
+  <Author>SpoinkyNL</Author>
   <Type>Keyboard</Type>
   <Vendor>Corsair</Vendor>
   <Model>K95 RGB Platinum XT</Model>

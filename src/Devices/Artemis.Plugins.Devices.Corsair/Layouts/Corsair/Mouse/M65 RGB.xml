@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair M65 RGB</Name>
   <Description>Physical layout of Corsairs M65 RGB</Description>
+  <Author>SpoinkyNL</Author>
   <Type>Mouse</Type>
-  <Lighting>Key</Lighting>
   <Vendor>Corsair</Vendor>
   <Model>M65 RGB</Model>
   <Width>72</Width>

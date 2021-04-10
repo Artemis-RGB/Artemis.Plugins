@@ -4,7 +4,6 @@
   <Description>Launchpad S (8x8-Pad Grid)</Description>
   <Author>Darth Affe</Author>
   <Type>LedMatrix</Type>
-  <Lighting>Key</Lighting>
   <Vendor>Novation</Vendor>
   <Model>Launchpad S</Model>
   <Width>240</Width>

@@ -2,6 +2,7 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Logitech G910v2 - Physical ANSI</Name>
   <Description>Physical US - Layout of Logitech G910v2</Description>
+  <Author>Darth Affe</Author>
   <Type>Keyboard</Type>
   <Vendor>Logitech</Vendor>
   <Model>G910v2</Model>

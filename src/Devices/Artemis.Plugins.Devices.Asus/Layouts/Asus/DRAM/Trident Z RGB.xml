@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>G.Skill Trident Z RGB</Name>
   <Description>Physical layout of G.Skill Trident Z RGB</Description>
+  <Author>F-Lehmann</Author>
   <Type>DRAM</Type>
-  <Lighting>Key</Lighting>
   <Vendor>G.Skill</Vendor>
   <Model>Trident Z RGB</Model>
   <Width>9</Width>

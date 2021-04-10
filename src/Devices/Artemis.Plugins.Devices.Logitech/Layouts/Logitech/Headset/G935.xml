@@ -2,6 +2,7 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Logitech G935</Name>
   <Description>Layout of the G935 Headset</Description>
+  <Author>F-Lehmann</Author>
   <Type>Headset</Type>
   <Lighting>Key</Lighting>
   <Vendor>Logitech</Vendor>
