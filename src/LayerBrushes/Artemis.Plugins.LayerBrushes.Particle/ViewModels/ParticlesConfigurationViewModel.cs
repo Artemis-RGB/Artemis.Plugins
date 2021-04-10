@@ -15,9 +15,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
         private readonly IDialogService _dialogService;
         private readonly IProfileEditorService _profileEditorService;
 
-        public ParticlesConfigurationViewModel(ParticleLayerBrush particlesBrush,
-            IDialogService dialogService,
-            IProfileEditorService profileEditorService) : base(particlesBrush)
+        public ParticlesConfigurationViewModel(ParticleLayerBrush particlesBrush, IDialogService dialogService, IProfileEditorService profileEditorService) : base(particlesBrush)
         {
             _dialogService = dialogService;
             _profileEditorService = profileEditorService;
