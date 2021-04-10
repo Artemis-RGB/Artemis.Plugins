@@ -64,8 +64,8 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             EchoLifetime.DefaultValue = 1;
 
             //Ripple
-            RippleWidth.DefaultValue = 80;
-            RippleSize.DefaultValue = 400;
+            RippleWidth.DefaultValue = 40;
+            RippleSize.DefaultValue = 200;
             RippleGrowthSpeed.DefaultValue = 300;
             RippleBehivor.DefaultValue = Keypress.RippleBehivor.OneAtATime;
             RippleFadeAway.DefaultValue = RippleFadeOutMode.Linear;
