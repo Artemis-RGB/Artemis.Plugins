@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Cooler Master MK750 (EU)</Name>
-  <Description>DE + UK Layout of Cooler Master MasterKeys MK750</Description>
+  <Name>Cooler Master MK750 (ISO)</Name>
+  <Description>Cooler Master MasterKeys MK750 (ISO Layout)</Description>
+  <Author>dodekaphilist</Author>
   <Type>Keyboard</Type>
-  <Lighting>Device</Lighting>
   <Vendor>Cooler Master</Vendor>
   <Model>MasterKeys MK750</Model>
   <Width>438</Width>
