@@ -1,0 +1,96 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+using ScreenCapture;
+
+namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
+{
+    public sealed class AmbilightScreenCapture : IScreenCapture
+    {
+        #region Properties & Fields
+
+        private readonly IScreenCapture _screenCapture;
+
+        private int _zoneCount = 0;
+
+        private Task _updateTask;
+        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationToken _cancellationToken;
+
+        public Display Display => _screenCapture.Display;
+
+        #endregion
+
+        #region Constructors
+
+        public AmbilightScreenCapture(IScreenCapture screenCapture)
+        {
+            this._screenCapture = screenCapture;
+
+            if (screenCapture is DX11ScreenCapture dx11ScreenCapture)
+                dx11ScreenCapture.Timeout = 100;
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void UpdateLoop()
+        {
+            while (true)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+                _screenCapture.CaptureScreen();
+            }
+        }
+
+        public CaptureZone RegisterCaptureZone(int x, int y, int width, int height, int downscaleLevel = 0)
+        {
+            lock (_screenCapture)
+            {
+                CaptureZone captureZone = _screenCapture.RegisterCaptureZone(x, y, width, height, downscaleLevel);
+                _zoneCount++;
+
+                if (_updateTask == null)
+                {
+                    _cancellationTokenSource = new CancellationTokenSource();
+                    _cancellationToken = _cancellationTokenSource.Token;
+                    _updateTask = Task.Run(UpdateLoop, _cancellationToken);
+                }
+
+                return captureZone;
+            }
+        }
+
+        public bool UnregisterCaptureZone(CaptureZone captureZone)
+        {
+            lock (_screenCapture)
+            {
+                bool result = _screenCapture.UnregisterCaptureZone(captureZone);
+                if (result)
+                    _zoneCount--;
+
+                if ((_zoneCount == 0) && (_updateTask != null))
+                {
+                    _cancellationTokenSource.Cancel();
+                    _updateTask = null;
+                }
+
+                return result;
+            }
+        }
+
+        public bool CaptureScreen() => false;
+
+        public void Restart() => _screenCapture.Restart();
+
+        public void Dispose()
+        {
+            _cancellationTokenSource.Cancel();
+            _updateTask = null;
+
+            _screenCapture.Dispose();
+        }
+
+        #endregion
+    }
+}
