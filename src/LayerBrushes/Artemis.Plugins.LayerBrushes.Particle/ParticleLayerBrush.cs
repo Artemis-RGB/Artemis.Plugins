@@ -15,9 +15,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle
     // Artemis may create multiple instances of it, one instance for each profile element (folder/layer) it is applied to
     public class ParticleLayerBrush : LayerBrush<MainPropertyGroup>
     {
+        private readonly ParticleSystem _particleSystem;
         private SKPaint _paint;
-        private ParticleSystem _particleSystem;
-
+        
         public override List<ILayerBrushPreset> Presets => new()
         {
             new FireplacePreset(this),
@@ -25,15 +25,18 @@ namespace Artemis.Plugins.LayerBrushes.Particle
             new StarsPreset(this)
         };
 
-        public override void EnableLayerBrush()
+        public ParticleLayerBrush()
         {
             ConfigurationDialog = new LayerBrushConfigurationDialog<ParticlesConfigurationViewModel>();
-
             _particleSystem = new ParticleSystem
             {
                 Emitter = new ParticleEmitter(),
                 IsRunning = true
             };
+        }
+
+        public override void EnableLayerBrush()
+        {
             _paint = new SKPaint();
         }
 
