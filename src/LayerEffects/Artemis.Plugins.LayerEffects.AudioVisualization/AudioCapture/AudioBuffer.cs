@@ -68,24 +68,24 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             }
         }
 
-        public void CopyLeftInto(ref float[] data, int offset) => CopyLeftInto(ref data, offset, Math.Min(data.Length, _capacity));
-        public void CopyLeftInto(ref float[] data, int offset, int count)
+        public void CopyLeftInto(in Span<float> data, int offset) => CopyLeftInto(data, offset, Math.Min(data.Length, _capacity));
+        public void CopyLeftInto(in Span<float> data, int offset, int count)
         {
             int bufferOffset = _capacity - count;
             for (int i = 0; i < count; i++)
                 data[offset + i] = _bufferLeft[(_currentIndex + (bufferOffset + i)) % _capacity];
         }
 
-        public void CopyRightInto(ref float[] data, int offset) => CopyRightInto(ref data, offset, Math.Min(data.Length, _capacity));
-        public void CopyRightInto(ref float[] data, int offset, int count)
+        public void CopyRightInto(in Span<float> data, int offset) => CopyRightInto(data, offset, Math.Min(data.Length, _capacity));
+        public void CopyRightInto(in Span<float> data, int offset, int count)
         {
             int bufferOffset = _capacity - count;
             for (int i = 0; i < count; i++)
                 data[offset + i] = _bufferRight[(_currentIndex + (bufferOffset + i)) % _capacity];
         }
 
-        public void CopyMixInto(ref float[] data, int offset) => CopyMixInto(ref data, offset, Math.Min(data.Length, _capacity));
-        public void CopyMixInto(ref float[] data, int offset, int count)
+        public void CopyMixInto(in Span<float> data, int offset) => CopyMixInto(data, offset, Math.Min(data.Length, _capacity));
+        public void CopyMixInto(in Span<float> data, int offset, int count)
         {
             int bufferOffset = _capacity - count;
             for (int i = 0; i < count; i++)

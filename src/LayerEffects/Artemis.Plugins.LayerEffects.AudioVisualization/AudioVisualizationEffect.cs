@@ -49,9 +49,9 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
             {
                 float value = _visualizationData[i];
                 visualizationPath.AddRect(new SKRect(
-                    i * barWidth + renderBounds.Left,
-                    renderBounds.Height - renderBounds.Height * value + renderBounds.Top,
-                    (i + 1) * barWidth + renderBounds.Left,
+                    (i * barWidth) + renderBounds.Left,
+                    (renderBounds.Height - (renderBounds.Height * value)) + renderBounds.Top,
+                    ((i + 1) * barWidth) + renderBounds.Left,
                     renderBounds.Height + renderBounds.Top)
                 );
             }
@@ -71,11 +71,12 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
         public override void Update(double deltaTime)
         {
-            if (_audioVisualizationService.SpectrumProvider == null) return;
+            ISpectrumProvider spectrumProvider = _audioVisualizationService.GetSpectrumProvider(Properties.Channel);
+            if (spectrumProvider == null) return;
 
             RecalculateConfigValues();
 
-            ISpectrum spectrum = GetSpectrum();
+            ISpectrum spectrum = GetSpectrum(spectrumProvider);
             if (spectrum == null) return;
 
             for (int i = 0; i < spectrum.BandCount; i++)
@@ -91,22 +92,19 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
                 if (i < _visualizationData.Length)
                 {
-                    _visualizationData[i] = (float) ((_visualizationData[i] * _smoothingFactor) + (binPower * (1.0 - _smoothingFactor))).Clamp(0, 1);
+                    _visualizationData[i] = (float)((_visualizationData[i] * _smoothingFactor) + (binPower * (1.0 - _smoothingFactor))).Clamp(0, 1);
                     if (float.IsNaN(_visualizationData[i])) _visualizationData[i] = 0;
                 }
             }
         }
 
-        private ISpectrum GetSpectrum()
+        private ISpectrum GetSpectrum(ISpectrumProvider spectrumProvider)
         {
             return Properties.SpectrumMode.CurrentValue switch
             {
-                SpectrumMode.Gamma => _audioVisualizationService.SpectrumProvider.GetGammaSpectrum(Properties.Bars.CurrentValue, Properties.Gamma.CurrentValue, Properties.MinFrequency.CurrentValue,
-                    Properties.MaxFrequency.CurrentValue),
-                SpectrumMode.Logarithmic => _audioVisualizationService.SpectrumProvider.GetLogarithmicSpectrum(Properties.Bars.CurrentValue, Properties.MinFrequency.CurrentValue,
-                    Properties.MaxFrequency.CurrentValue),
-                SpectrumMode.Linear => _audioVisualizationService.SpectrumProvider.GetLinearSpectrum(Properties.Bars.CurrentValue, Properties.MinFrequency.CurrentValue,
-                    Properties.MaxFrequency.CurrentValue),
+                SpectrumMode.Gamma => spectrumProvider.GetGammaSpectrum(Properties.Bars.CurrentValue, Properties.Gamma.CurrentValue, Properties.MinFrequency.CurrentValue, Properties.MaxFrequency.CurrentValue),
+                SpectrumMode.Logarithmic => spectrumProvider.GetLogarithmicSpectrum(Properties.Bars.CurrentValue, Properties.MinFrequency.CurrentValue, Properties.MaxFrequency.CurrentValue),
+                SpectrumMode.Linear => spectrumProvider.GetLinearSpectrum(Properties.Bars.CurrentValue, Properties.MinFrequency.CurrentValue, Properties.MaxFrequency.CurrentValue),
                 _ => null
             };
         }
@@ -124,7 +122,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
         private void RecalculateConfigValues()
         {
-            if (_visualizationData == null || _visualizationData.Length != Properties.Bars.CurrentValue)
+            if ((_visualizationData == null) || (_visualizationData.Length != Properties.Bars.CurrentValue))
                 _visualizationData = new float[Properties.Bars.CurrentValue];
 
             if (Math.Abs(_lastSmoothing - Properties.Smoothing.CurrentValue) > 0.0001f)
