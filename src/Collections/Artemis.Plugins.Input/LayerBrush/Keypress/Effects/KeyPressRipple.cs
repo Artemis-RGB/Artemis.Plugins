@@ -1,4 +1,5 @@
-﻿using Artemis.Core;
+﻿using System;
+using Artemis.Core;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
@@ -7,6 +8,8 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
     {
         private readonly KeypressBrush _brush;
         private float _progress;
+        private SKColor _trailColor;
+        private SKPaint _trailPaint;
 
         public KeypressRipple(KeypressBrush brush, ArtemisLed led, SKPoint position)
         {
@@ -51,10 +54,12 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                 {
                     Shader = SKShader.CreateRadialGradient(
                         Position,
-                        Size,
+                        _brush.Properties.RippleWidth,
                         _brush.Properties.Colors.BaseValue.GetColorsArray(),
                         _brush.Properties.Colors.BaseValue.GetPositionsArray(),
-                        SKShaderTileMode.Clamp
+                        // Changed from Clamp to repeat. It just looks a lot better this way.
+                        // Repeat will need a color position calculation by the way to get the inner ripple color ir order to paint the Trail.
+                        SKShaderTileMode.Repeat
                     )
                 };
             }
@@ -64,13 +69,42 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                 Paint = new SKPaint {Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress)};
             }
 
+            byte alpha = 255;
             // Add fade away effect
             if (_brush.Properties.RippleFadeAway != RippleFadeOutMode.None)
-                Paint.Color = Paint.Color.WithAlpha((byte) (255 * Easings.Interpolate(1 - _progress, (Easings.Functions) _brush.Properties.RippleFadeAway.BaseValue)));
+                alpha = (byte) (255d * Easings.Interpolate(1f - _progress, (Easings.Functions) _brush.Properties.RippleFadeAway.CurrentValue));
 
-            // Set ripple size
+            // If we have to paint a trail
+            if (_brush.Properties.RippleTrail)
+            {
+                // Moved trail color calculation here to avoid extra overhead when trail is not enabled
+                _trailColor = _brush.Properties.ColorMode.CurrentValue switch
+                {
+                    // If gradient is used, calculate the inner color to a given position.
+                    ColorType.Gradient => _brush.Properties.Colors.CurrentValue.GetColor((Size - _brush.Properties.RippleWidth / 2f) % _brush.Properties.RippleWidth / _brush.Properties.RippleWidth),
+                    // If not gradient, we can just copy the color of the ripple Paint.
+                    _ => Paint.Color
+                };
+
+                // Dispose before to create a new one. Thanks for the lesson.
+                _trailPaint?.Dispose();
+                _trailPaint = new SKPaint
+                {
+                    Shader = SKShader.CreateRadialGradient(
+                        Position,
+                        Size,
+                        // Trail is simply a gradient from full inner ripple color to the same color but with alpha 0. Just an illution :D
+                        new[] {_trailColor.WithAlpha(0), _trailColor.WithAlpha(alpha)},
+                        new[] {0f, 1f},
+                        SKShaderTileMode.Clamp
+                    )
+                };
+                _trailPaint.Style = SKPaintStyle.Fill;
+            }
+
+            // Set ripple size and final color alpha
+            Paint.Color = Paint.Color.WithAlpha(alpha);
             Paint.Style = SKPaintStyle.Stroke;
-            Paint.IsAntialias = true;
             Paint.StrokeWidth = _brush.Properties.RippleWidth.CurrentValue;
         }
 
@@ -87,7 +121,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         }
 
         public bool AllowDuplicates => _brush.Properties.RippleBehivor == RippleBehivor.CreateNewRipple;
-        public bool Finished => Size < 0;
+        public bool Finished => Size < 0f;
         public ArtemisLed Led { get; }
         public SKPoint Position { get; set; }
 
@@ -109,6 +143,11 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
 
             if (Size > 0 && Paint != null)
                 canvas.DrawCircle(Position, Size, Paint);
+
+            // Draw the trail
+            if (_brush.Properties.RippleTrail)
+                // Start from end of ripple circle and ensure radios is never 0
+                canvas.DrawCircle(Position, Math.Max(0, Size - _brush.Properties.RippleWidth.CurrentValue / 2f), _trailPaint);
         }
 
         public void Respawn()

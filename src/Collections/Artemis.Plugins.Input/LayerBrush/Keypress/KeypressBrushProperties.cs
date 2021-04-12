@@ -32,6 +32,9 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         [PropertyDescription(Description = "Fade away ripple effect mode.")]
         public EnumLayerProperty<RippleFadeOutMode> RippleFadeAway { get; set; }
 
+        [PropertyDescription(Description = "Show a soft trail behind the ripple.")]
+        public BoolLayerProperty RippleTrail { get; set; }
+
         [PropertyDescription(Description = "Width of the ripple.")]
         public FloatLayerProperty RippleWidth { get; set; }
 
@@ -54,21 +57,19 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         protected override void PopulateDefaults()
         {
             Color.DefaultValue = new SKColor(255, 0, 0);
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 255, 0, 255), 0.0f));
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.7f));
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 255), 0.85f));
-            Colors.DefaultValue.Add(new ColorGradientStop(new SKColor(255, 0, 0, 0), 1.0f));
+            Colors.DefaultValue = ColorGradient.GetUnicornBarf();
 
             //Echo
             FadeEcho.DefaultValue = true;
             EchoLifetime.DefaultValue = 1;
 
             //Ripple
-            RippleWidth.DefaultValue = 50;
+            RippleWidth.DefaultValue = 40;
             RippleSize.DefaultValue = 200;
             RippleGrowthSpeed.DefaultValue = 300;
             RippleBehivor.DefaultValue = Keypress.RippleBehivor.OneAtATime;
             RippleFadeAway.DefaultValue = RippleFadeOutMode.Linear;
+            RippleTrail.DefaultValue = true;
 
             //Circle
             CircleSize.DefaultValue = 100;
@@ -91,6 +92,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             RippleSize.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleGrowthSpeed.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleBehivor.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
+            RippleTrail.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
 
             //Circle
             CircleSize.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.CircleWhilePressed);
