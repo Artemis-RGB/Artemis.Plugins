@@ -9,7 +9,7 @@ namespace Artemis.Plugins.LayerEffects.LedReveal
         public override void Enable()
         {
             // This is where we can register our effect for use, we can also register multiple effects if we'd like
-            RegisterLayerEffectDescriptor<PluginLayerEffect>("LED reveal effect", "Reveals the LEDs of the layer based on a percentage", "GuyFawkesMask");
+            RegisterLayerEffectDescriptor<PluginLayerEffect>("LED reveal effect", "Reveals the LEDs of the layer based on a percentage", "LedReveal.svg");
         }
 
         public override void Disable()
