@@ -3,5 +3,6 @@
   "Name": "LED reveal effect",
   "Description": "Provides the LED reveal layer effect",
   "Version": "1.0.0.0",
+  "Icon": "LedReveal.svg",
   "Main": "Artemis.Plugins.LayerEffects.LedReveal.dll"
 }
