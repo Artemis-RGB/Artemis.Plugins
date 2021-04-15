@@ -1,0 +1,7 @@
+{
+  "Guid": "a4f880b6-dd1d-402c-b127-68b28e936767",
+  "Name": "Tasmota",
+  "Description": "Tasmota Plugin",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Tasmota.dll"
+}
