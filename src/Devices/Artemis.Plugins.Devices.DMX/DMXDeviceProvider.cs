@@ -1,29 +1,87 @@
-﻿using Artemis.Core.DeviceProviders;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using Artemis.Core;
+using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
+using Artemis.Plugins.Devices.DMX.Settings;
+using RGB.NET.Core;
+using RGB.NET.Devices.DMX.E131;
+using Serilog;
+using RGBDeviceProvider = RGB.NET.Devices.DMX.DMXDeviceProvider;
 
 namespace Artemis.Plugins.Devices.DMX
 {
     // ReSharper disable once UnusedMember.Global
+    [PluginFeature(Name = "DMX Device Provider")]
     public class DMXDeviceProvider : DeviceProvider
     {
+        private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
+        private readonly PluginSettings _settings;
 
-        public DMXDeviceProvider(IRgbService rgbService) : base(RGB.NET.Devices.DMX.DMXDeviceProvider.Instance)
+        public DMXDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings) : base(RGBDeviceProvider.Instance)
         {
+            _logger = logger;
             _rgbService = rgbService;
+            _settings = settings;
+
+            RGBDeviceProvider.Instance.Exception += InstanceOnException;
         }
 
         public override void Enable()
         {
-            // TODO: Load from configuration
-            // RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.AddDeviceDefinition();
+            PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
+            RGBDeviceProvider.Instance.DeviceDefinitions.Clear();
+            foreach (DeviceDefinition deviceDefinition in definitions.Value)
+            {
+                E131DMXDeviceDefinition definition = new(deviceDefinition.Hostname)
+                {
+                    Port = deviceDefinition.Port,
+                    Manufacturer = deviceDefinition.Manufacturer,
+                    Model = deviceDefinition.Model,
+                    Universe = deviceDefinition.Universe
+                };
+                // TODO: Do the thing! Add the LEDs!
+                // definition.AddLed();
+                RGBDeviceProvider.Instance.AddDeviceDefinition(definition);
+            }
+
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
         public override void Disable()
         {
+            if (_settings.GetSetting("TurnOffLedsOnShutdown", false).Value)
+                TurnOffLeds();
+
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.DMX.DMXDeviceProvider.Instance.Dispose();
+            RGBDeviceProvider.Instance.Dispose();
+        }
+
+        private void InstanceOnException(object sender, Exception e)
+        {
+            _logger.Warning(e, "DMXDeviceProvider exception");
+        }
+
+        private void TurnOffLeds()
+        {
+            // Disable the LEDs on every device before we leave
+            foreach (IRGBDevice rgbDevice in RgbDeviceProvider.Devices)
+            {
+                ListLedGroup _ = new(_rgbService.Surface, rgbDevice)
+                {
+                    Brush = new SolidColorBrush(new Color(0, 0, 0)),
+                    ZIndex = 999
+                };
+            }
+
+            // Don't wait for the next update, force one now and flush all LEDs for good measure
+            _rgbService.Surface.Update(true);
+            // Give the update queues time to process
+            Thread.Sleep(200);
+
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
         }
     }
 }
