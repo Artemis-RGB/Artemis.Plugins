@@ -9,6 +9,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
     {
         private float _scrollX;
         private float _scrollY;
+        private float _waveSizeNormalized;
         private SKRect _lastBounds;
 
         /// <inheritdoc />
@@ -33,8 +34,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
             paint.Shader = SKShader.CreateLinearGradient(
                 new SKPoint(bounds.Left, bounds.Top),
                 new SKPoint(
-                    (Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Right : bounds.Left) * Properties.WaveSize / 100,
-                    (Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Top : bounds.Bottom) * Properties.WaveSize / 100
+                    (Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Right : bounds.Left) * _waveSizeNormalized,
+                    (Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Top : bounds.Bottom) * _waveSizeNormalized
                 ),
                 gradient.GetColorsArray(0, Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.RepeatSeamless),
                 gradient.GetPositionsArray(0, Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.RepeatSeamless),
@@ -57,15 +58,16 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
         public override void Update(double deltaTime)
         {
-            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
-            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
+            _waveSizeNormalized = Properties.WaveSize / 100f;
+            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float)deltaTime;
+            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float)deltaTime;
 
             if (_lastBounds.IsEmpty)
                 return;
-            
+
             // Look at twice the width and height to support mirror repeat mode
-            _scrollX %= (_lastBounds.Width * 2);
-            _scrollY %= (_lastBounds.Height * 2);
+            _scrollX %= (_lastBounds.Width * 2) * _waveSizeNormalized;
+            _scrollY %= (_lastBounds.Height * 2) * _waveSizeNormalized;
         }
     }
 }
