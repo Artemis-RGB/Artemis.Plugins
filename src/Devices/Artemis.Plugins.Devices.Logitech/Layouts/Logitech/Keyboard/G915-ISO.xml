@@ -1,0 +1,938 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Logitech G915</Name>
+  <Description>G915</Description>
+  <Author>Dennis Piecha</Author>
+  <Type>Keyboard</Type>
+  <Vendor>Logitech</Vendor>
+  <Model>G915</Model>
+  <Width>498</Width>
+  <Height>156.1</Height>
+  <Leds>
+    <Led Id="Keyboard_Escape">
+      <X>35.7</X>
+      <Y>28.7</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Escape.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <X>69</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F1.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F2">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F2.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F3">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F3.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F4">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F4.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F5">
+      <X>162.1</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F5.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F6">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F6.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F7">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F7.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F8">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F8.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F9">
+      <X>255.1</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F9.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F10">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F10.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F11">
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F11.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F12">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F12.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_PrintScreen">
+      <X>342</X>
+      <Y>28.7</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_PrintScreen.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_ScrollLock">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_ScrollLock.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_PauseBreak">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Pause.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>35.7</X>
+      <Y>53.9</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Tilde.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_1">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_1.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_2">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_2.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_3">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_3.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_4">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_4.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_5">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_5.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_6">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_6.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_7">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_7.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_8">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_8.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_9">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_9.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_0">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_0.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_MinusAndUnderscore">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Minus.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_EqualsAndPlus">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Equal.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Backspace">
+      <X>+0.95</X>
+      <Width>2.045</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Backspace.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Insert">
+      <X>342</X>
+      <Y>53.9</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Insert.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Home">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Home.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_PageUp">
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_PgUp.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumLock">
+      <X>408.9</X>
+      <Y>53.9</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_NumLock.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumSlash">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_Slash.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumAsterisk">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_Asterisk.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumMinus">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_Minus.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Tab">
+      <X>35.6</X>
+      <Y>73.9</Y>
+      <Width>1.53</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Tab.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Q">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Q.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_W">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_W.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_E">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_E.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_R">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_R.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_T">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_T.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Y">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Y.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_U">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_U.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_I">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_I.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_O">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_O.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_P">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_P.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_BracketLeft">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Squarebracket_open.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_BracketRight">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Squarebracket_close.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Enter">
+      <Shape>M0,0 L1,0 L1,1 L0.165,1 L0.165,0.507 L0.140,0.485 L0,0.485z</Shape>
+      <X>+0.95</X>
+      <Width>1.52</Width>
+      <Height>2.06</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Enter.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Delete">
+      <X>342</X>
+      <Y>73.9</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Delete.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_End">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_End.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_ArrowDown">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_PgDn.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num7">
+      <X>408.9</X>
+      <Y>73.9</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_7.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num8">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_8.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num9">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_9.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumPlus">
+      <X>+0.95</X>
+      <Height>2.06</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_Plus.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X>35.6</X>
+      <Y>94</Y>
+      <Width>1.785</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_CapsLock.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_A">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_A.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_S">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_S.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_D">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_D.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_F">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_F.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_G">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_G.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_H">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_H.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_J">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_J.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_K">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_K.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_L">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_L.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_SemicolonAndColon">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Semicolon.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_ApostropheAndDoubleQuote">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Singlequote.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NonUsTilde">
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Tilde.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num4">
+      <X>408.9</X>
+      <Y>94</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_4.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num5">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_5.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num6">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_6.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_LeftShift">
+      <X>35.6</X>
+      <Y>114</Y>
+      <Width>1.32</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_LShift.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NonUsBackslash">
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Backslash.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Z">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Z.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_X">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_X.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_C">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_C.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_V">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_V.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_B">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_B.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_N">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_N.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_M">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_M.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_CommaAndLessThan">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Comma.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_PeriodAndBiggerThan">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Dot.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_SlashAndQuestionMark">
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Slash.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_RightShift">
+      <X>+0.95</X>
+      <Width>2.835</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_RShift.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_ArrowUp">
+      <X>361.9</X>
+      <Y>114</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Up.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num1">
+      <X>408.9</X>
+      <Y>114</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_1.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num2">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_2.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num3">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_3.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumEnter">
+      <X>+0.95</X>
+      <Height>2.04</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_Enter.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>35.6</X>
+      <Y>134</Y>
+      <Width>1.54</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_LCtrl.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_LeftGui">
+      <X>+0.95</X>
+      <Width>1.26</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_LPower.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_LeftAlt">
+      <X>+0.95</X>
+      <Width>1.26</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_LAlt.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <X>+0.95</X>
+      <Width>5.98</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Space.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_RightAlt">
+      <X>+0.95</X>
+      <Width>1.26</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_RAlt.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_RightGui">
+      <X>+0.95</X>
+      <Width>1.27</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_RPower.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Application">
+      <X>+0.95</X>
+      <Width>1.26</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Context.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_RightCtrl">
+      <X>+0.95</X>
+      <Width>1.525</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_RCtrl.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <X>342</X>
+      <Y>134</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Left.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_PageDown">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Down.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_ArrowRight">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Right.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Num0">
+      <X>408.9</X>
+      <Y>134</Y>
+      <Width>2.05</Width>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_0.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_NumPeriodAndDelete">
+      <X>+0.95</X>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_Num_Comma.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Programmable1">
+      <X>10.5</X>
+      <Y>53.9</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_G1.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Programmable2">
+      <X>=</X>
+      <Y>+0.95</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_G2.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Programmable3">
+      <X>=</X>
+      <Y>+0.95</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_G3.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Programmable4">
+      <X>=</X>
+      <Y>+0.95</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_G4.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Programmable5">
+      <X>=</X>
+      <Y>+0.95</Y>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="G915_Keys/G915_G5.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Logo">
+      <Shape>M0.532167136669159,0.410078853368759 L0.999977469444275,0.410078853368759 C0.999977469444275,0.559604704380035 1.00006759166718,0.709130585193634 0.999887347221375,0.858570337295532 0.928103625774384,0.858484268188477 0.856229841709137,0.858484268188477 0.784446060657501,0.858570337295532 0.78426593542099,0.778036534786224 0.784446060657501,0.697416603565216 0.784355938434601,0.616882801055908 0.700323104858398,0.616796612739563 0.616290152072906,0.616796612739563 0.532257199287415,0.616882801055908 0.532077074050903,0.547976851463318 0.532167136669159,0.478984802961349 0.532167136669159,0.410078853368759z M0.525412082672119,2.41369843934081E-06 C0.525412082672119,0.0691667422652245 0.525502145290375,0.138417214155197 0.525412082672119,0.207581534981728 0.429490208625793,0.208442866802216 0.334378987550735,0.252542674541473 0.278357028961182,0.327650129795074 0.207654103636742,0.418519854545593 0.20044869184494,0.549268841743469 0.260974019765854,0.646684587001801 0.313483327627182,0.736262321472168 0.418682128190994,0.791903853416443 0.525412082672119,0.792420625686646 0.525502145290375,0.861585021018982 0.525502145290375,0.930835425853729 0.525412082672119,0.999999821186066 0.400308340787888,1.00008594989777 0.27592521905899,0.95633065700531 0.1815345287323,0.877777874469757 0.0700310245156288,0.786735951900482 0.0014896938810125,0.649096310138702 0.000138684597914107,0.508614361286163 -0.00310374610126019,0.378554403781891 0.0506665259599686,0.24875283241272 0.145057216286659,0.15521302819252 0.242780402302742,0.0567636787891388 0.383465737104416,-0.000428247294621542 0.525412082672119,2.41369843934081E-06z</Shape>
+      <X>11.6</X>
+      <Y>6.4</Y>
+      <Width>0.9</Width>
+      <Height>0.9</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>G915.png</DeviceImage>
+  </CustomData>
+</Device>
