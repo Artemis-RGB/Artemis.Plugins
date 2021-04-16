@@ -17,6 +17,7 @@
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" PrivateAssets="All" />
     <PackageReference Include="FluentValidation" Version="10.0.0" PrivateAssets="All" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
     <PackageReference Include="Stylet" Version="1.3.6" PrivateAssets="All" />
   </ItemGroup>
@@ -48,12 +49,23 @@
     <None Update="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\hue.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
 	<Content Include="Layouts\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\pushlink_bridge_v2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\pushlink_bridge_v2.png" />
   </ItemGroup>
 
   <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->

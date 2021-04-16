@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Magic Home Led Strip</Name>
+  <Description>Magic Home Led Strip</Description>
+  <Type>Unknown</Type>
+  <Vendor>Magic Home</Vendor>
+  <Model>Magic Home Led Strip</Model>
+  <Width>30</Width>
+  <Height>30</Height>
+  <LedUnitWidth>1</LedUnitWidth>
+  <LedUnitHeight>1</LedUnitHeight>
+  <Leds>
+    <Led Id="Custom1">
+      <X>0</X>
+      <Y>0</Y>
+      <Width>30</Width>
+      <Height>30</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+  </Leds>
+  <CustomData>
+    <LogicalLayout Image="" />
+    <DeviceImage>MagicHome.png</DeviceImage>
+  </CustomData>
+</Device>

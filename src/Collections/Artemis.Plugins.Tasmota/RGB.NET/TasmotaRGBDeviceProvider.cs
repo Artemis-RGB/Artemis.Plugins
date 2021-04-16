@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,12 @@ namespace Artemis.Plugins.Tasmota.RGB.NET
 
         private static TasmotaRGBDeviceProvider _instance;
 
+        private List<String> stripsIpAddress;
+
         public static TasmotaRGBDeviceProvider Instance => _instance ?? new TasmotaRGBDeviceProvider();
+
+        private TasmotaUpdateQueue? _tasmotaUpdateQueue;
+
 
         #endregion
 
@@ -31,12 +37,37 @@ namespace Artemis.Plugins.Tasmota.RGB.NET
 
         protected override void InitializeSDK()
         {
-            throw new NotImplementedException();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
 
         protected override IEnumerable<IRGBDevice> LoadDevices()
         {
-            throw new NotImplementedException();
+            stripsIpAddress = new List<string>
+            {
+                "192.168.178.31"
+            };
+            foreach (string ipAddress in stripsIpAddress)
+            {
+                TasmotaLight light = new();
+                bool add = true;
+                try
+                {
+                    light.ConnectAsync(IPAddress.Parse(ipAddress));
+                    light.TurnOnAsync();
+                    light.AutoRefreshEnabled = true;
+
+                }
+                catch
+                {
+                    add = false;
+                }
+                if (add)
+                    yield return new TasmotaDevice(new TasmotaDeviceInfo(RGBDeviceType.Unknown, "RGB Strip", "192.168.1.42"), new TasmotaUpdateQueue(GetUpdateTrigger(), light));
+            }
         }
 
         #endregion

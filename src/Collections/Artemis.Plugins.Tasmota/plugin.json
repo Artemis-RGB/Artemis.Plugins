@@ -1,7 +1,9 @@
 {
   "Guid": "a4f880b6-dd1d-402c-b127-68b28e936767",
   "Name": "Tasmota",
+  "Icon": "Resources/hue.svg",
   "Description": "Tasmota Plugin",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Tasmota.dll"
+  "Main": "Artemis.Plugins.Tasmota.dll",
+  "AutoEnableFeatures": false
 }
