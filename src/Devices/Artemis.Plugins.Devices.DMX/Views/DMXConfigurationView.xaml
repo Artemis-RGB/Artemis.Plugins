@@ -19,12 +19,11 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel Margin="15" MaxWidth="800">
                 <!-- General settings -->
-                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 15">Manage devices (WIP NOT READY YET)</TextBlock>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 15">Manage devices</TextBlock>
                 <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Stretch" Margin="0,0,5,0">
                     <StackPanel Margin="15">
                         <Grid>
                             <StackPanel>
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}">Introduction</TextBlock>
                                 <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" TextWrapping="Wrap">
                                     This plugin supports connecting to E1.31-enabled devices.<LineBreak />
                                     To get started add one or more devices by its hostname.
@@ -38,9 +37,7 @@
                                     <Hyperlink NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/dmx"
                                                RequestNavigate="{s:Action OpenHyperlink}"
                                                Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-                                        DMX wiki page
-                                    </Hyperlink>
-                                    .
+                                        DMX wiki page</Hyperlink>.
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
@@ -136,7 +133,7 @@
                             <StackPanel Grid.Column="0">
                                 <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Turn off LEDs on shutdown</TextBlock>
                                 <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
-                                        If enabled, all LEDs are turned off before the plugin is disabled (which happens on Artemis shutdown).
+                                    If enabled, all LEDs are turned off before the plugin is disabled (which happens on Artemis shutdown).
                                 </TextBlock>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
@@ -42,8 +43,14 @@ namespace Artemis.Plugins.Devices.DMX
                     Model = deviceDefinition.Model,
                     Universe = deviceDefinition.Universe
                 };
-                // TODO: Do the thing! Add the LEDs!
-                // definition.AddLed();
+                foreach (LedDefinition ledDefinition in deviceDefinition.LedDefinitions.Where(l => l.LedId != LedId.Invalid))
+                {
+                    int rChannel = ledDefinition.R;
+                    int gChannel = ledDefinition.G;
+                    int bChannel = ledDefinition.B;
+                    definition.AddLed(ledDefinition.LedId, (rChannel, c => c.GetR()), (gChannel, c => c.GetG()), (bChannel, c => c.GetB()));
+                }
+
                 RGBDeviceProvider.Instance.AddDeviceDefinition(definition);
             }
 

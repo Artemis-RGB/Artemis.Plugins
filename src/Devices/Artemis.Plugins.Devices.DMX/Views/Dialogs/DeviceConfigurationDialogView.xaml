@@ -1,66 +1,218 @@
-﻿<UserControl x:Class="Artemis.Plugins.Devices.DMX.Views.Dialogs.DeviceConfigurationDialogView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:s="https://github.com/canton7/Stylet"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:dialogs="clr-namespace:Artemis.Plugins.Devices.DMX.ViewModels.Dialogs"
-             mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance dialogs:DeviceConfigurationDialogViewModel}">
-    <StackPanel Margin="20" Width="240">
-        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0 0 0 20">
-            Add/edit device
-        </TextBlock>
+﻿<mde:MaterialWindow x:Class="Artemis.Plugins.Devices.DMX.Views.Dialogs.DeviceConfigurationDialogView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:s="https://github.com/canton7/Stylet"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:dialogs="clr-namespace:Artemis.Plugins.Devices.DMX.ViewModels.Dialogs"
+                    xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
+                    mc:Ignorable="d"
+                    Title="DMX Device Settings | Artemis"
+                    TitleBarIcon="{StaticResource BowIcon}"
+                    Foreground="{DynamicResource MaterialDesignBody}"
+                    Background="{DynamicResource MaterialDesignPaper}"
+                    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+                    UseLayoutRounding="True"
+                    FadeContentIfInactive="False"
+                    Width="750"
+                    Height="750"
+                    d:DesignHeight="800" d:DesignWidth="800"
+                    d:DataContext="{d:DesignInstance dialogs:DeviceConfigurationDialogViewModel}"
+                    Icon="/Resources/Images/Logo/logo-512.png">
+    <materialDesign:DialogHost Identifier="AddLedsDialog">
+        <DockPanel>
+            <mde:AppBar Type="Dense"
+                        Title="Create or edit device"
+                        ShowShadow="True"
+                        DockPanel.Dock="Top"
+                        Margin="-18 0 0 0">
+                <mde:AppBar.AppIcon>
+                    <materialDesign:PackIcon Kind="Ethernet" Width="20" Height="28" />
+                </mde:AppBar.AppIcon>
+            </mde:AppBar>
 
-        <TextBox materialDesign:HintAssist.Hint="Display name"
-                 Margin="0 5"
-                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}" />
-      
-        <TextBox materialDesign:HintAssist.Hint="Hostname*"
-                 Margin="0 5"
-                 Text="{Binding Hostname, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}" />
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="240" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-        <TextBox materialDesign:HintAssist.Hint="Port*"
-                 Margin="0 5"
-                 Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}" />
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 0 10 0">
+                    <TextBox materialDesign:HintAssist.Hint="Display name"
+                             Margin="0 0 0 5"
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
 
-        <TextBox materialDesign:HintAssist.Hint="Universe*"
-                 Margin="0 5"
-                 Text="{Binding Universe, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}" />
+                    <TextBox materialDesign:HintAssist.Hint="Hostname*"
+                             Margin="0 5"
+                             Text="{Binding Hostname, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
 
-        <TextBox materialDesign:HintAssist.Hint="Model"
-                 Margin="0 5"
-                 Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}" />
+                    <TextBox materialDesign:HintAssist.Hint="Port*"
+                             Margin="0 5"
+                             Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
 
-        <TextBox materialDesign:HintAssist.Hint="Manufacturer"
-                 Margin="0 5"
-                 Text="{Binding Manufacturer, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}" />
+                    <TextBox materialDesign:HintAssist.Hint="Universe*"
+                             Margin="0 5"
+                             Text="{Binding Universe, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 35 0 0">
-            <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Margin="0 0 8 0" Command="{s:Action Cancel}">
-                <Button.CommandParameter>
-                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                        False
-                    </system:Boolean>
-                </Button.CommandParameter>
-                CANCEL
-            </Button>
-            <Button Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Command="{s:Action Accept}">
-                <Button.CommandParameter>
-                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                        True
-                    </system:Boolean>
-                </Button.CommandParameter>
-                ACCEPT
-            </Button>
-        </StackPanel>
-    </StackPanel>
-</UserControl>
+                    <TextBox materialDesign:HintAssist.Hint="Model"
+                             Margin="0 5"
+                             Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
+
+                    <TextBox materialDesign:HintAssist.Hint="Manufacturer"
+                             Margin="0 5"
+                             Text="{Binding Manufacturer, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
+                </StackPanel>
+
+                <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Margin="10 0 10 10">
+                    Define the LEDs in the table below, each LED should have a channel for R, G and B.
+                </TextBlock>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="10 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="-5 0 -5 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Margin="5 0"
+                                Command="{s:Action AddLed}">
+                            ADD LED
+                        </Button>
+                        <Button Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                Margin="5 0"
+                                Command="{s:Action AddLeds}">
+                            ADD LEDS
+                        </Button>
+                        <Button Grid.Row="0"
+                                Grid.Column="2"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Margin="5 0"
+                                HorizontalAlignment="Right"
+                                Command="{s:Action ClearLeds}">
+                            CLEAR
+                        </Button>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1"
+                              ItemsSource="{Binding LedDefinitions}"
+                              AutoGenerateColumns="False"
+                              CanUserSortColumns="True"
+                              CanUserAddRows="False"
+                              HeadersVisibility="Column"
+                              materialDesign:DataGridAssist.CellPadding="8"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                              Background="{DynamicResource MaterialDesignCardBackground}"
+                              HorizontalAlignment="Stretch">
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="VerticallyCenteredColumn" TargetType="FrameworkElement">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                                <Style x:Key="CenteredTextColumnEditingStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <materialDesign:DataGridComboBoxColumn
+                                Header="LED ID"
+                                Width="150"
+                                SelectedValueBinding="{Binding LedId}"
+                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.LedIds}"
+                                ElementStyle="{StaticResource VerticallyCenteredColumn}">
+                                <materialDesign:DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox"
+                                           BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ComboBox}, ResourceId=MaterialDataGridComboBoxColumnEditingStyle}}">
+                                        <Setter Property="ItemsPanel">
+                                            <Setter.Value>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel />
+                                                </ItemsPanelTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </materialDesign:DataGridComboBoxColumn.EditingElementStyle>
+
+                            </materialDesign:DataGridComboBoxColumn>
+
+                            <materialDesign:DataGridTextColumn Width="80"
+                                                               Binding="{Binding R}"
+                                                               Header="R channel"
+                                                               ElementStyle="{StaticResource VerticallyCenteredColumn}"
+                                                               EditingElementStyle="{StaticResource CenteredTextColumnEditingStyle}" />
+
+                            <materialDesign:DataGridTextColumn Width="80"
+                                                               Binding="{Binding G}"
+                                                               Header="G channel"
+                                                               ElementStyle="{StaticResource VerticallyCenteredColumn}"
+                                                               EditingElementStyle="{StaticResource CenteredTextColumnEditingStyle}" />
+
+                            <materialDesign:DataGridTextColumn Width="80"
+                                                               Binding="{Binding B}"
+                                                               Header="B channel"
+                                                               ElementStyle="{StaticResource VerticallyCenteredColumn}"
+                                                               EditingElementStyle="{StaticResource CenteredTextColumnEditingStyle}" />
+                            <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{s:Action DeleteLed}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                ToolTip="Delete LED"
+                                                Width="25"
+                                                Height="25">
+                                            <materialDesign:PackIcon Kind="Delete" Width="18" Height="18" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 0 0">
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" IsCancel="True" Margin="0 0 8 0" Command="{s:Action Cancel}">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                False
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        CANCEL
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" IsDefault="True" Command="{s:Action Accept}">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                True
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        SAVE CHANGES
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </materialDesign:DialogHost>
+
+
+</mde:MaterialWindow>

@@ -6,7 +6,8 @@ using Artemis.Core.Services;
 using Artemis.Plugins.Devices.DMX.Settings;
 using Artemis.Plugins.Devices.DMX.ViewModels.Dialogs;
 using Artemis.UI.Shared;
-using Artemis.UI.Shared.Services;
+using Ninject;
+using Ninject.Parameters;
 using Stylet;
 
 namespace Artemis.Plugins.Devices.DMX.ViewModels
@@ -14,16 +15,16 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
     public class DMXConfigurationViewModel : PluginConfigurationViewModel
     {
         private readonly PluginSetting<List<DeviceDefinition>> _definitions;
-        private readonly IDialogService _dialogService;
         private readonly IPluginManagementService _pluginManagementService;
         private readonly PluginSettings _settings;
+        private readonly IWindowManager _windowManager;
         private bool _turnOffLedsOnShutdown;
 
-        public DMXConfigurationViewModel(Plugin plugin, PluginSettings settings, IDialogService dialogService, IPluginManagementService pluginManagementService)
+        public DMXConfigurationViewModel(Plugin plugin, PluginSettings settings, IWindowManager windowManager, IPluginManagementService pluginManagementService)
             : base(plugin)
         {
             _settings = settings;
-            _dialogService = dialogService;
+            _windowManager = windowManager;
             _pluginManagementService = pluginManagementService;
             _definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
 
@@ -44,7 +45,7 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
             Utilities.OpenUrl(e.Uri.AbsoluteUri);
         }
 
-        public async Task AddDevice()
+        public void AddDevice()
         {
             DeviceDefinition device = new()
             {
@@ -53,10 +54,11 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
                 Manufacturer = "Unknown",
                 Model = "Generic DMX device"
             };
-            Dictionary<string, object> parameters = new() {{"device", device}};
-            object result = await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+            bool? result = _windowManager.ShowDialog(
+                Plugin.Kernel!.Get<DeviceConfigurationDialogViewModel>(new ConstructorArgument("device", device))
+            );
 
-            if (result is bool boolResult && boolResult == false || result is not bool)
+            if (!result.HasValue || result == false)
                 return;
 
             _definitions.Value.Add(device);
@@ -65,10 +67,14 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
             _definitions.Save();
         }
 
-        public async Task EditDevice(DeviceDefinition device)
+        public void EditDevice(DeviceDefinition device)
         {
-            Dictionary<string, object> parameters = new() {{"device", device}};
-            await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+            bool? result = _windowManager.ShowDialog(
+                Plugin.Kernel!.Get<DeviceConfigurationDialogViewModel>(new ConstructorArgument("device", device))
+            );
+
+            if (!result.HasValue || result == false)
+                return;
 
             _definitions.Save();
         }
