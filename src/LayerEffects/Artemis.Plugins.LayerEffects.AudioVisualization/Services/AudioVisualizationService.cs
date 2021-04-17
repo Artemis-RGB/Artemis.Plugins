@@ -4,6 +4,7 @@ using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture;
 using Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectrum;
+using Serilog;
 
 namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 {
@@ -12,7 +13,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         #region Properties & Fields
 
         private readonly ICoreService _coreService;
-
+        private readonly ILogger _logger;
         private bool _isActivated;
         private int _useToken;
         private readonly HashSet<int> _useTokens = new();
@@ -26,9 +27,10 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
         #region Constructors
 
-        public AudioVisualizationService(ICoreService coreService)
+        public AudioVisualizationService(ICoreService coreService, ILogger logger)
         {
             this._coreService = coreService;
+            this._logger = logger;
         }
 
         #endregion
@@ -56,7 +58,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         {
             if (_isActivated) return;
 
-            _audioInput = new CSCoreAudioInput();
+            _audioInput = new CSCoreAudioInput(_logger);
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms

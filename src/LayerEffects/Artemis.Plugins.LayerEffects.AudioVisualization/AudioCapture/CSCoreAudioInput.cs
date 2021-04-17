@@ -3,6 +3,7 @@ using CSCore;
 using CSCore.CoreAudioAPI;
 using CSCore.SoundIn;
 using CSCore.Streams;
+using Serilog;
 
 namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 {
@@ -11,6 +12,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
         #region Properties & Fields
 
         private WasapiCapture _capture;
+        private ILogger _logger;
         private SoundInSource _soundInSource;
         private IWaveSource _source;
         private SingleBlockNotificationStream _stream;
@@ -24,6 +26,10 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
         #region Event
 
         public event AudioData DataAvailable;
+        public CSCoreAudioInput(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         #endregion
 
@@ -36,13 +42,23 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             _audioEndpointVolume = AudioEndpointVolume.FromDevice(captureDevice);
 
             //DarthAffe 07.02.2018: This is a really stupid workaround to (hopefully) finally fix the surround driver issues
-            for (int i = 1; i < 13; i++)
-                try { _capture = new WasapiLoopbackCapture(100, new WaveFormat(deviceFormat.SampleRate, deviceFormat.BitsPerSample, i)); } catch { /* We're just trying ... */ }
+            for (int i = deviceFormat.Channels; (i > 0 && _capture == null); i--)
+            {
+                try
+                {
+                    _capture = new WasapiLoopbackCapture(100, new WaveFormat(deviceFormat.SampleRate, deviceFormat.BitsPerSample, i));
+                    _capture?.Initialize();
+                    _logger.Information("WasapiLoopbackCapture intialized with {0} channels.", i);
+                }
+                catch (Exception e)
+                {
+                    _logger.Error("Failed to initialize WasapiLoopbackCapture with {0} channels.", i, e.ToString());
+                    _capture = null;
+                }
+            }
 
             if (_capture == null)
                 throw new NullReferenceException("Failed to initialize WasapiLoopbackCapture");
-
-            _capture.Initialize();
 
             _soundInSource = new SoundInSource(_capture) { FillWithZeros = false };
             _source = _soundInSource.WaveFormat.SampleRate == 44100
