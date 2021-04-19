@@ -28,7 +28,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
         public LightDataModel AddOrUpdateLight(Light light, GroupDataModel roomGroup)
         {
             string lightKey = $"light-{light.Id}";
-            LightDataModel lightDataModel = TryGetDynamicChild("lightKey", out DynamicChild<LightDataModel> dynamicChild)
+            LightDataModel lightDataModel = TryGetDynamicChild(lightKey, out DynamicChild<LightDataModel> dynamicChild)
                 ? dynamicChild.Value
                 : AddDynamicChild(lightKey, new LightDataModel(light), light.Name).Value;
 
