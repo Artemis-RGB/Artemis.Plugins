@@ -21,21 +21,25 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
         private void AddOrUpdateAccessory(PhilipsHueBridge bridge, Sensor accessory)
         {
             string accessoryKey = $"{bridge.BridgeId}-{accessory.Id}";
-            AccessoryDataModel accessoryDataModel = DynamicChild<AccessoryDataModel>(accessoryKey);
+            
+            AccessoryDataModel accessoryDataModel = null;
+            if (TryGetDynamicChild(accessoryKey, out DynamicChild dynamicChild))
+                accessoryDataModel = (AccessoryDataModel) dynamicChild.BaseValue;
+
             if (accessoryDataModel != null)
                 accessoryDataModel.HueSensor = accessory;
             else
-                switch (accessory.Type)
+            {
+                accessoryDataModel = accessory.Type switch
                 {
-                    case "ZLLSwitch":
-                        accessoryDataModel = AddDynamicChild(new DimmerSwitch(accessory), accessoryKey);
-                        break;
-                    case "ZGPSwitch":
-                        accessoryDataModel = AddDynamicChild(new Tap(accessory), accessoryKey);
-                        break;
-                }
+                    "ZLLSwitch" => AddDynamicChild(accessoryKey, new DimmerSwitch(accessory)).Value,
+                    "ZGPSwitch" => AddDynamicChild(accessoryKey, new Tap(accessory)).Value,
+                    _ => null
+                };
+            }
 
-            accessoryDataModel.DataModelDescription.Name = accessoryDataModel.Name;
+            if (accessoryDataModel != null) 
+                accessoryDataModel.DataModelDescription.Name = accessoryDataModel.Name;
         }
 
         private void AddOrUpdateMotionSensor(PhilipsHueBridge bridge, List<Sensor> sensors)
@@ -43,11 +47,14 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
             Sensor mainSensor = sensors.First(s => s.State.Presence != null);
 
             string sensorKey = $"{bridge.BridgeId}-{mainSensor.Id}";
-            MotionSensorDataModel accessoryDataModel = DynamicChild<MotionSensorDataModel>(sensorKey);
+            MotionSensorDataModel accessoryDataModel = null;
+            if (TryGetDynamicChild(sensorKey, out DynamicChild<MotionSensorDataModel> dynamicChild))
+                accessoryDataModel = dynamicChild.Value;
+
             if (accessoryDataModel != null)
                 accessoryDataModel.Update(mainSensor, sensors);
             else
-                accessoryDataModel = AddDynamicChild(new MotionSensorDataModel(mainSensor, sensors), sensorKey);
+                accessoryDataModel = AddDynamicChild(sensorKey, new MotionSensorDataModel(mainSensor, sensors)).Value;
 
             accessoryDataModel.DataModelDescription.Name = accessoryDataModel.Name;
         }

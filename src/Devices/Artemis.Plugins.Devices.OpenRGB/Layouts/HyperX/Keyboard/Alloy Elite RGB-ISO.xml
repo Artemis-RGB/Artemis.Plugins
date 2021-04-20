@@ -2,6 +2,7 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>HyperX Alloy Elite RGB - Physical ISO</Name>
   <Description>Physical ISO-Layour of HyperX Alloy Elite RGB</Description>
+  <Author>EXtremeExploit</Author>
   <Type>Keyboard</Type>
   <Vendor>HyperX</Vendor>
   <Model>Alloy Elite RGB</Model>

@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair LL RGB Fan</Name>
   <Description>Physical layout of Corsairs LL RGB Fan</Description>
-  <Type>Fan</Type>
-  <Lighting>Key</Lighting>
+  <Author>SpoinkyNL</Author>
+  <Type>Fan</Type>  
   <Vendor>Corsair</Vendor>
   <Model>LL RGB</Model>
   <Width>120</Width>

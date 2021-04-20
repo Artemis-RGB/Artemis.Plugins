@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Corsair Virtuoso SE</Name>
   <Description>Physical layout of Corsairs Virtuoso SE</Description>
-  <Type>Headset</Type>
-  <Lighting>Key</Lighting>
+  <Author>SpoinkyNL</Author>
+  <Type>Headset</Type>  
   <Vendor>Corsair</Vendor>
   <Model>VIRTUOSOSE</Model>
   <Width>242</Width>

@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>SteelSeries Apex 5 - Physical US</Name>
   <Description>Physical US-Layout of SteelSeries's Apex 5</Description>
+  <Author>Aureshion</Author>
   <Type>Keyboard</Type>
-  <Lighting>Key</Lighting>
   <Vendor>SteelSeries</Vendor>
   <Model>Apex 5</Model>
   <Width>444</Width>

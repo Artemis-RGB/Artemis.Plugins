@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>G Pro Wireless</Name>
   <Description>gpro wireless layout</Description>
+  <Author>DrMeteor</Author>
   <Type>Mouse</Type>
-  <Lighting>Key</Lighting>
   <Vendor>Logitech</Vendor>
   <Model>G Pro Wireless</Model>
   <Width>65</Width>

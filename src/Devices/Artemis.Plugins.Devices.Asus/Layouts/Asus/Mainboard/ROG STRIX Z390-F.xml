@@ -2,8 +2,8 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>Asus ROG STRIX Z390-F</Name>
   <Description>Asus ROG STRIX Z390-F</Description>
+  <Author>F-Lehmann</Author>
   <Type>Mainboard</Type>
-  <Lighting>Device</Lighting>
   <Vendor>Asus</Vendor>
   <Model>ROG STRIX Z390-F</Model>
   <Width>244</Width>

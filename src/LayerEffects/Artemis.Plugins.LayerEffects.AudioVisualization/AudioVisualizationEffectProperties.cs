@@ -6,24 +6,30 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
     public enum ValueMode
     {
         [Description("Sum")] Sum = 1,
-
         [Description("Average")] Average = 2,
-
         [Description("Max")] Max = 3
     }
 
     public enum SpectrumMode
     {
         [Description("Logarithmic")] Logarithmic = 1,
-
         [Description("Gamma")] Gamma = 2,
-
         [Description("Linear")] Linear = 3
+    }
+
+    public enum Channel
+    {
+        [Description("Mix")] Mix = 0,
+        [Description("Left")] Left = 1,
+        [Description("Right")] Right = 2
     }
 
     public class AudioVisualizationEffectProperties : LayerPropertyGroup
     {
         #region Properties & Fields
+
+        [PropertyDescription(Description = "The channel to listen to")]
+        public EnumLayerProperty<Channel> Channel { get; set; }
 
         [PropertyDescription(Description = "The method to calculate the value (Sum, Average or Max)")]
         public EnumLayerProperty<ValueMode> ValueMode { get; set; }
@@ -58,6 +64,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
         protected override void PopulateDefaults()
         {
+            Channel.DefaultValue = AudioVisualization.Channel.Mix;
             ValueMode.DefaultValue = AudioVisualization.ValueMode.Sum;
             SpectrumMode.DefaultValue = AudioVisualization.SpectrumMode.Logarithmic;
             Bars.DefaultValue = 48;
@@ -70,12 +77,10 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
         }
 
         protected override void EnableProperties()
-        {
-        }
+        { }
 
         protected override void DisableProperties()
-        {
-        }
+        { }
 
         #endregion
     }

@@ -54,10 +54,19 @@ namespace Artemis.Plugins.LayerEffects.LedReveal
             }
 
             // Order LEDs by their position to create a nice revealing effect from left top right, top to bottom
-            List<ArtemisLed> leds = layer.Leds.OrderBy(l => l.AbsoluteRectangle.Top).ThenBy(l => l.AbsoluteRectangle.Left).ToList();
+            List<ArtemisLed> leds = Properties.LedOrder.CurrentValue switch
+            {
+                LedOrder.LedId => layer.Leds.OrderBy(l => l.Device.Rectangle.Left).ThenBy(l => l.Device.Rectangle.Top).ThenBy(l => l.RgbLed.Id).ToList(),
+                LedOrder.Vertical => layer.Leds.OrderBy(l => l.AbsoluteRectangle.Left).ThenBy(l => l.AbsoluteRectangle.Top).ToList(),
+                LedOrder.Horizontal => layer.Leds.OrderBy(l => l.AbsoluteRectangle.Top).ThenBy(l => l.AbsoluteRectangle.Left).ToList(),
+                LedOrder.VerticalReversed => layer.Leds.OrderByDescending(l => l.AbsoluteRectangle.Left).ThenByDescending(l => l.AbsoluteRectangle.Top).ToList(),
+                LedOrder.HorizontalReversed => layer.Leds.OrderByDescending(l => l.AbsoluteRectangle.Top).ThenByDescending(l => l.AbsoluteRectangle.Left).ToList(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
             // Because rendering for effects is 0,0 based, zero out the position of LEDs starting at the top-left
-            float offsetX = leds.First().AbsoluteRectangle.Left;
-            float offsetY = leds.First().AbsoluteRectangle.Top;
+            float offsetX = leds.Min(l => l.AbsoluteRectangle.Left);
+            float offsetY = leds.Min(l => l.AbsoluteRectangle.Top);
 
             // Create or reset the path
             if (_clipPath == null)

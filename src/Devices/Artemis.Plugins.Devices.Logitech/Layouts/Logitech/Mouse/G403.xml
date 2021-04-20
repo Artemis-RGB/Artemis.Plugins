@@ -4,7 +4,6 @@
   <Description>Layout of the Logitech G403 Mouse</Description>
   <Author>Darth Affe</Author>
   <Type>Mouse</Type>
-  <Lighting>Device</Lighting>
   <Vendor>Logitech</Vendor>
   <Model>G403</Model>
   <Width>67</Width>

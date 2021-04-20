@@ -7,16 +7,11 @@ using Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectrum;
 
 namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 {
-    public class AudioVisualizationService: IPluginService, IDisposable
+    public class AudioVisualizationService : IPluginService, IDisposable
     {
-        private readonly ICoreService _coreService;
-
-        public AudioVisualizationService(ICoreService coreService)
-        {
-            _coreService = coreService;
-        }
-
         #region Properties & Fields
+
+        private readonly ICoreService _coreService;
 
         private bool _isActivated;
         private int _useToken;
@@ -25,7 +20,16 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         private IAudioInput _audioInput;
         private AudioBuffer _audioBuffer;
 
-        internal ISpectrumProvider SpectrumProvider { get; private set; }
+        private readonly Dictionary<Channel, ISpectrumProvider> _spectrumProviders = new();
+
+        #endregion
+
+        #region Constructors
+
+        public AudioVisualizationService(ICoreService coreService)
+        {
+            this._coreService = coreService;
+        }
 
         #endregion
 
@@ -58,8 +62,12 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms
             _audioInput.DataAvailable += (left, right) => _audioBuffer.Put(left, right);
 
-            SpectrumProvider = new FourierSpectrumProvider(_audioBuffer);
-            SpectrumProvider.Initialize();
+            _spectrumProviders.Add(Channel.Mix, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Mix)));
+            _spectrumProviders.Add(Channel.Left, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Left)));
+            _spectrumProviders.Add(Channel.Right, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Right)));
+
+            foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
+                spectrumProvider.Initialize();
 
             _coreService.FrameRendering += Update;
 
@@ -72,10 +80,11 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
             _coreService.FrameRendering -= Update;
 
-            SpectrumProvider.Dispose();
+            foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
+                spectrumProvider.Dispose();
             _audioInput.Dispose();
 
-            SpectrumProvider = null;
+            _spectrumProviders.Clear();
             _audioBuffer = null;
             _audioInput = null;
 
@@ -84,8 +93,11 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
         private void Update(object sender, FrameRenderingEventArgs args)
         {
-            SpectrumProvider?.Update();
+            foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
+                spectrumProvider?.Update(); //DarthAffe 10.04.2021: This is not updating, it's used more like a mark as dirty
         }
+
+        public ISpectrumProvider GetSpectrumProvider(Channel channel) => _spectrumProviders.TryGetValue(channel, out ISpectrumProvider spectrumProvider) ? spectrumProvider : null;
 
         public void Dispose()
         {

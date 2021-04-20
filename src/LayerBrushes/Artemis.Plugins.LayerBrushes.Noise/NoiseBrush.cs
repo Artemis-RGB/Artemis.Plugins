@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Noise.Utilities;
@@ -10,20 +9,23 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 {
     public class NoiseBrush : PerLedLayerBrush<NoiseBrushProperties>
     {
-        private static readonly Random Rand = new Random();
+        private static readonly Random Rand = new();
+        private readonly OpenSimplexNoise _noise;
         private SKColor[] _colorMap;
-        private OpenSimplexNoise _noise;
         private float _x;
         private float _y;
         private float _z;
 
-        public override void EnableLayerBrush()
+        public NoiseBrush()
         {
             _x = Rand.Next(0, 4096);
             _y = Rand.Next(0, 4096);
             _z = Rand.Next(0, 4096);
             _noise = new OpenSimplexNoise(Rand.Next(0, 4096));
+        }
 
+        public override void EnableLayerBrush()
+        {
             Properties.GradientColor.BaseValue.CollectionChanged += GradientOnCollectionChanged;
             CreateColorMap();
         }

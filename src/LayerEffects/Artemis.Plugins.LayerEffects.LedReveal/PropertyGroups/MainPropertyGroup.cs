@@ -1,4 +1,5 @@
-﻿using Artemis.Core;
+﻿using System.ComponentModel;
+using Artemis.Core;
 
 namespace Artemis.Plugins.LayerEffects.LedReveal.PropertyGroups
 {
@@ -6,6 +7,9 @@ namespace Artemis.Plugins.LayerEffects.LedReveal.PropertyGroups
     {
         [PropertyDescription(InputAffix = "%", MinInputValue = 0, MaxInputValue = 100)]
         public FloatLayerProperty Percentage { get; set; }
+        
+        [PropertyDescription(Name = "LED order", Description = "The order in which to reveal LEDs")]
+        public EnumLayerProperty<LedOrder> LedOrder { get; set; }
 
         [PropertyDescription(Description = "The rounding function to apply to the percentage")]
         public EnumLayerProperty<RoundingFunction> RoundingFunction { get; set; }
@@ -18,6 +22,7 @@ namespace Artemis.Plugins.LayerEffects.LedReveal.PropertyGroups
 
         protected override void PopulateDefaults()
         {
+            LedOrder.DefaultValue = PropertyGroups.LedOrder.Horizontal;
             LimitVisibleLeds.DefaultValue = false;
             MaxVisibleLeds.DefaultValue = 1;
             Percentage.DefaultValue = 100f;
@@ -31,6 +36,16 @@ namespace Artemis.Plugins.LayerEffects.LedReveal.PropertyGroups
         protected override void DisableProperties()
         {
         }
+    }
+
+    public enum LedOrder
+    {
+        [Description("LED ID")]
+        LedId,
+        Vertical,
+        Horizontal,
+        VerticalReversed,
+        HorizontalReversed
     }
 
     public enum RoundingFunction

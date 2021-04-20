@@ -28,15 +28,6 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             DataModel.Keyboard.IsScrollLockEnabled = _inputService.KeyboardToggleStatus.ScrollLock;
         }
 
-        private void InputServiceOnMouseScrollStatusChanged(object sender, ArtemisMouseScrollEventArgs e)
-        {
-            DataModel.TimeSinceLastInput = TimeSpan.Zero;
-            if (e.IsScrollingUp) { DataModel.Mouse.ScrollEvents.ScrollUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingDown) { DataModel.Mouse.ScrollEvents.ScrollDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingLeft) { DataModel.Mouse.ScrollEvents.ScrollLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingRight) { DataModel.Mouse.ScrollEvents.ScrollRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device.RgbDevice.DeviceInfo.DeviceName)); }
-        }
-
         public override void Disable()
         {
             _inputService.KeyboardKeyUpDown -= InputServiceOnKeyboardKeyUpDown;
@@ -52,6 +43,15 @@ namespace Artemis.Plugins.Input.DataModelExpansion
         }
 
         #region Event handlers
+
+        private void InputServiceOnMouseScrollStatusChanged(object sender, ArtemisMouseScrollEventArgs e)
+        {
+            DataModel.TimeSinceLastInput = TimeSpan.Zero;
+            if (e.IsScrollingUp) { DataModel.Mouse.ScrollEvents.ScrollUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingDown) { DataModel.Mouse.ScrollEvents.ScrollDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingLeft) { DataModel.Mouse.ScrollEvents.ScrollLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
+            else if (e.IsScrollingRight) { DataModel.Mouse.ScrollEvents.ScrollRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
+        }
 
         private void InputServiceOnKeyboardKeyUpDown(object sender, ArtemisKeyboardKeyUpDownEventArgs e)
         {
