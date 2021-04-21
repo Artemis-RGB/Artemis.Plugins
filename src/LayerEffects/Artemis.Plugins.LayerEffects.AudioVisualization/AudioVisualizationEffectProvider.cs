@@ -10,7 +10,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization
 
         public override void Enable()
         {
-            RegisterLayerEffectDescriptor<AudioVisualizationEffect>("Audio Visualization", "Super awesome audio visualization", "Music");
+            RegisterLayerEffectDescriptor<AudioVisualizationEffect>("Audio Visualization - NAudio", "Super awesome audio visualization", "Music");
         }
 
         public override void Disable()
