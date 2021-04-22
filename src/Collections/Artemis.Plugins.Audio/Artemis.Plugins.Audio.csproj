@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
-    <AssemblyName>Artemis.Plugins.LayerEffects.AudioVisualization</AssemblyName>
-    <RootNamespace>Artemis.Plugins.LayerEffects.AudioVisualization</RootNamespace>
+    <AssemblyName>Artemis.Plugins.Audio</AssemblyName>
+    <RootNamespace>Artemis.Plugins.Audio</RootNamespace>
     <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>

@@ -12,6 +12,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         #region Properties & Fields
 
         private readonly ICoreService _coreService;
+        private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
 
         private bool _isActivated;
         private int _useToken;
@@ -26,9 +27,10 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
         #region Constructors
 
-        public AudioVisualizationService(ICoreService coreService)
+        public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService)
         {
             this._coreService = coreService;
+            this._naudioDeviceEnumerationService = naudioDeviceEnumerationService;
         }
 
         #endregion
@@ -56,7 +58,9 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         {
             if (_isActivated) return;
 
-            _audioInput = new NAudioAudioInput();
+            // Pass Enumerator instance from NAudioDeviceEnumerationService
+            // Could also pass the Service to register events to update EndPoint on default device change.
+            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService.Enumerator);
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms

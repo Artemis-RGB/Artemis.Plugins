@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Artemis.Plugins.LayerEffects.AudioVisualization": {
+    "Artemis.Plugins.Audio": {
       "commandName": "Executable",
       "executablePath": ".\\Artemis.UI.exe",
       "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"

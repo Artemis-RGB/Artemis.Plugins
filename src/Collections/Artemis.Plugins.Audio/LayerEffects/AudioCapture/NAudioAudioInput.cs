@@ -5,6 +5,16 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 {
     public class NAudioAudioInput : IAudioInput
     {
+
+        #region Constructor
+
+        public NAudioAudioInput(MMDeviceEnumerator deviceEnumerator)
+        {
+            _deviceEnumerator = deviceEnumerator;
+        }
+
+        #endregion
+
         #region Event
 
         public event AudioData DataAvailable;
@@ -26,7 +36,6 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 
         public void Initialize()
         {
-            _deviceEnumerator = new MMDeviceEnumerator();
             _endpoint = _deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             _capture = new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
@@ -123,10 +132,15 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             // AUDCLNT_E_DEVICE_INVALIDATED
             // This means the device we're listening to somehow got invalidated (disconnected, modified, whatever)
             // Lets restart with a new capture
-            if (e.Exception.Message == "0x88890004")
+            if (e.Exception?.Message == "0x88890004")
             {
                 Dispose();
                 Initialize();
+            }
+            // Avoid Artemis Crash if plugin is disabled. COM things.
+            else if (e.Exception == null)
+            {
+                Dispose();
             }
         }
 
