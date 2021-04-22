@@ -56,6 +56,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
             _deviceEnumerator?.Dispose();
             _deviceEnumerator = null;
         }
+
         #endregion
     }
 }
