@@ -17,7 +17,6 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
         private MMDeviceEnumerator _deviceEnumerator;
         private INotificationClient _notificationClient;
-        private IMMNotificationClient _notifyClient;
 
         /// <summary>
         /// Return the only one MMDeviceEnumerator instance for all plugin features.
@@ -45,8 +44,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         {
             _deviceEnumerator = new MMDeviceEnumerator();
             _notificationClient = new INotificationClient();
-            _notifyClient = (IMMNotificationClient)_notificationClient;
-            _deviceEnumerator.RegisterEndpointNotificationCallback(_notifyClient);
+            _deviceEnumerator.RegisterEndpointNotificationCallback(_notificationClient);
         }
 
         #endregion
@@ -55,9 +53,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
         public void Dispose()
         {
-            // TODO: Exception if plugin is disabled.
-
-            _deviceEnumerator.Dispose();
+            _deviceEnumerator?.Dispose();
             _deviceEnumerator = null;
         }
         #endregion
