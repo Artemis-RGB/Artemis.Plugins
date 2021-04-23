@@ -1,6 +1,7 @@
 ﻿using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using NAudio.CoreAudioApi;
+using System;
 
 namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 {
@@ -26,11 +27,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
         public float PeakVolumeRelativeNormalized { get; set; }
         [DataModelProperty(Description = "State of the current playback device.")]
         public DeviceState DeviceState { get; set; }
-        public ChannelsDataModel Channels { get; set; } = new ChannelsDataModel();
+        [DataModelProperty(Description = "Time since las played sound on the current playback device.")]
+        public TimeSpan TimeSinceLastSound { get; set; }
         [DataModelProperty(Description = "Event triggered when current playback device master volume is changed.")]
         public DataModelEvent VolumeChanged { get; set; } = new DataModelEvent();
-        [DataModelProperty(Description = "Event triggered when current playback plays a sound.")]
-        public DataModelEvent SoundPlayed { get; set; } = new DataModelEvent();
+        public ChannelsDataModel Channels { get; set; } = new ChannelsDataModel();
+
     }
 
     public class ChannelsDataModel : DataModel { }

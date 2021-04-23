@@ -47,6 +47,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 
         public override void Update(double deltaTime)
         {
+            DataModel.TimeSinceLastSound += TimeSpan.FromSeconds(deltaTime);
             if (_playbackDeviceChanged)
             {
                 UpdatePlaybackDevice();
@@ -99,7 +100,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 
                 if (_peakVolumeNormalized > 0)
                 {
-                    DataModel.SoundPlayed.Trigger();
+                    DataModel.TimeSinceLastSound = TimeSpan.Zero;
                 }
             }
         }
