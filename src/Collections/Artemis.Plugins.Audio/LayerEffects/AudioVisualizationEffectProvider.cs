@@ -1,7 +1,7 @@
 ﻿using Artemis.Core;
 using Artemis.Core.LayerEffects;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization
 {
     [PluginFeature(AlwaysEnabled = true)]
     public class AudioVisualizationEffectProvider : LayerEffectProvider

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Artemis.Core;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization
 {
     public enum ValueMode
     {

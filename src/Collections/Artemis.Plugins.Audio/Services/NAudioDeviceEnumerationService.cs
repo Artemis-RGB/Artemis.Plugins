@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using Artemis.Core.Services;
-using Artemis.Plugins.LayerEffects.AudioVisualization.Interfaces;
+using Artemis.Plugins.Audio.Interfaces;
 using NAudio.CoreAudioApi;
 using Serilog;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
+namespace Artemis.Plugins.Audio.Services
 {
     /// <summary>
     /// This service will act as a container for a single MMDeviceEnumerator for all plugin features. 

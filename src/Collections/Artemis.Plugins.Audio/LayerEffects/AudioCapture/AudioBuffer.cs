@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 {
     public class AudioBuffer
     {

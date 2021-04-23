@@ -1,7 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
 using System;
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.Interfaces
+namespace Artemis.Plugins.Audio.Interfaces
 {
     public class INotificationClient : IMMNotificationClient
     {

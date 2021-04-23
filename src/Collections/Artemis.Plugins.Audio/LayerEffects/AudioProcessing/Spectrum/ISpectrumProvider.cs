@@ -1,4 +1,4 @@
-﻿namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
+﻿namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
 {
     public interface ISpectrumProvider : IAudioProcessor
     {

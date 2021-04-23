@@ -1,4 +1,4 @@
-﻿namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing
+﻿namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing
 {
     public abstract class AbstractAudioProcessor : IAudioProcessor
     {

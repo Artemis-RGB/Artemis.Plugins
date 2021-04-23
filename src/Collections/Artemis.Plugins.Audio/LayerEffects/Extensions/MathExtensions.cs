@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.Extensions
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.Extensions
 {
     /// <summary>
     ///     Offers some extensions and helper-methods for the work with doubles

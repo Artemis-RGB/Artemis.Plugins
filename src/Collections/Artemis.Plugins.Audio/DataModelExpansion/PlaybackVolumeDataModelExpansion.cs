@@ -1,10 +1,10 @@
 ﻿using Artemis.Core.DataModelExpansions;
-using Artemis.Plugins.LayerEffects.AudioVisualization.Services;
+using Artemis.Plugins.Audio.Services;
 using NAudio.CoreAudioApi;
 using Serilog;
 using System;
 
-namespace Artemis.Plugins.DataModelExpansions.PlaybackVolume
+namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 {
     public class PlaybackVolumeDataModelExpansion : DataModelExpansion<PlaybackVolumeDataModel>
     {

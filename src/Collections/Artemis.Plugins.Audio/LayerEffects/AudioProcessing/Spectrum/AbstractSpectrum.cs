@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
 {
     public abstract class AbstractSpectrum : ISpectrum
     {

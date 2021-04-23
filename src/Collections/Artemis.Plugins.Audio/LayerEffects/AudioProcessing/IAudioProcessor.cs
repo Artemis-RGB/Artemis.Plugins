@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing
 {
     public interface IAudioProcessor : IDisposable
     {

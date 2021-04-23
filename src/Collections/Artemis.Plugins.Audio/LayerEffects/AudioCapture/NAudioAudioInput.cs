@@ -1,8 +1,8 @@
-﻿using Artemis.Plugins.LayerEffects.AudioVisualization.Services;
+﻿using Artemis.Plugins.Audio.Services;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 {
     public class NAudioAudioInput : IAudioInput
     {
@@ -147,6 +147,8 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 
         public void Dispose()
         {
+            // Don't dispose the enumerator as it is part of a service and have to be alive
+            // while the Plugin is enabled.
             _capture?.Dispose();
             _endpoint?.Dispose();
 

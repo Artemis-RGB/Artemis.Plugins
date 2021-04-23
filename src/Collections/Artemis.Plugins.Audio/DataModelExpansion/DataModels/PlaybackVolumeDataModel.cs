@@ -2,7 +2,7 @@
 using Artemis.Core.DataModelExpansions;
 using NAudio.CoreAudioApi;
 
-namespace Artemis.Plugins.DataModelExpansions.PlaybackVolume
+namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 {
     public class PlaybackVolumeDataModel : DataModel
     {

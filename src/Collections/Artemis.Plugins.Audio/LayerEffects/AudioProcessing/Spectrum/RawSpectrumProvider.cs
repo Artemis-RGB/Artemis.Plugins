@@ -1,6 +1,6 @@
-﻿using Artemis.Plugins.LayerEffects.AudioVisualization.Helper;
+﻿using Artemis.Plugins.Audio.LayerEffects.AudioVisualization.Helper;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
 {
     public class RawSpectrumProvider : AbstractSpectrum
     {

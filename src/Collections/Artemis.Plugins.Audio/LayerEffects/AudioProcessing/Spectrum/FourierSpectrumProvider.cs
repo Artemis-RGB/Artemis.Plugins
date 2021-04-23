@@ -2,7 +2,7 @@
 using MathNet.Numerics;
 using MathNet.Numerics.IntegralTransforms;
 
-namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
+namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
 {
     public class FourierSpectrumProvider : AbstractAudioProcessor, ISpectrumProvider
     {
