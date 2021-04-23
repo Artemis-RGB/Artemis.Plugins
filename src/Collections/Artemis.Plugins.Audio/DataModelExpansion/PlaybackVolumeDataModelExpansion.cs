@@ -34,7 +34,7 @@ namespace Artemis.Plugins.DataModelExpansions.PlaybackVolume
         {
             _naudioDeviceEnumerationService.NotificationClient.DefaultDeviceChanged += NotificationClient_DefaultDeviceChanged;
             UpdatePlaybackDevice(true);
-            AddTimedUpdate(TimeSpan.FromMilliseconds(10), UpdatePeakVolume);
+            AddTimedUpdate(TimeSpan.FromMilliseconds(15), UpdatePeakVolume);
         }
 
         public override void Disable()
@@ -75,7 +75,7 @@ namespace Artemis.Plugins.DataModelExpansions.PlaybackVolume
             lock (_audioEventLock) // To avoid query an Device/EndPoint that is not the current device anymore or has more or less channels
             {
                 // Absolute master peak volume 
-                float _peakVolumeNormalized = _playbackDevice.AudioMeterInformation.MasterPeakValue;
+                float _peakVolumeNormalized = _playbackDevice?.AudioMeterInformation.MasterPeakValue ?? 0;
                 DataModel.PeakVolumeNormalized = _peakVolumeNormalized;
                 DataModel.PeakVolume = _peakVolumeNormalized * 100f;
 
@@ -84,7 +84,12 @@ namespace Artemis.Plugins.DataModelExpansions.PlaybackVolume
                 DataModel.PeakVolumeRelative = _peakVolumeNormalized * 100f * DataModel.VolumeNormalized;
 
                 // Update Channels Peak
-                var channelsVolumeNormalized = _playbackDevice.AudioMeterInformation.PeakValues;
+                var channelsVolumeNormalized = _playbackDevice?.AudioMeterInformation.PeakValues ?? null;
+
+                //One more check because Playback device can be null any time (device for example). If this is the case, just keep the actual values and update in the next update.
+                if (channelsVolumeNormalized == null)
+                    return;
+
                 for (int i = 0; i < DataModel.Channels.DynamicChildren.Count; i++)
                 {
                     var channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(string.Format("Channel {0}", i));
@@ -175,7 +180,7 @@ namespace Artemis.Plugins.DataModelExpansions.PlaybackVolume
 
         private void SetPlaybackDevice()
         {
-            _playbackDevice = _naudioDeviceEnumerationService.Enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+            _playbackDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
 
             if (_playbackDevice == null)
             {

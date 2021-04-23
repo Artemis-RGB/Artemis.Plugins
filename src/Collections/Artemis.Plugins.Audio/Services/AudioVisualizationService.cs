@@ -60,7 +60,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
 
             // Pass Enumerator instance from NAudioDeviceEnumerationService
             // Could also pass the Service to register events to update EndPoint on default device change.
-            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService.Enumerator);
+            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService);
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms

@@ -1,4 +1,5 @@
-﻿using NAudio.CoreAudioApi;
+﻿using Artemis.Plugins.LayerEffects.AudioVisualization.Services;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
 namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
@@ -8,9 +9,9 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 
         #region Constructor
 
-        public NAudioAudioInput(MMDeviceEnumerator deviceEnumerator)
+        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService)
         {
-            _deviceEnumerator = deviceEnumerator;
+            _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
         }
 
         #endregion
@@ -23,7 +24,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 
         #region Properties & Fields
 
-        private MMDeviceEnumerator _deviceEnumerator;
+        private NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private MMDevice _endpoint;
         private WasapiLoopbackCapture _capture;
 
@@ -36,7 +37,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
 
         public void Initialize()
         {
-            _endpoint = _deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             _capture = new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
 
@@ -148,11 +149,9 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
         {
             _capture?.Dispose();
             _endpoint?.Dispose();
-            _deviceEnumerator?.Dispose();
 
             _capture = null;
             _endpoint = null;
-            _deviceEnumerator = null;
         }
 
         #endregion
