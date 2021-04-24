@@ -71,11 +71,6 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
 
     public class MouseScrollDataModel : DataModel
     {
-        public MouseScrollDataModel()
-        {
-          
-        }
-
         [DataModelProperty(Name = "Scroll Up", Description = "An event that triggers each time a mouse scroll up is done.")]
         public DataModelEvent<MouseScrollEventArgs> ScrollUp { get; set; } = new();
 

@@ -3,7 +3,7 @@ using NAudio.CoreAudioApi.Interfaces;
 using System;
 namespace Artemis.Plugins.Audio.Interfaces
 {
-    public class INotificationClient : IMMNotificationClient
+    public class NotificationClient : IMMNotificationClient
     {
         public delegate void DefaultDeviceChangedHandler();
         public delegate void DeviceStateChangedHandler();
@@ -36,9 +36,9 @@ namespace Artemis.Plugins.Audio.Interfaces
             }
         }
 
-        public INotificationClient()
+        public NotificationClient()
         {
-            if (System.Environment.OSVersion.Version.Major < 6)
+            if (Environment.OSVersion.Version.Major < 6)
             {
                 throw new NotSupportedException("This functionality is only supported on Windows Vista or newer.");
             }

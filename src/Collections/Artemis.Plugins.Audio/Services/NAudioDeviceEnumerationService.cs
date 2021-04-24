@@ -17,7 +17,7 @@ namespace Artemis.Plugins.Audio.Services
 
         private readonly ILogger _logger;
         private MMDeviceEnumerator _deviceEnumerator;
-        private INotificationClient _notificationClient;
+        private NotificationClient _notificationClient;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace Artemis.Plugins.Audio.Services
             _deviceEnumerator = new MMDeviceEnumerator();
             _logger.Information("Audio device enumerator service created.");
 
-            _notificationClient = new INotificationClient();
+            _notificationClient = new NotificationClient();
             _deviceEnumerator.RegisterEndpointNotificationCallback(_notificationClient);
             _logger.Information("Audio device event interface registered.");
         }
@@ -42,7 +42,7 @@ namespace Artemis.Plugins.Audio.Services
         /// <summary>
         /// Return the default INotificationClient used to register device changes event handlers. Return null if the Enumerator is not ready to be used
         /// </summary>
-        public INotificationClient NotificationClient => _notificationClient;
+        public NotificationClient NotificationClient => _notificationClient;
 
         /// <summary>
         /// Get the current device for a given Flow direction and Device Role
@@ -56,13 +56,13 @@ namespace Artemis.Plugins.Audio.Services
             {
                 return _deviceEnumerator.GetDefaultAudioEndpoint(dataFlow, role);
             }
-            catch (AggregateException Ea)
+            catch (AggregateException ea)
             {
-                _logger.Error("AggregateException on GetCurrentDevice() " + Ea);
+                _logger.Error("AggregateException on GetCurrentDevice() " + ea);
             }
-            catch (NullReferenceException Noe)
+            catch (NullReferenceException noe)
             {
-                _logger.Error("NullReferenceException on GetCurrentDevice() " + Noe);
+                _logger.Error("NullReferenceException on GetCurrentDevice() " + noe);
             }
             catch (Exception e)
             {
@@ -83,13 +83,13 @@ namespace Artemis.Plugins.Audio.Services
             {
                 return _deviceEnumerator.EnumerateAudioEndPoints(dataFlow, swStateMask);
             }
-            catch (AggregateException Ea)
+            catch (AggregateException ea)
             {
-                _logger.Error("AggregateException on EnumerateAudioEndPoints() " + Ea);
+                _logger.Error("AggregateException on EnumerateAudioEndPoints() " + ea);
             }
-            catch (NullReferenceException Noe)
+            catch (NullReferenceException noe)
             {
-                _logger.Error("NullReferenceException on EnumerateAudioEndPoints() " + Noe);
+                _logger.Error("NullReferenceException on EnumerateAudioEndPoints() " + noe);
             }
             catch (Exception e)
             {
