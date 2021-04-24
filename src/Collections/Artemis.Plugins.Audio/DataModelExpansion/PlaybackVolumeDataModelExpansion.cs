@@ -14,6 +14,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
         private readonly ILogger _logger;
         private readonly object _audioEventLock = new object();
         private bool _playbackDeviceChanged = false;
+        private float _lastMasterPeakVolumeNormalized = 0;
         private MMDevice _playbackDevice;
         private AudioEndpointVolume _audioEndpointVolume;
 
@@ -34,13 +35,15 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
         {
             _naudioDeviceEnumerationService.NotificationClient.DefaultDeviceChanged += NotificationClient_DefaultDeviceChanged;
             UpdatePlaybackDevice(true);
-            AddTimedUpdate(TimeSpan.FromMilliseconds(15), UpdatePeakVolume);
+
+            // We dont need mor than ~30 updates per second. It will keep CPU usage controlled. 60 or more updates per second could rise cpu usage
+            AddTimedUpdate(TimeSpan.FromMilliseconds(33), UpdatePeakVolume);
         }
 
         public override void Disable()
         {
             _naudioDeviceEnumerationService.NotificationClient.DefaultDeviceChanged -= NotificationClient_DefaultDeviceChanged;
-            _audioEndpointVolume.Dispose();
+            _audioEndpointVolume?.Dispose();
             _audioEndpointVolume = null;
             FreePlaybackDevice();
         }
@@ -68,7 +71,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 
             if (_playbackDevice == null)
             {
-                // To avoid null object exception on device change
+                // To avoid null object exception on device change or don't update if there are no devices at all
                 return;
             }
 
@@ -77,7 +80,18 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
             {
                 // Absolute master peak volume 
                 float _peakVolumeNormalized = _playbackDevice?.AudioMeterInformation.MasterPeakValue ?? 0;
-                DataModel.PeakVolumeNormalized = _peakVolumeNormalized;
+
+                // Sound detected. Reset timespan
+                if (_peakVolumeNormalized > 0)
+                {
+                    DataModel.TimeSinceLastSound = TimeSpan.Zero;
+                }
+
+                // Don't update datamodel if not neeeded
+                if (_lastMasterPeakVolumeNormalized == _peakVolumeNormalized)
+                    return;
+
+                DataModel.PeakVolumeNormalized = _lastMasterPeakVolumeNormalized = _peakVolumeNormalized;
                 DataModel.PeakVolume = _peakVolumeNormalized * 100f;
 
                 // Master peak volume relative to master volume
@@ -85,7 +99,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
                 DataModel.PeakVolumeRelative = _peakVolumeNormalized * 100f * DataModel.VolumeNormalized;
 
                 // Update Channels Peak
-                var channelsVolumeNormalized = _playbackDevice?.AudioMeterInformation.PeakValues ?? null;
+                var channelsVolumeNormalized = _playbackDevice?.AudioMeterInformation.PeakValues;
 
                 //One more check because Playback device can be null any time (device for example). If this is the case, just keep the actual values and update in the next update.
                 if (channelsVolumeNormalized == null)
@@ -93,14 +107,9 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
 
                 for (int i = 0; i < DataModel.Channels.DynamicChildren.Count; i++)
                 {
-                    var channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(string.Format("Channel {0}", i));
-                    channelDataModel.Value.PeakVolumeNormalized = Math.Max(channelsVolumeNormalized[i], 0);
-                    channelDataModel.Value.PeakVolume = Math.Max(channelsVolumeNormalized[i] * 100f, 0);
-                }
-
-                if (_peakVolumeNormalized > 0)
-                {
-                    DataModel.TimeSinceLastSound = TimeSpan.Zero;
+                    var channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(i.ToString());
+                    channelDataModel.Value.PeakVolumeNormalized = channelsVolumeNormalized[i];
+                    channelDataModel.Value.PeakVolume = channelsVolumeNormalized[i] * 100f;
                 }
             }
         }
@@ -118,7 +127,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
             {
                 for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
                 {
-                    var channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(string.Format("Channel {0}", i));
+                    var channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(i.ToString());
                     float volumeNormalized = _audioEndpointVolume.Channels[i].VolumeLevelScalar;
                     channelDataModel.Value.VolumeNormalized = volumeNormalized;
                     channelDataModel.Value.Volume = volumeNormalized * 100f;
@@ -134,7 +143,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
             for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
             {
                 DataModel.Channels.AddDynamicChild(
-                    string.Format("Channel {0}", i),
+                    i.ToString(),
                     new ChannelDataModel()
                     {
                         ChannelIndex = i
@@ -173,7 +182,6 @@ namespace Artemis.Plugins.Audio.DataModelExpansions.PlaybackVolume
         private void FreePlaybackDevice()
         {
             string disposingPlaybackDeviceFriendlyName = _playbackDevice?.FriendlyName ?? "Unknown";
-            _audioEndpointVolume?.Dispose();
             _playbackDevice?.Dispose();
             _playbackDevice = null;
             _logger.Information(string.Format("Playback device {0} unregistered as source device to fill Playback volume data model", disposingPlaybackDeviceFriendlyName));
