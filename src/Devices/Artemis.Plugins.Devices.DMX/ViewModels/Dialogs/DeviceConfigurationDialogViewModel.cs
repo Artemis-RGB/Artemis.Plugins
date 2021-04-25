@@ -110,7 +110,7 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels.Dialogs
 
         public async Task AddLeds()
         {
-            object? result = await _dialogService.ShowDialogAt<AddLedsDialogViewModel>("AddLedsDialog");
+            object result = await _dialogService.ShowDialogAt<AddLedsDialogViewModel>("AddLedsDialog");
             if (result is int intResult)
                 for (int i = 0; i < intResult; i++)
                     AddLed();

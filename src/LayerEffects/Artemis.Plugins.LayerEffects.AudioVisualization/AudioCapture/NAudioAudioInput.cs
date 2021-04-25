@@ -49,7 +49,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             _capture.StartRecording();
         }
 
-        private void ProcessMonoData(object? sender, WaveInEventArgs e)
+        private void ProcessMonoData(object sender, WaveInEventArgs e)
         {
             WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
@@ -59,7 +59,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
                 DataAvailable?.Invoke(buffer.FloatBuffer[i], buffer.FloatBuffer[i]);
         }
 
-        private void ProcessStereoData(object? sender, WaveInEventArgs e)
+        private void ProcessStereoData(object sender, WaveInEventArgs e)
         {
             WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
@@ -68,7 +68,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
                 DataAvailable?.Invoke(buffer.FloatBuffer[i], buffer.FloatBuffer[i + 1]);
         }
 
-        private void ProcessQuadraphonicData(object? sender, WaveInEventArgs e)
+        private void ProcessQuadraphonicData(object sender, WaveInEventArgs e)
         {
             WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
@@ -84,7 +84,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             }
         }
 
-        private void Process51Data(object? sender, WaveInEventArgs e)
+        private void Process51Data(object sender, WaveInEventArgs e)
         {
             WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
@@ -101,7 +101,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             }
         }
 
-        private void Process71Data(object? sender, WaveInEventArgs e)
+        private void Process71Data(object sender, WaveInEventArgs e)
         {
             WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
@@ -118,7 +118,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.AudioCapture
             }
         }
 
-        private void CaptureOnRecordingStopped(object? sender, StoppedEventArgs e)
+        private void CaptureOnRecordingStopped(object sender, StoppedEventArgs e)
         {
             // AUDCLNT_E_DEVICE_INVALIDATED
             // This means the device we're listening to somehow got invalidated (disconnected, modified, whatever)
