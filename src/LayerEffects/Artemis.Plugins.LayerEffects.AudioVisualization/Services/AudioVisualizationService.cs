@@ -56,7 +56,7 @@ namespace Artemis.Plugins.LayerEffects.AudioVisualization.Services
         {
             if (_isActivated) return;
 
-            _audioInput = new CSCoreAudioInput();
+            _audioInput = new NAudioAudioInput();
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms
