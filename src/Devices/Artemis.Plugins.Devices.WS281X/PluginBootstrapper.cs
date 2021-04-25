@@ -6,12 +6,16 @@ namespace Artemis.Plugins.Devices.WS281X
 {
     public class PluginBootstrapper : IPluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<WS281XConfigurationViewModel>();
         }
 
-        public void Disable(Plugin plugin)
+        public void OnPluginEnabled(Plugin plugin)
+        {
+        }
+
+        public void OnPluginDisabled(Plugin plugin)
         {
         }
     }

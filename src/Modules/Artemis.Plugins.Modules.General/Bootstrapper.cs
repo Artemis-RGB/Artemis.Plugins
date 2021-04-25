@@ -6,12 +6,16 @@ namespace Artemis.Plugins.Modules.General
 {
     public class Bootstrapper : IPluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<GeneralModuleConfigurationViewModel>();
         }
 
-        public void Disable(Plugin plugin)
+        public void OnPluginEnabled(Plugin plugin)
+        {
+        }
+
+        public void OnPluginDisabled(Plugin plugin)
         {
         }
     }
