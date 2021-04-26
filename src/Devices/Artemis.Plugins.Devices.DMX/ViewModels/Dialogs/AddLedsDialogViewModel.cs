@@ -19,12 +19,14 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels.Dialogs
 
         public void Accept()
         {
-            Session.Close(Amount);
+            if (Session != null && !Session.IsEnded)
+                Session.Close(Amount);
         }
 
-        public void Cancel()
+        public new void Cancel()
         {
-            Session.Close(0);
+            if (Session != null && !Session.IsEnded)
+                Session.Close(false);
         }
     }
 }
