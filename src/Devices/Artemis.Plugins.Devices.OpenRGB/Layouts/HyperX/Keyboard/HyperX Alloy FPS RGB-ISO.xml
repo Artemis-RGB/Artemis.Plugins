@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>HyperX Alloy FPS RGB LATAM</Name>
+  <Author>Darkiox</Author>
+  <Type>Keyboard</Type>
+  <Vendor>OpenRGB</Vendor>
+  <Model>HyperX Alloy FPS RGB</Model>
+  <Width>433</Width>
+  <Height>130</Height>
+  <Leds>
+    <Led Id="Keyboard_Escape">
+      <Y>5</Y>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <X>+20</X>
+    </Led>
+    <Led Id="Keyboard_F2" />
+    <Led Id="Keyboard_F3" />
+    <Led Id="Keyboard_F4" />
+    <Led Id="Keyboard_F5">
+      <X>+8</X>
+    </Led>
+    <Led Id="Keyboard_F6" />
+    <Led Id="Keyboard_F7" />
+    <Led Id="Keyboard_F8" />
+    <Led Id="Keyboard_F9">
+      <X>+11</X>
+    </Led>
+    <Led Id="Keyboard_F10" />
+    <Led Id="Keyboard_F11" />
+    <Led Id="Keyboard_F12" />
+    <Led Id="Keyboard_PrintScreen">
+      <X>+6</X>
+    </Led>
+    <Led Id="Keyboard_ScrollLock" />
+    <Led Id="Keyboard_PauseBreak" />
+    <Led Id="Keyboard_Tab">
+      <X />
+      <Y>50</Y>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_Q" />
+    <Led Id="Keyboard_W" />
+    <Led Id="Keyboard_E" />
+    <Led Id="Keyboard_R" />
+    <Led Id="Keyboard_T" />
+    <Led Id="Keyboard_Y" />
+    <Led Id="Keyboard_U" />
+    <Led Id="Keyboard_I" />
+    <Led Id="Keyboard_O" />
+    <Led Id="Keyboard_P" />
+    <Led Id="Keyboard_BracketLeft" />
+    <Led Id="Keyboard_BracketRight" />
+    <Led Id="Keyboard_Enter">
+      <Shape> M0.002,0.002 L0.854,-0.001 L0.86,0.979 L0.117,0.999 L0.117,0.489 L0.005,0.489z</Shape>
+      <Width>1.8</Width>
+      <Height>2</Height>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X />
+      <Y>69</Y>
+      <Width>1.7</Width>
+    </Led>
+    <Led Id="Keyboard_A" />
+    <Led Id="Keyboard_S" />
+    <Led Id="Keyboard_D" />
+    <Led Id="Keyboard_F" />
+    <Led Id="Keyboard_G" />
+    <Led Id="Keyboard_H" />
+    <Led Id="Keyboard_J" />
+    <Led Id="Keyboard_K" />
+    <Led Id="Keyboard_L" />
+    <Led Id="Keyboard_SemicolonAndColon" />
+    <Led Id="Keyboard_ApostropheAndDoubleQuote" />
+    <Led Id="Keyboard_Custom1" />
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>1</X>
+      <Y>30</Y>
+    </Led>
+    <Led Id="Keyboard_1">
+      <X>20</X>
+      <Y>30</Y>
+    </Led>
+    <Led Id="Keyboard_2" />
+    <Led Id="Keyboard_3" />
+    <Led Id="Keyboard_4" />
+    <Led Id="Keyboard_5" />
+    <Led Id="Keyboard_6" />
+    <Led Id="Keyboard_7" />
+    <Led Id="Keyboard_8" />
+    <Led Id="Keyboard_9" />
+    <Led Id="Keyboard_0" />
+    <Led Id="Keyboard_MinusAndUnderscore" />
+    <Led Id="Keyboard_EqualsAndPlus" />
+    <Led Id="Keyboard_Backspace">
+      <Width>2</Width>
+    </Led>
+    <Led Id="Keyboard_Insert">
+      <X>+6</X>
+    </Led>
+    <Led Id="Keyboard_Home" />
+    <Led Id="Keyboard_PageUp" />
+    <Led Id="Keyboard_NumLock">
+      <X>+7</X>
+    </Led>
+    <Led Id="Keyboard_NumSlash" />
+    <Led Id="Keyboard_NumAsterisk" />
+    <Led Id="Keyboard_NumMinus" />
+    <Led Id="Keyboard_Num7">
+      <X>-38</X>
+      <Y>+0.1</Y>
+    </Led>
+    <Led Id="Keyboard_Num8" />
+    <Led Id="Keyboard_Num9" />
+    <Led Id="Keyboard_NumPlus">
+      <Height>2</Height>
+    </Led>
+    <Led Id="Keyboard_Num4">
+      <X>-38</X>
+      <Y>68</Y>
+    </Led>
+    <Led Id="Keyboard_Num5" />
+    <Led Id="Keyboard_Num6" />
+    <Led Id="Keyboard_Num1">
+      <X>-19</X>
+      <Y>+0</Y>
+    </Led>
+    <Led Id="Keyboard_Num2" />
+    <Led Id="Keyboard_Num3" />
+    <Led Id="Keyboard_NumEnter">
+      <Height>2</Height>
+    </Led>
+    <Led Id="Keyboard_Num0">
+      <X>-19</X>
+      <Y>106</Y>
+      <Width>2</Width>
+    </Led>
+    <Led Id="Keyboard_NumPeriodAndDelete" />
+    <Led Id="Keyboard_Delete">
+      <X>292</X>
+      <Y>49</Y>
+    </Led>
+    <Led Id="Keyboard_End" />
+    <Led Id="Keyboard_PageDown" />
+    <Led Id="Keyboard_ArrowUp">
+      <X>-1</X>
+      <Y>+20</Y>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <X>-0</X>
+      <Y>+0</Y>
+    </Led>
+    <Led Id="Keyboard_ArrowDown" />
+    <Led Id="Keyboard_ArrowRight" />
+    <Led Id="Keyboard_LeftShift">
+      <X />
+      <Y>88</Y>
+      <Width>1.3</Width>
+    </Led>
+    <Led Id="Keyboard_NonUsBackslash" />
+    <Led Id="Keyboard_Z" />
+    <Led Id="Keyboard_X" />
+    <Led Id="Keyboard_C" />
+    <Led Id="Keyboard_V" />
+    <Led Id="Keyboard_B" />
+    <Led Id="Keyboard_N" />
+    <Led Id="Keyboard_M" />
+    <Led Id="Keyboard_CommaAndLessThan" />
+    <Led Id="Keyboard_PeriodAndBiggerThan" />
+    <Led Id="Keyboard_SlashAndQuestionMark" />
+    <Led Id="Keyboard_RightShift">
+      <Width>2.75</Width>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>-211</X>
+      <Y>+0</Y>
+      <Width>1.2</Width>
+    </Led>
+    <Led Id="Keyboard_LeftGui">
+      <Width>1.2</Width>
+    </Led>
+    <Led Id="Keyboard_LeftAlt">
+      <Width>1.2</Width>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <Width>6.38</Width>
+    </Led>
+    <Led Id="Keyboard_RightAlt">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_RightGui">
+      <Width>1.3</Width>
+    </Led>
+    <Led Id="Keyboard_Application">
+      <Width>1.3</Width>
+    </Led>
+    <Led Id="Keyboard_RightCtrl">
+      <Width>1.229</Width>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>HyperXAlloyFPSRGB.png</DeviceImage>
+  </CustomData>
+</Device>
