@@ -10,25 +10,26 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 {
     public class PlaybackVolumeDataModelExpansion : DataModelExpansion<PlaybackVolumeDataModel>
     {
-        #region Properties & Fields
-
-        private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
-        private readonly ILogger _logger;
-        private readonly object _audioEventLock = new object();
-        private List<DynamicChild<ChannelDataModel>> _channelsDataModels = new List<DynamicChild<ChannelDataModel>>();
-        private bool _playbackDeviceChanged;
-        private float _lastMasterPeakVolumeNormalized;
-        private MMDevice _playbackDevice;
-        private AudioEndpointVolume _audioEndpointVolume;
-
-        #endregion
-
         #region Constructor
+
         public PlaybackVolumeDataModelExpansion(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService)
         {
             _logger = logger;
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
         }
+
+        #endregion
+
+        #region Properties & Fields
+
+        private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
+        private readonly ILogger _logger;
+        private readonly object _audioEventLock = new();
+        private readonly List<DynamicChild<ChannelDataModel>> _channelsDataModels = new();
+        private bool _playbackDeviceChanged;
+        private float _lastMasterPeakVolumeNormalized;
+        private MMDevice _playbackDevice;
+        private AudioEndpointVolume _audioEndpointVolume;
 
         #endregion
 
@@ -54,10 +55,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         public override void Update(double deltaTime)
         {
             DataModel.TimeSinceLastSound += TimeSpan.FromSeconds(deltaTime);
-            if (_playbackDeviceChanged)
-            {
-                UpdatePlaybackDevice();
-            }
+            if (_playbackDeviceChanged) UpdatePlaybackDevice();
         }
 
         #endregion
@@ -66,7 +64,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         private void UpdatePeakVolume(double deltaTime)
         {
-            if (this.IsEnabled == false)
+            if (IsEnabled == false)
             {
                 // To avoid null object exception on _enumerator use after plugin is disabled.
                 return;
@@ -85,13 +83,10 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                 float peakVolumeNormalized = (float) _playbackDevice?.AudioMeterInformation.MasterPeakValue;
 
                 // Sound detected. Reset timespan
-                if (peakVolumeNormalized > 0)
-                {
-                    DataModel.TimeSinceLastSound = TimeSpan.Zero;
-                }
+                if (peakVolumeNormalized > 0) DataModel.TimeSinceLastSound = TimeSpan.Zero;
 
                 // Don't update datamodel if not neeeded
-                if (_lastMasterPeakVolumeNormalized == peakVolumeNormalized)
+                if (Math.Abs(_lastMasterPeakVolumeNormalized - peakVolumeNormalized) < 0.001f)
                     return;
 
                 DataModel.PeakVolumeNormalized = _lastMasterPeakVolumeNormalized = peakVolumeNormalized;
@@ -123,7 +118,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         private void UpdateVolumeDataModel()
         {
             DataModel.VolumeChanged.Trigger();
-            DataModel.VolumeNormalized = (_audioEndpointVolume.MasterVolumeLevelScalar);
+            DataModel.VolumeNormalized = _audioEndpointVolume.MasterVolumeLevelScalar;
             DataModel.Volume = DataModel.VolumeNormalized * 100f;
             DataModel.ChannelCount = _audioEndpointVolume.Channels.Count;
             DataModel.DeviceState = _playbackDevice.State;
@@ -149,18 +144,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             _channelsDataModels.Clear();
             for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
             {
-                _channelsDataModels.Add(DataModel.Channels.AddDynamicChild(
-                    i.ToString(),
-                    new ChannelDataModel()
-                    {
-                        ChannelIndex = i
-                    },
-                    $"Channel {i}"
-                ));
+                _channelsDataModels.Add(
+                    DataModel.Channels.AddDynamicChild(i.ToString(), new ChannelDataModel {ChannelIndex = i}, $"Channel {i}")
+                );
                 _logger.Information($"Playback device {_playbackDevice.FriendlyName} channel {i} populated");
             }
         }
-
 
         #endregion
 
@@ -178,7 +167,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         {
             lock (_audioEventLock)
             {
-                if (!firstRun) { FreePlaybackDevice(); }
+                if (!firstRun) FreePlaybackDevice();
 
                 SetPlaybackDevice();
                 PopulateChannels();

@@ -2,11 +2,10 @@
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
-namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
+namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 {
     public class NAudioAudioInput : IAudioInput
     {
-
         #region Constructor
 
         public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService)
@@ -24,7 +23,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 
         #region Properties & Fields
 
-        private NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
+        private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private MMDevice _endpoint;
         private WasapiLoopbackCapture _capture;
 
@@ -61,7 +60,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 
         private void ProcessMonoData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             // Handle mono by passing the same data for left and right
@@ -71,7 +70,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 
         private void ProcessStereoData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += _capture.WaveFormat.Channels)
@@ -80,7 +79,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 
         private void ProcessQuadraphonicData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += 4)
@@ -96,7 +95,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
 
         private void Process51Data(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             // Handle 5.1 by averaging out the extra channels
@@ -139,10 +138,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
                 Initialize();
             }
             // Avoid Artemis Crash if plugin is disabled. COM things.
-            else if (e.Exception == null)
-            {
-                Dispose();
-            }
+            else if (e.Exception == null) Dispose();
         }
 
         public void Dispose()

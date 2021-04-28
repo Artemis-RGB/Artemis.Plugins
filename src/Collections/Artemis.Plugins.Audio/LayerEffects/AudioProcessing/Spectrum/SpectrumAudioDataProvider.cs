@@ -1,7 +1,7 @@
 ﻿using System;
-using Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture;
+using Artemis.Plugins.Audio.LayerEffects.AudioCapture;
 
-namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
+namespace Artemis.Plugins.Audio.LayerEffects.AudioProcessing.Spectrum
 {
     internal class SpectrumAudioDataProvider : IAudioDataProvider
     {

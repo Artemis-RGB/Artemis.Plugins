@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Artemis.Core;
 using Artemis.Core.Services;
-using Artemis.Plugins.Audio.LayerEffects.AudioVisualization;
-using Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture;
-using Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum;
+using Artemis.Plugins.Audio.LayerEffects;
+using Artemis.Plugins.Audio.LayerEffects.AudioCapture;
+using Artemis.Plugins.Audio.LayerEffects.AudioProcessing.Spectrum;
 
 namespace Artemis.Plugins.Audio.Services
 {

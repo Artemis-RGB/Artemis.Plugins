@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.Helper
+namespace Artemis.Plugins.Audio.LayerEffects.Helper
 {
     public static class FrequencyHelper
     {

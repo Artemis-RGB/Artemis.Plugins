@@ -1,11 +1,11 @@
 ﻿using System;
 using Artemis.Core.LayerEffects;
-using Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum;
-using Artemis.Plugins.Audio.LayerEffects.AudioVisualization.Extensions;
+using Artemis.Plugins.Audio.LayerEffects.AudioProcessing.Spectrum;
+using Artemis.Plugins.Audio.LayerEffects.Extensions;
 using Artemis.Plugins.Audio.Services;
 using SkiaSharp;
 
-namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization
+namespace Artemis.Plugins.Audio.LayerEffects
 {
     public class AudioVisualizationEffect : LayerEffect<AudioVisualizationEffectProperties>
     {

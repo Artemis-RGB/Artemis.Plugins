@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioProcessing.Spectrum
+namespace Artemis.Plugins.Audio.LayerEffects.AudioProcessing.Spectrum
 {
     public class Band
     {

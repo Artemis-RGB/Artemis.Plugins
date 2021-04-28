@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Artemis.Core;
 
-namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization
+namespace Artemis.Plugins.Audio.LayerEffects
 {
     public enum ValueMode
     {
@@ -64,9 +64,9 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization
 
         protected override void PopulateDefaults()
         {
-            Channel.DefaultValue = AudioVisualization.Channel.Mix;
-            ValueMode.DefaultValue = AudioVisualization.ValueMode.Sum;
-            SpectrumMode.DefaultValue = AudioVisualization.SpectrumMode.Logarithmic;
+            Channel.DefaultValue = LayerEffects.Channel.Mix;
+            ValueMode.DefaultValue = LayerEffects.ValueMode.Sum;
+            SpectrumMode.DefaultValue = LayerEffects.SpectrumMode.Logarithmic;
             Bars.DefaultValue = 48;
             Smoothing.DefaultValue = 3;
             MinFrequency.DefaultValue = 60;
