@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.Audio.DataModelExpansion.DataModels;
 using Artemis.Plugins.Audio.Services;
@@ -14,6 +15,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private readonly ILogger _logger;
         private readonly object _audioEventLock = new object();
+        private List<DynamicChild<ChannelDataModel>> _channelsDataModels = new List<DynamicChild<ChannelDataModel>>();
         private bool _playbackDeviceChanged;
         private float _lastMasterPeakVolumeNormalized;
         private MMDevice _playbackDevice;
@@ -106,9 +108,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                 if (channelsVolumeNormalized == null)
                     return;
 
-                for (int i = 0; i < DataModel.Channels.DynamicChildren.Count; i++)
+                if (_channelsDataModels.Count != channelsVolumeNormalized.Count)
+                    return; // IF this happens, wait until channel list is populated and we have that list updated. Can't test because my two sound cards has only two channels.
+
+                for (int i = 0; i < _channelsDataModels.Count; i++)
                 {
-                    DynamicChild<ChannelDataModel> channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(i.ToString());
+                    DynamicChild<ChannelDataModel> channelDataModel = _channelsDataModels[i];
                     channelDataModel.Value.PeakVolumeNormalized = channelsVolumeNormalized[i];
                     channelDataModel.Value.PeakVolume = channelsVolumeNormalized[i] * 100f;
                 }
@@ -126,9 +131,9 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
             lock (_audioEventLock)
             {
-                for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
+                for (int i = 0; i < _channelsDataModels.Count; i++)
                 {
-                    DynamicChild<ChannelDataModel> channelDataModel = DataModel.Channels.GetDynamicChild<ChannelDataModel>(i.ToString());
+                    DynamicChild<ChannelDataModel> channelDataModel = _channelsDataModels[i];
                     float volumeNormalized = _audioEndpointVolume.Channels[i].VolumeLevelScalar;
                     channelDataModel.Value.VolumeNormalized = volumeNormalized;
                     channelDataModel.Value.Volume = volumeNormalized * 100f;
@@ -141,16 +146,17 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             DataModel.Channels.ClearDynamicChildren();
             _logger.Information($"Playback device {_playbackDevice.FriendlyName} channel list cleared");
             _logger.Information($"Preparing to populate {_audioEndpointVolume.Channels.Count} channels for device {_playbackDevice.FriendlyName}");
+            _channelsDataModels.Clear();
             for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
             {
-                DataModel.Channels.AddDynamicChild(
+                _channelsDataModels.Add(DataModel.Channels.AddDynamicChild(
                     i.ToString(),
                     new ChannelDataModel()
                     {
                         ChannelIndex = i
                     },
                     $"Channel {i}"
-                );
+                ));
                 _logger.Information($"Playback device {_playbackDevice.FriendlyName} channel {i} populated");
             }
         }
