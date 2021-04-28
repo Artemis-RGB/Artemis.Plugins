@@ -38,7 +38,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioVisualization.AudioCapture
         public void Initialize()
         {
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            _capture = new WasapiLoopbackCapture();
+            _capture = new WasapiLoopbackCapture(_endpoint);
             _capture.RecordingStopped += CaptureOnRecordingStopped;
 
             // Handle single-channel by passing the same data for left and right
