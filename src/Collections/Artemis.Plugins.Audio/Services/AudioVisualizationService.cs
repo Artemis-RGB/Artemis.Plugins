@@ -5,6 +5,7 @@ using Artemis.Core.Services;
 using Artemis.Plugins.Audio.LayerEffects;
 using Artemis.Plugins.Audio.LayerEffects.AudioCapture;
 using Artemis.Plugins.Audio.LayerEffects.AudioProcessing.Spectrum;
+using Serilog;
 
 namespace Artemis.Plugins.Audio.Services
 {
@@ -14,6 +15,7 @@ namespace Artemis.Plugins.Audio.Services
 
         private readonly ICoreService _coreService;
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
+        private readonly ILogger _logger;
 
         private bool _isActivated;
         private int _useToken;
@@ -28,9 +30,10 @@ namespace Artemis.Plugins.Audio.Services
 
         #region Constructors
 
-        public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService)
+        public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, ILogger logger)
         {
             this._coreService = coreService;
+            this._logger = logger;
             this._naudioDeviceEnumerationService = naudioDeviceEnumerationService;
         }
 
@@ -61,7 +64,7 @@ namespace Artemis.Plugins.Audio.Services
 
             // Pass Enumerator instance from NAudioDeviceEnumerationService
             // Could also pass the Service to register events to update EndPoint on default device change.
-            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService);
+            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService, _logger);
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms
