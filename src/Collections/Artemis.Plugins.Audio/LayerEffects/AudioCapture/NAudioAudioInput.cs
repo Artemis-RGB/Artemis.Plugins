@@ -7,75 +7,8 @@ using System.Threading;
 
 namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 {
-
-    public sealed class WasapiSystemSoundCapturer : WasapiCapture
-    {
-        public WasapiSystemSoundCapturer(MMDevice mDevice, bool useEventSync, int channels)
-            : base(mDevice, useEventSync, 100)
-        {
-            try
-            {
-                // NAudio won't allow set custom channel count for the WasapiLoopCapture and will fail if we set a new MixFormat. NAudio bug.
-                var reflectedChannels = this.WaveFormat.GetType().GetField("channels", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                reflectedChannels.SetValue(this.WaveFormat, (Int16)channels);
-            }
-            catch
-            {
-
-            }
-
-        }
-
-        protected override AudioClientStreamFlags GetAudioClientStreamFlags()
-        {
-            return AudioClientStreamFlags.Loopback;
-        }
-    }
-
-    public class CustomWaveFormat : WaveFormat
-    {
-        public void SetChannelCount(int channelsCount)
-        {
-            this.channels = (short)channelsCount;
-        }
-    }
-
     public class NAudioAudioInput : IAudioInput
     {
-        private WasapiSystemSoundCapturer FindAppropriateSoundCapturer(MMDevice mDevice, bool UseWasapiEventSync)
-        {
-            int channels = mDevice.AudioClient.MixFormat.Channels;
-            WasapiSystemSoundCapturer audioCapturer = null;
-            for (int i = channels; (i > 0 && _capture == null); i--)
-            {
-                try
-                {
-                    audioCapturer = new WasapiSystemSoundCapturer(mDevice, UseWasapiEventSync, i);
-
-                    // We may crash here based on the channel count.
-                    audioCapturer.StartRecording();
-                    audioCapturer.StopRecording();// This is not instant. 
-                    while (audioCapturer.CaptureState != CaptureState.Stopped) Thread.Sleep(100); // Find a better way to stop and wait.
-
-                    _logger.Information($"WasapiCapture succesfully created with {audioCapturer.WaveFormat}");
-                    break; // succeeded.
-                }
-                catch
-                {
-                    _logger.Warning($"WasapiCapture creation failed with {i} channels. Trying with one less channel");
-                    audioCapturer = null;
-                }
-            }
-
-            if (channels == 0)
-            {
-                _logger.Error($"WasapiCapture cannot be created.");
-            }
-
-            return audioCapturer;
-        }
-
-
         #region Constructor
 
         public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService, ILogger logger)
@@ -97,7 +30,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private readonly ILogger _logger;
         private MMDevice _endpoint;
-        private WasapiSystemSoundCapturer _capture;
+        private CustomWasapiLoopbackCapture _capture;
 
         public int SampleRate => _capture?.WaveFormat.SampleRate ?? -1;
         public float MasterVolume => _endpoint.AudioEndpointVolume.MasterVolumeLevelScalar * 100f;
@@ -109,7 +42,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         public void Initialize()
         {
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            _capture = FindAppropriateSoundCapturer(_endpoint, false);
+            _capture = CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger);
             _capture.RecordingStopped += CaptureOnRecordingStopped;
 
             // Handle single-channel by passing the same data for left and right
