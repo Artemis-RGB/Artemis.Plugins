@@ -2,8 +2,6 @@
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using Serilog;
-using System;
-using System.Threading;
 
 namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 {
@@ -64,7 +62,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessMonoData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             // Handle mono by passing the same data for left and right
@@ -74,7 +72,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessStereoData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += _capture.WaveFormat.Channels)
@@ -83,7 +81,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessQuadraphonicData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += 4)
@@ -99,7 +97,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void Process51Data(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             // Handle 5.1 by averaging out the extra channels
@@ -116,7 +114,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void Process71Data(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
+            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
             int count = buffer.FloatBufferCount;
 
             // Handle 7.1 by averaging out the extra channels
