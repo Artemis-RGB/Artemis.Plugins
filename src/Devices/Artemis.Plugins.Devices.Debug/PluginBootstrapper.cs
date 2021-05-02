@@ -4,19 +4,11 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Devices.Debug
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class DebugBootstrapper : PluginBootstrapper
     {
-        public void OnPluginLoaded(Plugin plugin)
+        public new void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<DebugConfigurationViewModel>();
-        }
-
-        public void OnPluginEnabled(Plugin plugin)
-        {
-        }
-
-        public void OnPluginDisabled(Plugin plugin)
-        {
         }
     }
 }

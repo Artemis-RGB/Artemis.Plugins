@@ -6,7 +6,7 @@ namespace Artemis.Plugins.DataModelExpansions.TestData.Prerequisites
 {
     public class TestPrerequisite2 : PluginPrerequisite
     {
-        public TestPrerequisite2(Plugin plugin) : base(plugin)
+        public TestPrerequisite2()
         {
             InstallActions = new List<PluginPrerequisiteAction>
             {

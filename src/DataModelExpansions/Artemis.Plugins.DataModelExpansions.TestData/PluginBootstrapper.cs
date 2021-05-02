@@ -5,21 +5,13 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.DataModelExpansions.TestData
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class MyPluginBootstrapper : PluginBootstrapper
     {
-        public void OnPluginLoaded(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<TestPluginConfigurationViewModel>();
-            plugin.Prerequisites.Add(new TestPrerequisite1(plugin));
-            plugin.Prerequisites.Add(new TestPrerequisite2(plugin));
-        }
-
-        public void OnPluginEnabled(Plugin plugin)
-        {
-        }
-
-        public void OnPluginDisabled(Plugin plugin)
-        {
+            AddFeaturePrerequisite<PluginDataModelExpansion>(new TestPrerequisite1());
+            AddFeaturePrerequisite<PluginDataModelExpansion>(new TestPrerequisite2());
         }
     }
 }
