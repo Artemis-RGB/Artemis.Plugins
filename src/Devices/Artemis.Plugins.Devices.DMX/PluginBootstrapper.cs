@@ -4,15 +4,11 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Devices.DMX
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class DMXBootstrapper : PluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public new void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<DMXConfigurationViewModel>();
-        }
-
-        public void Disable(Plugin plugin)
-        {
         }
     }
 }

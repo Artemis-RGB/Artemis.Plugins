@@ -22,6 +22,8 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
         {
             foreach (Light light in lights)
             {
+                // Find dynamic children of the same bridge containing the lights we've received
+                // TODO: Light IDs might be globally unique, won't need to ensure the bridge matches
                 List<GroupDataModel> groups = Groups
                     .Where(g => g.HueBridge.Config != null &&
                                 g.HueGroup.Lights.Any(l => l.Equals(light.Id)) &&
@@ -36,6 +38,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
 
         protected void UpdateGroups(PhilipsHueBridge bridge, List<Group> groups)
         {
+            // Add or update missing groups
             foreach (Group group in groups)
             {
                 string groupKey = $"{bridge.BridgeId}-{group.Id}";

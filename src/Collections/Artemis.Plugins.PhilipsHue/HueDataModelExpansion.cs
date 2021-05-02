@@ -91,6 +91,9 @@ namespace Artemis.Plugins.PhilipsHue
             _hueTimedUpdate = AddTimedUpdate(TimeSpan.FromMilliseconds(_pollingRateSetting.Value), UpdateHue);
         }
 
+        /// <summary>
+        /// Retrieves and updates the groups and zones of all connected Hue bridges
+        /// </summary>
         private async Task UpdateGroups(double delta)
         {
             foreach (PhilipsHueBridge bridge in _hueService.Bridges.Where(b => b.Client != null))
@@ -102,6 +105,9 @@ namespace Artemis.Plugins.PhilipsHue
             }
         }
 
+        /// <summary>
+        /// Updates the contents of groups and zones of all connected Hue bridges
+        /// </summary>
         private async Task UpdateHue(double delta)
         {
             if (!DataModel.Rooms.Groups.Any() && !DataModel.Zones.Groups.Any())
@@ -109,12 +115,14 @@ namespace Artemis.Plugins.PhilipsHue
 
             foreach (PhilipsHueBridge bridge in _hueService.Bridges)
             {
+                // Get flat lists of all lights and sensors
                 List<Light> lights = (await bridge.Client.GetLightsAsync()).ToList();
-                List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).Where(s => s.Capabilities != null).ToList();
+                List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).ToList();
 
+                // Pass the lights to all rooms and zones, they'll pick what they own
                 DataModel.Rooms.UpdateContents(bridge, lights);
                 DataModel.Zones.UpdateContents(bridge, lights);
-
+                // Let the accessories data model update all sensor data, it's not per room/zone
                 DataModel.Accessories.UpdateContents(bridge, sensors);
             }
         }

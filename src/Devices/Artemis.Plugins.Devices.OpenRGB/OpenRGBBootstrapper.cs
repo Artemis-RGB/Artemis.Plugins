@@ -3,13 +3,9 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Devices.OpenRGB
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class OpenRGBBootstrapper : PluginBootstrapper
     {
-        public void Disable(Plugin plugin)
-        {
-        }
-
-        public void Enable(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<OpenRGBConfigurationDialogViewModel>();
         }

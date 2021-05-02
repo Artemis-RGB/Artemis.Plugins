@@ -1,18 +1,17 @@
 ﻿using Artemis.Core;
+using Artemis.Plugins.DataModelExpansions.TestData.Prerequisites;
 using Artemis.Plugins.DataModelExpansions.TestData.ViewModels;
 using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.DataModelExpansions.TestData
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class MyPluginBootstrapper : PluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<TestPluginConfigurationViewModel>();
-        }
-
-        public void Disable(Plugin plugin)
-        {
+            AddFeaturePrerequisite<PluginDataModelExpansion>(new TestPrerequisite1());
+            AddFeaturePrerequisite<PluginDataModelExpansion>(new TestPrerequisite2());
         }
     }
 }

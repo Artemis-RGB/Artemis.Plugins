@@ -4,15 +4,11 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Modules.General
 {
-    public class Bootstrapper : IPluginBootstrapper
+    public class Bootstrapper : PluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public new void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<GeneralModuleConfigurationViewModel>();
-        }
-
-        public void Disable(Plugin plugin)
-        {
         }
     }
 }
