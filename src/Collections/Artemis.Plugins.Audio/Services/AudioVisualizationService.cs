@@ -13,13 +13,17 @@ namespace Artemis.Plugins.Audio.Services
     {
         #region Properties & Fields
 
+        // Services 
         private readonly ICoreService _coreService;
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
+        private readonly PluginSettings _pluginSettings;
         private readonly ILogger _logger;
 
+        // Class variables
         private bool _isActivated;
         private int _useToken;
         private readonly HashSet<int> _useTokens = new();
+        private PluginSetting<bool> _useCustomWasapiCapture;
 
         private IAudioInput _audioInput;
         private AudioBuffer _audioBuffer;
@@ -30,11 +34,27 @@ namespace Artemis.Plugins.Audio.Services
 
         #region Constructors
 
-        public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, ILogger logger)
+        public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, ILogger logger)
         {
             this._coreService = coreService;
-            this._logger = logger;
             this._naudioDeviceEnumerationService = naudioDeviceEnumerationService;
+            this._pluginSettings = pluginSettings;
+            this._logger = logger;
+
+            /*TODO: UI with the followin options
+                Enable/Disable CustomWasapiCapture.
+                Log window to show if the current settings is working. If CustomWasapiCapture is used, also show setting tries if there is any (Don't know how to do this :D).
+             */
+            _useCustomWasapiCapture = _pluginSettings.GetSetting("UseCustomWasapiCapture", false);
+            _useCustomWasapiCapture.SettingChanged += _useCustomWasapiCapture_SettingChanged;
+        }
+
+        private void _useCustomWasapiCapture_SettingChanged(object sender, EventArgs e)
+        {
+            // If plugin is enabled, create the new WasapiCapture on setting change.
+            if (!_isActivated) return;
+            Deactivate();
+            Activate();
         }
 
         #endregion
@@ -64,7 +84,7 @@ namespace Artemis.Plugins.Audio.Services
 
             // Pass Enumerator instance from NAudioDeviceEnumerationService
             // Could also pass the Service to register events to update EndPoint on default device change.
-            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService, _logger);
+            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService, _useCustomWasapiCapture.Value, _logger);
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms

@@ -9,7 +9,7 @@ namespace Artemis.Plugins.Audio.Services
     public sealed class CustomWasapiLoopbackCapture : WasapiCapture
     {
 
-        #region roperties & Fields
+        #region Properties & Fields
         protected override AudioClientStreamFlags GetAudioClientStreamFlags() => AudioClientStreamFlags.Loopback;
 
         #endregion
@@ -27,7 +27,11 @@ namespace Artemis.Plugins.Audio.Services
                 FieldInfo reflectedChannelsField = this.WaveFormat.GetType().GetField("channels", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 reflectedChannelsField.SetValue(this.WaveFormat, (Int16)channels);
             }
-            catch { /* TODO: Log. Will break if Naudio internal changes. Not highly probably  */ }
+            catch
+            {
+                /* TODO: Log. Will break if Naudio internal changes. Not highly probably */
+                throw;
+            }
         }
 
         #endregion
@@ -49,20 +53,20 @@ namespace Artemis.Plugins.Audio.Services
 
                     // This is not instant.
                     audioCapturer.StopRecording();
-                    while (audioCapturer.CaptureState != CaptureState.Stopped) Thread.Sleep(100); // Find a better way to stop and wait.
+                    while (audioCapturer.CaptureState != CaptureState.Stopped) Thread.Sleep(50); // Find a better way to stop and wait.
 
-                    logger?.Information($"WasapiCapture succesfully created for {i} channels with {audioCapturer.WaveFormat.SampleRate}Hz and {audioCapturer.WaveFormat.BitsPerSample}bps");
+                    logger?.Verbose($"CustomWasapiCapture succesfully created for {i} channels with {audioCapturer.WaveFormat.SampleRate}Hz and {audioCapturer.WaveFormat.BitsPerSample}bps");
 
                     break; // succeeded.
                 }
-                catch
+                catch (Exception e)
                 {
-                    logger?.Warning($"WasapiCapture creation failed for {i} channels with {audioCapturer.WaveFormat.SampleRate}Hz and {audioCapturer.WaveFormat.BitsPerSample}bps. Trying with one less channel");
+                    logger?.Warning($"CustomWasapiCapture creation failed for {i} channels with {audioCapturer.WaveFormat.SampleRate}Hz and {audioCapturer.WaveFormat.BitsPerSample}bps.\r\nException:{e}\r\nTrying with one less channel");
                     audioCapturer = null;
                 }
             }
 
-            if (channels == 0) logger?.Error($"WasapiCapture cannot be created. No valid channel config found");
+            if (channels == 0) logger?.Error($"CustomWasapiCapture cannot be created. No valid channel config found. Try disabling third party Audio Engines");
 
             return audioCapturer;
         }

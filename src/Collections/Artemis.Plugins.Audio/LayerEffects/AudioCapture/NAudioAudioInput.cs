@@ -9,10 +9,12 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
     {
         #region Constructor
 
-        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService, ILogger logger)
+        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService, bool UseCustomWasapiCapture, ILogger logger)
         {
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
             _logger = logger;
+
+            _useCustomWasapiCapture = UseCustomWasapiCapture;
         }
 
         #endregion
@@ -27,8 +29,9 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private readonly ILogger _logger;
+        private bool _useCustomWasapiCapture;
         private MMDevice _endpoint;
-        private CustomWasapiLoopbackCapture _capture;
+        private WasapiCapture _capture;
 
         public int SampleRate => _capture?.WaveFormat.SampleRate ?? -1;
         public float MasterVolume => _endpoint.AudioEndpointVolume.MasterVolumeLevelScalar * 100f;
@@ -40,7 +43,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         public void Initialize()
         {
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            _capture = CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger);
+            _capture = _useCustomWasapiCapture ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger) : new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
 
             // Handle single-channel by passing the same data for left and right
@@ -62,7 +65,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessMonoData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             // Handle mono by passing the same data for left and right
@@ -72,7 +75,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessStereoData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += _capture.WaveFormat.Channels)
@@ -81,7 +84,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessQuadraphonicData(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += 4)
@@ -97,7 +100,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void Process51Data(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             // Handle 5.1 by averaging out the extra channels
@@ -114,7 +117,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void Process71Data(object? sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             // Handle 7.1 by averaging out the extra channels
