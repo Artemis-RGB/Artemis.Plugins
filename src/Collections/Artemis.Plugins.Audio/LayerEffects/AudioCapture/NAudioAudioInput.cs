@@ -1,4 +1,4 @@
-﻿using Artemis.Plugins.Audio.Services;
+using Artemis.Plugins.Audio.Services;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using Serilog;
@@ -45,6 +45,12 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             _capture = _useCustomWasapiCapture ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger) : new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
+
+            if (_capture.WaveFormat.Channels != _endpoint.AudioClient.MixFormat.Channels)
+            {
+                // I want to log this to see how it behave in other setups. Don't know if this can happen, and if it happens, may could lead to exceptions
+                _logger?.Verbose($"AudioEndPoint Waveformat has {_endpoint.AudioClient.MixFormat.Channels} channels but WasapiCapture was created for {_capture.WaveFormat.Channels} channels");
+            }
 
             // Handle single-channel by passing the same data for left and right
             if (_capture.WaveFormat.Channels == 1)

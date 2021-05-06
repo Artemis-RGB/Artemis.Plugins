@@ -43,6 +43,8 @@ namespace Artemis.Plugins.Audio.Services
             int channels = 8 /* mDevice.AudioClient.MixFormat.Channels  // What if Realtek driver report 2 channels as it is the common physical channel count but stream is surround? */;
             CustomWasapiLoopbackCapture audioCapturer = null;
 
+            logger?.Verbose($"Use CustomWasapiCapture enabled");
+
             for (int i = channels; (i > 0 && audioCapturer == null); i--)
             {
                 try
