@@ -29,7 +29,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private readonly ILogger _logger;
-        private bool _useCustomWasapiCapture;
+        private readonly bool _useCustomWasapiCapture;
         private MMDevice _endpoint;
         private WasapiCapture _capture;
 

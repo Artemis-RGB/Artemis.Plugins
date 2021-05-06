@@ -40,8 +40,9 @@ namespace Artemis.Plugins.Audio.Services
 
         public static CustomWasapiLoopbackCapture CreateCustomWasapiLoopbackCapture(MMDevice mDevice, bool UseWasapiEventSync, ILogger logger = null)
         {
-            int channels = mDevice.AudioClient.MixFormat.Channels;
+            int channels = 8 /* mDevice.AudioClient.MixFormat.Channels  // What if Realtek driver report 2 channels as it is the common physical channel count but stream is surround? */;
             CustomWasapiLoopbackCapture audioCapturer = null;
+
             for (int i = channels; (i > 0 && audioCapturer == null); i--)
             {
                 try
@@ -55,7 +56,7 @@ namespace Artemis.Plugins.Audio.Services
                     audioCapturer.StopRecording();
                     while (audioCapturer.CaptureState != CaptureState.Stopped) Thread.Sleep(50); // Find a better way to stop and wait.
 
-                    logger?.Verbose($"CustomWasapiCapture succesfully created for {i} channels with {audioCapturer.WaveFormat.SampleRate}Hz and {audioCapturer.WaveFormat.BitsPerSample}bps");
+                    logger?.Verbose($"CustomWasapiCapture successfully created for {i} channels with {audioCapturer.WaveFormat.SampleRate}Hz and {audioCapturer.WaveFormat.BitsPerSample}bps");
 
                     break; // succeeded.
                 }
@@ -66,7 +67,7 @@ namespace Artemis.Plugins.Audio.Services
                 }
             }
 
-            if (channels == 0) logger?.Error($"CustomWasapiCapture cannot be created. No valid channel config found. Try disabling third party Audio Engines");
+            if (audioCapturer == null) logger?.Error($"CustomWasapiCapture cannot be created. No valid channel config found. Try disabling third party Audio Engines");
 
             return audioCapturer;
         }
