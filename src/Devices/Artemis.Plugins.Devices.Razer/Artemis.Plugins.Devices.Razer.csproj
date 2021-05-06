@@ -13,11 +13,6 @@
 		<PlatformTarget>x64</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
-		<Compile Remove="Layouts\**" />
-		<EmbeddedResource Remove="Layouts\**" />
-		<None Remove="Layouts\**" />
-	</ItemGroup>
-	<ItemGroup>
 		<None Include="plugin.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -63,6 +58,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="Images\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Layouts\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
