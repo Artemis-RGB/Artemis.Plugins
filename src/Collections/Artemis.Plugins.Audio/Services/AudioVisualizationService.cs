@@ -16,14 +16,13 @@ namespace Artemis.Plugins.Audio.Services
         // Services 
         private readonly ICoreService _coreService;
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
-        private readonly PluginSettings _pluginSettings;
         private readonly ILogger _logger;
 
         // Class variables
         private bool _isActivated;
         private int _useToken;
         private readonly HashSet<int> _useTokens = new();
-        private PluginSetting<bool> _useCustomWasapiCapture;
+        private readonly PluginSetting<bool> _useCustomWasapiCapture;
 
         private IAudioInput _audioInput;
         private AudioBuffer _audioBuffer;
@@ -38,23 +37,25 @@ namespace Artemis.Plugins.Audio.Services
         {
             this._coreService = coreService;
             this._naudioDeviceEnumerationService = naudioDeviceEnumerationService;
-            this._pluginSettings = pluginSettings;
             this._logger = logger;
 
-            /*TODO: UI with the followin options
-                Enable/Disable CustomWasapiCapture.
-                Log window to show if the current settings is working. If CustomWasapiCapture is used, also show setting tries if there is any (Don't know how to do this :D).
-             */
-            _useCustomWasapiCapture = _pluginSettings.GetSetting("UseCustomWasapiCapture", false);
+            _useCustomWasapiCapture = pluginSettings.GetSetting("UseCustomWasapiCapture", false);
             _useCustomWasapiCapture.SettingChanged += _useCustomWasapiCapture_SettingChanged;
         }
 
         private void _useCustomWasapiCapture_SettingChanged(object sender, EventArgs e)
         {
             // If plugin is enabled, create the new WasapiCapture on setting change.
-            if (!_isActivated) return;
+            if (!_isActivated)
+            {
+                _logger.Verbose($"UseCustomWasapiCapture setting change detected. Nothing changed because AudioVisualizationService is not active");
+                return;
+            }
+
+            _logger.Verbose($"UseCustomWasapiCapture setting change detected. Restarting AudioVisualizationService");
             Deactivate();
             Activate();
+            _logger.Verbose($"UseCustomWasapiCapture setting change detected. AudioVisualizationService restarted");
         }
 
         #endregion
