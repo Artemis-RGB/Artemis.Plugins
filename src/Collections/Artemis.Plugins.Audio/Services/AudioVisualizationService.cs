@@ -25,6 +25,7 @@ namespace Artemis.Plugins.Audio.Services
         private readonly PluginSetting<bool> _useCustomWasapiCapture;
 
         private IAudioInput _audioInput;
+        private IAudioInput _disposableAudioInput;
         private AudioBuffer _audioBuffer;
 
         private readonly Dictionary<Channel, ISpectrumProvider> _spectrumProviders = new();
@@ -40,7 +41,24 @@ namespace Artemis.Plugins.Audio.Services
             this._logger = logger;
 
             _useCustomWasapiCapture = pluginSettings.GetSetting("UseCustomWasapiCapture", false);
+
             _useCustomWasapiCapture.SettingChanged += _useCustomWasapiCapture_SettingChanged;
+            _naudioDeviceEnumerationService.NotificationClient.DefaultDeviceChanged += NotificationClient_DefaultDeviceChanged;
+        }
+
+        private void NotificationClient_DefaultDeviceChanged()
+        {
+            // If plugin is enabled, create the new WasapiCapture on setting change.
+            if (!_isActivated)
+            {
+                _logger.Verbose($"Current audio playback EndPoint changed. Nothing changed because AudioVisualizationService is not active");
+                return;
+            }
+
+            _logger.Verbose($"Current audio playback EndPoint changed. Restarting AudioVisualizationService");
+            Deactivate();
+            Activate();
+            _logger.Verbose($"Current audio playback EndPoint changed. AudioVisualizationService restarted");
         }
 
         private void _useCustomWasapiCapture_SettingChanged(object sender, EventArgs e)
@@ -85,6 +103,7 @@ namespace Artemis.Plugins.Audio.Services
 
             // Pass Enumerator instance from NAudioDeviceEnumerationService
             // Could also pass the Service to register events to update EndPoint on default device change.
+
             _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService, _useCustomWasapiCapture.Value, _logger);
             _audioInput.Initialize();
 
@@ -111,7 +130,11 @@ namespace Artemis.Plugins.Audio.Services
 
             foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                 spectrumProvider.Dispose();
-            _audioInput.Dispose();
+            
+            // Don't dispose here because _useCustomWasapiCapture_SettingChanged is called from another thread and will hang up 
+            // dispose method. This is a CSore an NAudio know problem.
+            //_audioInput.Dispose();
+            _disposableAudioInput = _audioInput;
 
             _spectrumProviders.Clear();
             _audioBuffer = null;
@@ -124,6 +147,14 @@ namespace Artemis.Plugins.Audio.Services
         {
             foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                 spectrumProvider?.Update(); //DarthAffe 10.04.2021: This is not updating, it's used more like a mark as dirty
+
+            // Workarround to dispose audio object being created / disposed in different threads. Same as DataModel. This is needed for CSCore and NAudio
+            // I am using Update Method because it is called from the same thread as Activate / Deactivate so it won't hang up dispose methods.
+            if (_disposableAudioInput != null)
+            {
+                _disposableAudioInput.Dispose();
+                _disposableAudioInput = null;
+            }
         }
 
         public ISpectrumProvider GetSpectrumProvider(Channel channel) => _spectrumProviders.TryGetValue(channel, out ISpectrumProvider spectrumProvider) ? spectrumProvider : null;
