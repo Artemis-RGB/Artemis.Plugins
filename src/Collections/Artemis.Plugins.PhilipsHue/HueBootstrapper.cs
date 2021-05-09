@@ -4,15 +4,11 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.PhilipsHue
 {
-    public class HueBootstrapper : IPluginBootstrapper
+    public class HueBootstrapper : PluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<PhilipsHueConfigurationViewModel>();
         }
-
-        public void Disable(Plugin plugin)
-        {
-        }
     }
-}
+} 

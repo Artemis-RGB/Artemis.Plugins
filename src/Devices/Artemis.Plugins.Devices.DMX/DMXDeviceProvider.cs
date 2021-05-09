@@ -17,17 +17,13 @@ namespace Artemis.Plugins.Devices.DMX
     [PluginFeature(Name = "DMX Device Provider")]
     public class DMXDeviceProvider : DeviceProvider
     {
-        private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
 
-        public DMXDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings) : base(RGBDeviceProvider.Instance)
+        public DMXDeviceProvider(IRgbService rgbService, PluginSettings settings) : base(RGBDeviceProvider.Instance)
         {
-            _logger = logger;
             _rgbService = rgbService;
             _settings = settings;
-
-            RGBDeviceProvider.Instance.Exception += InstanceOnException;
         }
 
         public override void Enable()
@@ -64,11 +60,6 @@ namespace Artemis.Plugins.Devices.DMX
 
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RGBDeviceProvider.Instance.Dispose();
-        }
-
-        private void InstanceOnException(object sender, Exception e)
-        {
-            _logger.Warning(e, "DMXDeviceProvider exception");
         }
 
         private void TurnOffLeds()

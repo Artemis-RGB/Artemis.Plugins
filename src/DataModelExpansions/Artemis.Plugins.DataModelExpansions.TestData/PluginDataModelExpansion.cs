@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Core.Services;
 using Artemis.Plugins.DataModelExpansions.TestData.DataModels;
@@ -7,6 +8,7 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.DataModelExpansions.TestData
 {
+    [PluginFeature(AlwaysEnabled = true)]
     public class PluginDataModelExpansion : DataModelExpansion<PluginDataModel>
     {
         private readonly IWebServerService _webServerService;

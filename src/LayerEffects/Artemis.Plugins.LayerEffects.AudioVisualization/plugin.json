@@ -1,9 +1,0 @@
-﻿{
-  "Guid": "c9af6416-03ae-477f-bbc2-42f0a51009e1",
-  "Name": "Audio Visualization",
-  "Icon": "Music",
-  "Description": "Some super awesome audio-visualization.",
-  "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.LayerEffects.AudioVisualization.dll",
-  "AutoEnableFeatures": true
-}

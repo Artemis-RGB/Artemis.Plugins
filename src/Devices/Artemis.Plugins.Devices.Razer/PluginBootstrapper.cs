@@ -4,15 +4,11 @@ using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Devices.Razer
 {
-    public class PluginBootstrapper : IPluginBootstrapper
+    public class RazerBootstrapper : PluginBootstrapper
     {
-        public void Enable(Plugin plugin)
+        public new void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<RazerConfigurationViewModel>();
-        }
-
-        public void Disable(Plugin plugin)
-        {
         }
     }
 }

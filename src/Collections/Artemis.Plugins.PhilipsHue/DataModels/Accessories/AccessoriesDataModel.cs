@@ -11,7 +11,8 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
         public void UpdateContents(PhilipsHueBridge bridge, List<Sensor> sensors)
         {
             // Motion sensors are split into multiple parts but they share most of their unique ID
-            foreach (IGrouping<string, Sensor> sensorGroup in sensors.GroupBy(s => string.Join('-', s.UniqueId.Split("-").Take(2))))
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse - It is in fact nullable
+            foreach (IGrouping<string, Sensor> sensorGroup in sensors.Where(s => s.UniqueId != null).GroupBy(s => string.Join('-', s.UniqueId.Split("-").Take(2))))
                 if (sensorGroup.Count() == 1)
                     AddOrUpdateAccessory(bridge, sensorGroup.First());
                 else
