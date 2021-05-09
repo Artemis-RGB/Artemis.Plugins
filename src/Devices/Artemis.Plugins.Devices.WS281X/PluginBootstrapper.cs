@@ -7,7 +7,7 @@ namespace Artemis.Plugins.Devices.WS281X
     // ReSharper disable once InconsistentNaming
     public class WS281XBootstrapper : PluginBootstrapper
     {
-        public new void OnPluginLoaded(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<WS281XConfigurationViewModel>();
         }
