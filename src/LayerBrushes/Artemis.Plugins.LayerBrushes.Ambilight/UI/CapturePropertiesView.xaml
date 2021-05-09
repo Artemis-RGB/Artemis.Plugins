@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CapturePropertiesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:ui="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.UI"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ui:CapturePropertiesViewModel}">
 
     <UserControl.Resources>
@@ -15,10 +15,11 @@
     </UserControl.Resources>
 
     <DockPanel LastChildFill="True">
-        <materialDesign:Card DockPanel.Dock="Top"  
+        <materialDesign:Card DockPanel.Dock="Top"
+                             Panel.ZIndex="2"
                              materialDesign:ShadowAssist.ShadowDepth="Depth3"
                              materialDesign:ShadowAssist.ShadowEdges="Bottom">
-            <ListBox HorizontalAlignment="Center" Margin="16" 
+            <ListBox HorizontalAlignment="Center" Margin="16"
                      ItemsSource="{Binding Displays}"
                      SelectedItem="{Binding SelectedDisplay}"
                      ScrollViewer.CanContentScroll="False"
@@ -54,8 +55,7 @@
                                     </TextBlock>
                                 </StackPanel>
 
-                                <Image Stretch="Uniform"
-                                       Source="{Binding Preview}" />
+                                <Image Stretch="Uniform" Source="{Binding Preview}" />
                             </StackPanel>
                         </materialDesign:Card>
                     </DataTemplate>
@@ -63,122 +63,148 @@
             </ListBox>
         </materialDesign:Card>
 
-        <DockPanel VerticalAlignment="Top" Margin="24">
-            <materialDesign:Card DockPanel.Dock="Top" HorizontalAlignment="Center"
-                                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel HorizontalAlignment="Center"
-                                    Margin="8,4" Orientation="Horizontal">
-                            <Label Margin="0,0,8,0" Content="X" />
-                            <TextBox Width="32" TextAlignment="Right" Text="{Binding RegionX}" />
+        <materialDesign:Card DockPanel.Dock="Left"
+                             Width="220"
+                             UniformCornerRadius="0"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                             materialDesign:ShadowAssist.ShadowEdges="Right"
+                             Background="{DynamicResource MaterialDesignPaper}">
 
-                            <Label Margin="32,0,8,0" Content="Y" />
-                            <TextBox Width="32" TextAlignment="Right" Text="{Binding RegionY}" />
+            <StackPanel Margin="15">
+                <Label Content="Region" Margin="-5 0 0 0" />
+                <Grid VerticalAlignment="Stretch" Margin="-5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding RegionX}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="X" />
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding RegionY}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="Y" />
+                </Grid>
 
-                            <Label Margin="32,0,8,0" Content="Width" />
-                            <TextBox Width="32" TextAlignment="Right" Text="{Binding RegionWidth}" />
+                <Grid VerticalAlignment="Stretch" Margin="-5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding RegionWidth}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="Width" />
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding RegionHeight}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="Height" />
+                </Grid>
 
-                            <Label Margin="32,0,8,0" Content="Height" />
-                            <TextBox Width="32" TextAlignment="Right" Text="{Binding RegionHeight}" />
+                <Label Content="Adjustments" Margin="-5 10 0 0" />
+                <CheckBox Content="Flip horizontally" Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding RegionFlipHorizontal}" />
+                <CheckBox Content="Flip vertically" Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding RegionFlipVertical}" />
 
-                            <Label Margin="32,0,8,0" Content="Flip Horizontal" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Flip Horizontal"
-                                          IsChecked="{Binding RegionFlipHorizontal}" />
-
-                            <Label Margin="32,0,8,0" Content="Flip Vertical" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Flip Vertical"
-                                          IsChecked="{Binding RegionFlipVertical}" />
-
-                            <Label Margin="32,0,4,0" Content="Downscale level" />
-                            <TextBox VerticalAlignment="Center" Margin="0,0,8,0" 
-                                     Width="16" 
-                                     TextAlignment="Right" 
-                                     IsReadOnly="True" 
-                                     Text="{Binding DownscaleLevel}" />
-                            <Slider Width="120"
-                                    Minimum="0" Maximum="10"
-                                    TickFrequency="1"
-                                    TickPlacement="BottomRight"
-                                    ToolTip="Downscale level"
-                                    Value="{Binding DownscaleLevel}" />
-
-                            <Label Margin="64,0,8,0" Content="Preview Selection" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Preview Selection"
-                                          IsChecked="{Binding IsSelectionPreviewed}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Center"
-                                    Margin="8,4"
-                                    Orientation="Horizontal">
-                            <Label Margin="0,0,8,0" Content="Black-Bar detection" />
-
-                            <Label Margin="8,0,8,0" Content="Top" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Black-Bar detection top"
-                                          IsChecked="{Binding BlackBarDetectionTop}" />
-
-                            <Label Margin="32,0,8,0" Content="Bottom" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Black-Bar detection bottom"
-                                          IsChecked="{Binding BlackBarDetectionBottom}" />
-
-                            <Label Margin="32,0,8,0" Content="Left" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Black-Bar detection left"
-                                          IsChecked="{Binding BlackBarDetectionLeft}" />
-
-                            <Label Margin="32,0,8,0" Content="Right" />
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" 
-                                          ToolTip="Black-Bar detection right"
-                                          IsChecked="{Binding BlackBarDetectionRight}" />
-
-                            <Label Margin="32,0,8,0" Content="Threshold" />
-                            <TextBox VerticalAlignment="Center" Margin="0,0,8,0" 
-                                     Width="16" 
-                                     TextAlignment="Right" 
-                                     IsReadOnly="True" 
-                                     Text="{Binding BlackBarDetectionThreshold}" />
-                            <Slider Width="460"
-                                    Minimum="0" Maximum="50"
-                                    TickFrequency="1"
-                                    TickPlacement="BottomRight"
-                                    ToolTip="Black-Bar detection theshold"
-                                    Value="{Binding BlackBarDetectionThreshold}" />
-                        </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
-            </materialDesign:Card>
-
-            <materialDesign:Card HorizontalAlignment="Center" Margin="0,8,0,0"
-                                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <Label Content="Downscale level" Margin="-5 10 0 0" />
                 <Grid>
-                    <Image Stretch="Uniform" Source="{Binding Preview.Preview}"
-                           RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <ScaleTransform ScaleX="{Binding RegionFlipHorizontal, Converter={StaticResource RenderScaleConverter}}" 
-                                            ScaleY="{Binding RegionFlipVertical, Converter={StaticResource RenderScaleConverter}}" />
-                        </Image.RenderTransform>
-                    </Image>
-                    <Viewbox Visibility="{Binding IsSelectionPreviewed, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Text="{Binding DownscaleLevel}"
+                             Margin="0 0 5 0" />
+                    <Slider Grid.Column="1"
+                            Minimum="0" Maximum="10"
+                            TickFrequency="1"
+                            TickPlacement="BottomRight"
+                            ToolTip="Downscale level"
+                            Value="{Binding DownscaleLevel}" />
+                </Grid>
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Black-bar detection" Margin="-5 10 0 0" />
+                    <materialDesign:PackIcon Grid.Column="1"
+                                             VerticalAlignment="Center"
+                                             Kind="HelpCircle"
+                                             ToolTip="Attempts to remove black borders (also known as letterboxing) from the image" />
+                </Grid>
+
+                <ListBox SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" HorizontalAlignment="Stretch">
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignLeft}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignRight}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignTop}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignBottom}" />
+                </ListBox>
+                <Label Content="Treshold" Margin="-5 10 0 0" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Text="{Binding BlackBarDetectionThreshold}"
+                             Margin="0 0 5 0" />
+                    <Slider Grid.Column="1"
+                            Minimum="0" Maximum="50"
+                            TickFrequency="2"
+                            TickPlacement="BottomRight"
+                            ToolTip="Black-Bar detection theshold"
+                            Value="{Binding BlackBarDetectionThreshold}" />
+                </Grid>
+            </StackPanel>
+
+        </materialDesign:Card>
+        <Grid Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <materialDesign:Card Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
+                <Grid>
+                    <Image Stretch="Uniform" Source="{Binding Preview.Preview}" />
+                    <Viewbox>
+
                         <Canvas Width="{Binding SelectedDisplay.Display.Width}" Height="{Binding SelectedDisplay.Display.Height}">
-                            <Grid Canvas.Left="{Binding RegionX}" Canvas.Top="{Binding RegionY}"
-                                  Width="{Binding RegionWidth}" Height="{Binding RegionHeight}">
-                                <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                        BorderBrush="#000000" BorderThickness="2">
-                                    <Border.Effect>
-                                        <BlurEffect Radius="8" />
-                                    </Border.Effect>
-                                </Border>
-                                <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                        BorderBrush="#FFFFFF" BorderThickness="1" />
-                            </Grid>
+                            <Rectangle Canvas.Left="{Binding RegionX}"
+                                       Canvas.Top="{Binding RegionY}"
+                                       Width="{Binding RegionWidth}"
+                                       Height="{Binding RegionHeight}"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       Fill="Transparent"
+                                       StrokeThickness="20" Cursor="Hand"/>
+
                         </Canvas>
                     </Viewbox>
                 </Grid>
             </materialDesign:Card>
-        </DockPanel>
+            <materialDesign:PackIcon Grid.Column="1" Kind="ArrowRight" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <materialDesign:Card Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
+                <Image Stretch="Uniform" Source="{Binding Preview.ProcessedPreview}" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <ScaleTransform ScaleX="{Binding RegionFlipHorizontal, Converter={StaticResource RenderScaleConverter}}"
+                                        ScaleY="{Binding RegionFlipVertical, Converter={StaticResource RenderScaleConverter}}" />
+                    </Image.RenderTransform>
+                </Image>
+            </materialDesign:Card>
+        </Grid>
     </DockPanel>
 </UserControl>

@@ -4,7 +4,7 @@ using ScreenCapture;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight
 {
-    public class AmbilightBootstrapper : IPluginBootstrapper
+    public class AmbilightBootstrapper : PluginBootstrapper
     {
         #region Properties & Fields
 
@@ -14,12 +14,12 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
         #region Methods
 
-        public void Enable(Plugin plugin)
+        public override void OnPluginEnabled(Plugin plugin)
         {
             ScreenCaptureService ??= new AmbilightScreenCaptureService(new DX11ScreenCaptureService());
         }
 
-        public void Disable(Plugin plugin)
+        public override void OnPluginDisabled(Plugin plugin)
         {
             ScreenCaptureService?.Dispose();
             ScreenCaptureService = null;
