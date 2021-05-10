@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -321,10 +321,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
                     d.Display.GraphicsCard.VendorId == properties.GraphicsCardVendorId &&
                     d.Display.GraphicsCard.DeviceId == properties.GraphicsCardDeviceId &&
                     d.Display.DeviceName == properties.DisplayName);
-                RegionX = properties.X;
-                RegionY = properties.Y;
-                RegionWidth = properties.Width;
-                RegionHeight = properties.Height;
+
+                // Don't go beyond screen resolution
+                RegionX = Math.Clamp(properties.X, 0, SelectedDisplay.Display.Width + 0);
+                RegionY = Math.Clamp(properties.Y, 0, SelectedDisplay.Display.Height + 0);
+                RegionWidth = Math.Clamp(properties.Width, 0, SelectedDisplay.Display.Width - properties.X);
+                RegionHeight = Math.Clamp(properties.Height, 0, SelectedDisplay.Display.Height - properties.Y);
+
                 RegionFlipHorizontal = properties.FlipHorizontal;
                 RegionFlipVertical = properties.FlipVertical;
                 DownscaleLevel = properties.DownscaleLevel;
@@ -486,7 +489,15 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             _blackBarDetectionRight = blackBarDetectionRight;
 
             _captureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(0, 0, display.Width, display.Height);
-            _processedCaptureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(x, y, width, height, downsamplingLevel);
+            _processedCaptureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(
+                // Don't go beyond screen resolution
+                Math.Clamp(x, 0, Display.Width + 0),
+                Math.Clamp(y, 0, Display.Width + 0 ),
+                Math.Clamp(width, 0, Display.Width - x),
+                Math.Clamp(height, 0, Display.Height - y),
+
+                downsamplingLevel
+                );
             _processedCaptureZone.BlackBars.Threshold = blackBarThreshold;
 
             _previewBuffer = new byte[_captureZone.Buffer.Length];

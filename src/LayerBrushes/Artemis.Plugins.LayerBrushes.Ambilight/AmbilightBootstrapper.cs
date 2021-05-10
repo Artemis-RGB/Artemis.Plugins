@@ -14,6 +14,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
         #region Methods
 
+        internal static void RefreshScreenCaptureService()
+        {
+            ScreenCaptureService.Dispose();
+            ScreenCaptureService = null;
+            ScreenCaptureService = new AmbilightScreenCaptureService(new DX11ScreenCaptureService());
+        }
+
         public override void OnPluginEnabled(Plugin plugin)
         {
             ScreenCaptureService ??= new AmbilightScreenCaptureService(new DX11ScreenCaptureService());

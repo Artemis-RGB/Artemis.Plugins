@@ -84,7 +84,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
             if (_display != null)
             {
-                _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(properties.X, properties.Y, properties.Width, properties.Height, properties.DownscaleLevel);
+                _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(
+                    // Don't go beyond screen resolution
+                    Math.Clamp(properties.X, 0, _display.Value.Width),
+                    Math.Clamp(properties.Y, 0, _display.Value.Height),
+                    Math.Clamp(properties.Width, 0, _display.Value.Width - properties.X),
+                    Math.Clamp(properties.Height, 0, _display.Value.Height - properties.Y),
+                    properties.DownscaleLevel);
                 _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
                 _captureZone.BlackBars.Threshold = properties.BlackBarDetectionThreshold;
             }
