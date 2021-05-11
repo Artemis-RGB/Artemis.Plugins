@@ -64,7 +64,7 @@
         </materialDesign:Card>
 
         <materialDesign:Card DockPanel.Dock="Left"
-                             Width="220"
+                             Width="230"
                              UniformCornerRadius="0"
                              materialDesign:ShadowAssist.ShadowDepth="Depth3"
                              materialDesign:ShadowAssist.ShadowEdges="Right"
@@ -128,7 +128,7 @@
                             TickFrequency="1"
                             TickPlacement="BottomRight"
                             ToolTip="Downscale level"
-                            Value="{Binding DownscaleLevel}" />
+                            Value="{Binding DownscaleLevel, Delay=200}" />
                 </Grid>
 
 
@@ -145,12 +145,12 @@
                 </Grid>
 
                 <ListBox SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" HorizontalAlignment="Stretch">
-                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignLeft}" />
-                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignRight}" />
-                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignTop}" />
-                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignBottom}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignLeft}" IsSelected="{Binding BlackBarDetectionLeft}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignRight}" IsSelected="{Binding BlackBarDetectionRight}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignTop}" IsSelected="{Binding BlackBarDetectionTop}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignBottom}" IsSelected="{Binding BlackBarDetectionBottom}" />
                 </ListBox>
-                <Label Content="Treshold" Margin="-5 10 0 0" />
+                <Label Content="Detection treshold" Margin="-5 10 0 0" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25" />
@@ -164,7 +164,7 @@
                             TickFrequency="2"
                             TickPlacement="BottomRight"
                             ToolTip="Black-Bar detection theshold"
-                            Value="{Binding BlackBarDetectionThreshold}" />
+                            Value="{Binding BlackBarDetectionThreshold, Delay=200}" />
                 </Grid>
             </StackPanel>
 
@@ -190,7 +190,7 @@
                                        MouseUp="{s:Action RegionSelectMouseUp}"
                                        MouseMove="{s:Action RegionSelectMouseMove}"
                                        Fill="Transparent"
-                                       StrokeThickness="20" Cursor="Hand"/>
+                                       StrokeThickness="20" Cursor="Hand" />
 
                         </Canvas>
                     </Viewbox>
