@@ -25,7 +25,6 @@ namespace Artemis.Plugins.Audio.Services
         private readonly PluginSetting<bool> _useCustomWasapiCapture;
 
         private IAudioInput _audioInput;
-        private IAudioInput _disposableAudioInput;
         private AudioBuffer _audioBuffer;
 
         private readonly Dictionary<Channel, ISpectrumProvider> _spectrumProviders = new();
@@ -36,10 +35,9 @@ namespace Artemis.Plugins.Audio.Services
 
         public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, ILogger logger)
         {
-            this._coreService = coreService;
-            this._naudioDeviceEnumerationService = naudioDeviceEnumerationService;
-            this._logger = logger;
-
+            _coreService = coreService;
+            _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
+            _logger = logger;
             _useCustomWasapiCapture = pluginSettings.GetSetting("UseCustomWasapiCapture", false);
 
             _useCustomWasapiCapture.SettingChanged += _useCustomWasapiCapture_SettingChanged;
@@ -108,7 +106,7 @@ namespace Artemis.Plugins.Audio.Services
             _audioInput.Initialize();
 
             _audioBuffer = new AudioBuffer(4096); // Working with ~93ms
-            _audioInput.DataAvailable += (left, right) => _audioBuffer.Put(left, right);
+            _audioInput.DataAvailable += (left, right) => _audioBuffer?.Put(left, right);
 
             _spectrumProviders.Add(Channel.Mix, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Mix)));
             _spectrumProviders.Add(Channel.Left, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Left)));
@@ -130,14 +128,10 @@ namespace Artemis.Plugins.Audio.Services
 
             foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                 spectrumProvider.Dispose();
-            
-            // Don't dispose here because _useCustomWasapiCapture_SettingChanged is called from another thread and will hang up 
-            // dispose method. This is a CSore an NAudio know problem.
-            //_audioInput.Dispose();
-            _disposableAudioInput = _audioInput;
 
             _spectrumProviders.Clear();
             _audioBuffer = null;
+            _audioInput?.Dispose();
             _audioInput = null;
 
             _isActivated = false;
@@ -147,14 +141,6 @@ namespace Artemis.Plugins.Audio.Services
         {
             foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                 spectrumProvider?.Update(); //DarthAffe 10.04.2021: This is not updating, it's used more like a mark as dirty
-
-            // Workarround to dispose audio object being created / disposed in different threads. Same as DataModel. This is needed for CSCore and NAudio
-            // I am using Update Method because it is called from the same thread as Activate / Deactivate so it won't hang up dispose methods.
-            if (_disposableAudioInput != null)
-            {
-                _disposableAudioInput.Dispose();
-                _disposableAudioInput = null;
-            }
         }
 
         public ISpectrumProvider GetSpectrumProvider(Channel channel) => _spectrumProviders.TryGetValue(channel, out ISpectrumProvider spectrumProvider) ? spectrumProvider : null;

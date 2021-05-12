@@ -9,12 +9,11 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
     {
         #region Constructor
 
-        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService, bool UseCustomWasapiCapture, ILogger logger)
+        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService, bool useCustomWasapiCapture, ILogger logger)
         {
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
             _logger = logger;
-
-            _useCustomWasapiCapture = UseCustomWasapiCapture;
+            _useCustomWasapiCapture = useCustomWasapiCapture;
         }
 
         #endregion
@@ -43,7 +42,9 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         public void Initialize()
         {
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            _capture = _useCustomWasapiCapture ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger) : new WasapiLoopbackCapture();
+            _capture = _useCustomWasapiCapture 
+                ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger) 
+                : new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
 
             if (_capture.WaveFormat.Channels != _endpoint.AudioClient.MixFormat.Channels)

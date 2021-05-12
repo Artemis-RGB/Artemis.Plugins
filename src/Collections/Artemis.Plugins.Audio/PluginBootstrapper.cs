@@ -1,5 +1,5 @@
 ﻿using Artemis.Core;
-using Artemis.Plugins.Audio.SettingsDialog;
+using Artemis.Plugins.Audio.ViewModels;
 using Artemis.UI.Shared;
 
 namespace Artemis.Plugins.Audio
@@ -8,7 +8,7 @@ namespace Artemis.Plugins.Audio
     {
         public override void OnPluginLoaded(Plugin plugin)
         {
-            plugin.ConfigurationDialog = new PluginConfigurationDialog<AudioPluginConfigurationViewModel>();
+            plugin.ConfigurationDialog = new PluginConfigurationDialog<AudioConfigurationViewModel>();
         }
     }
 }
