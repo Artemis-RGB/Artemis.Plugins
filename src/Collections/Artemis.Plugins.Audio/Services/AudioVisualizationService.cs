@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.Audio.LayerEffects;
@@ -28,6 +29,7 @@ namespace Artemis.Plugins.Audio.Services
         private AudioBuffer _audioBuffer;
 
         private readonly Dictionary<Channel, ISpectrumProvider> _spectrumProviders = new();
+        private bool _handlingDeviceChanged;
 
         #endregion
 
@@ -46,17 +48,27 @@ namespace Artemis.Plugins.Audio.Services
 
         private void NotificationClient_DefaultDeviceChanged()
         {
-            // If plugin is enabled, create the new WasapiCapture on setting change.
-            if (!_isActivated)
+            Task.Run(() =>
             {
-                _logger.Verbose($"Current audio playback EndPoint changed. Nothing changed because AudioVisualizationService is not active");
-                return;
-            }
+                if (_handlingDeviceChanged)
+                    return;
+                
+                _handlingDeviceChanged = true;
+                // If plugin is enabled, create the new WasapiCapture on setting change.
+                if (!_isActivated)
+                {
+                    _logger.Verbose($"Current audio playback EndPoint changed. Nothing changed because AudioVisualizationService is not active");
+                    return;
+                }
 
-            _logger.Verbose($"Current audio playback EndPoint changed. Restarting AudioVisualizationService");
-            Deactivate();
-            Activate();
-            _logger.Verbose($"Current audio playback EndPoint changed. AudioVisualizationService restarted");
+                _logger.Verbose($"Current audio playback EndPoint changed. Restarting AudioVisualizationService");
+
+                Deactivate();
+                Activate();
+
+                _logger.Verbose($"Current audio playback EndPoint changed. AudioVisualizationService restarted");
+                _handlingDeviceChanged = false;
+            });
         }
 
         private void _useCustomWasapiCapture_SettingChanged(object sender, EventArgs e)
