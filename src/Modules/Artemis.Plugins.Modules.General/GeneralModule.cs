@@ -22,6 +22,9 @@ namespace Artemis.Plugins.Modules.General
         {
             _quantizerService = quantizerService;
             _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
+
+            AddDefaultProfile("Profiles/rainbow.json");
+            AddDefaultProfile("Profiles/noise.json");
         }
 
         public override void Enable()
