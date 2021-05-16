@@ -501,10 +501,17 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             _processedCaptureZone.BlackBars.Threshold = blackBarThreshold;
 
             _previewBuffer = new byte[_captureZone.Buffer.Length];
-            _processedPreviewBuffer = new byte[_processedCaptureZone.Buffer.Length];
             Preview = new WriteableBitmap(BitmapSource.Create(_captureZone.Width, _captureZone.Height, 96, 96, PixelFormats.Bgra32, null, _previewBuffer, _captureZone.BufferWidth * 4));
-            ProcessedPreview = new WriteableBitmap(BitmapSource.Create(_processedCaptureZone.Width, _processedCaptureZone.Height, 96, 96, PixelFormats.Bgra32, null, _processedPreviewBuffer,
-                _processedCaptureZone.BufferWidth * 4));
+
+            if (x + width <= display.Width && y + height <= display.Height)
+            {
+                _processedCaptureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(x, y, width, height, downsamplingLevel);
+                _processedCaptureZone.BlackBars.Threshold = blackBarThreshold;
+                _processedPreviewBuffer = new byte[_processedCaptureZone.Buffer.Length];
+                ProcessedPreview = new WriteableBitmap(
+                    BitmapSource.Create(_processedCaptureZone.Width, _processedCaptureZone.Height, 96, 96, PixelFormats.Bgra32, null, _processedPreviewBuffer, _processedCaptureZone.BufferWidth * 4)
+                );
+            }
         }
 
         #endregion
