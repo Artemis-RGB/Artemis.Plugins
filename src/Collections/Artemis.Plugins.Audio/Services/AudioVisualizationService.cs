@@ -30,13 +30,15 @@ namespace Artemis.Plugins.Audio.Services
 
         private readonly Dictionary<Channel, ISpectrumProvider> _spectrumProviders = new();
         private bool _handlingDeviceChanged;
+        private Profiler _profiler;
 
         #endregion
 
         #region Constructors
 
-        public AudioVisualizationService(ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, ILogger logger)
+        public AudioVisualizationService(Plugin plugin, ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, ILogger logger)
         {
+            _profiler = plugin.GetProfiler("AudioVisualizationService");
             _coreService = coreService;
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
             _logger = logger;
@@ -151,8 +153,10 @@ namespace Artemis.Plugins.Audio.Services
 
         private void Update(object sender, FrameRenderingEventArgs args)
         {
+            _profiler.StartMeasurement("Update");
             foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                 spectrumProvider?.Update(); //DarthAffe 10.04.2021: This is not updating, it's used more like a mark as dirty
+            _profiler.StopMeasurement("Update");
         }
 
         public ISpectrumProvider GetSpectrumProvider(Channel channel) => _spectrumProviders.TryGetValue(channel, out ISpectrumProvider spectrumProvider) ? spectrumProvider : null;
