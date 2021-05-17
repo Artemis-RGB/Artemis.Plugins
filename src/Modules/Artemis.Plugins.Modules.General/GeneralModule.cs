@@ -36,21 +36,17 @@ namespace Artemis.Plugins.Modules.General
             ExpandsDataModel = true;
 
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
-            AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow());
-            AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance());
+            AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow(), "UpdateCurrentWindow");
+            AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance(), "UpdatePerformance");
 
             ApplyEnableActiveWindow();
         }
 
         private void UpdatePerformance()
         {
-            Profiler.StartMeasurement("UpdatePerformance");
-
             DataModel.PerformanceDataModel.CpuUsage = Performance.GetCpuUsage();
             DataModel.PerformanceDataModel.AvailableRam = Performance.GetPhysicalAvailableMemoryInMiB();
             DataModel.PerformanceDataModel.TotalRam = Performance.GetTotalMemoryInMiB();
-
-            Profiler.StopMeasurement("UpdatePerformance");
         }
 
         public override void Disable()
@@ -82,16 +78,12 @@ namespace Artemis.Plugins.Modules.General
         {
             if (!_enableActiveWindow.Value)
                 return;
-
-            Profiler.StartMeasurement("UpdateCurrentWindow");
-
+            
             int processId = WindowUtilities.GetActiveProcessId();
             if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
                 DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService);
 
             DataModel.ActiveWindow?.UpdateWindowTitle();
-
-            Profiler.StopMeasurement("UpdateCurrentWindow");
         }
 
         #endregion
