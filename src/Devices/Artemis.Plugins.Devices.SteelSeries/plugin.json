@@ -1,6 +1,9 @@
 ﻿{
   "Guid": "27945704-6edd-48b4-bc0e-319cce9693fc",
   "Name": "SteelSeries Devices",
+  "Author": "DarthAffe & SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control lighting on select SteelSeries mice and keyboards",
   "Version": "1.0.0.0",

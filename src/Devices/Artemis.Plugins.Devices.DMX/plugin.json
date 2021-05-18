@@ -1,6 +1,9 @@
 ﻿{
   "Guid": "6f073d4d-d97d-4040-9750-841fdbe06915",
   "Name": "DMX Devices",
+  "Author": "DarthAffe & SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Ethernet",
   "Description": "Allows Artemis to control lighting on DMX controllers via a E1.31",
   "Version": "1.0.0.0",
