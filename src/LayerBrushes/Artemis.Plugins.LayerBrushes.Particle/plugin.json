@@ -1,6 +1,9 @@
 {
   "Guid": "c4c0a8e0-29b7-4003-ba44-e095ef329a69",
   "Name": "Particles brush",
+  "Author": "SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Description": "A layer-brush rendering highly configurable particles",
   "Icon": "Meteor",
   "Version": "1.0.0.0",

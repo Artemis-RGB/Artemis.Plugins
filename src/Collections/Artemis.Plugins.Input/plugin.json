@@ -1,6 +1,9 @@
 {
   "Guid": "87e2c9a3-658b-49a3-95d8-abc9fba95c02",
   "Name": "Input",
+  "Author": "SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "GestureDoubleTap",
   "Description": "Provides input related features such as a data model expansion and keypress brush",
   "Version": "1.0.0.0",

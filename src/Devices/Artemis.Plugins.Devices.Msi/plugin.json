@@ -1,6 +1,9 @@
 ﻿{
   "Guid": "9177c320-1206-48a3-af52-b1749c758786",
   "Name": "MSI Devices",
+  "Author": "DarthAffe & SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Chip",
   "Description": "Allows Artemis to control the lighting on MSI GPUs and motherboards.",
   "Version": "1.0.0.0",
