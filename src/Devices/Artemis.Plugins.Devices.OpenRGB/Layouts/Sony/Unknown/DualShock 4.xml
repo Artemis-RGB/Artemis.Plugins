@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Sony DualShock 4</Name>
+  <Description>Layout for the PlayStation 4 controller</Description>
+  <Author>diogotr7</Author>
+  <Type>Unknown</Type>
+  <Vendor>Sony</Vendor>
+  <Model>DualShock 4</Model>
+  <Width>162</Width>
+  <Height>98</Height>
+  <Leds>
+    <Led Id="Custom1">
+      <X>55</X>
+      <Y>5</Y>
+      <Width>2.75</Width>
+      <Height>0.5</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>ps4-controller.png</DeviceImage>
+  </CustomData>
+</Device>
