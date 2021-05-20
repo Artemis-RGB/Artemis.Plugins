@@ -1,53 +1,52 @@
-﻿using ScreenCapture;
+﻿using Artemis.Core;
+using ScreenCapture;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups
 {
-    public struct AmbilightCaptureProperties
+    public class AmbilightCaptureProperties : LayerPropertyGroup
     {
-        #region Properties & Fields
+        public IntLayerProperty GraphicsCardVendorId { get; set; }
+        public IntLayerProperty GraphicsCardDeviceId { get; set; }
+        public LayerProperty<string> DisplayName { get; set; }
 
-        public int GraphicsCardVendorId { get; set; }
-        public int GraphicsCardDeviceId { get; set; }
-        public string DisplayName { get; set; }
+        public IntLayerProperty X { get; set; }
+        public IntLayerProperty Y { get; set; }
+        public IntLayerProperty Width { get; set; }
+        public IntLayerProperty Height { get; set; }
+        public BoolLayerProperty FlipHorizontal { get; set; }
+        public BoolLayerProperty FlipVertical { get; set; }
+        public IntLayerProperty DownscaleLevel { get; set; }
 
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public bool FlipHorizontal { get; set; }
-        public bool FlipVertical { get; set; }
-        public int DownscaleLevel { get; set; }
+        public BoolLayerProperty BlackBarDetectionTop { get; set; }
+        public BoolLayerProperty BlackBarDetectionBottom { get; set; }
+        public BoolLayerProperty BlackBarDetectionLeft { get; set; }
+        public BoolLayerProperty BlackBarDetectionRight { get; set; }
+        public IntLayerProperty BlackBarDetectionThreshold { get; set; }
 
-        public bool BlackBarDetectionTop { get; set; }
-        public bool BlackBarDetectionBottom { get; set; }
-        public bool BlackBarDetectionLeft { get; set; }
-        public bool BlackBarDetectionRight { get; set; }
-        public int BlackBarDetectionThreshold { get; set; }
 
-        #endregion
-
-        #region Constructors
-
-        public AmbilightCaptureProperties(Display? display, int x, int y, int width, int height, bool flipHorizontal, bool flipVertical, int downscaleLevel,
-                                          bool blackBarDetectionTop, bool blackBarDetectionBottom, bool blackBarDetectionLeft, bool blackBarDetectionRight, int blackBarDetectionThreshold)
+        protected override void PopulateDefaults()
         {
-            this.GraphicsCardVendorId = display?.GraphicsCard.VendorId ?? -1;
-            this.GraphicsCardDeviceId = display?.GraphicsCard.DeviceId ?? -1;
-            this.DisplayName = display?.DeviceName ?? "-";
-            this.X = x;
-            this.Y = y;
-            this.Width = width;
-            this.Height = height;
-            this.FlipHorizontal = flipHorizontal;
-            this.FlipVertical = flipVertical;
-            this.DownscaleLevel = downscaleLevel;
-            this.BlackBarDetectionTop = blackBarDetectionTop;
-            this.BlackBarDetectionBottom = blackBarDetectionBottom;
-            this.BlackBarDetectionLeft = blackBarDetectionLeft;
-            this.BlackBarDetectionRight = blackBarDetectionRight;
-            this.BlackBarDetectionThreshold = blackBarDetectionThreshold;
         }
 
-        #endregion
+        protected override void EnableProperties()
+        {
+        }
+
+        protected override void DisableProperties()
+        {
+        }
+
+        public void ApplyDisplay(Display display, bool includeRegion)
+        {
+            GraphicsCardVendorId.BaseValue = display.GraphicsCard.VendorId;
+            GraphicsCardDeviceId.BaseValue = display.GraphicsCard.DeviceId;
+            DisplayName.BaseValue = display.DeviceName;
+
+            if (!includeRegion) return;
+            X.BaseValue = 0;
+            Y.BaseValue = 0;
+            Width.BaseValue = display.Width;
+            Height.BaseValue = display.Height;
+        }
     }
 }

@@ -6,8 +6,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups
     {
         #region Properties & Fields
 
-        [PropertyDescription(Description = "The display-region to capture", DisableKeyframes = true)]
-        public LayerProperty<AmbilightCaptureProperties?> Capture { get; set; }
+        public AmbilightCaptureProperties Capture { get; set; }
 
         #endregion
 
@@ -15,14 +14,16 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups
 
         protected override void PopulateDefaults()
         {
-            Capture.DefaultValue = null;
         }
 
         protected override void EnableProperties()
-        { }
+        {
+            Capture.IsHidden = true;
+        }
 
         protected override void DisableProperties()
-        { }
+        {
+        }
 
         #endregion
     }
