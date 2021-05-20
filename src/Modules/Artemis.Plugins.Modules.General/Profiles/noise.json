@@ -1,0 +1,999 @@
+{
+  "$type": "Artemis.Storage.Entities.Profile.ProfileEntity, Artemis.Storage",
+  "Id": "61c482de-75ef-4bd4-81f2-1c211791618e",
+  "ModuleId": "Artemis.Plugins.Modules.General.GeneralModule-0de2991a",
+  "Name": "Noise",
+  "IsActive": true,
+  "Folders": {
+    "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.FolderEntity, Artemis.Storage]], System.Private.CoreLib",
+    "$values": [
+      {
+        "$type": "Artemis.Storage.Entities.Profile.FolderEntity, Artemis.Storage",
+        "Order": 0,
+        "Name": "Root folder",
+        "Suspended": false,
+        "Profile": null,
+        "ProfileId": "61c482de-75ef-4bd4-81f2-1c211791618e",
+        "Id": "2483e1ea-3226-43dc-8037-fb8f1e160f29",
+        "ParentId": "61c482de-75ef-4bd4-81f2-1c211791618e",
+        "LayerEffects": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.LayerEffectEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": []
+        },
+        "PropertyEntities": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": []
+        },
+        "ExpandedPropertyGroups": {
+          "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+          "$values": []
+        },
+        "DisplayCondition": {
+          "$type": "Artemis.Storage.Entities.Profile.Conditions.DataModelConditionGroupEntity, Artemis.Storage",
+          "BooleanOperator": 0,
+          "Children": {
+            "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.Abstract.DataModelConditionPartEntity, Artemis.Storage]], System.Private.CoreLib",
+            "$values": []
+          }
+        },
+        "Timeline": {
+          "$type": "Artemis.Storage.Entities.Profile.TimelineEntity, Artemis.Storage",
+          "StartSegmentLength": "00:00:00",
+          "MainSegmentLength": "00:00:05",
+          "EndSegmentLength": "00:00:00",
+          "PlayMode": 0,
+          "StopMode": 0,
+          "EventOverlapMode": 0
+        }
+      }
+    ]
+  },
+  "Layers": {
+    "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.LayerEntity, Artemis.Storage]], System.Private.CoreLib",
+    "$values": [
+      {
+        "$type": "Artemis.Storage.Entities.Profile.LayerEntity, Artemis.Storage",
+        "Order": 1,
+        "Name": "Type waves",
+        "Suspended": false,
+        "Leds": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.LedEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": []
+        },
+        "AdaptionHints": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.AdaptionHints.IAdaptionHintEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": [
+            {
+              "$type": "Artemis.Storage.Entities.Profile.AdaptionHints.DeviceAdaptionHintEntity, Artemis.Storage",
+              "DeviceType": -1,
+              "LimitAmount": false,
+              "Skip": 0,
+              "Amount": 0
+            }
+          ]
+        },
+        "Profile": null,
+        "ProfileId": "61c482de-75ef-4bd4-81f2-1c211791618e",
+        "Id": "851c8191-328e-441b-84c0-c06e5e00c94f",
+        "ParentId": "2483e1ea-3226-43dc-8037-fb8f1e160f29",
+        "LayerEffects": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.LayerEffectEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": []
+        },
+        "PropertyEntities": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": [
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.BrushReference",
+              "Value": "{\"LayerBrushProviderId\":\"Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3\",\"BrushType\":\"KeypressBrush\"}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.ShapeType",
+              "Value": "1",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.BlendMode",
+              "Value": "3",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.TransformMode",
+              "Value": "0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.AnchorPoint",
+              "Value": "{\"IsEmpty\":true,\"Length\":0.0,\"LengthSquared\":0.0,\"X\":0.0,\"Y\":0.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Position",
+              "Value": "{\"IsEmpty\":true,\"Length\":0.0,\"LengthSquared\":0.0,\"X\":0.0,\"Y\":0.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Scale",
+              "Value": "{\"IsEmpty\":false,\"Width\":100.0,\"Height\":100.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Rotation",
+              "Value": "0.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Opacity",
+              "Value": "100.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.ColorMode",
+              "Value": "0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.Color",
+              "Value": "\"#ffff0000\"",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.Colors",
+              "Value": "[{\"Color\":\"#ffff0000\",\"Position\":0.0},{\"Color\":\"#ffff9900\",\"Position\":0.125},{\"Color\":\"#ffffff00\",\"Position\":0.25},{\"Color\":\"#ff00ff00\",\"Position\":0.375},{\"Color\":\"#ff00ff7e\",\"Position\":0.5},{\"Color\":\"#ff0078ff\",\"Position\":0.625},{\"Color\":\"#ff9e22ff\",\"Position\":0.75},{\"Color\":\"#ffff34ae\",\"Position\":0.875},{\"Color\":\"#ffff0000\",\"Position\":1.0}]",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.GradientPosition",
+              "Value": "0.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.AnimationSpeed",
+              "Value": "100.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.Animation",
+              "Value": "1",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.ColorMode",
+              "Value": "1",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.Colors",
+              "Value": "[{\"Color\":\"#ffff0000\",\"Position\":0.0},{\"Color\":\"#ffff9900\",\"Position\":0.125},{\"Color\":\"#ffffff00\",\"Position\":0.25},{\"Color\":\"#ff00ff00\",\"Position\":0.375},{\"Color\":\"#ff00ff7e\",\"Position\":0.5},{\"Color\":\"#ff0078ff\",\"Position\":0.625},{\"Color\":\"#ff9e22ff\",\"Position\":0.75},{\"Color\":\"#ffff34ae\",\"Position\":0.875},{\"Color\":\"#ffff0000\",\"Position\":1.0}]",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.Color",
+              "Value": "\"#ff000000\"",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.FadeEcho",
+              "Value": "true",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.EchoLifetime",
+              "Value": "1.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.RippleBehivor",
+              "Value": "2",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.RippleFadeAway",
+              "Value": "0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.RippleTrail",
+              "Value": "false",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.RippleWidth",
+              "Value": "40.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.RippleSize",
+              "Value": "200.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.RippleGrowthSpeed",
+              "Value": "300.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.CircleSize",
+              "Value": "100.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.Input.LayerBrush.InputBrushProvider-87e2c9a3",
+              "Path": "LayerBrush.CircleGrowthSpeed",
+              "Value": "500.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            }
+          ]
+        },
+        "ExpandedPropertyGroups": {
+          "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+          "$values": [
+            "General",
+            "LayerBrush"
+          ]
+        },
+        "DisplayCondition": {
+          "$type": "Artemis.Storage.Entities.Profile.Conditions.DataModelConditionGroupEntity, Artemis.Storage",
+          "BooleanOperator": 0,
+          "Children": {
+            "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.Abstract.DataModelConditionPartEntity, Artemis.Storage]], System.Private.CoreLib",
+            "$values": []
+          }
+        },
+        "Timeline": {
+          "$type": "Artemis.Storage.Entities.Profile.TimelineEntity, Artemis.Storage",
+          "StartSegmentLength": "00:00:00",
+          "MainSegmentLength": "00:00:05",
+          "EndSegmentLength": "00:00:00",
+          "PlayMode": 0,
+          "StopMode": 0,
+          "EventOverlapMode": 0
+        }
+      },
+      {
+        "$type": "Artemis.Storage.Entities.Profile.LayerEntity, Artemis.Storage",
+        "Order": 2,
+        "Name": "Background",
+        "Suspended": false,
+        "Leds": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.LedEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": []
+        },
+        "AdaptionHints": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.AdaptionHints.IAdaptionHintEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": [
+            {
+              "$type": "Artemis.Storage.Entities.Profile.AdaptionHints.DeviceAdaptionHintEntity, Artemis.Storage",
+              "DeviceType": -1,
+              "LimitAmount": false,
+              "Skip": 0,
+              "Amount": 0
+            }
+          ]
+        },
+        "Profile": null,
+        "ProfileId": "61c482de-75ef-4bd4-81f2-1c211791618e",
+        "Id": "f7dd6457-41f2-4441-9f12-9eb88a6520e1",
+        "ParentId": "2483e1ea-3226-43dc-8037-fb8f1e160f29",
+        "LayerEffects": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.LayerEffectEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": []
+        },
+        "PropertyEntities": {
+          "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage]], System.Private.CoreLib",
+          "$values": [
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.BrushReference",
+              "Value": "{\"LayerBrushProviderId\":\"Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01\",\"BrushType\":\"NoiseBrush\"}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.ShapeType",
+              "Value": "1",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.BlendMode",
+              "Value": "3",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "General.TransformMode",
+              "Value": "0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.AnchorPoint",
+              "Value": "{\"IsEmpty\":true,\"Length\":0.0,\"LengthSquared\":0.0,\"X\":0.0,\"Y\":0.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Position",
+              "Value": "{\"IsEmpty\":true,\"Length\":0.0,\"LengthSquared\":0.0,\"X\":0.0,\"Y\":0.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Scale",
+              "Value": "{\"IsEmpty\":false,\"Width\":100.0,\"Height\":100.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Rotation",
+              "Value": "0.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Core.CorePluginFeature-ffffffff",
+              "Path": "Transform.Opacity",
+              "Value": "100.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.ColorMode",
+              "Value": "0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.Color",
+              "Value": "\"#ffff0000\"",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.Colors",
+              "Value": "[{\"Color\":\"#ffff0000\",\"Position\":0.0},{\"Color\":\"#ffff9900\",\"Position\":0.125},{\"Color\":\"#ffffff00\",\"Position\":0.25},{\"Color\":\"#ff00ff00\",\"Position\":0.375},{\"Color\":\"#ff00ff7e\",\"Position\":0.5},{\"Color\":\"#ff0078ff\",\"Position\":0.625},{\"Color\":\"#ff9e22ff\",\"Position\":0.75},{\"Color\":\"#ffff34ae\",\"Position\":0.875},{\"Color\":\"#ffff0000\",\"Position\":1.0}]",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.GradientPosition",
+              "Value": "0.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.AnimationSpeed",
+              "Value": "100.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.WaveSize",
+              "Value": "50",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.Orientation",
+              "Value": "0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.RepeatMode",
+              "Value": "1",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.Rotation",
+              "Value": "0.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Color.ColorBrushProvider-92a9d6ba",
+              "Path": "LayerBrush.ScrollSpeed",
+              "Value": "{\"IsEmpty\":false,\"Length\":25.0,\"LengthSquared\":625.0,\"X\":25.0,\"Y\":0.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.ColorType",
+              "Value": "1",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.MainColor",
+              "Value": "\"#ffff0000\"",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.SecondaryColor",
+              "Value": "\"#ff0000ff\"",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.GradientColor",
+              "Value": "[{\"Color\":\"#ffff6d00\",\"Position\":0.0},{\"Color\":\"#ffef1788\",\"Position\":0.397},{\"Color\":\"#ffec05a6\",\"Position\":0.595},{\"Color\":\"#ff00fccc\",\"Position\":1.0}]",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.Scale",
+              "Value": "{\"IsEmpty\":false,\"Width\":250.0,\"Height\":250.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.Hardness",
+              "Value": "100.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.ScrollSpeed",
+              "Value": "{\"IsEmpty\":true,\"Length\":0.0,\"LengthSquared\":0.0,\"X\":0.0,\"Y\":0.0}",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            },
+            {
+              "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+              "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+              "Path": "LayerBrush.AnimationSpeed",
+              "Value": "25.0",
+              "KeyframesEnabled": false,
+              "KeyframeEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              },
+              "DataBindingEntities": {
+                "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                "$values": []
+              }
+            }
+          ]
+        },
+        "ExpandedPropertyGroups": {
+          "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+          "$values": [
+            "General",
+            "LayerBrush"
+          ]
+        },
+        "DisplayCondition": {
+          "$type": "Artemis.Storage.Entities.Profile.Conditions.DataModelConditionGroupEntity, Artemis.Storage",
+          "BooleanOperator": 0,
+          "Children": {
+            "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.Abstract.DataModelConditionPartEntity, Artemis.Storage]], System.Private.CoreLib",
+            "$values": []
+          }
+        },
+        "Timeline": {
+          "$type": "Artemis.Storage.Entities.Profile.TimelineEntity, Artemis.Storage",
+          "StartSegmentLength": "00:00:00",
+          "MainSegmentLength": "00:00:05",
+          "EndSegmentLength": "00:00:00",
+          "PlayMode": 0,
+          "StopMode": 0,
+          "EventOverlapMode": 0
+        }
+      }
+    ]
+  }
+}

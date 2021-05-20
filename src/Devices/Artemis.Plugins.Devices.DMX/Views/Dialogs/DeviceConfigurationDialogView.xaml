@@ -9,7 +9,6 @@
                     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
                     mc:Ignorable="d"
                     Title="DMX Device Settings | Artemis"
-                    TitleBarIcon="{StaticResource BowIcon}"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Background="{DynamicResource MaterialDesignPaper}"
                     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
@@ -19,7 +18,7 @@
                     Height="750"
                     d:DesignHeight="800" d:DesignWidth="800"
                     d:DataContext="{d:DesignInstance dialogs:DeviceConfigurationDialogViewModel}"
-                    Icon="/Resources/Images/Logo/logo-512.png">
+                    Icon="/Resources/Images/Logo/bow.ico">
     <materialDesign:DialogHost Identifier="AddLedsDialog">
         <DockPanel>
             <mde:AppBar Type="Dense"

@@ -8,6 +8,7 @@
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <PowerShell># 2>nul || type %~df0|find /v "setlocal"|find /v "errorlevel"|powershell.exe -noninteractive -&amp; exit %errorlevel% || #</PowerShell>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -40,19 +41,29 @@
     </None>
   </ItemGroup>
 
-	<ItemGroup>
-		<Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true'">
-			<Generator>MSBuild:Compile</Generator>
-			<SubType>Designer</SubType>
-			<ContainsDesignTimeResources>true</ContainsDesignTimeResources>
-		</Page>
-	</ItemGroup>
+  <ItemGroup>
+    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true'">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
+  </ItemGroup>
 
   <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
   <Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+    <PropertyGroup>
+      <publishScript>
+        $(PowerShell)
+        $json = (Get-Content "plugin.json" -Raw) | ConvertFrom-Json
+        $env:ProgramData + "\Artemis\plugins\" + ($json.Main -split ".dll" | Select -First 1) + "-" + $json.Guid.Substring(0,8)
+      </publishScript>
+    </PropertyGroup>
+    <Exec Command="$(publishScript)" EchoOff="true" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="pluginDirectory" />
+    </Exec>
     <Message Text="------ Artemis plugin publish ------" Importance="High" />
-    <Exec Command="dotnet publish --verbosity q --output &quot;%25ProgramData%25\Artemis\Plugins\$(ProjectName)&quot;" />
-    <Message Text="Published $(ProjectName) at file:\\$(ProgramData)\Artemis\Plugins\$(ProjectName)" Importance="High" />
+    <Exec Command="dotnet publish --verbosity q --output &quot;$(pluginDirectory)&quot;" />
+    <Message Text="Published $(ProjectName) at file:\\$(pluginDirectory)" Importance="High" />
     <Message Text="If distributing outside the workshop, share this folder." Importance="High" />
   </Target>
 
@@ -61,6 +72,6 @@
     <ItemGroup>
       <DllFiles Include="$(TargetDir)\**\*.dll" />
     </ItemGroup>
-    <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(ProgramData)\Artemis\Plugins\$(ProjectName)" />
+    <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(pluginDirectory)" />
   </Target>
 </Project>

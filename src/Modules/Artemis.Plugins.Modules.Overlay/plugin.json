@@ -1,6 +1,9 @@
 {
   "Guid": "29e3ff97-83a5-44fc-a2dc-04f446b54146",
   "Name": "Overlay module",
+  "Author": "SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "ArrangeBringToFront",
   "Description": "A general profile-enabled overlay module for every-day use",
   "Version": "1.0.0.0",

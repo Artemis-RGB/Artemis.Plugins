@@ -6,7 +6,7 @@ namespace Artemis.Plugins.Devices.Debug
 {
     public class DebugBootstrapper : PluginBootstrapper
     {
-        public new void OnPluginLoaded(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<DebugConfigurationViewModel>();
         }

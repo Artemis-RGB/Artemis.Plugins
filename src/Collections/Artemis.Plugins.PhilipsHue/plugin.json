@@ -1,6 +1,9 @@
 {
   "Guid": "184ce933-b8ff-465f-b3d2-a23a17b35f65",
   "Name": "Philips Hue",
+  "Author": "SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Resources/hue.svg",
   "Description": "Provides info on rooms, zones and individual lights/accessories",
   "Version": "1.0.0.0",

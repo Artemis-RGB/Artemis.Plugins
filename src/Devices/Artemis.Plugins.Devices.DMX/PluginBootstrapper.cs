@@ -6,7 +6,7 @@ namespace Artemis.Plugins.Devices.DMX
 {
     public class DMXBootstrapper : PluginBootstrapper
     {
-        public new void OnPluginLoaded(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<DMXConfigurationViewModel>();
         }

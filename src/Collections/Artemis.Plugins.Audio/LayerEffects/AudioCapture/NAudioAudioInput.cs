@@ -1,6 +1,7 @@
-﻿using Artemis.Plugins.Audio.Services;
+using Artemis.Plugins.Audio.Services;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using Serilog;
 
 namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 {
@@ -8,9 +9,11 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
     {
         #region Constructor
 
-        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService)
+        public NAudioAudioInput(NAudioDeviceEnumerationService naudioDeviceEnumerationService, bool useCustomWasapiCapture, ILogger logger)
         {
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
+            _logger = logger;
+            _useCustomWasapiCapture = useCustomWasapiCapture;
         }
 
         #endregion
@@ -24,8 +27,10 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         #region Properties & Fields
 
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
+        private readonly ILogger _logger;
+        private readonly bool _useCustomWasapiCapture;
         private MMDevice _endpoint;
-        private WasapiLoopbackCapture _capture;
+        private WasapiCapture _capture;
 
         public int SampleRate => _capture?.WaveFormat.SampleRate ?? -1;
         public float MasterVolume => _endpoint.AudioEndpointVolume.MasterVolumeLevelScalar * 100f;
@@ -37,8 +42,16 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         public void Initialize()
         {
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            _capture = new WasapiLoopbackCapture(_endpoint);
+            _capture = _useCustomWasapiCapture 
+                ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger) 
+                : new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
+
+            if (_capture.WaveFormat.Channels != _endpoint.AudioClient.MixFormat.Channels)
+            {
+                // I want to log this to see how it behave in other setups. Don't know if this can happen, and if it happens, may could lead to exceptions
+                _logger?.Verbose($"AudioEndPoint Waveformat has {_endpoint.AudioClient.MixFormat.Channels} channels but WasapiCapture was created for {_capture.WaveFormat.Channels} channels");
+            }
 
             // Handle single-channel by passing the same data for left and right
             if (_capture.WaveFormat.Channels == 1)
@@ -54,13 +67,12 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
             // Anything else is limited to two channels
             else
                 _capture.DataAvailable += ProcessStereoData;
-
             _capture.StartRecording();
         }
 
         private void ProcessMonoData(object sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             // Handle mono by passing the same data for left and right
@@ -70,7 +82,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessStereoData(object sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += _capture.WaveFormat.Channels)
@@ -79,7 +91,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void ProcessQuadraphonicData(object sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             for (int i = 0; i < count; i += 4)
@@ -95,7 +107,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void Process51Data(object sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             // Handle 5.1 by averaging out the extra channels
@@ -112,7 +124,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         private void Process71Data(object sender, WaveInEventArgs e)
         {
-            WaveBuffer buffer = new(e.Buffer) {ByteBufferCount = e.BytesRecorded};
+            WaveBuffer buffer = new(e.Buffer) { ByteBufferCount = e.BytesRecorded };
             int count = buffer.FloatBufferCount;
 
             // Handle 7.1 by averaging out the extra channels

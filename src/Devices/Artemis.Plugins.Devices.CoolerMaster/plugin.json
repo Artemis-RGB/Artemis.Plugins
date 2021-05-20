@@ -1,6 +1,9 @@
 ﻿{
   "Guid": "b78f644b-827f-4bb4-bf03-2adaa365b58b",
   "Name": "CoolerMaster Devices",
+  "Author": "DarthAffe & SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control the lighting on CoolerMaster mice and keyboards.",
   "Version": "1.0.0.0",

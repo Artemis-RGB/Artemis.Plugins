@@ -6,7 +6,7 @@ namespace Artemis.Plugins.Modules.General
 {
     public class Bootstrapper : PluginBootstrapper
     {
-        public new void OnPluginLoaded(Plugin plugin)
+        public override void OnPluginLoaded(Plugin plugin)
         {
             plugin.ConfigurationDialog = new PluginConfigurationDialog<GeneralModuleConfigurationViewModel>();
         }

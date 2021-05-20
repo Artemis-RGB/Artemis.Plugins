@@ -22,6 +22,9 @@ namespace Artemis.Plugins.Modules.General
         {
             _quantizerService = quantizerService;
             _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
+
+            AddDefaultProfile("Profiles/rainbow.json");
+            AddDefaultProfile("Profiles/noise.json");
         }
 
         public override void Enable()
@@ -33,8 +36,8 @@ namespace Artemis.Plugins.Modules.General
             ExpandsDataModel = true;
 
             ModuleTabs = new List<ModuleTab> {new ModuleTab<GeneralViewModel>("General")};
-            AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow());
-            AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance());
+            AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow(), "UpdateCurrentWindow");
+            AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance(), "UpdatePerformance");
 
             ApplyEnableActiveWindow();
         }
@@ -75,7 +78,7 @@ namespace Artemis.Plugins.Modules.General
         {
             if (!_enableActiveWindow.Value)
                 return;
-
+            
             int processId = WindowUtilities.GetActiveProcessId();
             if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
                 DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService);

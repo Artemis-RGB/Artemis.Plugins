@@ -28,11 +28,11 @@ namespace Artemis.Plugins.Audio.Services
             _logger = logger;
 
             _deviceEnumerator = new MMDeviceEnumerator();
-            _logger.Information("Audio device enumerator service created.");
+            _logger.Verbose("Audio device enumerator service created.");
 
             _notificationClient = new NotificationClient();
             _deviceEnumerator.RegisterEndpointNotificationCallback(_notificationClient);
-            _logger.Information("Audio device event interface registered.");
+            _logger.Verbose("Audio device event interface registered.");
         }
 
         #endregion
@@ -101,10 +101,10 @@ namespace Artemis.Plugins.Audio.Services
         public void Dispose()
         {
             _deviceEnumerator.UnregisterEndpointNotificationCallback(_notificationClient);
-            _logger.Information("Audio device event interface unregistered.");
+            _logger.Verbose("Audio device event interface unregistered.");
             _deviceEnumerator?.Dispose();
             _deviceEnumerator = null;
-            _logger.Information("Audio device enumerator service disposed.");
+            _logger.Verbose("Audio device enumerator service disposed.");
         }
 
         #endregion

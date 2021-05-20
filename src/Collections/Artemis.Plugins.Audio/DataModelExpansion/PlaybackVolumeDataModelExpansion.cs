@@ -139,15 +139,15 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         private void PopulateChannels()
         {
             DataModel.Channels.ClearDynamicChildren();
-            _logger.Information($"Playback device {_playbackDevice.FriendlyName} channel list cleared");
-            _logger.Information($"Preparing to populate {_audioEndpointVolume.Channels.Count} channels for device {_playbackDevice.FriendlyName}");
+            _logger.Verbose($"Playback device {_playbackDevice.FriendlyName} channel list cleared");
+            _logger.Verbose($"Preparing to populate {_audioEndpointVolume.Channels.Count} channels for device {_playbackDevice.FriendlyName}");
             _channelsDataModels.Clear();
             for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
             {
                 _channelsDataModels.Add(
                     DataModel.Channels.AddDynamicChild(i.ToString(), new ChannelDataModel {ChannelIndex = i}, $"Channel {i}")
                 );
-                _logger.Information($"Playback device {_playbackDevice.FriendlyName} channel {i} populated");
+                _logger.Verbose($"Playback device {_playbackDevice.FriendlyName} channel {i} populated");
             }
         }
 
@@ -181,7 +181,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             string disposingPlaybackDeviceFriendlyName = _playbackDevice?.FriendlyName ?? "Unknown";
             _playbackDevice?.Dispose();
             _playbackDevice = null;
-            _logger.Information($"Playback device {disposingPlaybackDeviceFriendlyName} unregistered as source device to fill Playback volume data model");
+            _logger.Verbose($"Playback device {disposingPlaybackDeviceFriendlyName} unregistered as source device to fill Playback volume data model");
         }
 
         private void SetPlaybackDevice()
@@ -199,7 +199,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             _audioEndpointVolume.OnVolumeNotification += _audioEndpointVolume_OnVolumeNotification;
             DataModel.DefaultDeviceName = _playbackDevice.FriendlyName;
 
-            _logger.Information($"Playback device {_playbackDevice.FriendlyName} registered to to fill Playback volume data model");
+            _logger.Verbose($"Playback device {_playbackDevice.FriendlyName} registered to to fill Playback volume data model");
         }
 
         private void _audioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)

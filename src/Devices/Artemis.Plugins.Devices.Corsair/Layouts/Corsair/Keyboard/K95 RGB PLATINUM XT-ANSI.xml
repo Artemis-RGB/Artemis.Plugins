@@ -896,7 +896,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom1">
+    <Led Id="LedStripe1">
       <X>0</X>
       <Y>0</Y>
       <Width>24.47368mm</Width>
@@ -907,7 +907,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom2">
+    <Led Id="LedStripe2">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -916,7 +916,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom3">
+    <Led Id="LedStripe3">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -925,7 +925,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom4">
+    <Led Id="LedStripe4">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -934,7 +934,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom5">
+    <Led Id="LedStripe5">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -943,7 +943,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom6">
+    <Led Id="LedStripe6">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -952,7 +952,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom7">
+    <Led Id="LedStripe7">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -961,7 +961,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom8">
+    <Led Id="LedStripe8">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -970,7 +970,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom9">
+    <Led Id="LedStripe9">
       <Shape>M0.2,1 L1,1 L1,0 L0,0z</Shape>
       <Width>24.47368mm</Width>
       <Height>1</Height>
@@ -980,7 +980,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom10">
+    <Led Id="LedStripe10">
       <Width>24.47368mm</Width>
       <Height>1</Height>
       <CustomData>
@@ -989,7 +989,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom11">
+    <Led Id="LedStripe11">
       <Shape>M0,0 L0,1 L0.8,1 L1,0z</Shape>
       <Width>24.47368mm</Width>
       <Height>1</Height>
@@ -999,7 +999,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom12">
+    <Led Id="LedStripe12">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1008,7 +1008,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom13">
+    <Led Id="LedStripe13">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1017,7 +1017,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom14">
+    <Led Id="LedStripe14">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1026,7 +1026,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom15">
+    <Led Id="LedStripe15">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1035,7 +1035,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom16">
+    <Led Id="LedStripe16">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1044,7 +1044,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom17">
+    <Led Id="LedStripe17">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1053,7 +1053,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom18">
+    <Led Id="LedStripe18">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
@@ -1062,7 +1062,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom19">
+    <Led Id="LedStripe19">
       <Width>24.47368mm</Width>
       <Height>4mm</Height>
       <CustomData>
