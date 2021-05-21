@@ -26,6 +26,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups
 
         protected override void PopulateDefaults()
         {
+            DownscaleLevel.DefaultValue = 6;
         }
 
         protected override void EnableProperties()

@@ -74,48 +74,40 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             if (PropertiesOpen || _creatingCaptureZone)
                 return;
 
-            _creatingCaptureZone = true;
-
-            RemoveCaptureZone();
-            AmbilightCaptureProperties props = Properties.Capture;
-            GraphicsCard? graphicsCard = _screenCaptureService.GetGraphicsCards()
-                .Where(gg => (gg.VendorId == props.GraphicsCardVendorId) && (gg.DeviceId == props.GraphicsCardDeviceId))
-                .Cast<GraphicsCard?>()
-                .FirstOrDefault();
-
-            // If the display couldn't be found we default to full display capture 
-            bool defaulting = false;
-            if (graphicsCard == null)
+            try
             {
-                graphicsCard = _screenCaptureService.GetGraphicsCards().Cast<GraphicsCard?>().FirstOrDefault();
-                defaulting = true;
-            }
+                _creatingCaptureZone = true;
+                RemoveCaptureZone();
+                AmbilightCaptureProperties props = Properties.Capture;
+                bool defaulting = props.GraphicsCardDeviceId == 0 || props.GraphicsCardVendorId == 0 || props.DisplayName.CurrentValue == null;
 
-            if (graphicsCard != null)
-            {
+                GraphicsCard? graphicsCard = _screenCaptureService.GetGraphicsCards()
+                    .Where(gg => defaulting || (gg.VendorId == props.GraphicsCardVendorId) && (gg.DeviceId == props.GraphicsCardDeviceId))
+                    .Cast<GraphicsCard?>()
+                    .FirstOrDefault();
+                if (graphicsCard == null)
+                    return;
+
                 _display = _screenCaptureService.GetDisplays(graphicsCard.Value)
-                    .Where(d => d.DeviceName.Equals(props.DisplayName.CurrentValue, StringComparison.OrdinalIgnoreCase))
+                    .Where(d => defaulting || d.DeviceName.Equals(props.DisplayName.CurrentValue, StringComparison.OrdinalIgnoreCase))
                     .Cast<Display?>()
                     .FirstOrDefault();
-                if (_display == null)
+
+                if (_display != null)
                 {
-                    _display = _screenCaptureService.GetDisplays(graphicsCard.Value).Cast<Display?>().FirstOrDefault();
-                    defaulting = true;
+                    // Save the defaults we went with so the VM picks them up as a starting point as well
+                    if (defaulting)
+                        props.ApplyDisplay(_display.Value, true);
+
+                    _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(props.X, props.Y, props.Width, props.Height, props.DownscaleLevel);
+                    _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
+                    _captureZone.BlackBars.Threshold = props.BlackBarDetectionThreshold;
                 }
             }
-
-            if (_display != null)
+            finally
             {
-                // The display couldn't be found, apply the one we did find
-                if (defaulting)
-                    props.ApplyDisplay(_display.Value, true);
-
-                _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(props.X, props.Y, props.Width, props.Height, props.DownscaleLevel);
-                _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
-                _captureZone.BlackBars.Threshold = props.BlackBarDetectionThreshold;
+                _creatingCaptureZone = false;
             }
-
-            _creatingCaptureZone = false;
         }
 
         private void RemoveCaptureZone()
