@@ -92,17 +92,21 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
                     .Where(d => defaulting || d.DeviceName.Equals(props.DisplayName.CurrentValue, StringComparison.OrdinalIgnoreCase))
                     .Cast<Display?>()
                     .FirstOrDefault();
+                if (_display == null) 
+                    return;
 
-                if (_display != null)
-                {
-                    // Save the defaults we went with so the VM picks them up as a starting point as well
-                    if (defaulting)
-                        props.ApplyDisplay(_display.Value, true);
+                // If we're defaulting or always capturing full screen, apply the display to the properties
+                if (defaulting || props.CaptureFullScreen.CurrentValue)
+                    props.ApplyDisplay(_display.Value, true);
 
-                    _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(props.X, props.Y, props.Width, props.Height, props.DownscaleLevel);
-                    _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
-                    _captureZone.BlackBars.Threshold = props.BlackBarDetectionThreshold;
-                }
+                // Stick to a valid region within the display
+                int width = Math.Min(_display.Value.Width, props.Width);
+                int height = Math.Min(_display.Value.Height, props.Height);
+                int x = Math.Min(width - 1, props.X);
+                int y = Math.Min(height - 1, props.Y);
+                _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(x, y, width, height, props.DownscaleLevel);
+                _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
+                _captureZone.BlackBars.Threshold = props.BlackBarDetectionThreshold;
             }
             finally
             {

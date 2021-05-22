@@ -297,7 +297,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
             Properties.LayerPropertyOnCurrentValueSet -= PropertiesOnLayerPropertyOnCurrentValueSet;
             Properties.ApplyDisplay(SelectedDisplay.Display, false);
-
+            
             lock (Displays)
             {
                 foreach (DisplayPreview display in Displays)
