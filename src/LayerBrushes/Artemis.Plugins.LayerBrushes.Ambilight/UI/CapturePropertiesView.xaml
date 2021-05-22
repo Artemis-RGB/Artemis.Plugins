@@ -1,0 +1,229 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:ui="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.UI"
+    xmlns:Shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared" x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CapturePropertiesView"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance {x:Type ui:CapturePropertiesViewModel}}">
+
+    <UserControl.Resources>
+        <Shared:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <s:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueVisibility="Collapsed" FalseVisibility="Visible" />
+        <ui:RenderScaleConverter x:Key="RenderScaleConverter" />
+    </UserControl.Resources>
+
+    <DockPanel LastChildFill="True">
+        <materialDesign:Card DockPanel.Dock="Top"
+                             Panel.ZIndex="2"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom">
+            <ListBox HorizontalAlignment="Center" Margin="16"
+                     ItemsSource="{Binding Displays}"
+                     SelectedItem="{Binding SelectedDisplay}"
+                     ScrollViewer.CanContentScroll="False"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type ui:DisplayPreview}">
+                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                            <StackPanel Orientation="Horizontal" Height="90">
+                                <StackPanel Orientation="Vertical" Width="200">
+                                    <materialDesign:ColorZone Mode="PrimaryMid" Padding="8">
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                                                   Text="{Binding Display.DeviceName}" />
+                                    </materialDesign:ColorZone>
+
+                                    <TextBlock Margin="8,8,0,4" Text="{Binding Display.GraphicsCard.Name}" />
+
+                                    <TextBlock Margin="8,0,8,8" HorizontalAlignment="Left">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="Resolution: {0}x{1}">
+                                                <Binding Path="Display.Width" />
+                                                <Binding Path="Display.Height" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <Image Stretch="Uniform" Source="{Binding Preview}" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </materialDesign:Card>
+
+        <materialDesign:Card DockPanel.Dock="Left"
+                             Width="230"
+                             UniformCornerRadius="0"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                             materialDesign:ShadowAssist.ShadowEdges="Right"
+                             Background="{DynamicResource MaterialDesignPaper}">
+
+            <StackPanel Margin="15">
+                <Grid VerticalAlignment="Stretch" Margin="-5 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Region" />
+                    <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource MaterialDesignIconForegroundButton}"
+                            ToolTip="Reset"
+                            Width="24"
+                            Height="24"
+                            HorizontalAlignment="Right"
+                            Command="{s:Action ResetRegion}">
+                        <materialDesign:PackIcon Kind="ArrowExpandAll" Width="18" Height="18" />
+                    </Button>
+
+                    <TextBox Grid.Row="1"
+                             Grid.Column="0"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding X}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="X" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding Y}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="Y" />
+                </Grid>
+
+                <Grid VerticalAlignment="Stretch" Margin="-5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding Width}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="Width" />
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource MaterialDesignFilledTextBox}"
+                             Margin="5"
+                             Text="{Binding Height}"
+                             materialDesign:TextFieldAssist.SuffixText="px"
+                             materialDesign:HintAssist.Hint="Height" />
+                </Grid>
+
+                <Label Content="Adjustments" Margin="-5 10 0 0" />
+                <CheckBox Content="Flip horizontally" Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding Properties.FlipHorizontal.BaseValue}" />
+                <CheckBox Content="Flip vertically" Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding Properties.FlipVertical.BaseValue}" />
+
+                <Label Content="Downscale level" Margin="-5 10 0 0" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Text="{Binding Properties.DownscaleLevel.BaseValue}"
+                             Margin="0 0 5 0" />
+                    <Slider Grid.Column="1"
+                            Minimum="0" Maximum="10"
+                            TickFrequency="1"
+                            TickPlacement="BottomRight"
+                            ToolTip="Downscale level"
+                            Value="{Binding Properties.DownscaleLevel.BaseValue, Delay=200}" />
+                </Grid>
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Black-bar detection" Margin="-5 10 0 0" />
+                    <materialDesign:PackIcon Grid.Column="1"
+                                             VerticalAlignment="Center"
+                                             Kind="HelpCircle"
+                                             ToolTip="Attempts to remove black borders (also known as letterboxing) from the image" />
+                </Grid>
+
+                <ListBox SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" HorizontalAlignment="Stretch">
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignLeft}" IsSelected="{Binding Properties.BlackBarDetectionLeft.BaseValue}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatHorizontalAlignRight}" IsSelected="{Binding Properties.BlackBarDetectionRight.BaseValue}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignTop}" IsSelected="{Binding Properties.BlackBarDetectionTop.BaseValue}" />
+                    <ListBoxItem Content="{materialDesign:PackIcon Kind=FormatVerticalAlignBottom}" IsSelected="{Binding Properties.BlackBarDetectionBottom.BaseValue}" />
+                </ListBox>
+                <Label Content="Detection threshold" Margin="-5 10 0 0" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Text="{Binding Properties.BlackBarDetectionThreshold.BaseValue}"
+                             Margin="0 0 5 0" />
+                    <Slider Grid.Column="1"
+                            Minimum="0" Maximum="50"
+                            TickFrequency="2"
+                            TickPlacement="BottomRight"
+                            ToolTip="Black-Bar detection theshold"
+                            Value="{Binding Properties.BlackBarDetectionThreshold.BaseValue, Delay=200}" />
+                </Grid>
+            </StackPanel>
+
+        </materialDesign:Card>
+        <Grid Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <materialDesign:Card Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
+                <Grid>
+                    <Image Stretch="Uniform" Source="{Binding Preview.Preview}" />
+                    <Viewbox>
+
+                        <Canvas Width="{Binding SelectedDisplay.Display.Width}" Height="{Binding SelectedDisplay.Display.Height}">
+                            <Rectangle Canvas.Left="{Binding Properties.X.BaseValue}"
+                                       Canvas.Top="{Binding Properties.Y.BaseValue}"
+                                       Width="{Binding Properties.Width.BaseValue}"
+                                       Height="{Binding Properties.Height.BaseValue}"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       Fill="Transparent"
+                                       StrokeThickness="20" Cursor="Hand" />
+
+                        </Canvas>
+                    </Viewbox>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:PackIcon Grid.Column="1" Kind="ArrowRight" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <materialDesign:Card Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
+                <Image Stretch="Uniform" Source="{Binding Preview.ProcessedPreview}" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <ScaleTransform ScaleX="{Binding Properties.FlipHorizontal.BaseValue, Converter={StaticResource RenderScaleConverter}}"
+                                        ScaleY="{Binding Properties.FlipVertical.BaseValue, Converter={StaticResource RenderScaleConverter}}" />
+                    </Image.RenderTransform>
+                </Image>
+            </materialDesign:Card>
+        </Grid>
+    </DockPanel>
+</UserControl>

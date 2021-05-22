@@ -1,0 +1,8 @@
+{
+  "Guid": "179ad4ce-3f4b-4118-b1b8-74e8c5806324",
+  "Name": "Ambilight",
+  "Icon": "MonitorMultiple",
+  "Description": "Screen-Capturing to use the image currently shown on the display for a brush.",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.LayerBrushes.Ambilight.dll"
+}
