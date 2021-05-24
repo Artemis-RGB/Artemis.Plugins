@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ScreenCapture;
+using ScreenCapture.NET;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 {

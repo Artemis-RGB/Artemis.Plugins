@@ -1,5 +1,5 @@
 ﻿using Artemis.Core;
-using ScreenCapture;
+using ScreenCapture.NET;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups
 {

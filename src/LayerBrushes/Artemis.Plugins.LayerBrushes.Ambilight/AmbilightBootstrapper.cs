@@ -3,7 +3,7 @@ using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture;
 using Microsoft.Win32;
-using ScreenCapture;
+using ScreenCapture.NET;
 using Serilog;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
-using ScreenCapture;
+using ScreenCapture.NET;
 using Stylet;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.UI

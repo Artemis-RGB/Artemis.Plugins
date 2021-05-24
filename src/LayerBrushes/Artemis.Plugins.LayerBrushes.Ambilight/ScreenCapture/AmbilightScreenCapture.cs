@@ -1,6 +1,7 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using ScreenCapture;
+using ScreenCapture.NET;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 {
@@ -17,6 +18,12 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
         private CancellationToken _cancellationToken;
 
         public Display Display => _screenCapture.Display;
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<ScreenCaptureUpdatedEventArgs> Updated;
 
         #endregion
 
@@ -39,7 +46,8 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
             while (true)
             {
                 _cancellationToken.ThrowIfCancellationRequested();
-                _screenCapture.CaptureScreen();
+                bool success = _screenCapture.CaptureScreen();
+                Updated?.Invoke(this, new ScreenCaptureUpdatedEventArgs(success));
             }
         }
 
