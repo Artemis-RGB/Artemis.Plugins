@@ -13,7 +13,7 @@ using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.LayerBrushes;
 using FluentValidation;
-using ScreenCapture;
+using ScreenCapture.NET;
 using SkiaSharp;
 using Stylet;
 

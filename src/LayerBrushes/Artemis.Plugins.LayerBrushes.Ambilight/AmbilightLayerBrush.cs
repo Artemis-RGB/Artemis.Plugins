@@ -5,7 +5,7 @@ using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Ambilight.UI;
 using Artemis.UI.Shared.LayerBrushes;
-using ScreenCapture;
+using ScreenCapture.NET;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight
