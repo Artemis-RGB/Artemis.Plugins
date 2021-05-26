@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Artemis.Core;
 using SkiaSharp;
 
@@ -140,6 +140,12 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             // Animation finished. Nothing to see here.
             if (Size < 0)
                 return;
+
+            // SkiaSharp shapes doesn't support inner stroke. It causes a weird empty circle if the stroke
+            // width is greater than the double of the size of a shape. This is noticeable only under certain
+            // conditions like low speed and wider ripples. This operation will produce perfect ripples
+            // from start to finish.
+            Paint.StrokeWidth = Math.Min(Paint.StrokeWidth, Size * 2);
 
             if (Size > 0 && Paint != null)
                 canvas.DrawCircle(Position, Size, Paint);
