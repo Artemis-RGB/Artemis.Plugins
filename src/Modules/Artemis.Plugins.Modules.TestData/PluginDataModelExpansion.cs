@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using Artemis.Core;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Artemis.Core.Services;
-using Artemis.Plugins.DataModelExpansions.TestData.DataModels;
+using Artemis.Plugins.Modules.TestData.DataModels;
 using SkiaSharp;
 
-namespace Artemis.Plugins.DataModelExpansions.TestData
+namespace Artemis.Plugins.Modules.TestData
 {
     [PluginFeature(AlwaysEnabled = true)]
-    public class PluginDataModelExpansion : DataModelExpansion<PluginDataModel>
+    public class PluginDataModelExpansion : Module<PluginDataModel>
     {
         private readonly IWebServerService _webServerService;
+
+        private Random _rand;
 
         public PluginDataModelExpansion(IWebServerService webServerService)
         {
             _webServerService = webServerService;
+            IsAlwaysAvailable = true;
         }
-
-        private Random _rand;
 
         public override void Enable()
         {
@@ -38,11 +39,6 @@ namespace Artemis.Plugins.DataModelExpansions.TestData
             });
         }
 
-        private void JsonPluginEndPointOnRequestException(object sender, EndpointExceptionEventArgs e)
-        {
-            throw e.Exception;
-        }
-
 
         public override void Disable()
         {
@@ -56,6 +52,11 @@ namespace Artemis.Plugins.DataModelExpansions.TestData
             DataModel.Rotation++;
             if (DataModel.Rotation > 360)
                 DataModel.Rotation = 0;
+        }
+
+        private void JsonPluginEndPointOnRequestException(object sender, EndpointExceptionEventArgs e)
+        {
+            throw e.Exception;
         }
 
         private void TimedUpdate(double deltaTime)

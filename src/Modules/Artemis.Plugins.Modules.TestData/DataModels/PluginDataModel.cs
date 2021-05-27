@@ -3,7 +3,7 @@ using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
 using SkiaSharp;
 
-namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
+namespace Artemis.Plugins.Modules.TestData.DataModels
 {
     public class PluginDataModel : DataModel
     {

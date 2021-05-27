@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Artemis.Plugins.Audio.DataModelExpansion.DataModels;
 using Artemis.Plugins.Audio.Services;
 using NAudio.CoreAudioApi;
@@ -8,7 +9,7 @@ using Serilog;
 
 namespace Artemis.Plugins.Audio.DataModelExpansion
 {
-    public class PlaybackVolumeDataModelExpansion : DataModelExpansion<PlaybackVolumeDataModel>
+    public class PlaybackVolumeDataModelExpansion : Module<PlaybackVolumeDataModel>
     {
         #region Constructor
 
@@ -16,6 +17,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         {
             _logger = logger;
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
+            IsAlwaysAvailable = true;
         }
 
         #endregion
@@ -57,7 +59,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             DataModel.TimeSinceLastSound += TimeSpan.FromSeconds(deltaTime);
             if (_playbackDeviceChanged) UpdatePlaybackDevice();
         }
-
+        
         #endregion
 
         #region Update DataModel Methods

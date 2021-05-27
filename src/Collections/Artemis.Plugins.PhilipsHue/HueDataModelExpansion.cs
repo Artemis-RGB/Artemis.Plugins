@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Artemis.Plugins.PhilipsHue.DataModels;
 using Artemis.Plugins.PhilipsHue.Models;
 using Artemis.Plugins.PhilipsHue.Services;
@@ -14,7 +15,7 @@ using Q42.HueApi.Models.Groups;
 
 namespace Artemis.Plugins.PhilipsHue
 {
-    public class HueDataModelExpansion : DataModelExpansion<HueDataModel>
+    public class HueDataModelExpansion : Module<HueDataModel>
     {
         private readonly IHueService _hueService;
         private readonly PluginSetting<int> _pollingRateSetting;
@@ -29,6 +30,8 @@ namespace Artemis.Plugins.PhilipsHue
             _hueService = hueService;
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
             _pollingRateSetting = settings.GetSetting("PollingRate", 2000);
+
+            IsAlwaysAvailable = true;
 
             // Reset to default if the setting is below 100ms because the scale changed from seconds to milliseconds
             if (_pollingRateSetting.Value < 100)
@@ -92,7 +95,7 @@ namespace Artemis.Plugins.PhilipsHue
         }
 
         /// <summary>
-        /// Retrieves and updates the groups and zones of all connected Hue bridges
+        ///     Retrieves and updates the groups and zones of all connected Hue bridges
         /// </summary>
         private async Task UpdateGroups(double delta)
         {
@@ -106,7 +109,7 @@ namespace Artemis.Plugins.PhilipsHue
         }
 
         /// <summary>
-        /// Updates the contents of groups and zones of all connected Hue bridges
+        ///     Updates the contents of groups and zones of all connected Hue bridges
         /// </summary>
         private async Task UpdateHue(double delta)
         {

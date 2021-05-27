@@ -1,8 +1,8 @@
 ﻿using Artemis.Core;
-using Artemis.Plugins.DataModelExpansions.TestData.ViewModels;
+using Artemis.Plugins.Modules.TestData.ViewModels;
 using Artemis.UI.Shared;
 
-namespace Artemis.Plugins.DataModelExpansions.TestData
+namespace Artemis.Plugins.Modules.TestData
 {
     public class Bootstrapper : PluginBootstrapper
     {

@@ -1,18 +1,19 @@
-using Artemis.Core.DataModelExpansions;
+using System;
+using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Input.DataModelExpansion.DataModels;
 using Serilog;
-using System;
 
 namespace Artemis.Plugins.Input.DataModelExpansion
 {
-    public class InputDataModelExpansion : DataModelExpansion<InputDataModel>
+    public class InputDataModelExpansion : Module<InputDataModel>
     {
         private readonly IInputService _inputService;
 
         public InputDataModelExpansion(ILogger logger, IInputService inputService)
         {
             _inputService = inputService;
+            IsAlwaysAvailable = true;
         }
 
         public override void Enable()
@@ -47,10 +48,13 @@ namespace Artemis.Plugins.Input.DataModelExpansion
         private void InputServiceOnMouseScrollStatusChanged(object sender, ArtemisMouseScrollEventArgs e)
         {
             DataModel.TimeSinceLastInput = TimeSpan.Zero;
-            if (e.IsScrollingUp) { DataModel.Mouse.ScrollEvents.ScrollUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingDown) { DataModel.Mouse.ScrollEvents.ScrollDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingLeft) { DataModel.Mouse.ScrollEvents.ScrollLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
-            else if (e.IsScrollingRight) { DataModel.Mouse.ScrollEvents.ScrollRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName)); }
+            if (e.IsScrollingUp)
+                DataModel.Mouse.ScrollEvents.ScrollUp.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName));
+            else if (e.IsScrollingDown)
+                DataModel.Mouse.ScrollEvents.ScrollDown.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName));
+            else if (e.IsScrollingLeft)
+                DataModel.Mouse.ScrollEvents.ScrollLeft.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName));
+            else if (e.IsScrollingRight) DataModel.Mouse.ScrollEvents.ScrollRight.Trigger(new MouseScrollEventArgs(e.Delta, e.Device?.RgbDevice.DeviceInfo.DeviceName));
         }
 
         private void InputServiceOnKeyboardKeyUpDown(object sender, ArtemisKeyboardKeyUpDownEventArgs e)
@@ -62,9 +66,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion
                     DataModel.Keyboard.PressedKeys.Add(e.Key);
             }
             else
-            {
                 DataModel.Keyboard.PressedKeys.RemoveAll(k => k == e.Key);
-            }
 
             DataModel.Keyboard.IsAltDown = e.Modifiers.HasFlag(KeyboardModifierKey.Alt);
             DataModel.Keyboard.IsControlDown = e.Modifiers.HasFlag(KeyboardModifierKey.Control);
@@ -86,13 +88,11 @@ namespace Artemis.Plugins.Input.DataModelExpansion
                     DataModel.Mouse.PressedButtons.Add(e.Button);
             }
             else
-            {
                 DataModel.Mouse.PressedButtons.RemoveAll(k => k == e.Button);
-            }
 
             if (e.IsDown)
                 DataModel.Mouse.ButtonDown.Trigger(new MouseEventArgs(e.Button, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
-            else                
+            else
                 DataModel.Mouse.ButtonUp.Trigger(new MouseEventArgs(e.Button, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
         }
 

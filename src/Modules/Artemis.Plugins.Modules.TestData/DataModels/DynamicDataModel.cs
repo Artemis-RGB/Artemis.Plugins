@@ -1,6 +1,6 @@
 ﻿using Artemis.Core.DataModelExpansions;
 
-namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
+namespace Artemis.Plugins.Modules.TestData.DataModels
 {
     public class DynamicDataModel : DataModel
     {
