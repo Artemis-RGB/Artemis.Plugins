@@ -66,7 +66,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
 
         private void Save()
         {
-            _profileEditorService.UpdateSelectedProfileElement();
+            _profileEditorService.SaveSelectedProfileElement();
         }
 
         private void LoadConfiguration()
