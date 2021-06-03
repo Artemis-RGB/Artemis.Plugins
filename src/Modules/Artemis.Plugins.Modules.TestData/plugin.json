@@ -1,11 +1,11 @@
 {
   "Guid": "ab41d601-35e0-4a73-bf0b-94509b006ab0",
-  "Name": "Test data model expansion",
+  "Name": "Test module",
   "Author": "SpoinkyNL",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "TestTube",
-  "Description": "A data model expansion providing test data",
+  "Description": "A module providing test data",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.DataModelExpansions.TestData.dll"
+  "Main": "Artemis.Plugins.Modules.TestData.dll"
 }

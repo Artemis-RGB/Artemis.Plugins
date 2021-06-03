@@ -2,24 +2,18 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
-    <AssemblyName>Artemis.Plugins.Modules.Overlay</AssemblyName>
-    <RootNamespace>Artemis.Plugins.Modules.Overlay</RootNamespace>
+    <AssemblyName>Artemis.Plugins.Modules.TestData</AssemblyName>
+    <RootNamespace>Artemis.Plugins.Modules.TestData</RootNamespace>
+    <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <PowerShell># 2&gt;nul || type %~df0|find /v "setlocal"|find /v "errorlevel"|powershell.exe -noninteractive -&amp; exit %errorlevel% || #</PowerShell>
+    <PowerShell># 2>nul || type %~df0|find /v "setlocal"|find /v "errorlevel"|powershell.exe -noninteractive -&amp; exit %errorlevel% || #</PowerShell>
   </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Properties\**" />
-    <EmbeddedResource Remove="Properties\**" />
-    <None Remove="Properties\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\launchSettings.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
@@ -45,6 +39,14 @@
     <None Update="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true'">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
   </ItemGroup>
 
   <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->

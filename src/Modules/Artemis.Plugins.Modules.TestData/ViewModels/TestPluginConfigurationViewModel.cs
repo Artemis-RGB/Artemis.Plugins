@@ -1,8 +1,8 @@
 ﻿using Artemis.Core;
-using Artemis.Plugins.DataModelExpansions.TestData.DataModels;
+using Artemis.Plugins.Modules.TestData.DataModels;
 using Artemis.UI.Shared;
 
-namespace Artemis.Plugins.DataModelExpansions.TestData.ViewModels
+namespace Artemis.Plugins.Modules.TestData.ViewModels
 {
     public class TestPluginConfigurationViewModel : PluginConfigurationViewModel
     {

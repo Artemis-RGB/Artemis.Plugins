@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Artemis.Plugins.DataModelExpansions.TestData.DataModels
+namespace Artemis.Plugins.Modules.TestData.DataModels
 {
     public class RemoteData
     {
