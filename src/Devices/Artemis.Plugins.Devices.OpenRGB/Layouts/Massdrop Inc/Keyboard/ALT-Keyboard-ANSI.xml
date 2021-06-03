@@ -354,7 +354,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom1">
+    <Led Id="Keyboard_Enter">
       <X>+2.1</X>
       <Width>2.5</Width>
       <CustomData>
@@ -532,7 +532,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom2">
+    <Led Id="Keyboard_Function">
       <X>+1.8</X>
       <Width>1.3</Width>
       <CustomData>
@@ -565,7 +565,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom36">
+    <Led Id="Keyboard_Custom14">
       <Shape> M0.011,0.912 L0.011,0.258 L0.135,0.076 L0.287,0.005 L0.918,0.005 L0.946,0.028 L0.943,0.303 L0.43,0.292 L0.343,0.319 L0.299,0.363 L0.294,0.914z</Shape>
       <X />
       <Y>0</Y>
@@ -577,7 +577,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom35">
+    <Led Id="Keyboard_Custom1">
       <Width>1.3</Width>
       <Height>0.4</Height>
       <CustomData>
@@ -586,7 +586,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom34">
+    <Led Id="Keyboard_Custom2">
       <Width>1.3</Width>
       <Height>0.4</Height>
       <CustomData>
@@ -595,7 +595,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom33">
+    <Led Id="Keyboard_Custom3">
       <Width>1.4</Width>
       <Height>0.4</Height>
       <CustomData>
@@ -604,164 +604,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom32">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom31">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom30">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom29">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom28">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom27">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom26">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom25">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom24">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom23">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom22">
-      <Shape> M0.035,0.012 L0.626,0.024 L0.814,0.132 L0.925,0.297 L0.946,0.934 L0.577,0.934 L0.577,0.388 L0.494,0.331 L0.042,0.359z</Shape>
-      <Width>0.9</Width>
-      <Height>1.1</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom37">
-      <X />
-      <Y>18</Y>
-      <Width>0.4</Width>
-      <Height>1.1</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom38">
-      <X>=</X>
-      <Y>+</Y>
-      <Width>0.4</Width>
-      <Height>1.1</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom39">
-      <X>=</X>
-      <Y>+</Y>
-      <Width>0.4</Width>
-      <Height>1.1</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom40">
-      <X>=</X>
-      <Y>+</Y>
-      <Width>0.4</Width>
-      <Height>1.1</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom3">
-      <Shape> M0.36,0.088 L0.36,0.557 L0.458,0.655 L0.966,0.655 L0.973,0.988 L0.301,0.981 L0.177,0.844 L0.073,0.727 L0.04,0.075z</Shape>
-      <X />
-      <Y>92.5</Y>
-      <Width>1.1</Width>
-      <Height>1.1</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Keyboard_Custom4">
-      <Y>104.2</Y>
       <Width>1.3</Width>
       <Height>0.4</Height>
       <CustomData>
@@ -780,6 +623,15 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_Custom6">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom13">
       <Width>1.3</Width>
       <Height>0.4</Height>
       <CustomData>
@@ -842,46 +694,9 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom13">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom14">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Keyboard_Custom15">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom16">
-      <Width>1.3</Width>
-      <Height>0.4</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Image="" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Custom17">
-      <Shape> M0.067,0.637 L0.622,0.633 L0.622,0.06 L0.975,0.06 L0.941,0.767 L0.739,0.95 L0.487,0.973 L0.063,0.981z</Shape>
-      <Y>92.5</Y>
-      <Width>1</Width>
+      <Shape> M0.035,0.012 L0.626,0.024 L0.814,0.132 L0.925,0.297 L0.946,0.934 L0.577,0.934 L0.577,0.388 L0.494,0.331 L0.042,0.359z</Shape>
+      <Width>0.9</Width>
       <Height>1.1</Height>
       <CustomData>
         <LogicalLayouts>
@@ -889,9 +704,20 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom21">
-      <X>316</X>
+    <Led Id="Keyboard_Custom16">
+      <X />
       <Y>18</Y>
+      <Width>0.4</Width>
+      <Height>1.1</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom18">
+      <X>=</X>
+      <Y>+</Y>
       <Width>0.4</Width>
       <Height>1.1</Height>
       <CustomData>
@@ -911,6 +737,169 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_Custom22">
+      <X>=</X>
+      <Y>+</Y>
+      <Width>0.4</Width>
+      <Height>1.1</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom24">
+      <Shape> M0.36,0.088 L0.36,0.557 L0.458,0.655 L0.966,0.655 L0.973,0.988 L0.301,0.981 L0.177,0.844 L0.073,0.727 L0.04,0.075z</Shape>
+      <X />
+      <Y>92.5</Y>
+      <Width>1.1</Width>
+      <Height>1.1</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom26">
+      <Y>104.2</Y>
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom27">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom28">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom29">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom30">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom31">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom32">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom33">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom34">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom35">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom36">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom37">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom38">
+      <Width>1.3</Width>
+      <Height>0.4</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom25">
+      <Shape> M0.067,0.637 L0.622,0.633 L0.622,0.06 L0.975,0.06 L0.941,0.767 L0.739,0.95 L0.487,0.973 L0.063,0.981z</Shape>
+      <Y>92.5</Y>
+      <Width>1</Width>
+      <Height>1.1</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom17">
+      <X>316</X>
+      <Y>18</Y>
+      <Width>0.4</Width>
+      <Height>1.1</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
     <Led Id="Keyboard_Custom19">
       <X>=</X>
       <Y>+</Y>
@@ -922,7 +911,18 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom18">
+    <Led Id="Keyboard_Custom21">
+      <X>=</X>
+      <Y>+</Y>
+      <Width>0.4</Width>
+      <Height>1.1</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Image="" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keyboard_Custom23">
       <X>=</X>
       <Y>+</Y>
       <Width>0.4</Width>
