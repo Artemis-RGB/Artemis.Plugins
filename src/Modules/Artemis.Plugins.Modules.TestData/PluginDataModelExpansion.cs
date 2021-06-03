@@ -18,7 +18,6 @@ namespace Artemis.Plugins.Modules.TestData
         public PluginDataModelExpansion(IWebServerService webServerService)
         {
             _webServerService = webServerService;
-            IsAlwaysAvailable = true;
         }
 
         public override void Enable()

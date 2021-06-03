@@ -17,7 +17,6 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         {
             _logger = logger;
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
-            IsAlwaysAvailable = true;
         }
 
         #endregion

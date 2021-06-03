@@ -30,9 +30,7 @@ namespace Artemis.Plugins.PhilipsHue
             _hueService = hueService;
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
             _pollingRateSetting = settings.GetSetting("PollingRate", 2000);
-
-            IsAlwaysAvailable = true;
-
+            
             // Reset to default if the setting is below 100ms because the scale changed from seconds to milliseconds
             if (_pollingRateSetting.Value < 100)
                 _pollingRateSetting.Value = 2000;

@@ -22,7 +22,6 @@ namespace Artemis.Plugins.Modules.General
 
             DisplayName = "General";
             DisplayIcon = "Images/bow.svg";
-            IsAlwaysAvailable = true;
 
             AddDefaultProfile(DefaultCategoryName.General, "Profiles/rainbow.json");
             AddDefaultProfile(DefaultCategoryName.General, "Profiles/noise.json");

@@ -13,7 +13,6 @@ namespace Artemis.Plugins.Input.DataModelExpansion
         public InputDataModelExpansion(ILogger logger, IInputService inputService)
         {
             _inputService = inputService;
-            IsAlwaysAvailable = true;
         }
 
         public override void Enable()
