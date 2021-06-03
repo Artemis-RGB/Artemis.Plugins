@@ -38,10 +38,7 @@ namespace Artemis.Plugins.Devices.Logitech.Prerequisites
 
         /// <inheritdoc />
         public override string Description => "Required by the Logitech SDK";
-
-        /// <inheritdoc />
-        public override bool RequiresElevation => false;
-
+        
         /// <inheritdoc />
         public override List<PluginPrerequisiteAction> InstallActions { get; }
 
