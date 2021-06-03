@@ -24,8 +24,8 @@ namespace Artemis.Plugins.Modules.General
             DisplayIcon = "Images/bow.svg";
             IsAlwaysAvailable = true;
 
-            AddDefaultProfile("Profiles/rainbow.json");
-            AddDefaultProfile("Profiles/noise.json");
+            AddDefaultProfile(DefaultCategoryName.General, "Profiles/rainbow.json");
+            AddDefaultProfile(DefaultCategoryName.General, "Profiles/noise.json");
         }
 
         public override void Enable()
@@ -42,7 +42,7 @@ namespace Artemis.Plugins.Modules.General
         {
             _enableActiveWindow.SettingChanged -= EnableActiveWindowOnSettingChanged;
         }
-        
+
         public override void Update(double deltaTime)
         {
             DataModel.TimeDataModel.CurrentTime = DateTimeOffset.Now;
