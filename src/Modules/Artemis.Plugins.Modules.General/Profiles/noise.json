@@ -6,6 +6,7 @@
     "MaterialIcon": "ScatterPlot",
     "FileIconId": "00000000-0000-0000-0000-000000000000",
     "IconType": 0,
+    "Order": 0,
     "IsSuspended": false,
     "ActivationBehaviour": 0,
     "ActivationCondition": null,
