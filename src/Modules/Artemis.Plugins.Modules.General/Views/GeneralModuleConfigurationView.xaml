@@ -27,7 +27,7 @@
                                 <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Monitor active window</TextBlock>
                                 <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
                                         Enables or disables the active window data model property. <LineBreak />
-                                        Data is not stored and is never shared. Disabling this can increase performance,<LineBreak />
+                                        Data is not stored and is never shared. Disabling this can increase performance.<LineBreak />
                                 </TextBlock>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
