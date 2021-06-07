@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Artemis.Core.DataModelExpansions;
 using Artemis.Plugins.Modules.General.DataModels.Windows;
 using SkiaSharp;
@@ -14,6 +16,7 @@ namespace Artemis.Plugins.Modules.General.DataModels
         }
 
         public WindowDataModel ActiveWindow { get; set; }
+        public List<string> RunningProcesses { get; set; }
         public TimeDataModel TimeDataModel { get; set; }
         public PerformanceDataModel PerformanceDataModel { get; set; }
     }
@@ -33,8 +36,8 @@ namespace Artemis.Plugins.Modules.General.DataModels
         [DataModelProperty(Name = "Total RAM", Affix = "MB")]
         public long TotalRam { get; set; }
     }
-    
-    public class IconColorsDataModel : DataModel 
+
+    public class IconColorsDataModel : DataModel
     {
         public SKColor Vibrant { get; set; }
         public SKColor LightVibrant { get; set; }
