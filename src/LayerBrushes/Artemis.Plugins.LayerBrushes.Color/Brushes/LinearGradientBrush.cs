@@ -19,10 +19,11 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
             // For brevity's sake
             ColorGradient gradient = Properties.Colors.BaseValue;
+            SKSize scale = Layer.Transform.Scale.CurrentValue;
 
             SKMatrix matrix = SKMatrix.Concat(
-                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY),
-                SKMatrix.CreateTranslation(_scrollX, _scrollY)
+                SKMatrix.CreateTranslation(_scrollX * (scale.Width / 100f), _scrollY * (scale.Height / 100f)),
+                SKMatrix.CreateRotationDegrees(Properties.Rotation, bounds.MidX, bounds.MidY)
             );
 
             // LinearGradientRepeatMode.Mirror is currently the only setting that requires a different tile mode
@@ -59,15 +60,15 @@ namespace Artemis.Plugins.LayerBrushes.Color
         public override void Update(double deltaTime)
         {
             _waveSizeNormalized = Properties.WaveSize / 100f;
-            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float)deltaTime;
-            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float)deltaTime;
+            _scrollX += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
+            _scrollY += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
 
             if (_lastBounds.IsEmpty)
                 return;
 
             // Look at twice the width and height to support mirror repeat mode
-            _scrollX %= (_lastBounds.Width * 2) * _waveSizeNormalized;
-            _scrollY %= (_lastBounds.Height * 2) * _waveSizeNormalized;
+            // _scrollX %= (_lastBounds.Width * 2) * _waveSizeNormalized;
+            // _scrollY %= (_lastBounds.Height * 2) * _waveSizeNormalized;
         }
     }
 }
