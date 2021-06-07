@@ -42,8 +42,13 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
         public void Initialize()
         {
             _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            _capture = _useCustomWasapiCapture 
-                ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger) 
+            
+            // Don't initialize if there is no available device.
+            if (_endpoint == null)
+                return;
+
+            _capture = _useCustomWasapiCapture
+                ? CustomWasapiLoopbackCapture.CreateCustomWasapiLoopbackCapture(_endpoint, false, _logger)
                 : new WasapiLoopbackCapture();
             _capture.RecordingStopped += CaptureOnRecordingStopped;
 

@@ -33,6 +33,19 @@ namespace Artemis.Plugins.Audio.DataModelExpansion.DataModels
         public DataModelEvent VolumeChanged { get; set; } = new DataModelEvent();
         public ChannelsDataModel Channels { get; set; } = new ChannelsDataModel();
 
+        public void Reset()
+        {
+            DefaultDeviceName = "No device detected";
+            ChannelCount = 0;
+            Volume = 0;
+            VolumeNormalized = 0;
+            Muted = false;
+            PeakVolume = 0;
+            PeakVolumeNormalized = 0;
+            PeakVolumeRelative = 0;
+            PeakVolumeRelativeNormalized = 0;
+            DeviceState = DeviceState.NotPresent;
+        }
     }
 
     public class ChannelsDataModel : DataModel { }
