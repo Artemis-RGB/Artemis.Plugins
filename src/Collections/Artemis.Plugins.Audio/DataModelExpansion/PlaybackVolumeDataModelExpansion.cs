@@ -58,7 +58,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             DataModel.TimeSinceLastSound += TimeSpan.FromSeconds(deltaTime);
             if (_playbackDeviceChanged) UpdatePlaybackDevice();
         }
-        
+
         #endregion
 
         #region Update DataModel Methods
@@ -81,7 +81,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             lock (_audioEventLock) // To avoid query an Device/EndPoint that is not the current device anymore or has more or less channels
             {
                 // Absolute master peak volume 
-                float peakVolumeNormalized = (float) _playbackDevice?.AudioMeterInformation.MasterPeakValue;
+                float peakVolumeNormalized = _playbackDevice?.AudioMeterInformation.MasterPeakValue ?? 0f;
 
                 // Sound detected. Reset timespan
                 if (peakVolumeNormalized > 0) DataModel.TimeSinceLastSound = TimeSpan.Zero;
@@ -146,7 +146,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             for (int i = 0; i < _audioEndpointVolume.Channels.Count; i++)
             {
                 _channelsDataModels.Add(
-                    DataModel.Channels.AddDynamicChild(i.ToString(), new ChannelDataModel {ChannelIndex = i}, $"Channel {i}")
+                    DataModel.Channels.AddDynamicChild(i.ToString(), new ChannelDataModel { ChannelIndex = i }, $"Channel {i}")
                 );
                 _logger.Verbose($"Playback device {_playbackDevice.FriendlyName} channel {i} populated");
             }
@@ -170,10 +170,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             {
                 if (!firstRun) FreePlaybackDevice();
 
-                SetPlaybackDevice();
-                PopulateChannels();
-                _playbackDeviceChanged = false;
-                UpdateVolumeDataModel();
+                if (SetPlaybackDevice())
+                {
+                    PopulateChannels();
+                    _playbackDeviceChanged = false;
+                    UpdateVolumeDataModel();
+                }
             }
         }
 
@@ -183,16 +185,17 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             _playbackDevice?.Dispose();
             _playbackDevice = null;
             _logger.Verbose($"Playback device {disposingPlaybackDeviceFriendlyName} unregistered as source device to fill Playback volume data model");
+            DataModel.Reset();
         }
 
-        private void SetPlaybackDevice()
+        private bool SetPlaybackDevice()
         {
             _playbackDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
 
             if (_playbackDevice == null)
             {
-                _logger.Warning("No audio device found with Console role");
-                return;
+                _logger.Verbose("No audio device found with Console role. Audio peak volume won't be updated.");
+                return false;
             }
 
             _audioEndpointVolume = _playbackDevice.AudioEndpointVolume;
@@ -201,6 +204,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             DataModel.DefaultDeviceName = _playbackDevice.FriendlyName;
 
             _logger.Verbose($"Playback device {_playbackDevice.FriendlyName} registered to to fill Playback volume data model");
+            return true;
         }
 
         private void _audioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)

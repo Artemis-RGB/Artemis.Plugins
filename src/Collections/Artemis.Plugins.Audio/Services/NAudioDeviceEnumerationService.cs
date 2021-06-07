@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Artemis.Core.Services;
 using Artemis.Plugins.Audio.Interfaces;
 using NAudio.CoreAudioApi;
@@ -59,6 +60,11 @@ namespace Artemis.Plugins.Audio.Services
             catch (AggregateException ea)
             {
                 _logger.Error("AggregateException on GetCurrentDevice() " + ea);
+            }
+            catch (COMException ea)
+            {
+                if (ea.ErrorCode == -2147023728) // 0x80070490 No audio defive found.
+                    _logger.Verbose("No audio device found to be returned as current playback device. Some plugins may stop working.");
             }
             catch (NullReferenceException noe)
             {
