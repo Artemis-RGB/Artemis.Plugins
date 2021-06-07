@@ -13,18 +13,23 @@ namespace Artemis.Plugins.Modules.General
     public class GeneralModule : Module<GeneralDataModel>
     {
         private readonly PluginSetting<bool> _enableActiveWindow;
+        private readonly PluginSetting<bool> _disableDefaultProfilesCreation;
         private readonly IColorQuantizerService _quantizerService;
 
         public GeneralModule(IColorQuantizerService quantizerService, PluginSettings settings)
         {
             _quantizerService = quantizerService;
             _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
+            _disableDefaultProfilesCreation = settings.GetSetting("DisableDefaultProfilesCreation", false);
 
             DisplayName = "General";
             DisplayIcon = "Images/bow.svg";
 
-            AddDefaultProfile(DefaultCategoryName.General, "Profiles/rainbow.json");
-            AddDefaultProfile(DefaultCategoryName.General, "Profiles/noise.json");
+            if (!_disableDefaultProfilesCreation.Value)
+            {
+                AddDefaultProfile(DefaultCategoryName.General, "Profiles/rainbow.json");
+                AddDefaultProfile(DefaultCategoryName.General, "Profiles/noise.json");
+            }
         }
 
         public override void Enable()
