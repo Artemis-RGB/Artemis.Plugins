@@ -9,13 +9,14 @@ using SkiaSharp;
 namespace Artemis.Plugins.Modules.TestData
 {
     [PluginFeature(AlwaysEnabled = true)]
-    public class PluginDataModelExpansion : Module<PluginDataModel>
+    public class TestModule : Module<PluginDataModel>
     {
         private readonly IWebServerService _webServerService;
-
         private Random _rand;
 
-        public PluginDataModelExpansion(IWebServerService webServerService)
+        public override List<IModuleActivationRequirement> ActivationRequirements => null;
+
+        public TestModule(IWebServerService webServerService)
         {
             _webServerService = webServerService;
         }

@@ -278,7 +278,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             Properties.LayerPropertyOnCurrentValueSet += PropertiesOnLayerPropertyOnCurrentValueSet;
         }
 
-        private void PropertiesOnLayerPropertyOnCurrentValueSet(object? sender, LayerPropertyEventArgs e)
+        private void PropertiesOnLayerPropertyOnCurrentValueSet(object sender, LayerPropertyEventArgs e)
         {
             NotifyOfPropertyChange(e.LayerProperty.Path.Split('.').Last());
             RecreatePreview();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Input.DataModelExpansion.DataModels;
@@ -14,6 +15,8 @@ namespace Artemis.Plugins.Input.DataModelExpansion
         {
             _inputService = inputService;
         }
+
+        public override List<IModuleActivationRequirement> ActivationRequirements => null;
 
         public override void Enable()
         {
@@ -65,7 +68,9 @@ namespace Artemis.Plugins.Input.DataModelExpansion
                     DataModel.Keyboard.PressedKeys.Add(e.Key);
             }
             else
+            {
                 DataModel.Keyboard.PressedKeys.RemoveAll(k => k == e.Key);
+            }
 
             DataModel.Keyboard.IsAltDown = e.Modifiers.HasFlag(KeyboardModifierKey.Alt);
             DataModel.Keyboard.IsControlDown = e.Modifiers.HasFlag(KeyboardModifierKey.Control);
@@ -87,7 +92,9 @@ namespace Artemis.Plugins.Input.DataModelExpansion
                     DataModel.Mouse.PressedButtons.Add(e.Button);
             }
             else
+            {
                 DataModel.Mouse.PressedButtons.RemoveAll(k => k == e.Button);
+            }
 
             if (e.IsDown)
                 DataModel.Mouse.ButtonDown.Trigger(new MouseEventArgs(e.Button, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));

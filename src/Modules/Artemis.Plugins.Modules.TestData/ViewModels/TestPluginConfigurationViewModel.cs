@@ -10,10 +10,10 @@ namespace Artemis.Plugins.Modules.TestData.ViewModels
 
         public TestPluginConfigurationViewModel(Plugin plugin) : base(plugin)
         {
-            DataModelExpansion = Plugin.GetFeature<PluginDataModelExpansion>();
+            DataModelExpansion = Plugin.GetFeature<TestModule>();
         }
 
-        public PluginDataModelExpansion DataModelExpansion { get; }
+        public TestModule DataModelExpansion { get; }
         public bool CanTriggerEvent1 => DataModelExpansion != null;
         public bool CanTriggerEvent2 => DataModelExpansion != null;
 

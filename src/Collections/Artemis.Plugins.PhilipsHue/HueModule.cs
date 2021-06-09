@@ -15,7 +15,7 @@ using Q42.HueApi.Models.Groups;
 
 namespace Artemis.Plugins.PhilipsHue
 {
-    public class HueDataModelExpansion : Module<HueDataModel>
+    public class HueModule : Module<HueDataModel>
     {
         private readonly IHueService _hueService;
         private readonly PluginSetting<int> _pollingRateSetting;
@@ -25,7 +25,9 @@ namespace Artemis.Plugins.PhilipsHue
         private TimedUpdateRegistration _groupsTimedUpdate;
         private TimedUpdateRegistration _hueTimedUpdate;
 
-        public HueDataModelExpansion(PluginSettings settings, IHueService hueService)
+        public override List<IModuleActivationRequirement> ActivationRequirements => null;
+
+        public HueModule(PluginSettings settings, IHueService hueService)
         {
             _hueService = hueService;
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());

@@ -39,7 +39,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             SystemEvents.DisplaySettingsChanged -= SystemEventsOnDisplaySettingsChanged;
         }
 
-        private void SystemEventsOnDisplaySettingsChanged(object? sender, EventArgs e)
+        private void SystemEventsOnDisplaySettingsChanged(object sender, EventArgs e)
         {
             if (_brushProvider.Instance == null || !_brushProvider.Instance.IsEnabled)
                 _logger?.Debug("Display settings changed, but ambilight feature is disabled");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Artemis.Core;
@@ -10,25 +11,22 @@ using Artemis.Plugins.Modules.General.Utilities;
 
 namespace Artemis.Plugins.Modules.General
 {
-    [PluginFeature(AlwaysEnabled = true)]
+    [PluginFeature(Name = "General", Icon = "Images/bow.svg", AlwaysEnabled = true)]
     public class GeneralModule : Module<GeneralDataModel>
     {
         private readonly PluginSetting<bool> _enableActiveWindow;
-        private readonly PluginSetting<bool> _disableDefaultProfilesCreation;
         private readonly IColorQuantizerService _quantizerService;
         private readonly IProcessMonitorService _processMonitorService;
+
+        public override List<IModuleActivationRequirement> ActivationRequirements => null;
 
         public GeneralModule(IColorQuantizerService quantizerService, PluginSettings settings, IProcessMonitorService processMonitorService)
         {
             _quantizerService = quantizerService;
             _processMonitorService = processMonitorService;
             _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
-            _disableDefaultProfilesCreation = settings.GetSetting("DisableDefaultProfilesCreation", false);
 
-            DisplayName = "General";
-            DisplayIcon = "Images/bow.svg";
-
-            if (!_disableDefaultProfilesCreation.Value)
+            if (!settings.GetSetting("DisableDefaultProfilesCreation", false).Value)
             {
                 AddDefaultProfile(DefaultCategoryName.General, "Profiles/rainbow.json");
                 AddDefaultProfile(DefaultCategoryName.General, "Profiles/noise.json");
