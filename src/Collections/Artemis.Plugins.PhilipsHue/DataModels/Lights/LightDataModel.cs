@@ -1,5 +1,5 @@
 ﻿using System;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Q42.HueApi;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;

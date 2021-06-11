@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 

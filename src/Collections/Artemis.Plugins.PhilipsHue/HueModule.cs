@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
-using Artemis.Core.DataModelExpansions;
 using Artemis.Core.Modules;
 using Artemis.Plugins.PhilipsHue.DataModels;
 using Artemis.Plugins.PhilipsHue.Models;

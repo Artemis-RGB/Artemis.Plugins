@@ -1,4 +1,4 @@
-﻿using Artemis.Core.DataModelExpansions;
+﻿using Artemis.Core.Modules;
 using Artemis.Plugins.PhilipsHue.DataModels.Accessories;
 using Artemis.Plugins.PhilipsHue.DataModels.Groups;
 

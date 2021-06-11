@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Artemis.Plugins.Modules.General.DataModels.Windows;
 using SkiaSharp;
 
@@ -31,8 +30,10 @@ namespace Artemis.Plugins.Modules.General.DataModels
     {
         [DataModelProperty(Name = "CPU usage", Affix = "%")]
         public float CpuUsage { get; set; }
+
         [DataModelProperty(Name = "Available RAM", Affix = "MB")]
         public long AvailableRam { get; set; }
+
         [DataModelProperty(Name = "Total RAM", Affix = "MB")]
         public long TotalRam { get; set; }
     }

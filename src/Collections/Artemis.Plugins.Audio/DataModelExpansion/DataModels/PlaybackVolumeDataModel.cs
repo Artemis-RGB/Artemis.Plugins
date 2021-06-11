@@ -1,6 +1,6 @@
 ﻿using System;
 using Artemis.Core;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using NAudio.CoreAudioApi;
 
 namespace Artemis.Plugins.Audio.DataModelExpansion.DataModels

@@ -1,4 +1,4 @@
-﻿using Artemis.Core.DataModelExpansions;
+﻿using Artemis.Core.Modules;
 using Artemis.Plugins.PhilipsHue.DataModels.Lights;
 using Q42.HueApi;
 using Q42.HueApi.Models.Groups;

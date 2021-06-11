@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Artemis.Core;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.TestData.DataModels

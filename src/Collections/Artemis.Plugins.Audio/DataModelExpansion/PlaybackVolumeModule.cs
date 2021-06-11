@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Artemis.Core;
-using Artemis.Core.DataModelExpansions;
 using Artemis.Core.Modules;
 using Artemis.Plugins.Audio.DataModelExpansion.DataModels;
 using Artemis.Plugins.Audio.Services;

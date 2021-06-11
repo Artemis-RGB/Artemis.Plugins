@@ -6,6 +6,7 @@ using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
+using RGB.NET.Core;
 using RGB.NET.Devices.Razer;
 using Serilog;
 using Serilog.Events;
@@ -30,6 +31,11 @@ namespace Artemis.Plugins.Devices.Razer
 
             _loadEmulatorDevices = _pluginSettings.GetSetting("LoadEmulatorDevices", false);
             _loadEmulatorDevices.SettingChanged += LoadEmulatorDevicesOnSettingChanged;
+
+            // ChromaLink
+            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
+                0xF1F, RGBDeviceType.Unknown, "Addressable RGB Controller", LedMappings.ChromaLink, RazerEndpointType.ChromaLink
+            );
         }
 
         private void LoadEmulatorDevicesOnSettingChanged(object sender, EventArgs e)

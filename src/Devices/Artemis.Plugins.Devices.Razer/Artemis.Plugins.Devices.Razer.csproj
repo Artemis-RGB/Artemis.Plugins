@@ -56,6 +56,9 @@
     <Reference Include="RGB.NET.Devices.Razer">
       <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Razer.dll</HintPath>
     </Reference>
+    <Reference Include="RGB.NET.HID">
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.HID.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="Images\**">

@@ -72,9 +72,13 @@ namespace Artemis.Plugins.Modules.General
 
         private void UpdatePerformance()
         {
-            DataModel.PerformanceDataModel.CpuUsage = Performance.GetCpuUsage();
-            DataModel.PerformanceDataModel.AvailableRam = Performance.GetPhysicalAvailableMemoryInMiB();
-            DataModel.PerformanceDataModel.TotalRam = Performance.GetTotalMemoryInMiB();
+            // Performance counters are slow, only update them if necessary
+            if (IsPropertyInUse("PerformanceDataModel.CpuUsage", false))
+                DataModel.PerformanceDataModel.CpuUsage = Performance.GetCpuUsage();
+            if (IsPropertyInUse("PerformanceDataModel.AvailableRam", false))
+                DataModel.PerformanceDataModel.AvailableRam = Performance.GetPhysicalAvailableMemoryInMiB();
+            if (IsPropertyInUse("PerformanceDataModel.TotalRam", false))
+                DataModel.PerformanceDataModel.TotalRam = Performance.GetTotalMemoryInMiB();
         }
 
         private void UpdateRunningProcesses()

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Artemis.Core.DataModelExpansions;
+using Artemis.Core.Modules;
 using Artemis.Plugins.PhilipsHue.Models;
 using Q42.HueApi;
 using Q42.HueApi.Models.Groups;
