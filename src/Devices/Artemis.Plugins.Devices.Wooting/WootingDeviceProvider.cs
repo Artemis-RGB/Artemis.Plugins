@@ -24,7 +24,7 @@ namespace Artemis.Plugins.Devices.Wooting
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.Wooting.WootingDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
     }
 }

@@ -74,7 +74,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
 
         private async void OnReconnectTimerElapsed(object sender, ElapsedEventArgs e)

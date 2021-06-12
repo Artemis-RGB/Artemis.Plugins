@@ -21,7 +21,7 @@ namespace Artemis.Plugins.Devices.Novation
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.Novation.NovationDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Artemis.Plugins.Devices.CoolerMaster
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.CoolerMaster.CoolerMasterDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
     }
 }

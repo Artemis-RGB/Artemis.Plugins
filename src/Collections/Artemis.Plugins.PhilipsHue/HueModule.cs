@@ -31,7 +31,7 @@ namespace Artemis.Plugins.PhilipsHue
             _hueService = hueService;
             _storedBridgesSetting = settings.GetSetting("Bridges", new List<PhilipsHueBridge>());
             _pollingRateSetting = settings.GetSetting("PollingRate", 2000);
-            
+
             // Reset to default if the setting is below 100ms because the scale changed from seconds to milliseconds
             if (_pollingRateSetting.Value < 100)
                 _pollingRateSetting.Value = 2000;
@@ -117,15 +117,22 @@ namespace Artemis.Plugins.PhilipsHue
 
             foreach (PhilipsHueBridge bridge in _hueService.Bridges)
             {
-                // Get flat lists of all lights and sensors
-                List<Light> lights = (await bridge.Client.GetLightsAsync()).ToList();
-                List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).ToList();
+                if (IsPropertyInUse(dm => dm.Rooms, true) || IsPropertyInUse(dm => dm.Zones, true))
+                {
+                    // Get flat lists of all lights and sensors
+                    List<Light> lights = (await bridge.Client.GetLightsAsync()).ToList();
+                    // Pass the lights to all rooms and zones, they'll pick what they own
+                    DataModel.Rooms.UpdateContents(bridge, lights);
+                    DataModel.Zones.UpdateContents(bridge, lights);
+                }
 
-                // Pass the lights to all rooms and zones, they'll pick what they own
-                DataModel.Rooms.UpdateContents(bridge, lights);
-                DataModel.Zones.UpdateContents(bridge, lights);
-                // Let the accessories data model update all sensor data, it's not per room/zone
-                DataModel.Accessories.UpdateContents(bridge, sensors);
+                if (IsPropertyInUse(dm => dm.Accessories, true))
+                {
+                    // Get flat lists of all lights and sensors
+                    List<Sensor> sensors = (await bridge.Client.GetSensorsAsync()).ToList();
+                    // Let the accessories data model update all sensor data, it's not per room/zone
+                    DataModel.Accessories.UpdateContents(bridge, sensors);
+                }
             }
         }
     }

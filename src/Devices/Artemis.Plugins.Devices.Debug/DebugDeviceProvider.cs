@@ -35,8 +35,6 @@ namespace Artemis.Plugins.Devices.Debug
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            
             // Turn off the LEDs on every device before we leave
             if (_settings.GetSetting("TurnOffLedsOnDisable", true).Value)
             {
@@ -59,6 +57,8 @@ namespace Artemis.Plugins.Devices.Debug
                     rgbDevice.Update(true);
             }
 
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Dispose();
         }
 
         public void PopulateDevices()

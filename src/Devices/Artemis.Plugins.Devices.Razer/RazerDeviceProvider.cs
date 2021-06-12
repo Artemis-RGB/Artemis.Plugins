@@ -71,7 +71,7 @@ namespace Artemis.Plugins.Devices.Razer
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
 
         private void LogDeviceIds()

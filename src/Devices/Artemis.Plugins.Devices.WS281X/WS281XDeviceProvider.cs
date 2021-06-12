@@ -87,7 +87,7 @@ namespace Artemis.Plugins.Devices.WS281X
                 TurnOffLeds();
 
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGBDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
 
         private void TurnOffLeds()

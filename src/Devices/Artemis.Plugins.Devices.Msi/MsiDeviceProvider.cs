@@ -26,7 +26,7 @@ namespace Artemis.Plugins.Devices.Msi
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.Msi.MsiDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
     }
 }

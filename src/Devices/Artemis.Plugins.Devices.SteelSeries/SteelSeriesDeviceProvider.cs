@@ -35,7 +35,7 @@ namespace Artemis.Plugins.Devices.SteelSeries
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
 
         private void LogDeviceIds()

@@ -59,7 +59,7 @@ namespace Artemis.Plugins.Devices.DMX
                 TurnOffLeds();
 
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RGBDeviceProvider.Instance.Dispose();
+            RgbDeviceProvider.Dispose();
         }
 
         private void TurnOffLeds()

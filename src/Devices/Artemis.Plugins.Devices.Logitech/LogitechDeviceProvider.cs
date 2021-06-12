@@ -35,9 +35,8 @@ namespace Artemis.Plugins.Devices.Logitech
 
         public override void Disable()
         {
-            RGB.NET.Devices.Logitech.LogitechDeviceProvider logitechProvider = (RGB.NET.Devices.Logitech.LogitechDeviceProvider) RgbDeviceProvider;
-            logitechProvider.Dispose();
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Dispose();
         }
 
         private void LogDeviceIds()
