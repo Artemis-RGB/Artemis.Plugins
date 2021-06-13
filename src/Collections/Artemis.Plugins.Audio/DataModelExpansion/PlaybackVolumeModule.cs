@@ -45,7 +45,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             UpdatePlaybackDevice(true);
 
             // We don't need mor than ~30 updates per second. It will keep CPU usage controlled. 60 or more updates per second could rise cpu usage
-            AddTimedUpdate(TimeSpan.FromMilliseconds(33), UpdatePeakVolume);
+            AddTimedUpdate(TimeSpan.FromMilliseconds(33), UpdatePeakVolume, "UpdatePeakVolume");
         }
 
         public override void Disable()
@@ -61,7 +61,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             DataModel.TimeSinceLastSound += TimeSpan.FromSeconds(deltaTime);
             if (_playbackDeviceChanged) UpdatePlaybackDevice();
         }
-        
+
         #endregion
 
         #region Update DataModel Methods
@@ -71,6 +71,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             if (IsEnabled == false)
             {
                 // To avoid null object exception on _enumerator use after plugin is disabled.
+                return;
+            }
+
+            // If no one one is using this DataModel, don't update this part.
+            if (DataModel.ActivePaths.Count < 1)
+            {
                 return;
             }
 
