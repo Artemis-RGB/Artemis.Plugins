@@ -75,7 +75,10 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             }
 
             // If no one one is using this DataModel, don't update this part.
-            if (DataModel.ActivePaths.Count < 1)
+            if (!IsPropertyInUse("PeakVolume", false) &&
+                !IsPropertyInUse("PeakVolumeNormalized", false) &&
+                !IsPropertyInUse("PeakVolumeRelative", false) &&
+                !IsPropertyInUse("PeakVolumeRelativeNormalized", false))
             {
                 return;
             }
