@@ -92,12 +92,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                 // Absolute master peak volume 
                 float peakVolumeNormalized = _playbackDevice?.AudioMeterInformation.MasterPeakValue ?? 0f;
 
-                // Sound detected. Reset timespan
-                if (peakVolumeNormalized > 0) DataModel.TimeSinceLastSound = TimeSpan.Zero;
-
                 // Don't update datamodel if not neeeded
-                if (Math.Abs(_lastMasterPeakVolumeNormalized - peakVolumeNormalized) < 0.001f)
+                if (Math.Abs(_lastMasterPeakVolumeNormalized - peakVolumeNormalized) < 0.00001f)
                     return;
+
+                // Sound detected. Reset timespan
+                if (Math.Abs(_lastMasterPeakVolumeNormalized - 0.0) > 0.00001f) DataModel.TimeSinceLastSound = TimeSpan.Zero;
 
                 DataModel.PeakVolumeNormalized = _lastMasterPeakVolumeNormalized = peakVolumeNormalized;
                 DataModel.PeakVolume = peakVolumeNormalized * 100f;
