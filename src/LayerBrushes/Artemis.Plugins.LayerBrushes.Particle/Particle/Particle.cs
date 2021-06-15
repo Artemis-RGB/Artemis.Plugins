@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Artemis.Core;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using Artemis.Plugins.LayerBrushes.Particle.Particle.Shapes;
 using SkiaSharp;
@@ -85,7 +87,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         public float RotationY { get; set; }
         public float RotationZ { get; set; }
 
-        public SKColorF Color { get; set; }
+        public SKColor Color { get; set; }
         public ParticleShape Shape { get; set; }
         public SKPoint Velocity { get; set; }
         public SKPoint MaximumVelocity { get; set; }
@@ -94,6 +96,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         public float RotationVelocityZ { get; set; }
         public bool FadeOut { get; set; }
         public double Lifetime { get; set; }
+        public double TotalLifetime { get; set; }
         public SKRect Bounds { get; private set; }
         public bool IsComplete { get; private set; }
         public bool HasBeenDrawn { get; set; }
@@ -120,7 +123,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
             matrix = matrix.PreConcat(matrix44.Matrix);
             canvas.SetMatrix(canvas.TotalMatrix.PreConcat(matrix));
 
-            paint.ColorF = Color;
+            paint.Color = Color;
             Shape.Draw(canvas, paint, Width, Height);
             canvas.Restore();
         }
@@ -159,23 +162,29 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 
             Lifetime -= deltaTime.TotalSeconds;
             if (Lifetime <= 0)
-            {
-                if (FadeOut)
-                {
-                    SKColorF c = Color;
-                    float alpha = c.Alpha - secs;
-                    Color = c.WithAlpha(alpha);
-                    IsComplete = alpha <= 0;
-                }
-                else
-                {
-                    IsComplete = true;
-                }
-            }
+                IsComplete = true;
 
             RotationX = (RotationX + RotationVelocityX * secs) % 360;
             RotationY = (RotationY + RotationVelocityY * secs) % 360;
             RotationZ = (RotationZ + RotationVelocityZ * secs) % 360;
+        }
+
+        public void ApplyLifetimeColor(ColorGradient colors, bool applyGradient)
+        {
+            if (IsComplete)
+                return;
+
+            float alphaMultiplier = 1;
+            if (FadeOut)
+                alphaMultiplier = (float) (Lifetime / TotalLifetime);
+
+            if (applyGradient)
+            {
+                Color = colors.GetColor(1f - (float) (Lifetime / TotalLifetime));
+                Color = Color.WithAlpha((byte) Math.Clamp(Color.Alpha * alphaMultiplier, 0, 255));
+            }
+            else
+                Color = Color.WithAlpha((byte) Math.Clamp(255 * alphaMultiplier, 0, 255));
         }
     }
 }

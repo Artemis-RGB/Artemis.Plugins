@@ -82,6 +82,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
         [PropertyDescription]
         public ColorGradientLayerProperty Colors { get; set; }
 
+        [PropertyDescription(Description = "Choose the way the colors picked above behave")]
+        public EnumLayerProperty<ParticleColorMode> ColorMode { get; set; }
+
         [PropertyDescription(Description = "The velocity at which particles are emitted, they can later be slowed down by gravity")]
         public FloatRangeLayerProperty InitialVelocity { get; set; }
 
@@ -118,6 +121,12 @@ namespace Artemis.Plugins.LayerBrushes.Particle.LayerProperties
         protected override void DisableProperties()
         {
         }
+    }
+
+    public enum ParticleColorMode
+    {
+        Random,
+        Lifetime
     }
 
     public enum EmitterPosition

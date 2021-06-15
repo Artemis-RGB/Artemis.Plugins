@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Artemis.Core;
+using Artemis.Plugins.LayerBrushes.Particle.LayerProperties;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using SkiaSharp;
 
@@ -36,7 +38,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 
         public ParticleEmitterBounds EmitterBounds { get; set; } = new(SKConfettiEmitterSide.Center);
         public SKRect Bounds { get; set; }
-        public List<SKColor> Colors { get; set; } = new();
+        public ColorGradient Colors { get; set; } = new();
         public List<float> Masses { get; set; } = CreateDefaultMasses();
         public List<ParticleConfiguration> Configurations { get; set; } = new();
         public float StartAngle { get; set; }
@@ -48,6 +50,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
         public bool FadeOut { get; set; } = true;
         public SKPoint Gravity { get; set; } = new(0, 9.81f);
         public bool IsComplete { get; set; }
+        public ParticleColorMode ParticleColorMode { get; set; }
 
         public void Update(TimeSpan deltaTime)
         {
@@ -61,6 +64,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
             {
                 Particle particle = _particles[i];
                 particle.ApplyForce(g, deltaTime);
+
+                    particle.ApplyLifetimeColor(Colors, ParticleColorMode == ParticleColorMode.Lifetime);
 
                 if (particle.IsComplete || particle.HasBeenDrawn && !Bounds.IntersectsWithInclusive(particle.Bounds))
                 {
@@ -102,9 +107,10 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                 Configurations == null || Configurations.Count == 0)
                 return;
 
+            SKColor[] colors = Colors.GetColorsArray();
             for (int i = 0; i < count; i++)
             {
-                SKColor c = Colors[_random.Next(Colors.Count)];
+                SKColor c = colors[_random.Next(Colors.Count)];
                 float mass = Masses[_random.Next(Masses.Count)];
                 ParticleConfiguration conf = Configurations[_random.Next(Configurations.Count)];
                 Particle particle = new(conf)
@@ -115,7 +121,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                     Mass = mass,
                     MaximumVelocity = new SKPoint(MaximumVelocity, MaximumVelocity),
                     FadeOut = FadeOut,
-                    Lifetime = Lifetime
+                    Lifetime = Lifetime,
+                    TotalLifetime = Lifetime
                 };
 
                 _particles.Add(particle);
