@@ -1,0 +1,11 @@
+{
+  "Guid": "a24be298-df33-4fdc-b787-1680f950593d",
+  "Name": "Remote Control Brush",
+  "Description": "A layer-brush that can be remotely controlled via a web API",
+  "Icon": "Remote",
+  "Author": "Spoinky",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.LayerBrushes.RemoteControl.dll"
+}
