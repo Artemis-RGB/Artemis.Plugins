@@ -5,32 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:viewModels="clr-namespace:Artemis.Plugins.LayerBrushes.RemoteControl.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:CustomViewModel}">
-    <Grid Margin="15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2">
-            This is a remote control brush. There are many like it, but this one is yours. <LineBreak />
+    <StackPanel Margin="15">
+        <materialDesign:PackIcon Kind="CodeTagsCheck" Width="150" Height="150" HorizontalAlignment="Center" Margin="60" />
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" HorizontalAlignment="Center">
+            Your remote brush is ready.
         </TextBlock>
-
-        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding TestString}" Height="Auto" VerticalAlignment="Center" />
-        <!-- We use a command to point the button to our TestNumberAction method -->
-        <Button Grid.Row="1" Grid.Column="1" Margin="15" Content="SHOW DIALOG" Command="{s:Action TestPopupAction}" />
-
-        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
-            <Run Text="The current value of TestInt is: " />
-            <Run Text="{Binding TestNumber}" />
+        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" HorizontalAlignment="Center" Margin="0 20 0 0">
+            You can access it at
         </TextBlock>
-        <!-- We use a command to point the button to our TestNumberAction method -->
-        <Button Grid.Row="2" Grid.Column="1" Margin="15" Content="INCREMENT" Command="{s:Action TestNumberAction}" />
-    </Grid>
+        <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Margin="0 10 0 0"
+                 Width="520"
+                 VerticalAlignment="Top"
+                 TextWrapping="Wrap"
+                 IsReadOnlyCaretVisible="True"
+                 IsReadOnly="True"
+                 Text="{Binding BrushUrl, Mode=OneWay}" />
+
+        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" HorizontalAlignment="Center" Margin="0 20 0 0">
+            For more information on how to use the web API check out
+            <Hyperlink Style="{StaticResource ArtemisHyperlink}"
+                       RequestNavigate="{s:Action OpenHyperlink}"
+                       NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/brushes/remote-control-brush">
+                this wiki article
+            </Hyperlink>.
+        </TextBlock>
+    </StackPanel>
 </UserControl>

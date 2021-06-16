@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using Artemis.Core;
 using Artemis.Plugins.PhilipsHue.Models;
 using Artemis.Plugins.PhilipsHue.Services;
@@ -30,6 +32,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
         private int _pollingRate;
         private string _roomDisplay;
         private int _wizardPage;
+        private bool _showManualFind;
 
 
         public PhilipsHueConfigurationViewModel(Plugin plugin,
@@ -47,7 +50,7 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             // Reset to default if the setting is below 100ms because the scale changed from seconds to milliseconds
             if (_pollingRateSetting.Value < 100)
                 _pollingRateSetting.Value = 2000;
-            
+
             PollingRate = _pollingRateSetting.Value;
 
             if (_storedBridgesSetting.Value.Any())
@@ -108,6 +111,11 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
 
         #region Settings
 
+        public void AddHueBridge()
+        {
+            WizardPage = 0;
+        }
+
         public async void ResetPlugin()
         {
             bool result = await _dialogService.ShowConfirmDialogAt(
@@ -131,6 +139,9 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
 
         public async Task FindHueBridge()
         {
+            if (LocatingBridges)
+                return;
+
             LocatingBridges = true;
             IBridgeLocator locator = new HttpBridgeLocator();
             List<LocatedBridge> bridges = (await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5))).ToList();
@@ -139,26 +150,70 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             locator = new SsdpBridgeLocator();
             IEnumerable<LocatedBridge> extraBridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
             foreach (LocatedBridge extraBridge in extraBridges)
-                if (bridges.All(b => b.BridgeId != extraBridge.BridgeId))
+            {
+                if (bridges.All(b => b.IpAddress != extraBridge.IpAddress))
                     bridges.Add(extraBridge);
+            }
 
-            await Task.Delay(1000);
+            await Task.Delay(500);
 
-            LocatedBridge newBridge = bridges.FirstOrDefault(b => _storedBridgesSetting.Value.All(s => s.BridgeId != b.BridgeId));
+            LocatedBridge newBridge = bridges.FirstOrDefault(b => _storedBridgesSetting.Value.All(s => s.IpAddress != b.IpAddress));
             if (newBridge == null)
             {
                 FoundNewBridge = false;
+                LocatingBridges = false;
                 _newBridge = null;
                 return;
             }
 
             FoundNewBridge = true;
-            _newBridge = new PhilipsHueBridge(newBridge);
-
             LocatingBridges = false;
+            _newBridge = new PhilipsHueBridge(newBridge);
 
             if (FoundNewBridge)
                 await RegisterHueBridge();
+        }
+
+        public async Task FindHueBridgeManual()
+        {
+            if (LocatingBridges)
+                return;
+
+            object result = await _dialogService.ShowDialogAt<PhilipsHueBridgeDialogViewModel>("PluginSettingsDialog");
+            if (result is not PhilipsHueBridge newBridge)
+                return;
+
+            if (_storedBridgesSetting.Value.Any(b => b.IpAddress == newBridge.IpAddress))
+            {
+                await ShowAddBridgeError($"A Hue Bridge with IP address {newBridge.IpAddress} is already added");
+                return;
+            }
+
+            LocatingBridges = true;
+
+            using HttpClient httpClient = new();
+            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"http://{newBridge.IpAddress}/description.xml");
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                await ShowAddBridgeError($"Failed to connect to Hue Bridge at {newBridge.IpAddress}");
+                LocatingBridges = false;
+                return;
+            }
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!response.Contains("philips hue bridge", StringComparison.InvariantCultureIgnoreCase))
+            {
+                await ShowAddBridgeError($"Device at {newBridge.IpAddress} does not appear to be a Hue Bridge");
+                LocatingBridges = false;
+                return;
+            }
+
+            FoundNewBridge = true;
+            LocatingBridges = false;
+            _newBridge = newBridge;
+
+            await RegisterHueBridge();
         }
 
         private async Task RegisterHueBridge()
@@ -198,8 +253,17 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
                 return;
             }
 
+            string bridgeId = (await client.GetBridgeAsync())?.Config?.BridgeId;
+            if (bridgeId == null)
+            {
+                await ShowAddBridgeError("Failed to retrieve Bridge ID");
+                WizardPage = 0;
+                return;
+            }
+
             _newBridge.AppKey = registrationResult.Username;
             _newBridge.StreamingClientKey = registrationResult.StreamingClientKey;
+            _newBridge.BridgeId = bridgeId.ToLowerInvariant();
             _storedBridgesSetting.Value.Add(_newBridge);
             _storedBridgesSetting.Save();
 
@@ -224,6 +288,11 @@ namespace Artemis.Plugins.PhilipsHue.ViewModels
             LightDisplay = lightCount + (lightCount == 1 ? " light" : " lights");
 
             _newBridge = null;
+        }
+
+        private async Task ShowAddBridgeError(string error)
+        {
+            await _dialogService.ShowConfirmDialogAt("PluginSettingsDialog", "Add Hue bridge", error, "Confirm", null);
         }
 
         #endregion

@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="RGB.NET.Core">
       <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 
