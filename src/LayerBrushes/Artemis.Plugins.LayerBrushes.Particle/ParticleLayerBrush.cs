@@ -57,7 +57,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle
             _particleSystem.Lifetime = Properties.Particles.Lifetime;
             _particleSystem.FadeOut = Properties.Particles.FadeOut;
             _particleSystem.Gravity = Properties.Gravity;
-            _particleSystem.Colors = Properties.Particles.Colors.CurrentValue.GetColorsArray().ToList();
+            _particleSystem.Colors = Properties.Particles.Colors.CurrentValue;
+            _particleSystem.ParticleColorMode = Properties.Particles.ColorMode.CurrentValue;
             _particleSystem.Configurations = Properties.ParticleConfigurations.CurrentValue;
             _particleSystem.Emitter.ParticleRate = Properties.Emitter.EmitParticles ? Properties.Emitter.ParticleRate : 0;
 
