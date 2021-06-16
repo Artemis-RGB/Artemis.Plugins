@@ -65,7 +65,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                 Particle particle = _particles[i];
                 particle.ApplyForce(g, deltaTime);
 
-                    particle.ApplyLifetimeColor(Colors, ParticleColorMode == ParticleColorMode.Lifetime);
+                particle.ApplyLifetimeColor(Colors, ParticleColorMode == ParticleColorMode.Lifetime);
 
                 if (particle.IsComplete || particle.HasBeenDrawn && !Bounds.IntersectsWithInclusive(particle.Bounds))
                 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Artemis.Core;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using Artemis.Plugins.LayerBrushes.Particle.Particle.Shapes;
