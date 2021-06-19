@@ -21,8 +21,8 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="10.0.0" PrivateAssets="All" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" PrivateAssets="All" />
+    <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
     <PackageReference Include="NAudio" Version="2.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
