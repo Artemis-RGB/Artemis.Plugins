@@ -86,14 +86,19 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
 
     public class KeyboardEventArgs : DataModelEventArgs
     {
-        public KeyboardEventArgs(KeyboardKey key, string device)
+        public KeyboardEventArgs(KeyboardKey key, KeyboardModifierKey modifiers, string device)
         {
             Key = key;
+            Modifiers = modifiers;
             Device = device;
         }
 
         [DataModelProperty(Description = "The key that was pressed")]
         public KeyboardKey Key { get; set; }
+
+        [DataModelProperty(Description = "The modifier(s) that where held down")]
+        public KeyboardModifierKey Modifiers { get; }
+
         [DataModelProperty(Description = "The name of the device on which the key was pressed")]
         public string Device { get; set; }
     }

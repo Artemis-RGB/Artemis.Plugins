@@ -78,9 +78,9 @@ namespace Artemis.Plugins.Input.DataModelExpansion
             DataModel.Keyboard.IsWindowsDown = e.Modifiers.HasFlag(KeyboardModifierKey.Windows);
 
             if (e.IsDown)
-                DataModel.Keyboard.KeyDown.Trigger(new KeyboardEventArgs(e.Key, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
+                DataModel.Keyboard.KeyDown.Trigger(new KeyboardEventArgs(e.Key, e.Modifiers, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
             else
-                DataModel.Keyboard.KeyUp.Trigger(new KeyboardEventArgs(e.Key, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
+                DataModel.Keyboard.KeyUp.Trigger(new KeyboardEventArgs(e.Key, e.Modifiers, e.Led?.Device.RgbDevice.DeviceInfo.DeviceName));
         }
 
         private void InputServiceOnMouseButtonUpDown(object sender, ArtemisMouseButtonUpDownEventArgs e)
