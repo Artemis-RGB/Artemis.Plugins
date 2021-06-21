@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Scripts;
 using Esprima;
 using Jint;
 using Jint.Runtime;
 using Ninject;
 using Ninject.Parameters;
 using Serilog;
+using SkiaSharp;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
 {
@@ -32,6 +34,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
 
         public Script Script { get; }
         public Engine Engine { get; private set; }
+        public Dictionary<string, object> ExtraValues { get; } = new();
 
         /// <summary>
         ///     Disposes the old engine, creates a fresh engine and executes the current script in it
@@ -47,13 +50,18 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             Engine = new Engine(options =>
             {
                 // Limit memory allocations to 100 MB
-                options.LimitMemory(100_000_000);
+                // options.LimitMemory(100_000_000);
                 options.CancellationToken(_cts.Token);
+                options.AllowClr(typeof(SKCanvas).Assembly);
             });
+
+            Engine.Execute("const SkiaSharp = importNamespace('SkiaSharp')");
 
             List<IScriptBinding> scriptBindings = _plugin.Kernel!.GetAll<IScriptBinding>(new ConstructorArgument("engine", this)).ToList();
             foreach (IScriptBinding scriptBinding in scriptBindings)
                 Engine.SetValue(scriptBinding.Name, scriptBinding);
+            foreach ((string key, object value) in ExtraValues) 
+                Engine.SetValue(key, value);
 
             Task.Run(() =>
             {
