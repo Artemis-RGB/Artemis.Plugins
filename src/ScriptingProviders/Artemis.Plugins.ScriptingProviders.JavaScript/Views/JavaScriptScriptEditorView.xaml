@@ -1,14 +1,30 @@
 ﻿<UserControl x:Class="Artemis.Plugins.ScriptingProviders.JavaScript.Views.JavaScriptScriptEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels"
              xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-             mc:Ignorable="d" 
+             xmlns:s="https://github.com/canton7/Stylet"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:JavaScriptScriptEditorViewModel}">
     <Grid>
-        <wpf:WebView2 x:Name="EditorWebView" Source="{Binding EditorUri}"></wpf:WebView2>
+        <Border Background="{StaticResource MaterialDesignPaper}" Visibility="{Binding LoadingEditor, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ProgressBar
+                    Style="{StaticResource MaterialDesignCircularProgressBar}"
+                    Value="0"
+                    IsIndeterminate="True" />
+                <TextBlock HorizontalAlignment="Center" Margin="0 10">Loading scripting editor...</TextBlock>
+            </StackPanel>
+        </Border>
+
+        <wpf:WebView2 Panel.ZIndex="1"
+                      x:Name="EditorWebView"
+                      Source="{Binding EditorUri}"
+                      KeyDown="{s:Action EditorWebViewKeyDown}"
+                      DefaultBackgroundColor="Transparent"
+                      Visibility="{Binding LoadingEditor, Converter={x:Static s:BoolToVisibilityConverter.InverseInstance}}" />
     </Grid>
 </UserControl>

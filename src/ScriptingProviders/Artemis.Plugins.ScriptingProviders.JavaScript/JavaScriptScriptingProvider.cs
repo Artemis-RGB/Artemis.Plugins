@@ -1,5 +1,4 @@
-﻿using System;
-using Artemis.Core;
+﻿using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Scripts;
 using Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels;
@@ -17,6 +16,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript
         {
             _kernel = kernel;
         }
+
+        public override string LanguageName => "JavaScript";
 
         public override void Enable()
         {

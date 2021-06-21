@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
+using System.Windows.Input;
 using Artemis.Core;
-using Artemis.Core.Modules;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Core.Services;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Declarations;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.ScriptingProviders;
+using Artemis.UI.Shared.Services;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 
@@ -17,10 +18,16 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
     public class JavaScriptScriptEditorViewModel : ScriptEditorViewModel
     {
         private readonly IDataModelService _dataModelService;
+        private readonly IDialogService _dialogService;
+        private WebView2 _editorWebView;
+        private bool _loadingEditor;
 
-        public JavaScriptScriptEditorViewModel(Plugin plugin, Script script, IDataModelService dataModelService) : base(script)
+        public JavaScriptScriptEditorViewModel(Plugin plugin, Script script, IDialogService dialogService, IDataModelService dataModelService) : base(script)
         {
+            _dialogService = dialogService;
             _dataModelService = dataModelService;
+            _loadingEditor = true;
+
             DataModelDeclarations = GenerateDataModelJavaScript();
             EditorUri = new Uri(plugin.Directory.FullName + "\\Editor\\index.html");
         }
@@ -28,41 +35,81 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
         public string DataModelDeclarations { get; }
         public Uri EditorUri { get; }
 
-        public WebView2 EditorWebView { get; set; }
+        public bool LoadingEditor
+        {
+            set => SetAndNotify(ref _loadingEditor, value);
+            get => _loadingEditor;
+        }
+
+        public async void EditorWebViewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.S && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+                await UpdateScriptContents();
+        }
+
+        #region Overrides of Screen
+
+        /// <inheritdoc />
+        public override async Task<bool> CanCloseAsync()
+        {
+            if (!Script.ScriptConfiguration.HasChanges)
+                return true;
+
+            bool discard = await _dialogService.ShowConfirmDialogAt("ScriptsDialog", "Unsaved changes", "You have unsaved changes, do you want to discard them?");
+            if (discard)
+                Script.ScriptConfiguration.DiscardPendingChanges();
+
+            return discard;
+        }
 
         protected override void OnViewLoaded()
         {
-            EditorWebView = VisualTreeUtilities.FindChild<WebView2>(View, "EditorWebView");
-            EditorWebView.NavigationCompleted += EditorWebViewOnNavigationCompleted;
+            _editorWebView = VisualTreeUtilities.FindChild<WebView2>(View, "EditorWebView");
+            _editorWebView.NavigationCompleted += EditorWebViewOnNavigationCompleted;
+            _editorWebView.WebMessageReceived += EditorWebViewOnWebMessageReceived;
 
             base.OnViewLoaded();
         }
 
-        private async void EditorWebViewOnNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+        #endregion
+
+        private async Task UpdateScriptContents()
         {
-            await EditorWebView.ExecuteScriptAsync(
-                $"monaco.languages.typescript.javascriptDefaults.addExtraLib(\"{HttpUtility.JavaScriptStringEncode(DataModelDeclarations)}\", 'dataModelDeclarations.d.ts');");
+            string value = await _editorWebView.ExecuteScriptAsync("window.scriptEditor.getValue()");
+            string currentScript = Regex.Unescape(value);
+            currentScript = currentScript.Substring(1, currentScript.Length - 2);
+
+            Script.ScriptConfiguration.PendingScriptContent = currentScript;
+            Script.ScriptConfiguration.ApplyPendingChanges();
+        }
+
+        private async Task UpdateHasChanges()
+        {
+            string value = await _editorWebView.ExecuteScriptAsync("window.scriptEditor.getValue()");
+            string currentScript = Regex.Unescape(value);
+            currentScript = currentScript.Substring(1, currentScript.Length - 2);
+
+            Script.ScriptConfiguration.PendingScriptContent = currentScript;
+        }
+
+        private async void EditorWebViewOnWebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            await UpdateHasChanges();
+        }
+
+        private async void EditorWebViewOnNavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            await _editorWebView.ExecuteScriptAsync(
+                $"monaco.languages.typescript.javascriptDefaults.addExtraLib(\"{HttpUtility.JavaScriptStringEncode(DataModelDeclarations)}\", 'dataModelDeclarations.d.ts'); \r\n" +
+                $"window.scriptEditor.setValue(\"{HttpUtility.JavaScriptStringEncode(Script.ScriptConfiguration.PendingScriptContent)}\");"
+            );
+            LoadingEditor = false;
         }
 
         private string GenerateDataModelJavaScript()
         {
-            List<TypeScriptDataModel> nameSpaces = new();
-
-            List<DataModel> list = _dataModelService.GetDataModels();
-            for (int index = 0; index < list.Count; index++)
-            {
-                nameSpaces.Add(new TypeScriptDataModel(list[index], index));
-            }
-
-            string namespaces = string.Join("\r\n", nameSpaces.Select(n => n.GenerateCode()));
-            string rootClasses = string.Join("\r\n", nameSpaces.Select(n => $"  readonly {n.RootClass.Name}: {n.Name}.{n.RootClass.Name}"));
-            string code = $@"
-{namespaces}
-declare class DataModelContainer {{
-{rootClasses}
-}}
-const DataModel = new DataModelContainer();";
-            return code;
+            TypeScriptDataModelCollection dataModelCollection = new(_dataModelService.GetDataModels());
+            return dataModelCollection.GenerateCode();
         }
     }
 }

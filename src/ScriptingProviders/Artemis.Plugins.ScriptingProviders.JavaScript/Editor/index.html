@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <style>
-    body { margin: 0 }
-
+    body {
+        margin: 0
+    }
+    
     #container {
         height: 100vh;
         overflow: hidden;
@@ -9,16 +11,23 @@
     }
 </style>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
+
 <body>
 <div id="container"></div>
 </body>
+
 </html>
 <script src="monaco-editor/min/vs/loader.js"></script>
 <script>
-    require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
+    require.config({
+        paths: {
+            'vs': 'monaco-editor/min/vs'
+        }
+    });
     require(['vs/editor/editor.main'],
         function() {
             // validation settings
@@ -33,14 +42,17 @@
                 allowNonTsExtensions: true
             });
 
-            window.scriptEditor = monaco.editor.create(document.getElementById("container"),
-                {
-                    language: "javascript",
-                    lineNumbers: "on",
-                    roundedSelection: false,
-                    scrollBeyondLastLine: false,
-                    readOnly: false,
-                    theme: "vs-dark",
-                });
+            window.scriptEditor = monaco.editor.create(document.getElementById("container"), {
+                language: "javascript",
+                lineNumbers: "on",
+                roundedSelection: false,
+                scrollBeyondLastLine: false,
+                readOnly: false,
+                theme: "vs-dark",
+            });
+
+            window.scriptEditor.onDidChangeModelContent(function(e) {
+                window.chrome.webview.postMessage(e);
+            });
         });
 </script>
