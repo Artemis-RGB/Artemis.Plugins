@@ -10,7 +10,7 @@ namespace Artemis.Plugins.LayerBrushes.Noise
     public class NoiseBrush : PerLedLayerBrush<NoiseBrushProperties>
     {
         private static readonly Random Rand = new();
-        private readonly OpenSimplexNoise _noise;
+        private readonly OpenSimplex2S _noise;
         private SKColor[] _colorMap;
         private float _x;
         private float _y;
@@ -21,7 +21,7 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             _x = Rand.Next(0, 4096);
             _y = Rand.Next(0, 4096);
             _z = Rand.Next(0, 4096);
-            _noise = new OpenSimplexNoise(Rand.Next(0, 4096));
+            _noise = new OpenSimplex2S(Rand.Next(0, 4096));
         }
 
         public override void EnableLayerBrush()
@@ -56,7 +56,7 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             SKColor secondColor = Properties.SecondaryColor.CurrentValue;
             ColorGradient gradientColor = Properties.GradientColor.CurrentValue;
             SKSize scale = Properties.Scale.CurrentValue;
-            float hardness = Properties.Hardness.CurrentValue / 50f;
+            int segments = Properties.Segments.CurrentValue - 1;
 
             float scrolledX = renderPoint.X + _x;
             if (float.IsNaN(scrolledX) || float.IsInfinity(scrolledX))
@@ -65,19 +65,24 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             if (float.IsNaN(scrolledY) || float.IsInfinity(scrolledY))
                 scrolledY = 0;
 
-            float width = 1f / (MathF.Max(scale.Width, 0.001f) / 100f);
-            float height = 1f / (MathF.Max(scale.Height, 0.001f) / 100f);
+            float width = 1f / (MathF.Max(scale.Width, 0.001f) / 25f);
+            float height = 1f / (MathF.Max(scale.Height, 0.001f) / 25f);
 
             float evalX = scrolledX * (width / 40f);
             float evalY = scrolledY * (height / 40f);
 
-            float v = (float) _noise.Evaluate(evalX, evalY, _z) * hardness;
-            float amount = Math.Max(0f, Math.Min(1f, v));
+            // v should be between -1 and 1
+            float v = (float) _noise.Noise3_Classic(evalX, evalY, _z);
+            // normalize to between 0 and 1
+            float amount = (Math.Clamp(v, -1f, 1f) + 1f) / 2f;
+
+            if (Properties.SegmentColors && segments > 0)
+                amount = MathF.Round(amount * segments, MidpointRounding.ToEven) / segments;
 
             if (Properties.ColorType.BaseValue == ColorMappingType.Simple)
                 return mainColor.Interpolate(secondColor, amount);
-            if (gradientColor != null && _colorMap.Length == 101)
-                return _colorMap[(int) Math.Round(amount * 100, MidpointRounding.AwayFromZero)];
+            if (gradientColor != null && _colorMap.Length == 100)
+                return _colorMap[Math.Clamp((int) (amount * 100), 0, 99)];
             return SKColor.Empty;
         }
 
@@ -88,9 +93,9 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 
         private void CreateColorMap()
         {
-            SKColor[] colorMap = new SKColor[101];
-            for (int i = 0; i < 101; i++)
-                colorMap[i] = Properties.GradientColor.BaseValue.GetColor(i / 100f);
+            SKColor[] colorMap = new SKColor[100];
+            for (int i = 0; i < 100; i++)
+                colorMap[i] = Properties.GradientColor.BaseValue.GetColor(i / 99f);
 
             _colorMap = colorMap;
         }
