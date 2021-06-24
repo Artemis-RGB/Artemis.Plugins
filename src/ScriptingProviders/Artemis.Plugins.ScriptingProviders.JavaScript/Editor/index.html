@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <style>
-    body {
-        margin: 0
-    }
-    
+    body { margin: 0 }
+
     #container {
         height: 100vh;
         overflow: hidden;
@@ -42,14 +40,13 @@
                 allowNonTsExtensions: true
             });
 
-            window.scriptEditor = monaco.editor.create(document.getElementById("container"), {
-                language: "javascript",
-                lineNumbers: "on",
-                roundedSelection: false,
-                scrollBeyondLastLine: false,
-                readOnly: false,
-                theme: "vs-dark",
-            });
+            window.scriptEditor = monaco.editor.create(document.getElementById("container"),
+                {
+                    language: "javascript",
+                    lineNumbers: "on",
+                    readOnly: false,
+                    theme: "vs-dark",
+                });
 
             window.scriptEditor.onDidChangeModelContent(function(e) {
                 window.chrome.webview.postMessage(e);

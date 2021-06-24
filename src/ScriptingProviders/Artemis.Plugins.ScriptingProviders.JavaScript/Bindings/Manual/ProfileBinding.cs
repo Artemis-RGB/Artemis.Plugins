@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Artemis.Core;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
@@ -10,8 +11,9 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 {
-    public class ProfileBinding
+    public class ProfileBinding : IManualScriptBinding
     {
+        private readonly Plugin _plugin;
         private readonly PluginJintEngine _pluginJintEngine;
         private readonly Profile _profile;
         private readonly List<FunctionInstance> _renderedCallbacks = new();
@@ -20,47 +22,13 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 
         private readonly List<FunctionInstance> _updatingCallbacks = new();
 
-        public ProfileBinding(Profile profile, PluginJintEngine pluginJintEngine)
+        public ProfileBinding(Profile profile, Plugin plugin, PluginJintEngine pluginJintEngine)
         {
             _profile = profile;
+            _plugin = plugin;
             _pluginJintEngine = pluginJintEngine;
         }
 
-        // ReSharper disable once InconsistentNaming
-        public Action onUpdating(JsValue callback)
-        {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _updatingCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _updatingCallbacks.Remove(functionInstance);
-        }
-
-        // ReSharper disable once InconsistentNaming
-        public Action onUpdated(JsValue callback)
-        {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _updatedCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _updatedCallbacks.Remove(functionInstance);
-        }
-
-        // ReSharper disable once InconsistentNaming
-        public Action onRendering(JsValue callback)
-        {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _renderingCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _renderingCallbacks.Remove(functionInstance);
-        }
-
-        // ReSharper disable once InconsistentNaming
-        public Action onRendered(JsValue callback)
-        {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _renderedCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _renderedCallbacks.Remove(functionInstance);
-        }
 
         internal void ProfileUpdating(double deltaTime)
         {
@@ -94,6 +62,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 
         internal void ProfileRendering(SKCanvas canvas, SKRect bounds)
         {
+            if (_pluginJintEngine.Engine == null)
+                return;
+
             JsValue canvasValue = JsValue.FromObject(_pluginJintEngine.Engine, canvas);
             JsValue boundsValue = JsValue.FromObject(_pluginJintEngine.Engine, bounds);
             foreach (FunctionInstance callback in _renderingCallbacks.ToList())
@@ -111,6 +82,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 
         internal void ProfileRendered(SKCanvas canvas, SKRect bounds)
         {
+            if (_pluginJintEngine.Engine == null)
+                return;
+
             JsValue canvasValue = JsValue.FromObject(_pluginJintEngine.Engine, canvas);
             JsValue boundsValue = JsValue.FromObject(_pluginJintEngine.Engine, bounds);
             foreach (FunctionInstance callback in _renderedCallbacks.ToList())
@@ -125,5 +99,70 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
                 }
             }
         }
+
+        #region Implementation of IManualScriptBinding
+
+        /// <inheritdoc />
+        public string Declaration => File.ReadAllText(_plugin.ResolveRelativePath("StaticDeclarations/ProfileBinding.ts"));
+
+        #endregion
+
+        #region JS functions
+
+        // ReSharper disable InconsistentNaming
+        public Action onUpdating(JsValue callback)
+        {
+            FunctionInstance functionInstance = callback.As<FunctionInstance>();
+            _updatingCallbacks.Add(callback.As<FunctionInstance>());
+
+            return () => _updatingCallbacks.Remove(functionInstance);
+        }
+
+
+        public Action onUpdated(JsValue callback)
+        {
+            FunctionInstance functionInstance = callback.As<FunctionInstance>();
+            _updatedCallbacks.Add(callback.As<FunctionInstance>());
+
+            return () => _updatedCallbacks.Remove(functionInstance);
+        }
+
+
+        public Action onRendering(JsValue callback)
+        {
+            FunctionInstance functionInstance = callback.As<FunctionInstance>();
+            _renderingCallbacks.Add(callback.As<FunctionInstance>());
+
+            return () => _renderingCallbacks.Remove(functionInstance);
+        }
+
+
+        public Action onRendered(JsValue callback)
+        {
+            FunctionInstance functionInstance = callback.As<FunctionInstance>();
+            _renderedCallbacks.Add(callback.As<FunctionInstance>());
+
+            return () => _renderedCallbacks.Remove(functionInstance);
+        }
+
+
+        public Folder[] getFolders()
+
+        {
+            return _profile.GetAllFolders().ToArray();
+        }
+
+        public Layer[] getLayers()
+        {
+            return _profile.GetAllLayers().ToArray();
+        }
+        // ReSharper restore InconsistentNaming
+
+        #endregion
+    }
+
+    public interface IManualScriptBinding
+    {
+        public string Declaration { get; }
     }
 }

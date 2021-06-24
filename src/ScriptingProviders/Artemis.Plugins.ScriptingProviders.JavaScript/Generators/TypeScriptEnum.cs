@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Linq;
 
-namespace Artemis.Plugins.ScriptingProviders.JavaScript.Declarations
+namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
 {
     public class TypeScriptEnum
     {
         public TypeScriptEnum(Type enumType)
         {
             EnumType = enumType;
-            Name = enumType.Name;
+            Name = enumType.FullName?.Replace("+", "").Split(".").LastOrDefault() ?? enumType.Name;
             Values = (int[]) Enum.GetValues(enumType);
             Names = Enum.GetNames(enumType);
         }
@@ -24,10 +25,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Declarations
             for (int index = 0; index < Names.Length; index++)
                 enums = enums + Names[index] + " = " + Values[index] + ",\r\n";
 
-            return $@"
-enum {Name} {{
-    {enums.Trim()}
-}}";
+            return $"   enum {Name} {{\r\n" +
+                   $"       {enums.Trim()}\r\n" +
+                   "   }";
         }
     }
 }

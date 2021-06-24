@@ -1,4 +1,6 @@
-﻿using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
+﻿using System.Linq;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
+using Jint.Native;
 using Serilog;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
@@ -12,31 +14,38 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
             _logger = logger;
         }
 
-        public void Log(object logObject)
+        public void Log(params JsValue[] logObjects)
         {
-            _logger.Debug(logObject?.ToString());
+            if (logObjects.Length == 0)
+                _logger.Debug("undefined");
+            else
+                _logger.Debug(string.Join(" ", logObjects.Select(l => l.ToString())));
         }
 
-        public void Info(object logObject)
+        public void Info(params JsValue[] logObjects)
         {
-            _logger.Information(logObject?.ToString());
+            if (logObjects.Length == 0)
+                _logger.Information("undefined");
+            else
+                _logger.Information(string.Join(" ", logObjects.Select(l => l.ToString())));
         }
 
-        public void Warn(object logObject)
+        public void Warn(params JsValue[] logObjects)
         {
-            _logger.Warning(logObject?.ToString());
+            if (logObjects.Length == 0)
+                _logger.Warning("undefined");
+            else
+                _logger.Warning(string.Join(" ", logObjects.Select(l => l.ToString())));
         }
 
-        public void Error(object logObject)
+        public void Error(params JsValue[] logObjects)
         {
-            _logger.Error(logObject?.ToString());
+            if (logObjects.Length == 0)
+                _logger.Error("undefined");
+            else
+                _logger.Error(string.Join(" ", logObjects.Select(l => l.ToString())));
         }
 
         public string Name => "console";
-    }
-
-    public interface IScriptBinding
-    {
-        public string Name { get; }
     }
 }

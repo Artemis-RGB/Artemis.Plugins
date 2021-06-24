@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Scripts;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Utilities;
 using Esprima;
 using Jint;
 using Jint.Runtime;
+using Jint.Runtime.Interop;
 using Ninject;
 using Ninject.Parameters;
 using Serilog;
@@ -34,7 +37,19 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
 
         public Script Script { get; }
         public Engine Engine { get; private set; }
-        public Dictionary<string, object> ExtraValues { get; } = new();
+        public Dictionary<string, IManualScriptBinding> ExtraValues { get; } = new();
+
+        public Dictionary<string, Assembly> ExtraAssemblies { get; } = new()
+        {
+            {"Artemis.Core", typeof(Profile).Assembly},
+            {"SkiaSharp", typeof(SKColor).Assembly}
+        };
+
+        public List<Type> ExtraTypes { get; } = new()
+        {
+            typeof(TimeSpan),
+            typeof(EasingNumber)
+        };
 
         /// <summary>
         ///     Disposes the old engine, creates a fresh engine and executes the current script in it
@@ -49,20 +64,31 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             _cts = new CancellationTokenSource();
             Engine = new Engine(options =>
             {
-                // Limit memory allocations to 100 MB
-                // options.LimitMemory(100_000_000);
                 options.CancellationToken(_cts.Token);
-                options.AllowClr(typeof(SKCanvas).Assembly);
+                options.AllowClr(ExtraAssemblies.Values.ToArray());
+                options.Strict(false);
             });
 
-            Engine.Execute("const SkiaSharp = importNamespace('SkiaSharp')");
+            // Get rid of these straight away, ain't nobody got time for that
+            Engine.Global.RemoveOwnProperty(Engine.Global.GetOwnProperties().First(p => p.Key.AsString() == "System").Key);
+            Engine.Global.RemoveOwnProperty(Engine.Global.GetOwnProperties().First(p => p.Key.AsString() == "importNamespace").Key);
 
+            // Register extra assemblies by their namespace
+            foreach ((string name, Assembly _) in ExtraAssemblies)
+                Engine.SetValue(name, new NamespaceReference(Engine, name));
+
+            // Register script bindings
             List<IScriptBinding> scriptBindings = _plugin.Kernel!.GetAll<IScriptBinding>(new ConstructorArgument("engine", this)).ToList();
-            foreach (IScriptBinding scriptBinding in scriptBindings)
+            foreach (IScriptBinding scriptBinding in scriptBindings.Where(b => b.Name != null))
                 Engine.SetValue(scriptBinding.Name, scriptBinding);
-            foreach ((string key, object value) in ExtraValues) 
-                Engine.SetValue(key, value);
 
+            // Register extra values, whatever they may be
+            foreach ((string key, object value) in ExtraValues)
+                Engine.SetValue(key, value);
+            foreach (Type extraType in ExtraTypes)
+                Engine.SetValue(extraType.Name, TypeReference.CreateTypeReference(Engine, extraType));
+
+            // Execute the script in a separate thread until the cancellation token is cancelled
             Task.Run(() =>
             {
                 try

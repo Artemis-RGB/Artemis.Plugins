@@ -19,11 +19,6 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
             _engine.ExecuteScript();
         }
 
-        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
-        {
-            _engine.ExecuteScript();
-        }
-
         #region IDisposable
 
         /// <inheritdoc />
@@ -39,5 +34,10 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
         }
 
         #endregion
+
+        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
+        {
+            _engine.ExecuteScript();
+        }
     }
 }

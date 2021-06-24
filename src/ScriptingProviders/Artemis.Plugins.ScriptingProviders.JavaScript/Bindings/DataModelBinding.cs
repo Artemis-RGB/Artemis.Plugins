@@ -27,9 +27,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
                     name = $"{stripped}<{string.Join(", ", ((TypeInfo) type).GenericTypeParameters.Select(t => t.Name))}>";
                 }
                 else
-                {
                     name = type.Name;
-                }
 
                 string variableName = "dataModel" + Guid.NewGuid().ToString().Substring(0, 8);
                 engine.Engine.SetValue(variableName, dataModel);

@@ -20,23 +20,21 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Prerequisites
         }
 
         /// <inheritdoc />
-        public override bool IsMet()
-        {
-            return Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}", false) != null;
-        }
-
-        /// <inheritdoc />
         public override string Name => "WebView 2 Runtime";
 
         /// <inheritdoc />
         public override string Description => "The runtime required to use the code editor";
-        
+
         /// <inheritdoc />
         public override List<PluginPrerequisiteAction> InstallActions { get; }
 
         /// <inheritdoc />
         public override List<PluginPrerequisiteAction> UninstallActions { get; }
 
-     
+        /// <inheritdoc />
+        public override bool IsMet()
+        {
+            return Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}", false) != null;
+        }
     }
 }

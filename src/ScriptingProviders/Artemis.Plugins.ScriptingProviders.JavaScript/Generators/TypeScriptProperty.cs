@@ -4,12 +4,13 @@ using System.Reflection;
 using Artemis.Core;
 using Artemis.Core.Modules;
 
-namespace Artemis.Plugins.ScriptingProviders.JavaScript.Declarations
+namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
 {
     public class TypeScriptProperty
     {
         public TypeScriptProperty(PropertyInfo propertyInfo)
         {
+            PropertyInfo = propertyInfo;
             DataModelPropertyAttribute dataModelPropertyAttribute = propertyInfo.GetCustomAttribute<DataModelPropertyAttribute>();
 
             Name = propertyInfo.Name;
@@ -38,20 +39,22 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Declarations
         public string Name { get; set; }
         public string Type { get; set; }
         public string Comment { get; set; }
+        public PropertyInfo PropertyInfo { get; }
 
         public string GenerateCode()
         {
+            string prefix = PropertyInfo.GetSetMethod() != null ? "" : "readonly ";
             if (string.IsNullOrWhiteSpace(Comment))
-                return @$"        readonly {Name}: {Type}";
+                return $"{prefix}{Name}: {Type}";
 
-            return @$"    
-        /**
-        * {Comment}
-        */
-        readonly {Name}: {Type}";
+            return "/**\r\n" +
+                   $"* {Comment}\r\n" +
+                   "*/\r\n" +
+                   $"{prefix}{Name}: {Type}";
         }
 
-        private string GetTypeScriptType(Type type)
+
+        public static string GetTypeScriptType(Type type)
         {
             if (type.TypeIsNumber())
                 return "number";
@@ -59,7 +62,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Declarations
                 return "boolean";
             if (type == typeof(string))
                 return "string";
-            return type.Name;
+            if (type == typeof(void))
+                return "void";
+            return type.FullName?.Replace("+", "") ?? type.Name;
         }
     }
 }
