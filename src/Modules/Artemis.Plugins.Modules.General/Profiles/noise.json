@@ -10,8 +10,11 @@
     "IsSuspended": false,
     "ActivationBehaviour": 0,
     "ActivationCondition": null,
+    "HotkeyMode": 0,
+    "EnableHotkey": null,
+    "DisableHotkey": null,
     "ModuleId": null,
-    "ProfileCategoryId": "06bb0837-f6b3-4274-92e9-3d79546bc0bb",
+    "ProfileCategoryId": "75d28e9a-4d00-4a7e-b85b-74601ac5cee3",
     "ProfileId": "61c482de-75ef-4bd4-81f2-1c211791618e"
   },
   "ProfileEntity": {
@@ -87,6 +90,10 @@
               }
             ]
           },
+          "ScriptConfigurations": {
+            "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+            "$values": []
+          },
           "Profile": null,
           "ProfileId": "61c482de-75ef-4bd4-81f2-1c211791618e",
           "Id": "851c8191-328e-441b-84c0-c06e5e00c94f",
@@ -111,6 +118,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -125,6 +136,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -141,6 +156,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -155,6 +174,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -171,6 +194,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -185,6 +212,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -201,6 +232,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -215,6 +250,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -231,6 +270,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -245,6 +288,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -261,6 +308,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -275,6 +326,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -291,6 +346,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -305,6 +364,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -321,6 +384,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -335,6 +402,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -351,6 +422,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -365,6 +440,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -381,6 +460,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -395,6 +478,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -411,6 +498,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -425,6 +516,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -441,6 +536,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -455,6 +554,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -471,6 +574,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -485,6 +592,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -501,6 +612,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -515,6 +630,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               }
@@ -566,6 +685,10 @@
               }
             ]
           },
+          "ScriptConfigurations": {
+            "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+            "$values": []
+          },
           "Profile": null,
           "ProfileId": "61c482de-75ef-4bd4-81f2-1c211791618e",
           "Id": "f7dd6457-41f2-4441-9f12-9eb88a6520e1",
@@ -590,6 +713,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -604,6 +731,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -620,6 +751,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -634,6 +769,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -650,6 +789,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -664,6 +807,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -680,6 +827,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -694,6 +845,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -710,6 +865,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -724,6 +883,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -740,6 +903,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -754,6 +921,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -770,6 +941,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -784,6 +959,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -800,6 +979,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -814,6 +997,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -830,6 +1017,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -844,6 +1035,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -860,6 +1055,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -874,6 +1073,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -890,6 +1093,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -905,13 +1112,17 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
                 "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
                 "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
                 "Path": "LayerBrush.GradientColor",
-                "Value": "[{\"Color\":\"#ffff6d00\",\"Position\":0.0},{\"Color\":\"#ffef1788\",\"Position\":0.397},{\"Color\":\"#ffec05a6\",\"Position\":0.595},{\"Color\":\"#ff00fccc\",\"Position\":1.0}]",
+                "Value": "[{\"Color\":\"#ffff6d00\",\"Position\":0.0},{\"Color\":\"#ffff6d00\",\"Position\":0.25},{\"Color\":\"#ffef1788\",\"Position\":0.397},{\"Color\":\"#ffef1788\",\"Position\":0.587},{\"Color\":\"#ff00fccc\",\"Position\":0.75},{\"Color\":\"#ff00fccc\",\"Position\":1.0}]",
                 "KeyframesEnabled": false,
                 "KeyframeEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
@@ -919,6 +1130,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -926,7 +1141,7 @@
                 "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
                 "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
                 "Path": "LayerBrush.Scale",
-                "Value": "{\"IsEmpty\":false,\"Width\":250.0,\"Height\":250.0}",
+                "Value": "{\"IsEmpty\":false,\"Width\":100.0,\"Height\":100.0}",
                 "KeyframesEnabled": false,
                 "KeyframeEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
@@ -934,6 +1149,10 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               },
@@ -950,6 +1169,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -965,6 +1188,10 @@
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
                 }
               },
               {
@@ -979,6 +1206,48 @@
                 },
                 "DataBindingEntities": {
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.SegmentColors",
+                "Value": "false",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Segments",
+                "Value": "2",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
               }
@@ -1010,6 +1279,10 @@
           }
         }
       ]
+    },
+    "ScriptConfigurations": {
+      "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+      "$values": []
     }
   },
   "ProfileImage": null
