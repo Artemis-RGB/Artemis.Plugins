@@ -2,15 +2,16 @@
 using System.Collections.Specialized;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
-using Artemis.Plugins.LayerBrushes.Noise.Utilities;
 using SkiaSharp;
+using static Artemis.Plugins.LayerBrushes.Noise.FractalProperties;
+using static FastNoiseLite;
 
 namespace Artemis.Plugins.LayerBrushes.Noise
 {
     public class NoiseBrush : PerLedLayerBrush<NoiseBrushProperties>
     {
         private static readonly Random Rand = new();
-        private readonly OpenSimplex2S _noise;
+        private readonly FastNoiseLite _noise;
         private SKColor[] _colorMap;
         private float _x;
         private float _y;
@@ -21,25 +22,55 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             _x = Rand.Next(0, 4096);
             _y = Rand.Next(0, 4096);
             _z = Rand.Next(0, 4096);
-            _noise = new OpenSimplex2S(Rand.Next(0, 4096));
+            _noise = new FastNoiseLite(Rand.Next(0, 4096));            
         }
 
         public override void EnableLayerBrush()
         {
-            Properties.GradientColor.BaseValue.CollectionChanged += GradientOnCollectionChanged;
+            Properties.LayerPropertyOnCurrentValueSet += LayerPropertyOnCurrentValueSet;
+            Properties.Colors.GradientColor.BaseValue.CollectionChanged += GradientOnCollectionChanged;
+            Properties.Colors.GradientColor.CurrentValueSet += UpdateGradientEvent;
             CreateColorMap();
+        }
+
+        private void LayerPropertyOnCurrentValueSet(object sender, LayerPropertyEventArgs e)
+        {
+            Update(0);
         }
 
         public override void DisableLayerBrush()
         {
-            Properties.GradientColor.BaseValue.CollectionChanged -= GradientOnCollectionChanged;
+            Properties.Colors.GradientColor.BaseValue.CollectionChanged -= GradientOnCollectionChanged;
+            Properties.Colors.GradientColor.CurrentValueSet -= UpdateGradientEvent;
         }
 
         public override void Update(double deltaTime)
         {
-            _x += Properties.ScrollSpeed.CurrentValue.X / 500f / (float) deltaTime;
-            _y += Properties.ScrollSpeed.CurrentValue.Y / 500f / (float) deltaTime;
-            _z += Properties.AnimationSpeed.CurrentValue / 500f / 0.04f * (float) deltaTime;
+            _x += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
+            _y += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
+            _z += Properties.AnimationSpeed.CurrentValue * 2 * (float) deltaTime;
+
+            _noise.SetNoiseType(Properties.NoiseType);
+            _noise.SetFractalType((FractalType)Properties.Fractal.FractalType.CurrentValue);
+
+            // Fractal settings
+            if (Properties.Fractal.FractalType.CurrentValue != PropertiesFractalType.None)
+            {
+                _noise.SetFractalOctaves(Properties.Fractal.Octaves);
+                _noise.SetFractalLacunarity(Properties.Fractal.Lacunarity);
+                _noise.SetFractalGain(Properties.Fractal.Gain);
+                _noise.SetFractalWeightedStrength(Properties.Fractal.WeightedStrength);                
+            }
+            if (Properties.Fractal.FractalType.CurrentValue == PropertiesFractalType.PingPong)
+                _noise.SetFractalPingPongStrength(Properties.Fractal.PingPongStrength);
+
+            // Cellular settings
+            if (Properties.NoiseType.CurrentValue == NoiseType.Cellular)
+            {
+                _noise.SetCellularDistanceFunction(Properties.Cellular.DistanceFunction);
+                _noise.SetCellularReturnType(Properties.Cellular.ReturnType);
+                _noise.SetCellularJitter(Properties.Cellular.Jitter);
+            }
 
             // A telltale sign of someone who can't do math very well
             if (float.IsPositiveInfinity(_x) || float.IsNegativeInfinity(_x) || float.IsNaN(_x))
@@ -52,12 +83,6 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 
         public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
         {
-            SKColor mainColor = Properties.MainColor.CurrentValue;
-            SKColor secondColor = Properties.SecondaryColor.CurrentValue;
-            ColorGradient gradientColor = Properties.GradientColor.CurrentValue;
-            SKSize scale = Properties.Scale.CurrentValue;
-            int segments = Properties.Segments.CurrentValue - 1;
-
             float scrolledX = renderPoint.X + _x;
             if (float.IsNaN(scrolledX) || float.IsInfinity(scrolledX))
                 scrolledX = 0;
@@ -65,23 +90,25 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             if (float.IsNaN(scrolledY) || float.IsInfinity(scrolledY))
                 scrolledY = 0;
 
-            float width = 1f / (MathF.Max(scale.Width, 0.001f) / 25f);
-            float height = 1f / (MathF.Max(scale.Height, 0.001f) / 25f);
+            SKSize scale = Properties.Scale.CurrentValue;
+            float width = 1f / (MathF.Max(scale.Width, 0.001f) / 50f);
+            float height = 1f / (MathF.Max(scale.Height, 0.001f) / 50f);
 
-            float evalX = scrolledX * (width / 40f);
-            float evalY = scrolledY * (height / 40f);
+            float evalX = scrolledX * width;
+            float evalY = scrolledY * height;
 
             // v should be between -1 and 1
-            float v = (float) _noise.Noise3_Classic(evalX, evalY, _z);
+            float v = Math.Clamp(_noise.GetNoise(evalX, evalY, _z), -1f, 1f);
             // normalize to between 0 and 1
-            float amount = (Math.Clamp(v, -1f, 1f) + 1f) / 2f;
+            float amount = (v + 1f) / 2f;
 
-            if (Properties.SegmentColors && segments > 0)
+            int segments = Properties.Colors.Segments.CurrentValue - 1;
+            if (Properties.Colors.SegmentColors && segments > 0)
                 amount = MathF.Round(amount * segments, MidpointRounding.ToEven) / segments;
 
-            if (Properties.ColorType.BaseValue == ColorMappingType.Simple)
-                return mainColor.Interpolate(secondColor, amount);
-            if (gradientColor != null && _colorMap.Length == 100)
+            if (Properties.Colors.ColorType.BaseValue == ColorMappingType.Simple)
+                return Properties.Colors.MainColor.CurrentValue.Interpolate(Properties.Colors.SecondaryColor.CurrentValue, amount);
+            if (Properties.Colors.GradientColor.CurrentValue != null && _colorMap.Length == 100)
                 return _colorMap[Math.Clamp((int) (amount * 100), 0, 99)];
             return SKColor.Empty;
         }
@@ -91,11 +118,17 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             CreateColorMap();
         }
 
+        private void UpdateGradientEvent(object sender, LayerPropertyEventArgs e)
+        {
+            Properties.Colors.GradientColor.BaseValue.CollectionChanged += GradientOnCollectionChanged;
+            CreateColorMap();
+        }
+
         private void CreateColorMap()
         {
             SKColor[] colorMap = new SKColor[100];
             for (int i = 0; i < 100; i++)
-                colorMap[i] = Properties.GradientColor.BaseValue.GetColor(i / 99f);
+                colorMap[i] = Properties.Colors.GradientColor.BaseValue.GetColor(i / 99f);
 
             _colorMap = colorMap;
         }

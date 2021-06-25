@@ -3,7 +3,7 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Noise
 {
-    public class NoiseBrushProperties : LayerPropertyGroup
+    public class ColorProperties : LayerPropertyGroup
     {
         [PropertyDescription(Name = "Color mapping type", Description = "The way the noise is converted to colors")]
         public EnumLayerProperty<ColorMappingType> ColorType { get; set; }
@@ -23,24 +23,8 @@ namespace Artemis.Plugins.LayerBrushes.Noise
         [PropertyDescription(Name = "Amount of segments", Description = "The segments in which to split the noise up", MinInputValue = 2, MaxInputValue = 8)]
         public IntLayerProperty Segments { get; set; }
 
-        [PropertyDescription(Description = "The scale of the noise", MinInputValue = 0f, InputAffix = "%")]
-        public SKSizeLayerProperty Scale { get; set; }
-
-        [PropertyDescription(Description = "The speed at which the noise moves vertically and horizontally", MinInputValue = -64f, MaxInputValue = 64f)]
-        public SKPointLayerProperty ScrollSpeed { get; set; }
-
-        [PropertyDescription(Description = "The speed at which the noise moves", MinInputValue = 0f, MaxInputValue = 64f)]
-        public FloatLayerProperty AnimationSpeed { get; set; }
-
-        protected override void PopulateDefaults()
+        protected override void DisableProperties()
         {
-            MainColor.DefaultValue = new SKColor(255, 0, 0);
-            SecondaryColor.DefaultValue = new SKColor(0, 0, 255);
-            GradientColor.DefaultValue = ColorGradient.GetUnicornBarf();
-            Scale.DefaultValue = new SKSize(100, 100);
-            SegmentColors.DefaultValue = false;
-            Segments.DefaultValue = 2;
-            AnimationSpeed.DefaultValue = 25f;
         }
 
         protected override void EnableProperties()
@@ -51,8 +35,14 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             SecondaryColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Simple);
         }
 
-        protected override void DisableProperties()
+        protected override void PopulateDefaults()
         {
+            ColorType.DefaultValue = ColorMappingType.Gradient;
+            MainColor.DefaultValue = new SKColor(255, 0, 0);
+            SecondaryColor.DefaultValue = new SKColor(0, 0, 255);
+            GradientColor.DefaultValue = ColorGradient.GetUnicornBarf();
+            SegmentColors.DefaultValue = false;
+            Segments.DefaultValue = 2;
         }
     }
 }
