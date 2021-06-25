@@ -1250,15 +1250,316 @@
                   "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
                   "$values": []
                 }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.NoiseType",
+                "Value": "0",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Colors.ColorType",
+                "Value": "1",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Colors.MainColor",
+                "Value": "\"#ffff0000\"",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Colors.SecondaryColor",
+                "Value": "\"#ff0000ff\"",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Colors.GradientColor",
+                "Value": "[{\"Color\":\"#ffff6d00\",\"Position\":0.0},{\"Color\":\"#fffe6806\",\"Position\":0.2},{\"Color\":\"#ffef1788\",\"Position\":0.4},{\"Color\":\"#ffef1788\",\"Position\":0.6},{\"Color\":\"#ff00fccc\",\"Position\":0.8},{\"Color\":\"#ff00fccc\",\"Position\":1.0}]",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Colors.SegmentColors",
+                "Value": "false",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Colors.Segments",
+                "Value": "2",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Fractal.FractalType",
+                "Value": "0",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Fractal.Octaves",
+                "Value": "5",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Fractal.Lacunarity",
+                "Value": "2.0",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Fractal.Gain",
+                "Value": "0.5",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Fractal.WeightedStrength",
+                "Value": "0.0",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Fractal.PingPongStrength",
+                "Value": "2.0",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Cellular.DistanceFunction",
+                "Value": "1",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Cellular.ReturnType",
+                "Value": "1",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
+              },
+              {
+                "$type": "Artemis.Storage.Entities.Profile.PropertyEntity, Artemis.Storage",
+                "FeatureId": "Artemis.Plugins.LayerBrushes.Noise.NoiseBrushProvider-61cbbf01",
+                "Path": "LayerBrush.Cellular.Jitter",
+                "Value": "1.0",
+                "KeyframesEnabled": false,
+                "KeyframeEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.KeyframeEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "DataBindingEntities": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.Profile.DataBindings.DataBindingEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "ScriptConfigurations": {
+                  "$type": "System.Collections.Generic.List`1[[Artemis.Storage.Entities.General.ScriptConfigurationEntity, Artemis.Storage]], System.Private.CoreLib",
+                  "$values": []
+                }
               }
             ]
           },
           "ExpandedPropertyGroups": {
             "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
-            "$values": [
-              "General",
-              "LayerBrush"
-            ]
+            "$values": []
           },
           "DisplayCondition": {
             "$type": "Artemis.Storage.Entities.Profile.Conditions.DataModelConditionGroupEntity, Artemis.Storage",
