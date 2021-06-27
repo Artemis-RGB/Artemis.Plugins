@@ -15,7 +15,6 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         public SKPoint Position { get; set; }
         public SKPaint Paint { get; set; }
         public double Progress { get; set; }
-        public bool Fade { get; set; }
 
         public KeyPressEcho(KeypressBrush brush, ArtemisLed led, SKPoint position)
         {
@@ -47,8 +46,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
 
         public void Update(double deltaTime)
         {
-            if (Fade)
-                Progress += deltaTime * (1f / _brush.Properties.EchoLifetime.CurrentValue);
+            Progress += deltaTime * (1f / _brush.Properties.EchoLifetime.CurrentValue);
             UpdatePaint(false);
         }
 
@@ -61,7 +59,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                 Led.AbsoluteRectangle.Height
             );
             
-            if (Fade)
+            if (_brush.Properties.FadeEcho.CurrentValue)
             {
                 if (Progress > 1)
                     return;
@@ -73,14 +71,13 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
 
         public void Respawn()
         {
-            Fade = false;
             Progress = 0;
             UpdatePaint(true);
         }
 
         public void Despawn()
         {
-            Fade = true;
+
         }
     }
 }
