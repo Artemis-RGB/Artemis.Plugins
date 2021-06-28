@@ -120,14 +120,14 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             UpdatePaint();
         }
 
-        public bool AllowDuplicates => _brush.Properties.RippleBehivor == RippleBehivor.CreateNewRipple;
+        public bool AllowDuplicates => _brush.Properties.RippleBehavior == RippleBehavior.CreateNewRipple;
         public bool Finished => Size < 0f;
         public ArtemisLed Led { get; }
         public SKPoint Position { get; set; }
 
         public void Update(double deltaTime)
         {
-            if (_brush.Properties.RippleBehivor.CurrentValue == RippleBehivor.ContinuousWhileKeyPressed)
+            if (_brush.Properties.RippleBehavior.CurrentValue == RippleBehavior.ContinuousWhileKeyPressed)
                 UpdateContinuous(deltaTime);
             else
                 UpdateOne(deltaTime);
@@ -159,13 +159,13 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
         public void Respawn()
         {
             Expand = true;
-            if (_brush.Properties.RippleBehivor == RippleBehivor.ResetCurrentRipple)
+            if (_brush.Properties.RippleBehavior == RippleBehavior.ResetCurrentRipple)
                 Size = 0;
         }
 
         public void Despawn()
         {
-            if (_brush.Properties.RippleBehivor.CurrentValue == RippleBehivor.ContinuousWhileKeyPressed)
+            if (_brush.Properties.RippleBehavior.CurrentValue == RippleBehavior.ContinuousWhileKeyPressed)
                 Expand = false;
         }
     }

@@ -1,4 +1,5 @@
 using Artemis.Core;
+using Artemis.Core.Services;
 using SkiaSharp;
 
 namespace Artemis.Plugins.Input.LayerBrush.Keypress
@@ -16,6 +17,11 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
 
         public SKColorLayerProperty Color { get; set; }
 
+        [PropertyDescription(Description = "This option limit the input events to one single key.")]
+        public BoolLayerProperty OneKeyMode { get; set; }
+        [PropertyDescription(Description = "Key used to trigger ripples when using Enable One Key mode is enabled.")]
+        public EnumLayerProperty<KeyboardKey> Key { get; set; }
+
         // Echo
 
         [PropertyDescription(Description = "If enabled, the echo fades out after you release the key.")]
@@ -27,7 +33,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         // Ripple
 
         [PropertyDescription(Description = "Set how ripple will respond to a keypress.")]
-        public EnumLayerProperty<RippleBehivor> RippleBehivor { get; set; }
+        public EnumLayerProperty<RippleBehavior> RippleBehavior { get; set; }
 
         [PropertyDescription(Description = "Fade away ripple effect mode.")]
         public EnumLayerProperty<RippleFadeOutMode> RippleFadeAway { get; set; }
@@ -52,12 +58,12 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         [PropertyDescription(Description = "Expand speed of the ripple.")]
         public FloatLayerProperty CircleGrowthSpeed { get; set; }
 
-
-
         protected override void PopulateDefaults()
         {
             Color.DefaultValue = new SKColor(255, 0, 0);
             Colors.DefaultValue = ColorGradient.GetUnicornBarf();
+            OneKeyMode.DefaultValue = false;
+            Key.DefaultValue = KeyboardKey.None;
 
             //Echo
             FadeEcho.DefaultValue = true;
@@ -67,7 +73,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             RippleWidth.DefaultValue = 40;
             RippleSize.DefaultValue = 200;
             RippleGrowthSpeed.DefaultValue = 300;
-            RippleBehivor.DefaultValue = Keypress.RippleBehivor.OneAtATime;
+            RippleBehavior.DefaultValue = Keypress.RippleBehavior.OneAtATime;
             RippleFadeAway.DefaultValue = RippleFadeOutMode.Linear;
             RippleTrail.DefaultValue = true;
 
@@ -81,6 +87,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             // Shared
             Colors.IsVisibleWhen(ColorMode, c => c.CurrentValue == ColorType.Gradient || c.CurrentValue == ColorType.ColorChange);
             Color.IsVisibleWhen(ColorMode, c => c.CurrentValue == ColorType.Solid);
+            Key.IsVisibleWhen(OneKeyMode, c => c.CurrentValue);
 
             // Echo
             FadeEcho.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Echo);
@@ -91,7 +98,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
             RippleFadeAway.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleSize.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleGrowthSpeed.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
-            RippleBehivor.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
+            RippleBehavior.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
             RippleTrail.IsVisibleWhen(Animation, a => a.CurrentValue == AnimationType.Ripple);
 
             //Circle
@@ -127,7 +134,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         Ripple = 1,
         Echo = 2
     }
-    public enum RippleBehivor
+    public enum RippleBehavior
     {
         OneAtATime = 0,
         ResetCurrentRipple = 1,
