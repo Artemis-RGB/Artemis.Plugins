@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerBrushe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScriptingProvider", "ScriptingProvider", "{8BDBF03F-4460-4541-926F-B9E699989072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.ScriptingProviders.JavaScript", "ScriptingProviders\Artemis.Plugins.ScriptingProviders.JavaScript\Artemis.Plugins.ScriptingProviders.JavaScript.csproj", "{7A58ABC9-436D-419E-82BA-2C4A4EFFC0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.ScriptingProviders.JavaScript", "ScriptingProviders\Artemis.Plugins.ScriptingProviders.JavaScript\Artemis.Plugins.ScriptingProviders.JavaScript.csproj", "{7A58ABC9-436D-419E-82BA-2C4A4EFFC0AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

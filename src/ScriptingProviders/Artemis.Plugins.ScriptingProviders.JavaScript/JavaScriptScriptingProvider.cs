@@ -16,7 +16,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript
         {
             _kernel = kernel;
         }
-
+        
         public override string LanguageName => "JavaScript";
 
         public override void Enable()
@@ -27,24 +27,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript
         {
         }
 
-        public override IScriptEditorViewModel CreateGlobalScriptEditor(JavaScriptGlobalScript script)
+        public override IScriptEditorViewModel CreateScriptEditor(ScriptType scriptType)
         {
-            return _kernel.Get<JavaScriptScriptEditorViewModel>(new ConstructorArgument("script", script));
-        }
-
-        public override IScriptEditorViewModel CreateProfileScriptEditor(JavaScriptProfileScript script)
-        {
-            return _kernel.Get<JavaScriptScriptEditorViewModel>(new ConstructorArgument("script", script));
-        }
-
-        public override IScriptEditorViewModel CreateLayerScriptScriptEditor(JavaScriptLayerScript script)
-        {
-            return _kernel.Get<JavaScriptScriptEditorViewModel>(new ConstructorArgument("script", script));
-        }
-
-        public override IScriptEditorViewModel CreatePropertyScriptEditor(JavaScriptLayerPropertyScript script)
-        {
-            return _kernel.Get<JavaScriptScriptEditorViewModel>(new ConstructorArgument("script", script));
+            return _kernel.Get<MonacoEditorViewModel>(new ConstructorArgument("scriptType", scriptType));
         }
     }
 }

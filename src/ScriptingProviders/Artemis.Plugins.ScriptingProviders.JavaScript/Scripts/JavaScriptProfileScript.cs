@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual;
@@ -60,7 +61,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
 
         #endregion
 
-        private void ConfigurationOnScriptContentChanged(object sender, EventArgs e)
+        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
         {
             Engine.ExecuteScript();
         }
@@ -70,6 +71,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
 
     public interface IJavaScriptScript
     {
+        ScriptConfiguration ScriptConfiguration { get; }
         PluginJintEngine Engine { get; }
     }
 }
