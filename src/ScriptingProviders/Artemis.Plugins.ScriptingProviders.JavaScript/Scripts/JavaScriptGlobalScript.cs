@@ -7,16 +7,21 @@ using Ninject.Parameters;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
 {
-    public class JavaScriptGlobalScript : GlobalScript
+    public class JavaScriptGlobalScript : GlobalScript, IJavaScriptScript
     {
-        private readonly PluginJintEngine _engine;
-
         public JavaScriptGlobalScript(Plugin plugin, ScriptConfiguration configuration) : base(configuration)
         {
             ScriptConfiguration.ScriptContentChanged += ConfigurationOnScriptContentChanged;
 
-            _engine = plugin.Kernel!.Get<PluginJintEngine>(new ConstructorArgument("script", this));
-            _engine.ExecuteScript();
+            Engine = plugin.Kernel!.Get<PluginJintEngine>(new ConstructorArgument("script", this));
+            Engine.ExecuteScript();
+        }
+
+        public PluginJintEngine Engine { get; }
+
+        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
+        {
+            Engine.ExecuteScript();
         }
 
         #region IDisposable
@@ -27,17 +32,12 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
             if (disposing)
             {
                 ScriptConfiguration.ScriptContentChanged -= ConfigurationOnScriptContentChanged;
-                _engine.Dispose();
+                Engine.Dispose();
             }
 
             base.Dispose(disposing);
         }
 
         #endregion
-
-        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
-        {
-            _engine.ExecuteScript();
-        }
     }
 }

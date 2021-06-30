@@ -23,7 +23,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
                           "declare class DataModelContainer {\r\n" +
                           $"{rootClasses}\r\n" +
                           "}\r\n" +
-                          "const dataModel = new DataModelContainer();";
+                          "const DataModel = new DataModelContainer();";
             return code;
         }
     }

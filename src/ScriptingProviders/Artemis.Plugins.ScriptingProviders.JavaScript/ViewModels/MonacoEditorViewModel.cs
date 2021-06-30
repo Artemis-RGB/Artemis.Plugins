@@ -132,7 +132,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
                 };
             }
 
-            _dataModelDeclarations = GenerateDataModelJavaScript();
+            _dataModelDeclarations = GenerateDataModelDeclarations();
             _assembliesDeclarations = GenerateAssembliesDeclarations(javaScriptScript.Engine.ExtraAssemblies);
             _extraDeclarations = $"{GenerateExtraDeclarations(javaScriptScript.Engine.ExtraValues)}\r\n" +
                                  $"{GenerateExtraTypeDeclarations(javaScriptScript.Engine.ExtraTypes)}";
@@ -193,7 +193,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
             LoadingEditor = false;
         }
 
-        private string GenerateDataModelJavaScript()
+        private string GenerateDataModelDeclarations()
         {
             TypeScriptDataModelCollection dataModelCollection = new(_dataModelService.GetDataModels());
             return dataModelCollection.GenerateCode();

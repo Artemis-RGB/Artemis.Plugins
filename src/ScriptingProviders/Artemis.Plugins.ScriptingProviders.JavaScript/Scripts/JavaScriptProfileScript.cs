@@ -21,9 +21,11 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
             Engine = plugin.Kernel!.Get<PluginJintEngine>(new ConstructorArgument("script", this));
             _profileBinding = new ProfileBinding(profile, plugin, Engine);
 
-            Engine.ExtraValues.Add("profile", _profileBinding);
+            Engine.ExtraValues.Add("Profile", _profileBinding);
             Engine.ExecuteScript();
         }
+
+        public PluginJintEngine Engine { get; }
 
         public override void OnProfileUpdating(double deltaTime)
         {
@@ -45,6 +47,11 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
             _profileBinding.ProfileRendered(canvas, bounds);
         }
 
+        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
+        {
+            Engine.ExecuteScript();
+        }
+
         #region IDisposable
 
         /// <inheritdoc />
@@ -60,18 +67,5 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
         }
 
         #endregion
-
-        private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
-        {
-            Engine.ExecuteScript();
-        }
-
-        public PluginJintEngine Engine { get; }
-    }
-
-    public interface IJavaScriptScript
-    {
-        ScriptConfiguration ScriptConfiguration { get; }
-        PluginJintEngine Engine { get; }
     }
 }

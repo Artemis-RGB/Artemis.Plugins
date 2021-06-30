@@ -12,7 +12,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
     {
         public DataModelBinding(PluginJintEngine engine, IDataModelService dataModelService)
         {
-            engine.Engine.Execute("const dataModel = {}");
+            engine.Engine.Execute("const DataModel = {}");
 
             List<DataModel> list = dataModelService.GetDataModels();
             for (int index = 0; index < list.Count; index++)
@@ -29,16 +29,16 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
                 else
                     name = type.Name;
 
-                string variableName = "dataModel" + Guid.NewGuid().ToString().Substring(0, 8);
+                string variableName = "DataModel" + Guid.NewGuid().ToString().Substring(0, 8);
                 engine.Engine.SetValue(variableName, dataModel);
-                engine.Engine.Execute($"dataModel.{name} = {variableName}");
+                engine.Engine.Execute($"DataModel.{name} = {variableName}");
             }
         }
 
         #region Implementation of IScriptBinding
 
         /// <inheritdoc />
-        public string Name => "dataModelService";
+        public string? Name => null;
 
         #endregion
     }

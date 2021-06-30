@@ -6,8 +6,6 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
 {
     public class EasingBinding : IScriptBinding
     {
-        private readonly Plugin _plugin;
-
         public EasingBinding(PluginJintEngine engine)
         {
             TypeScriptEnum typeScriptEnum = new(typeof(Easings.Functions));

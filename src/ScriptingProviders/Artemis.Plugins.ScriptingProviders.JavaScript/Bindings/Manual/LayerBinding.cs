@@ -11,24 +11,24 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 {
-    public class ProfileBinding : IManualScriptBinding
+    public class LayerBinding : IManualScriptBinding
     {
         private readonly Plugin _plugin;
         private readonly PluginJintEngine _pluginJintEngine;
-        private readonly Profile _profile;
+        private readonly Layer _layer;
         private readonly List<FunctionInstance> _renderedCallbacks = new();
         private readonly List<FunctionInstance> _renderingCallbacks = new();
         private readonly List<FunctionInstance> _updatedCallbacks = new();
         private readonly List<FunctionInstance> _updatingCallbacks = new();
 
-        public ProfileBinding(Profile profile, Plugin plugin, PluginJintEngine pluginJintEngine)
+        public LayerBinding(Layer layer, Plugin plugin, PluginJintEngine pluginJintEngine)
         {
-            _profile = profile;
+            _layer = layer;
             _plugin = plugin;
             _pluginJintEngine = pluginJintEngine;
         }
 
-        internal void ProfileUpdating(double deltaTime)
+        internal void LayerUpdating(double deltaTime)
         {
             foreach (FunctionInstance callback in _updatingCallbacks.ToList())
             {
@@ -43,7 +43,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             }
         }
 
-        internal void ProfileUpdated(double deltaTime)
+        internal void LayerUpdated(double deltaTime)
         {
             foreach (FunctionInstance callback in _updatedCallbacks.ToList())
             {
@@ -58,7 +58,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             }
         }
 
-        internal void ProfileRendering(SKCanvas canvas, SKRect bounds)
+        internal void LayerRendering(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
             if (_pluginJintEngine.Engine == null)
                 return;
@@ -66,7 +66,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             JsValue[] arguments =
             {
                 JsValue.FromObject(_pluginJintEngine.Engine, canvas),
-                JsValue.FromObject(_pluginJintEngine.Engine, bounds)
+                JsValue.FromObject(_pluginJintEngine.Engine, bounds),
+                JsValue.FromObject(_pluginJintEngine.Engine, paint)
             };
             foreach (FunctionInstance callback in _renderingCallbacks.ToList())
             {
@@ -81,7 +82,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             }
         }
 
-        internal void ProfileRendered(SKCanvas canvas, SKRect bounds)
+        internal void LayerRendered(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
             if (_pluginJintEngine.Engine == null)
                 return;
@@ -89,7 +90,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             JsValue[] arguments =
             {
                 JsValue.FromObject(_pluginJintEngine.Engine, canvas),
-                JsValue.FromObject(_pluginJintEngine.Engine, bounds)
+                JsValue.FromObject(_pluginJintEngine.Engine, bounds),
+                JsValue.FromObject(_pluginJintEngine.Engine, paint)
             };
             foreach (FunctionInstance callback in _renderedCallbacks.ToList())
             {
@@ -107,7 +109,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
         #region Implementation of IManualScriptBinding
 
         /// <inheritdoc />
-        public string Declaration => File.ReadAllText(_plugin.ResolveRelativePath("StaticDeclarations/ProfileWrapper.ts"));
+        public string Declaration => File.ReadAllText(_plugin.ResolveRelativePath("StaticDeclarations/LayerWrapper.ts"));
 
         #endregion
 
@@ -120,7 +122,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 
             return () => _updatingCallbacks.Remove(functionInstance);
         }
-
+        
         public Action OnUpdated(JsValue callback)
         {
             FunctionInstance functionInstance = callback.As<FunctionInstance>();
@@ -145,20 +147,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             return () => _renderedCallbacks.Remove(functionInstance);
         }
 
-        public Profile GetProfile()
+        public Layer GetLayer()
         {
-            return _profile;
-        }
-
-        public Folder[] GetFolders()
-
-        {
-            return _profile.GetAllFolders().ToArray();
-        }
-
-        public Layer[] GetLayers()
-        {
-            return _profile.GetAllLayers().ToArray();
+            return _layer;
         }
 
         #endregion

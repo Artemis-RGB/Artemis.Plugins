@@ -61,7 +61,15 @@
     <None Update="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="StaticDeclarations\ProfileBinding.ts">
+    <None Update="StaticDeclarations\LayerPropertyWrapper.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Code</SubType>
+    </None>
+    <None Update="StaticDeclarations\LayerWrapper.ts">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Code</SubType>
+    </None>
+    <None Update="StaticDeclarations\ProfileWrapper.ts">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Templates\LayerPropertyScript.js">
