@@ -113,10 +113,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                 if (channelsVolumeNormalized == null)
                     return;
 
-                if (_channelsDataModels.Count != channelsVolumeNormalized.Count)
-                    return; // IF this happens, wait until channel list is populated and we have that list updated. Can't test because my two sound cards has only two channels.
-
-                for (int i = 0; i < _channelsDataModels.Count; i++)
+                for (int i = 0; i < _channelsDataModels.Count && i < channelsVolumeNormalized.Count; i++)
                 {
                     DynamicChild<ChannelDataModel> channelDataModel = _channelsDataModels[i];
                     channelDataModel.Value.PeakVolumeNormalized = channelsVolumeNormalized[i];
