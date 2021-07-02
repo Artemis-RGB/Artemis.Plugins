@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
+using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Input.LayerBrush.Keypress.Effects;
 using SkiaSharp;
@@ -81,8 +82,8 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
                             _effects.Add(new KeypressWhilePressed(this, led, relativeLedPosition));
                             break;
                         case AnimationType.Ripple:
-                             _effects.Add(new KeypressRipple(this, led, relativeLedPosition));
-                             break;
+                            _effects.Add(new KeypressRipple(this, led, relativeLedPosition));
+                            break;
                         case AnimationType.Echo:
                             _effects.Add(new KeyPressEcho(this, led, relativeLedPosition));
                             break;
@@ -108,6 +109,9 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress
         private void InputServiceOnKeyboardKeyDown(object sender, ArtemisKeyboardKeyEventArgs e)
         {
             if (e.Led == null)
+                return;
+
+            if (e.Key != Properties.Key.CurrentValue && Properties.OneKeyMode.CurrentValue)
                 return;
 
             // Get the position of the LED relative to the layer
