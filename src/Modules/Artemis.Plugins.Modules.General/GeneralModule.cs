@@ -26,7 +26,7 @@ namespace Artemis.Plugins.Modules.General
             _processMonitorService = processMonitorService;
             _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
 
-            if (!settings.GetSetting("DisableDefaultProfilesCreation", false).Value)
+            if (settings.GetSetting("AutoDefaultProfilesCreation", true).Value)
             {
                 AddDefaultProfile(DefaultCategoryName.General, "Profiles/rainbow.json");
                 AddDefaultProfile(DefaultCategoryName.General, "Profiles/noise.json");

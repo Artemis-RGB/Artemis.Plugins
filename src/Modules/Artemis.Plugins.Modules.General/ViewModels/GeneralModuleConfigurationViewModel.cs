@@ -8,23 +8,23 @@ namespace Artemis.Plugins.Modules.General.ViewModels
         public GeneralModuleConfigurationViewModel(Plugin plugin, PluginSettings settings) : base(plugin)
         {
             EnableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
-            DisableDefaultProfilesCreation = settings.GetSetting("DisableDefaultProfilesCreation", true);
+            AutoDefaultProfilesCreation = settings.GetSetting("AutoDefaultProfilesCreation", true);
         }
 
         public PluginSetting<bool> EnableActiveWindow { get; set; }
-        public PluginSetting<bool> DisableDefaultProfilesCreation { get; set; }
+        public PluginSetting<bool> AutoDefaultProfilesCreation { get; set; }
 
         protected override void OnInitialActivate()
         {
             EnableActiveWindow.AutoSave = true;
-            DisableDefaultProfilesCreation.AutoSave = true;
+            AutoDefaultProfilesCreation.AutoSave = true;
             base.OnInitialActivate();
         }
 
         protected override void OnClose()
         {
             EnableActiveWindow.AutoSave = false;
-            DisableDefaultProfilesCreation.AutoSave = false;
+            AutoDefaultProfilesCreation.AutoSave = false;
             base.OnClose();
         }
     }
