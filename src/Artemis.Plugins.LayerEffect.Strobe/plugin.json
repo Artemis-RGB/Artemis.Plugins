@@ -1,0 +1,11 @@
+{
+  "Guid": "246713a5-1eb1-41d4-8d37-6797aa08977f",
+  "Name": "Strobe Effect",
+  "Icon": "SineWave",
+  "Description": "Provides the strobe layer effect",
+  "Author": "SpoinkyNL",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.LayerEffect.Strobe.dll"
+}
