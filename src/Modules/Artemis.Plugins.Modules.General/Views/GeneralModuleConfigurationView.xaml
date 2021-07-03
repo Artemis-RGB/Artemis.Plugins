@@ -33,17 +33,29 @@
                             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
                             <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding EnableActiveWindow.Value}" />
                         </StackPanel>
+                     
+                        </Grid>
+                        <Separator Style="{StaticResource MaterialDesignSeparator}" Margin="-15 5" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="1" Grid.Column="0">
-                            <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Disable default profiles creation</TextBlock>
+                            <TextBlock Style="{StaticResource MaterialDesignTextBlock}">Default profiles creation</TextBlock>
                             <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Foreground="{DynamicResource MaterialDesignNavigationItemSubheader}" TextWrapping="Wrap">
                                             Enables or disables the automatic creation of "General" category and default profiles.<LineBreak />
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding DisableDefaultProfilesCreation.Value}" />
-                        </StackPanel>                           
-                        </Grid>
-                    </StackPanel>
+                            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding AutoDefaultProfilesCreation.Value}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
                 </materialDesign:Card>
             </StackPanel>
         </ScrollViewer>
