@@ -8,7 +8,7 @@ using Ninject.Parameters;
 namespace Artemis.Plugins.ScriptingProviders.JavaScript
 {
     [PluginFeature(Name = "JavaScript Scripting Provider", Icon = "LanguageJavascript")]
-    public class JavaScriptScriptingProvider : ScriptingProvider<JavaScriptGlobalScript, JavaScriptProfileScript, JavaScriptLayerScript, JavaScriptLayerPropertyScript>
+    public class JavaScriptScriptingProvider : ScriptingProvider<JavaScriptGlobalScript, JavaScriptProfileScript>
     {
         private readonly IKernel _kernel;
 

@@ -126,8 +126,6 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
                 {
                     ScriptType.Global => await File.ReadAllTextAsync(_plugin.ResolveRelativePath("Templates/GlobalScript.js")),
                     ScriptType.Profile => await File.ReadAllTextAsync(_plugin.ResolveRelativePath("Templates/ProfileScript.js")),
-                    ScriptType.Layer => await File.ReadAllTextAsync(_plugin.ResolveRelativePath("Templates/LayerScript.js")),
-                    ScriptType.LayerProperty => await File.ReadAllTextAsync(_plugin.ResolveRelativePath("Templates/LayerPropertyScript.js")),
                     _ => javaScriptScript.ScriptConfiguration.PendingScriptContent
                 };
             }
