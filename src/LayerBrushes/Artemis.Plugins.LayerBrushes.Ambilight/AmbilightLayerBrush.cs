@@ -43,7 +43,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
                 fixed (byte* ptr = capture)
                 {
                     using SKImage image = SKImage.FromPixels(new SKImageInfo(_captureZone.Width, _captureZone.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), new IntPtr(ptr),
-                        _captureZone.BufferWidth * 4);
+                        _captureZone.Stride);
 
                     if (properties.BlackBarDetectionTop || properties.BlackBarDetectionBottom || properties.BlackBarDetectionLeft || properties.BlackBarDetectionRight)
                     {
