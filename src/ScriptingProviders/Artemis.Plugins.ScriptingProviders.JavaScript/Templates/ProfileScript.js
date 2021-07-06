@@ -19,7 +19,7 @@ Profile.OnRendering((canvas, bounds) => {
     // Here you can modify the canvas before the profile is drawn on top of it
 });
 
-Profile.OnRendering((canvas, bounds) => {
+Profile.OnRendererd((canvas, bounds) => {
     // This is called when the profile has rendered
     // Here you can modify the canvas after the profile is drawn
 });
