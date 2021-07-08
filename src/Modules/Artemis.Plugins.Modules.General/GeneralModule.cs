@@ -33,6 +33,16 @@ namespace Artemis.Plugins.Modules.General
             }
         }
 
+        #region Overrides of Module
+
+        /// <inheritdoc />
+        public override DataModelPropertyAttribute GetDataModelDescription()
+        {
+            return new() {Name = "General", Description = "Contains general system information"};
+        }
+
+        #endregion
+
         public override void Enable()
         {
             _enableActiveWindow.SettingChanged += EnableActiveWindowOnSettingChanged;

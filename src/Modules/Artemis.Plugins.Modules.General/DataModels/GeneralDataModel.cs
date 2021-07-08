@@ -15,13 +15,19 @@ namespace Artemis.Plugins.Modules.General.DataModels
         }
 
         public WindowDataModel ActiveWindow { get; set; }
+
+        [DataModelProperty(ListItemName = "Process name")]
         public List<string> RunningProcesses { get; set; }
+
+        [DataModelProperty(Name = "Time")]
         public TimeDataModel TimeDataModel { get; set; }
+        [DataModelProperty(Name = "Performance")]
         public PerformanceDataModel PerformanceDataModel { get; set; }
     }
 
     public class TimeDataModel : DataModel
     {
+        [DataModelProperty(Name = "Current")]
         public DateTimeOffset CurrentTime { get; set; }
         public TimeSpan TimeSinceMidnight { get; set; }
     }

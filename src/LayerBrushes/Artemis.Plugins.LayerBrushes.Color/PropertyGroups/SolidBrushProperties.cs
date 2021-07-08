@@ -18,7 +18,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         [PropertyDescription(Description = "The position at which the color is taken from the gradient", InputAffix = "%", MinInputValue = 0f, MaxInputValue = 100f)]
         public FloatLayerProperty GradientPosition { get; set; }
 
-        [PropertyDescription(Description = "The speed at which the brush moves between the different colors")]
+        [PropertyDescription(Description = "The speed at which the brush moves between the different colors in rotations per minute", InputAffix = "rpm")]
         public FloatLayerProperty AnimationSpeed { get; set; }
 
         #region Overrides of LayerPropertyGroup

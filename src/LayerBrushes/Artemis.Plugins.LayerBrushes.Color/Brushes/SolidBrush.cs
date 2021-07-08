@@ -41,8 +41,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
 
         public override void Update(double deltaTime)
         {
-            // Take 1 sec for a full rotation at 100%
-            float newPosition = _animationPosition + Properties.AnimationSpeed / 100f * (float) deltaTime;
+            // Take 1 sec for a full rotation at 60
+            float newPosition = _animationPosition + Properties.AnimationSpeed / 60f * (float) deltaTime;
             _animationPosition = newPosition - 1f * (float) Math.Floor(newPosition / 1f);
         }
 

@@ -35,7 +35,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
         public bool IsNumLockEnabled { get; set; }
         public bool IsScrollLockEnabled { get; set; }
 
-        [DataModelProperty(Description = "A list containing all currently pressed keys")]
+        [DataModelProperty(Description = "A list containing all currently pressed keys", ListItemName = "Key")]
         public List<KeyboardKey> PressedKeys { get; set; }
 
         [DataModelProperty(Description = "An event that triggers each time a keyboard key is pressed down")]
@@ -57,7 +57,7 @@ namespace Artemis.Plugins.Input.DataModelExpansion.DataModels
         [DataModelProperty(Name = "Cursor Y position", Description = "The Y position of the mouse cursor in pixels")]
         public int PositionY { get; set; }
 
-        [DataModelProperty(Description = "A list containing all currently pressed buttons")]
+        [DataModelProperty(Description = "A list containing all currently pressed buttons", ListItemName = "Button")]
         public List<MouseButton> PressedButtons { get; set; }
 
         [DataModelProperty(Name = "Scroll events", Description = "Set of events that are triggered when mouse scroll is done")]
