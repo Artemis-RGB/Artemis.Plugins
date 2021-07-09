@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
+namespace Artemis.Plugins.LayerBrushes.Ambilight.Converters
 {
     [ValueConversion(typeof(bool), typeof(int))]
     public class RenderScaleConverter : IValueConverter

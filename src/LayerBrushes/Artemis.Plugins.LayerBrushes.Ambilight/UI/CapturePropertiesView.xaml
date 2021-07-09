@@ -6,14 +6,12 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:s="https://github.com/canton7/Stylet"
     xmlns:ui="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.UI"
-    xmlns:Shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared" x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CapturePropertiesView"
+    xmlns:converters="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Converters"
+    x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CapturePropertiesView"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance {x:Type ui:CapturePropertiesViewModel}}">
-
     <UserControl.Resources>
-        <Shared:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <s:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueVisibility="Collapsed" FalseVisibility="Visible" />
-        <ui:RenderScaleConverter x:Key="RenderScaleConverter" />
+        <converters:RenderScaleConverter x:Key="RenderScaleConverter" />
     </UserControl.Resources>
 
     <DockPanel LastChildFill="True">
@@ -194,27 +192,162 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <materialDesign:Card Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialDesign:Card  Padding="5">
                 <Grid>
                     <Image Stretch="Uniform" Source="{Binding Preview.Preview}" />
                     <Viewbox>
-
                         <Canvas Width="{Binding SelectedDisplay.Display.Width}" Height="{Binding SelectedDisplay.Display.Height}">
-                            <Rectangle Canvas.Left="{Binding Properties.X.BaseValue}"
-                                       Canvas.Top="{Binding Properties.Y.BaseValue}"
-                                       Width="{Binding Properties.Width.BaseValue}"
-                                       Height="{Binding Properties.Height.BaseValue}"
+                            <Rectangle x:Name="Move"
+                                       Canvas.Top="{Binding Region.Top}"
+                                       Canvas.Left="{Binding Region.Left}"
+                                       Width="{Binding Region.Width}"
+                                       Height="{Binding Region.Height}"
                                        Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
                                        MouseDown="{s:Action RegionSelectMouseDown}"
                                        MouseUp="{s:Action RegionSelectMouseUp}"
-                                       MouseMove="{s:Action RegionSelectMouseMove}"
                                        Fill="Transparent"
-                                       StrokeThickness="20" Cursor="Hand" />
+                                       StrokeDashArray="4 2"
+                                       StrokeThickness="20"
+                                       Cursor="Hand" />
 
+                            <!-- Mutation points -->
+                            <Rectangle x:Name="ResizeTopCenter"
+                                       Canvas.Top="{Binding Region.Top}"
+                                       Canvas.Left="{Binding Region.MidX}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeNS">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform X="-30" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle x:Name="ResizeRightCenter"
+                                       Canvas.Top="{Binding Region.MidY}"
+                                       Canvas.Left="{Binding Region.Right}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeWE">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform X="-60" Y="-30" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle x:Name="ResizeBottomCenter"
+                                       Canvas.Top="{Binding Region.Bottom}"
+                                       Canvas.Left="{Binding Region.MidX}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeNS">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform X="-30" Y="-60" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle x:Name="ResizeLeftCenter"
+                                       Canvas.Top="{Binding Region.MidY}"
+                                       Canvas.Left="{Binding Region.Left}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeWE">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform X="0" Y="-30" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+
+                            <Rectangle x:Name="ResizeTopLeft"
+                                       Canvas.Top="{Binding Region.Top}"
+                                       Canvas.Left="{Binding Region.Left}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeNWSE">
+                            </Rectangle>
+                            <Rectangle x:Name="ResizeTopRight"
+                                       Canvas.Top="{Binding Region.Top}"
+                                       Canvas.Left="{Binding Region.Right}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeNESW">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform X="-60" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle x:Name="ResizeBottomRight"
+                                       Canvas.Top="{Binding Region.Bottom}"
+                                       Canvas.Left="{Binding Region.Right}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeNWSE">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform X="-60" Y="-60" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Rectangle x:Name="ResizeBottomLeft"
+                                       Canvas.Top="{Binding Region.Bottom}"
+                                       Canvas.Left="{Binding Region.Left}"
+                                       MouseMove="{s:Action RegionSelectMouseMove}"
+                                       MouseDown="{s:Action RegionSelectMouseDown}"
+                                       MouseUp="{s:Action RegionSelectMouseUp}"
+                                       StrokeThickness="10"
+                                       Stroke="{DynamicResource SecondaryHueMidBrush}"
+                                       Fill="White"
+                                       Width="60"
+                                       Height="60"
+                                       Cursor="SizeNESW">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform Y="-60" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
                         </Canvas>
                     </Viewbox>
                 </Grid>
             </materialDesign:Card>
+                <TextBlock HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Mouse" Margin="0 5 0 -3"/>
+                    You can use your mouse to change the region above
+                </TextBlock>
+            </StackPanel>
             <materialDesign:PackIcon Grid.Column="1" Kind="ArrowRight" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
             <materialDesign:Card Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
                 <Image Stretch="Uniform" Source="{Binding Preview.ProcessedPreview}" RenderTransformOrigin="0.5,0.5">

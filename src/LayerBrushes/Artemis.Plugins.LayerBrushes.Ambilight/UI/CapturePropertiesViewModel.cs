@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Shapes;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
@@ -32,41 +31,55 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
         #region Properties & Fields
 
+        private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
+        private readonly Timer _displayPreviewTimer = new(500) {AutoReset = true};
+        private readonly Timer _selectionPreviewTimer = new(33) {AutoReset = true};
+        private bool _preventPreviewCreation;
+        private DisplayPreview _selectedDisplay;
+
         public int X
         {
-            get => Properties.X.CurrentValue;
-            set => Properties.X.CurrentValue = value;
+            get => Properties.X.BaseValue;
+            set
+            {
+                Properties.X.BaseValue = value;
+                NotifyOfPropertyChange(nameof(X));
+            }
         }
 
         public int Y
         {
-            get => Properties.Y.CurrentValue;
-            set => Properties.Y.CurrentValue = value;
+            get => Properties.Y.BaseValue;
+            set
+            {
+                Properties.Y.BaseValue = value;
+                NotifyOfPropertyChange(nameof(Y));
+            }
         }
 
         public int Width
         {
-            get => Properties.Width.CurrentValue;
-            set => Properties.Width.CurrentValue = value;
+            get => Properties.Width.BaseValue;
+            set
+            {
+                Properties.Width.BaseValue = value;
+                NotifyOfPropertyChange(nameof(Width));
+            }
         }
 
         public int Height
         {
-            get => Properties.Height.CurrentValue;
-            set => Properties.Height.CurrentValue = value;
+            get => Properties.Height.BaseValue;
+            set
+            {
+                Properties.Height.BaseValue = value;
+                NotifyOfPropertyChange(nameof(Height));
+            }
         }
 
-        private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
-
-        private readonly Timer _displayPreviewTimer = new(500) {AutoReset = true};
-        private readonly Timer _selectionPreviewTimer = new(33) {AutoReset = true};
-
-        private bool _preventPreviewCreation;
-
+        public SKRectI Region => SKRectI.Create(X, Y, Width, Height);
         public AmbilightCaptureProperties Properties { get; }
-        public List<DisplayPreview> Displays { get; private set; }
-
-        private DisplayPreview _selectedDisplay;
+        public BindableCollection<DisplayPreview> Displays { get; } = new();
 
         public DisplayPreview SelectedDisplay
         {
@@ -74,15 +87,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             set
             {
                 if (!SetAndNotify(ref _selectedDisplay, value)) return;
-                if (Properties.X + Properties.Width > (value?.Display.Width ?? 0) ||
-                    Properties.Y + Properties.Height > (value?.Display.Height ?? 0) ||
-                    Properties.Width == 0 || Properties.Height == 0)
+                if (X + Width > (value?.Display.Width ?? 0) || Y + Height > (value?.Display.Height ?? 0) || Width == 0 || Height == 0)
                 {
                     _preventPreviewCreation = true;
-                    Properties.X.BaseValue = 0;
-                    Properties.Y.BaseValue = 0;
-                    Properties.Width.BaseValue = value?.Display.Width ?? 0;
-                    Properties.Height.BaseValue = value?.Display.Height ?? 0;
+                    X = 0;
+                    Y = 0;
+                    Width = value?.Display.Width ?? 0;
+                    Height = value?.Display.Height ?? 0;
                     _preventPreviewCreation = false;
                 }
 
@@ -105,40 +116,42 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
         public void ResetRegion()
         {
-            Properties.X.BaseValue = 0;
-            Properties.Y.BaseValue = 0;
-            Properties.Width.BaseValue = SelectedDisplay?.Display.Width ?? 0;
-            Properties.Height.BaseValue = SelectedDisplay?.Display.Height ?? 0;
+            _preventPreviewCreation = true;
+            X = 0;
+            Y = 0;
+            Width = SelectedDisplay?.Display.Width ?? 0;
+            Height = SelectedDisplay?.Display.Height ?? 0;
+            _preventPreviewCreation = false;
+
+            RecreatePreview();
         }
 
         public void RegionSelectMouseDown(object sender, MouseEventArgs args)
         {
-            Canvas canvas = VisualTreeUtilities.FindParent<Canvas>((DependencyObject) sender, null);
+            if (sender is not Shape shape)
+                return;
+
+            Canvas canvas = VisualTreeUtilities.FindParent<Canvas>(shape, null);
             Point position = args.GetPosition(canvas);
-            ((IInputElement) sender).CaptureMouse();
+            shape.CaptureMouse();
             _preventPreviewCreation = true;
 
-            // Horizontal dragging
-            if (Math.Abs(position.X - Properties.X) < 60)
-                _dragLeft = true;
-            else if (Math.Abs(position.X - (Properties.X + Properties.Width)) < 60)
-                _dragRight = true;
-            // Vertical dragging
-            if (Math.Abs(position.Y - Properties.Y) < 60)
-                _dragTop = true;
-            else if (Math.Abs(position.Y - (Properties.Y + Properties.Height)) < 60)
-                _dragBottom = true;
-            // Movement dragging
-            if (!_dragLeft && !_dragRight && !_dragLeft && !_dragTop && !_dragBottom)
-            {
-                _dragCenter = true;
-                _centerDragOffset = new Point(Properties.X, Properties.Y) - position;
-            }
+            // Detect control points
+            _dragTop = shape.Name.Contains("Top");
+            _dragBottom = shape.Name.Contains("Bottom");
+            _dragLeft = shape.Name.Contains("Left");
+            _dragRight = shape.Name.Contains("Right");
+            if (_dragLeft || _dragRight || _dragLeft || _dragTop || _dragBottom)
+                return;
+
+            // No control points means move the region instead of resize
+            _dragCenter = true;
+            _centerDragOffset = new Point(X, Y) - position;
         }
 
         public void RegionSelectMouseUp(object sender, MouseEventArgs args)
         {
-            ((IInputElement) sender).ReleaseMouseCapture();
+            ((Shape) sender).ReleaseMouseCapture();
             _preventPreviewCreation = false;
 
             _dragCenter = false;
@@ -154,17 +167,17 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
         {
             if (args.LeftButton == MouseButtonState.Released) return;
 
-            Canvas canvas = VisualTreeUtilities.FindParent<Canvas>((DependencyObject) sender, null);
+            Canvas canvas = VisualTreeUtilities.FindParent<Canvas>((Shape) sender, null);
             Point position = args.GetPosition(canvas);
 
-            SKRectI region = SKRectI.Create(Properties.X, Properties.Y, Properties.Width, Properties.Height);
+            SKRectI region = SKRectI.Create(X, Y, Width, Height);
 
             if (_dragLeft)
-                region.Left = position.X.RoundToInt();
+                region.Left = Math.Min(region.Right - 1, position.X.RoundToInt());
             if (_dragRight)
                 region.Right = position.X.RoundToInt();
             if (_dragTop)
-                region.Top = position.Y.RoundToInt();
+                region.Top = Math.Min(region.Bottom - 1, position.Y.RoundToInt());
             if (_dragBottom)
                 region.Bottom = position.Y.RoundToInt();
             if (_dragCenter)
@@ -185,16 +198,18 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             region.Top = Math.Max(0, region.Top);
             region.Bottom = Math.Min(SelectedDisplay.Display.Height, region.Bottom);
 
-            Properties.X.BaseValue = Math.Max(0, region.Left);
-            Properties.Y.BaseValue = Math.Max(0, region.Top);
-            Properties.Width.BaseValue = Math.Max(1, region.Width);
-            Properties.Height.BaseValue = Math.Max(1, region.Height);
+            X = Math.Max(0, region.Left);
+            Y = Math.Max(0, region.Top);
+            Width = Math.Max(1, region.Width);
+            Height = Math.Max(1, region.Height);
         }
 
         private void RecreatePreview()
         {
-            if (_preventPreviewCreation) return;
+            NotifyOfPropertyChange(nameof(Region));
 
+            if (_preventPreviewCreation)
+                return;
 
             if (SelectedDisplay == null)
             {
@@ -245,7 +260,10 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             });
         }
 
-        public override Task<bool> CanCloseAsync() => ValidateAsync();
+        public override Task<bool> CanCloseAsync()
+        {
+            return ValidateAsync();
+        }
 
         protected override void OnInitialActivate()
         {
@@ -253,10 +271,10 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
             ((AmbilightLayerBrush) LayerBrush).PropertiesOpen = true;
 
-            Displays = _screenCaptureService.GetGraphicsCards()
+            Displays.AddRange(_screenCaptureService.GetGraphicsCards()
                 .SelectMany(gg => _screenCaptureService.GetDisplays(gg))
                 .Select(d => new DisplayPreview(d))
-                .ToList();
+                .ToList());
 
             _preventPreviewCreation = true;
             SelectedDisplay = Displays.FirstOrDefault(d =>
@@ -280,10 +298,8 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
         private void PropertiesOnLayerPropertyOnCurrentValueSet(object sender, LayerPropertyEventArgs e)
         {
-            NotifyOfPropertyChange(e.LayerProperty.Path.Split('.').Last());
             RecreatePreview();
         }
-
 
         protected override void OnClose()
         {
@@ -297,7 +313,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
             Properties.LayerPropertyOnCurrentValueSet -= PropertiesOnLayerPropertyOnCurrentValueSet;
             Properties.ApplyDisplay(SelectedDisplay.Display, false);
-            
+
             lock (Displays)
             {
                 foreach (DisplayPreview display in Displays)
