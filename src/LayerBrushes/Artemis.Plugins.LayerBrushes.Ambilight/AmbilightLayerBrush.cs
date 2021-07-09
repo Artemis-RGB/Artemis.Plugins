@@ -102,8 +102,8 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
                 // Stick to a valid region within the display
                 int width = Math.Min(_display.Value.Width, props.Width);
                 int height = Math.Min(_display.Value.Height, props.Height);
-                int x = Math.Min(width - 1, props.X);
-                int y = Math.Min(height - 1, props.Y);
+                int x = Math.Min(_display.Value.Width - width, props.X);
+                int y = Math.Min(_display.Value.Height - height, props.Y);
                 _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(x, y, width, height, props.DownscaleLevel);
                 _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
                 _captureZone.BlackBars.Threshold = props.BlackBarDetectionThreshold;
