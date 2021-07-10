@@ -8,7 +8,6 @@
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <PowerShell># 2&gt;nul || type %~df0|find /v "setlocal"|find /v "errorlevel"|powershell.exe -noninteractive -&amp; exit %errorlevel% || #</PowerShell>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -58,29 +57,51 @@
     </None>
   </ItemGroup>
 
-  <!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
-  <Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <PropertyGroup>
-      <publishScript>
-        $(PowerShell)
-        $json = (Get-Content "plugin.json" -Raw) | ConvertFrom-Json
-        $env:ProgramData + "\Artemis\plugins\" + ($json.Main -split ".dll" | Select -First 1) + "-" + $json.Guid.Substring(0,8)
-      </publishScript>
-    </PropertyGroup>
-    <Exec Command="$(publishScript)" EchoOff="true" ConsoleToMSBuild="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="pluginDirectory" />
-    </Exec>
-    <Message Text="------ Artemis plugin publish ------" Importance="High" />
-    <Exec Command="dotnet publish --verbosity q --output &quot;$(pluginDirectory)&quot;" />
-    <Message Text="Published $(ProjectName) at file:\\$(pluginDirectory)" Importance="High" />
-    <Message Text="If distributing outside the workshop, share this folder." Importance="High" />
-  </Target>
+	<ItemGroup>
+		<PluginJson Include="plugin.json" />
+	</ItemGroup>
 
-  <!-- Override the published DLLs with the built DLLs to enable edit & continue -->
-  <Target Name="PostBuildLocalDlls" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <ItemGroup>
-      <DllFiles Include="$(TargetDir)\**\*.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(pluginDirectory)" />
-  </Target>
+	<UsingTask TaskName="GetPluginPath" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildBinPath)\Microsoft.Build.Tasks.Core.dll">
+		<ParameterGroup>
+			<AssemblyName ParameterType="System.String" Required="true" />
+			<Json ParameterType="System.String" Required="true" />
+			<PluginPath ParameterType="System.String" Output="true" />
+		</ParameterGroup>
+		<Task>
+			<Using Namespace="System" />
+			<Using Namespace="System.IO" />
+			<Using Namespace="System.Text.RegularExpressions" />
+			<Code Type="Fragment" Language="C#">
+				<![CDATA[
+				Match guidMatch = Regex.Match(Json, "\"Guid\": \"([^\"]+)\"");
+				string guid = guidMatch.Groups.Count > 1 ? guidMatch.Groups[1].Value.Substring(0, 8) : "ffffffff";
+				PluginPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Artemis", "plugins", AssemblyName + "-" + guid);
+				]]>
+			</Code>
+		</Task>
+	</UsingTask>
+
+	<!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
+	<Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+		<!-- Determine the file path based on plugin.json contents -->
+		<ReadLinesFromFile File="@(PluginJson)">
+			<Output TaskParameter="Lines" ItemName="JsonContents" />
+		</ReadLinesFromFile>
+		<GetPluginPath AssemblyName="$(AssemblyName)" Json="@(JsonContents)">
+			<Output TaskParameter="PluginPath" PropertyName="PluginPath" />
+		</GetPluginPath>
+
+		<Message Text="------ Artemis plugin publish ------" Importance="High" />
+		<Exec Command="dotnet publish --verbosity q --output &quot;$(PluginPath)&quot;" />
+		<Message Text="Published $(ProjectName) at file:\\$(PluginPath)" Importance="High" />
+		<Message Text="If distributing outside the workshop, share this folder." Importance="High" />
+	</Target>
+
+	<!-- Override the published DLLs with the built DLLs to enable edit & continue -->
+	<Target Name="PostBuildLocalDlls" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+		<ItemGroup>
+			<DllFiles Include="$(TargetDir)\**\*.dll" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(PluginPath)" />
+	</Target>
 </Project>

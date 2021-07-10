@@ -17,11 +17,11 @@ namespace Artemis.Plugins.Devices.Razer
     public class RazerDeviceProvider : DeviceProvider
     {
         private const int VENDOR_ID = 0x1532;
+        private readonly ILogger _logger;
+        private readonly PluginSettings _pluginSettings;
 
         private readonly IRgbService _rgbService;
-        private readonly PluginSettings _pluginSettings;
-        private readonly ILogger _logger;
-        private PluginSetting<bool> _loadEmulatorDevices;
+        private readonly PluginSetting<bool> _loadEmulatorDevices;
 
         public RazerDeviceProvider(IRgbService rgbService, PluginSettings pluginSettings, ILogger logger) : base(RGB.NET.Devices.Razer.RazerDeviceProvider.Instance)
         {
@@ -36,19 +36,10 @@ namespace Artemis.Plugins.Devices.Razer
             RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
                 0xF1F, RGBDeviceType.Unknown, "Addressable RGB Controller", LedMappings.ChromaLink, RazerEndpointType.ChromaLink
             );
-        }
 
-        private void LoadEmulatorDevicesOnSettingChanged(object sender, EventArgs e)
-        {
-            if (IsEnabled)
-            {
-                Task.Run(async () =>
-                {
-                    Disable();
-                    await Task.Delay(200);
-                    Enable();
-                });
-            }
+            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
+                0x96, RGBDeviceType.Mouse, "Naga X", LedMappings.Mouse, RazerEndpointType.Mouse
+            );
         }
 
         public override void Enable()
@@ -72,6 +63,17 @@ namespace Artemis.Plugins.Devices.Razer
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+        }
+
+        private void LoadEmulatorDevicesOnSettingChanged(object sender, EventArgs e)
+        {
+            if (IsEnabled)
+                Task.Run(async () =>
+                {
+                    Disable();
+                    await Task.Delay(200);
+                    Enable();
+                });
         }
 
         private void LogDeviceIds()
