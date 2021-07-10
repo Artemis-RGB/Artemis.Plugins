@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>HyperX Alloy FPS RGB LATAM</Name>
   <Author>Darkiox</Author>
@@ -52,7 +52,7 @@
     <Led Id="Keyboard_BracketLeft" />
     <Led Id="Keyboard_BracketRight" />
     <Led Id="Keyboard_Enter">
-      <Shape> M0.002,0.002 L0.854,-0.001 L0.86,0.979 L0.117,0.999 L0.117,0.489 L0.005,0.489z</Shape>
+      <Shape> M0.015,0 L0.863,0 L0.863,0.99 L0.12,0.99 L0.12,0.495 L0.015,0.495z</Shape>
       <Width>1.8</Width>
       <Height>2</Height>
     </Led>
@@ -172,8 +172,8 @@
       <Width>2.75</Width>
     </Led>
     <Led Id="Keyboard_LeftCtrl">
-      <X>-211</X>
-      <Y>+0</Y>
+      <X>0</X>
+      <Y>+</Y>
       <Width>1.2</Width>
     </Led>
     <Led Id="Keyboard_LeftGui">
