@@ -39,10 +39,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         public IScreenCapture GetScreenCapture(Display display)
         {
-            if (!_screenCaptures.TryGetValue(display, out IScreenCapture screenCapture))
-                _screenCaptures.Add(display, screenCapture = new AmbilightScreenCapture(_screenCaptureService.GetScreenCapture(display)));
+            lock (_screenCaptures)
+            {
+                if (!_screenCaptures.TryGetValue(display, out IScreenCapture screenCapture))
+                    _screenCaptures.Add(display, screenCapture = new AmbilightScreenCapture(_screenCaptureService.GetScreenCapture(display)));
 
-            return screenCapture;
+                return screenCapture;
+            }
         }
 
         public void Dispose()
