@@ -132,7 +132,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             else
                 UpdateOne(deltaTime);
 
-            _progress = Size / _brush.Properties.RippleSize;
+            _progress = Math.Clamp(Size / _brush.Properties.RippleSize, 0, 1);
         }
 
         public void Render(SKCanvas canvas)
