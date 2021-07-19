@@ -43,6 +43,10 @@ namespace Artemis.Plugins.Devices.Razer
             RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
                 0x024E, RGBDeviceType.Keyboard, "BlackWidow V3", LedMappings.KeyboardBlackWidowV3, RazerEndpointType.Keyboard
             );
+
+            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
+                0x91, RGBDeviceType.Mouse, "Viper 8khz", RGB.NET.Devices.Razer.LedMappings.Mouse, RazerEndpointType.Mouse
+            );
         }
 
         public override void Enable()
