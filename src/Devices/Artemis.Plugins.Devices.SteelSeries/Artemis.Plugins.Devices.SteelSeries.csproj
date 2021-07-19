@@ -41,6 +41,9 @@
     <Reference Include="RGB.NET.Devices.SteelSeries">
       <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.SteelSeries.dll</HintPath>
     </Reference>
+    <Reference Include="RGB.NET.HID">
+      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.HID.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="Images\**">

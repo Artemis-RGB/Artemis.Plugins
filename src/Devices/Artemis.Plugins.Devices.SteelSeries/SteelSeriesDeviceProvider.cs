@@ -5,6 +5,8 @@ using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
+using RGB.NET.Core;
+using RGB.NET.Devices.SteelSeries;
 using Serilog;
 using Serilog.Events;
 
@@ -22,6 +24,13 @@ namespace Artemis.Plugins.Devices.SteelSeries
         {
             _rgbService = rgbService;
             _logger = logger;
+
+            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.DeviceDefinitions.Add(
+                0x1726, RGBDeviceType.Mouse, "Rival 650", RGB.NET.Devices.SteelSeries.LedMappings.MouseEightZone, SteelSeriesDeviceType.EightZone
+            );
+            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.DeviceDefinitions.Add(
+                0x150D, RGBDeviceType.Mousepad, "QCK Prism Cloth", LedMappings.MousepadTwoZone, SteelSeriesDeviceType.TwoZone
+            );
         }
 
         public override void Enable()

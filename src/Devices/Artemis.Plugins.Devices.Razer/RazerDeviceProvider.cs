@@ -34,11 +34,14 @@ namespace Artemis.Plugins.Devices.Razer
 
             // ChromaLink
             RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0xF1F, RGBDeviceType.Unknown, "Addressable RGB Controller", LedMappings.ChromaLink, RazerEndpointType.ChromaLink
+                0xF1F, RGBDeviceType.Unknown, "Addressable RGB Controller", RGB.NET.Devices.Razer.LedMappings.ChromaLink, RazerEndpointType.ChromaLink
             );
 
             RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0x96, RGBDeviceType.Mouse, "Naga X", LedMappings.Mouse, RazerEndpointType.Mouse
+                0x96, RGBDeviceType.Mouse, "Naga X", RGB.NET.Devices.Razer.LedMappings.Mouse, RazerEndpointType.Mouse
+            );    
+            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
+                0x024E, RGBDeviceType.Keyboard, "BlackWidow V3", LedMappings.KeyboardBlackWidowV3, RazerEndpointType.Keyboard
             );
         }
 
