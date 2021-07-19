@@ -73,7 +73,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.LayerEffect
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{24ABCF04-3155-4252-B4E0-B3045BD5AD8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.Profiling", "Other\Artemis.Plugins.Profiling\Artemis.Plugins.Profiling.csproj", "{24017BA1-5E97-48E2-92E9-EB021F71E78E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Profiling", "Other\Artemis.Plugins.Profiling\Artemis.Plugins.Profiling.csproj", "{24017BA1-5E97-48E2-92E9-EB021F71E78E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

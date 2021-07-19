@@ -18,13 +18,12 @@
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" PrivateAssets="All" />
     <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
-    <PackageReference Include="SkiaSharp" Version="2.80.2" PrivateAssets="All" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
     <PackageReference Include="Stylet" Version="1.3.6" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Include="Properties\DesignTimeResources.xaml"
-          Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>

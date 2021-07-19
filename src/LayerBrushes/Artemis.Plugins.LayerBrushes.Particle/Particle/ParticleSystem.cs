@@ -9,7 +9,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 {
     public class ParticleSystem
     {
-        private readonly List<Particle> _particles = new();
+        private readonly LinkedList<Particle> _particles = new();
         private readonly Random _random = new();
         private SKRect _actualEmitterBounds;
         private ParticleEmitter _emitter;
@@ -60,18 +60,20 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
             SKPoint g = Gravity;
             bool removed = false;
 
-            for (int i = _particles.Count - 1; i >= 0; i--)
+            LinkedListNode<Particle> particle = _particles.First;
+            while (particle != null)
             {
-                Particle particle = _particles[i];
-                particle.ApplyForce(g, deltaTime);
+                particle.Value.ApplyForce(g, deltaTime);
+                particle.Value.ApplyLifetimeColor(Colors, ParticleColorMode == ParticleColorMode.Lifetime);
 
-                particle.ApplyLifetimeColor(Colors, ParticleColorMode == ParticleColorMode.Lifetime);
-
-                if (particle.IsComplete || particle.HasBeenDrawn && !Bounds.IntersectsWithInclusive(particle.Bounds))
+                LinkedListNode<Particle> next = particle.Next;
+                if (particle.Value.IsComplete)
                 {
-                    _particles.RemoveAt(i);
+                    _particles.Remove(particle);
                     removed = true;
                 }
+
+                particle = next;
             }
 
             if (removed)
@@ -80,11 +82,8 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
 
         public void Draw(SKCanvas canvas, SKPaint paint)
         {
-            for (int i = _particles.Count - 1; i >= 0; i--)
-            {
-                Particle particle = _particles[i];
+            foreach (Particle particle in _particles) 
                 particle.Draw(canvas, paint);
-            }
         }
 
         public void UpdateEmitterBounds(float width, float height)
@@ -125,7 +124,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                     TotalLifetime = Lifetime
                 };
 
-                _particles.Add(particle);
+                _particles.AddLast(particle);
             }
 
             UpdateIsComplete();
@@ -160,12 +159,9 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
             UpdateIsComplete();
         }
 
-        private bool UpdateIsComplete()
+        private void UpdateIsComplete()
         {
-            return IsComplete =
-                _particles.Count == 0 &&
-                Emitter?.IsComplete != false &&
-                IsRunning;
+            IsComplete = _particles.Count == 0 && Emitter?.IsComplete != false && IsRunning;
         }
 
         private static List<float> CreateDefaultMasses()
