@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Roccat Kone AIMO</Name>
+  <Author>DerpyDoom</Author>
+  <Type>Mouse</Type>
+  <Vendor>Roccat</Vendor>
+  <Model>Kone Aimo</Model>
+  <Width>74</Width>
+  <Height>135</Height>
+  <Leds>
+    <Led Id="Mouse9">
+      <Shape>Circle</Shape>
+      <X>58.6</X>
+      <Y>92.7</Y>
+      <Width>0.2</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse8">
+      <Shape>Circle</Shape>
+      <X>60.4</X>
+      <Y>80.3</Y>
+      <Width>0.25</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Mouse7">
+      <Shape>Circle</Shape>
+      <X>63.1</X>
+      <Y>69.7</Y>
+      <Width>0.18</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse6">
+      <Shape>Circle</Shape>
+      <X>64.1</X>
+      <Y>60.5</Y>
+      <Width>0.17</Width>
+      <Height>0.4</Height>
+    </Led>
+    <Led Id="Mouse11">
+      <Shape>Circle</Shape>
+      <X>67.5</X>
+      <Y>65.6</Y>
+      <Width>0.2</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Mouse1">
+      <X>34.2</X>
+      <Y>32.3</Y>
+      <Width>0.7</Width>
+      <Height>1.2</Height>
+    </Led>
+    <Led Id="Mouse10">
+      <Shape>Circle</Shape>
+      <X>11.2</X>
+      <Y>65.2</Y>
+      <Width>0.2</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Mouse2">
+      <Shape>Circle</Shape>
+      <X>12.6</X>
+      <Y>56.4</Y>
+      <Width>0.17</Width>
+      <Height>0.4</Height>
+    </Led>
+    <Led Id="Mouse3">
+      <Shape>Circle</Shape>
+      <X>15.3</X>
+      <Y>65.3</Y>
+      <Width>0.18</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse4">
+      <Shape>Circle</Shape>
+      <X>15.7</X>
+      <Y>77.5</Y>
+      <Width>0.25</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Mouse5">
+      <Shape>Circle</Shape>
+      <X>16.8</X>
+      <Y>89.6</Y>
+      <Width>0.2</Width>
+      <Height>0.5</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Kone-Aimo.png</DeviceImage>
+  </CustomData>
+</Device>

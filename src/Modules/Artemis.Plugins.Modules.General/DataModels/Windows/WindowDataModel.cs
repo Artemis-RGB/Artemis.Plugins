@@ -22,27 +22,26 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
             ProgramLocation = process.GetProcessFilename();
 
             // Get Icon colors
-            if (File.Exists(ProgramLocation))
+            if (!File.Exists(ProgramLocation)) 
+                return;
+            using MemoryStream stream = new();
+            Icon.ExtractAssociatedIcon(ProgramLocation)?.Save(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+            using SKBitmap bitmap = SKBitmap.FromImage(SKImage.FromEncodedData(stream));
+            stream.Close();
+            if (bitmap == null)
+                return;
+
+            List<SKColor> colors = quantizerService.Quantize(bitmap.Pixels.ToList(), 256).ToList();
+            Colors = new IconColorsDataModel
             {
-                using MemoryStream mem = new MemoryStream();
-                Icon.ExtractAssociatedIcon(ProgramLocation)?.Save(mem);
-                mem.Seek(0, SeekOrigin.Begin);
-                using SKBitmap skbm = SKBitmap.Decode(mem);
-                mem.Close();
-
-                if (skbm == null) return;
-
-                List<SKColor> skClrs = quantizerService.Quantize(skbm.Pixels.ToList(), 256).ToList();
-                Colors = new IconColorsDataModel
-                {
-                    Vibrant = quantizerService.FindColorVariation(skClrs, ColorType.Vibrant, true),
-                    LightVibrant = quantizerService.FindColorVariation(skClrs, ColorType.LightVibrant, true),
-                    DarkVibrant = quantizerService.FindColorVariation(skClrs, ColorType.DarkVibrant, true),
-                    Muted = quantizerService.FindColorVariation(skClrs, ColorType.Muted, true),
-                    LightMuted = quantizerService.FindColorVariation(skClrs, ColorType.LightMuted, true),
-                    DarkMuted = quantizerService.FindColorVariation(skClrs, ColorType.DarkMuted, true)
-                };
-            }
+                Vibrant = quantizerService.FindColorVariation(colors, ColorType.Vibrant, true),
+                LightVibrant = quantizerService.FindColorVariation(colors, ColorType.LightVibrant, true),
+                DarkVibrant = quantizerService.FindColorVariation(colors, ColorType.DarkVibrant, true),
+                Muted = quantizerService.FindColorVariation(colors, ColorType.Muted, true),
+                LightMuted = quantizerService.FindColorVariation(colors, ColorType.LightMuted, true),
+                DarkMuted = quantizerService.FindColorVariation(colors, ColorType.DarkMuted, true)
+            };
         }
 
         public void UpdateWindowTitle()
