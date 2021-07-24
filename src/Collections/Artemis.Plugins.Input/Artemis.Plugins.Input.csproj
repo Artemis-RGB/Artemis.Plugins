@@ -8,6 +8,7 @@
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -76,27 +77,21 @@
 		</Task>
 	</UsingTask>
 
-	<!-- This may trigger another build (something related to the obj folder) so only run it if building inside VS -->
-	<Target Name="PostBuildPublish" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-		<!-- Determine the file path based on plugin.json contents -->
-		<ReadLinesFromFile File="@(PluginJson)">
-			<Output TaskParameter="Lines" ItemName="JsonContents" />
-		</ReadLinesFromFile>
-		<GetPluginPath AssemblyName="$(AssemblyName)" Json="@(JsonContents)">
-			<Output TaskParameter="PluginPath" PropertyName="PluginPath" />
-		</GetPluginPath>
+  <!-- Copy the plugin files to the Artemis plugin directory -->
+  <Target Name="PostBuildCopy" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
+    <!-- Determine the file path based on plugin.json contents -->
+    <ReadLinesFromFile File="@(PluginJson)">
+      <Output TaskParameter="Lines" ItemName="JsonContents" />
+    </ReadLinesFromFile>
+    <GetPluginPath AssemblyName="$(AssemblyName)" Json="@(JsonContents)">
+      <Output TaskParameter="PluginPath" PropertyName="PluginPath" />
+    </GetPluginPath>
 
-		<Message Text="------ Artemis plugin publish ------" Importance="High" />
-		<Exec Command="dotnet publish --verbosity q --output &quot;$(PluginPath)&quot;" />
-		<Message Text="Published $(ProjectName) at file:\\$(PluginPath)" Importance="High" />
-		<Message Text="If distributing outside the workshop, share this folder." Importance="High" />
-	</Target>
-
-	<!-- Override the published DLLs with the built DLLs to enable edit & continue -->
-	<Target Name="PostBuildLocalDlls" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-		<ItemGroup>
-			<DllFiles Include="$(TargetDir)\**\*.dll" />
-		</ItemGroup>
-		<Copy SourceFiles="@(DllFiles)" DestinationFolder="$(PluginPath)" />
-	</Target>
+    <ItemGroup>
+      <BuildFiles Include="$(TargetDir)\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="$(PluginPath)\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Message Text="Placed debug build in file:\\$(PluginPath)" Importance="High" />
+    <Message Text="To share your plugin with others, use 'dotnet publish'" Importance="High" />
+  </Target>
 </Project>
