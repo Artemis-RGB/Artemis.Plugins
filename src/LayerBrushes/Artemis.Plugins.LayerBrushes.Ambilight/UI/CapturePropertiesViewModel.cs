@@ -35,7 +35,6 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
         private readonly Timer _displayPreviewTimer = new(500) {AutoReset = true};
         private readonly Timer _selectionPreviewTimer = new(33) {AutoReset = true};
         private bool _preventPreviewCreation;
-        private bool _closing;
         private DisplayPreview _selectedDisplay;
 
         public int X
@@ -87,7 +86,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             get => _selectedDisplay;
             set
             {
-                if (_closing) return; // Don't update display and region if dialog is being closed to avoid 0 values
+                if (!IsActive) return; // Don't update display and region if dialog is being closed to avoid 0 values
                 if (!SetAndNotify(ref _selectedDisplay, value)) return;
                 if (X + Width > (value?.Display.Width ?? 0) || Y + Height > (value?.Display.Height ?? 0) || Width == 0 || Height == 0)
                 {
@@ -306,7 +305,6 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
         protected override void OnClose()
         {
             _preventPreviewCreation = true;
-            _closing = true;
 
             _displayPreviewTimer.Stop();
             _displayPreviewTimer.Dispose();
