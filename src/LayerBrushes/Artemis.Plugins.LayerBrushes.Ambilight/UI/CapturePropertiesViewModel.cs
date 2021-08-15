@@ -86,6 +86,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             get => _selectedDisplay;
             set
             {
+                if (!IsActive) return; // Don't update display and region if dialog is being closed to avoid 0 values
                 if (!SetAndNotify(ref _selectedDisplay, value)) return;
                 if (X + Width > (value?.Display.Width ?? 0) || Y + Height > (value?.Display.Height ?? 0) || Width == 0 || Height == 0)
                 {
