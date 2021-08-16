@@ -37,20 +37,13 @@ namespace Artemis.Plugins.Modules.General.DataModels
         [DataModelProperty(Name = "CPU usage", Affix = "%")]
         public float CpuUsage { get; set; }
 
+        [DataModelProperty(Name = "RAM usage", Affix = "%")]
+        public float RamUsage => (TotalRam - AvailableRam) / TotalRam;
+
         [DataModelProperty(Name = "Available RAM", Affix = "MB")]
         public long AvailableRam { get; set; }
 
         [DataModelProperty(Name = "Total RAM", Affix = "MB")]
         public long TotalRam { get; set; }
-    }
-
-    public class IconColorsDataModel : DataModel
-    {
-        public SKColor Vibrant { get; set; }
-        public SKColor LightVibrant { get; set; }
-        public SKColor DarkVibrant { get; set; }
-        public SKColor Muted { get; set; }
-        public SKColor LightMuted { get; set; }
-        public SKColor DarkMuted { get; set; }
     }
 }

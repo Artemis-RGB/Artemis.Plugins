@@ -32,16 +32,8 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
             if (bitmap == null)
                 return;
 
-            List<SKColor> colors = quantizerService.Quantize(bitmap.Pixels.ToList(), 256).ToList();
-            Colors = new IconColorsDataModel
-            {
-                Vibrant = quantizerService.FindColorVariation(colors, ColorType.Vibrant, true),
-                LightVibrant = quantizerService.FindColorVariation(colors, ColorType.LightVibrant, true),
-                DarkVibrant = quantizerService.FindColorVariation(colors, ColorType.DarkVibrant, true),
-                Muted = quantizerService.FindColorVariation(colors, ColorType.Muted, true),
-                LightMuted = quantizerService.FindColorVariation(colors, ColorType.LightMuted, true),
-                DarkMuted = quantizerService.FindColorVariation(colors, ColorType.DarkMuted, true)
-            };
+            SKColor[] colors = quantizerService.Quantize(bitmap.Pixels, 256);
+            Colors = quantizerService.FindAllColorVariations(colors, true);
         }
 
         public void UpdateWindowTitle()
@@ -55,6 +47,6 @@ namespace Artemis.Plugins.Modules.General.DataModels.Windows
         public string WindowTitle { get; set; }
         public string ProcessName { get; set; }
         public string ProgramLocation { get; set; }
-        public IconColorsDataModel Colors { get; set; }
+        public ColorSwatch Colors { get; set; }
     }
 }
