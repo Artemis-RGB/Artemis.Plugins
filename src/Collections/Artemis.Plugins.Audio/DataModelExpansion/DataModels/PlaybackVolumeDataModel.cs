@@ -56,12 +56,11 @@ namespace Artemis.Plugins.Audio.DataModelExpansion.DataModels
 
     public class SessionDataModel : DataModel
     {
-        public string Id { get; set; }
+        public uint Id { get; set; }
         public string Name { get; set; }
         public AudioSessionState? State { get; set; }
         public float PeakVolume { get; set; }
         public float PeakVolumeNormalized { get; set; }
-        public string debugData { get; set; }
     }
 
     public class ChannelDataModel : DataModel

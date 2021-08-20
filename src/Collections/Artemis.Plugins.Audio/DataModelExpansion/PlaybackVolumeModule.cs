@@ -129,30 +129,38 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                     if (session.IsSystemSoundsSession)
                         continue;
 
-                    var slices = session.GetSessionInstanceIdentifier.Split("%b");
-                    string key = slices[2];
-                    string name = System.IO.Path.GetFileNameWithoutExtension(slices[0]);
+                    // Span Code thanks to Darth Affe https://github.com/DarthAffe
+                    ReadOnlySpan<char> data = session.GetSessionInstanceIdentifier.AsSpan();
+                    int pidStart = data.LastIndexOf("%") + 2;
+                    int nameStart = data.LastIndexOf("\\") + 1;
+
+                    ReadOnlySpan<char> nameSlice = data.Slice(nameStart);
+                    int nameEnd = nameSlice.LastIndexOf(".");
+                    string name = nameSlice.Slice(0, nameEnd).ToString();
 
                     // Ignore sessions without name. It may be a valid session but without a name it is useless for conditions system
-                    if (string.IsNullOrEmpty(name) || !int.TryParse(key, out _))
+                    if (string.IsNullOrEmpty(name))
                         continue;
 
-                    if (DataModel.Sessions.TryGetDynamicChild<SessionDataModel>(key, out DynamicChild<SessionDataModel> sessionDataModel))
+                    if (!uint.TryParse(data.Slice(pidStart), out uint pid))
+                        continue;
+
+                    // Don't remove unused sessions as these becomes just inactive for a while. It is faster to keep them than scan and remove them.
+                    if (DataModel.Sessions.TryGetDynamicChild<SessionDataModel>(pid.ToString(), out DynamicChild<SessionDataModel> sessionDataModel))
                     {
-                        sessionDataModel.Value.Id = key;
+                        sessionDataModel.Value.Id = pid;
                         sessionDataModel.Value.Name = name;
                         sessionDataModel.Value.State = session.State;
-                        sessionDataModel.Value.PeakVolume = session.AudioMeterInformation.MasterPeakValue;
-                        sessionDataModel.Value.PeakVolumeNormalized = session.AudioMeterInformation.MasterPeakValue / 100;
-                        sessionDataModel.Value.debugData = session.GetSessionInstanceIdentifier;
+                        sessionDataModel.Value.PeakVolume = session.AudioMeterInformation.MasterPeakValue * 100;
+                        sessionDataModel.Value.PeakVolumeNormalized = session.AudioMeterInformation.MasterPeakValue;
                     }
                     else
                     {
                         DataModel.Sessions.AddDynamicChild(
-                            key,
+                            pid.ToString(),
                             new SessionDataModel()
                             {
-                                Id = key,
+                                Id = pid,
                                 Name = name,
                                 State = _playbackDevice?.AudioSessionManager.Sessions[i].State,
                                 PeakVolume = _playbackDevice?.AudioSessionManager.Sessions[i].AudioMeterInformation.MasterPeakValue ?? 0,
