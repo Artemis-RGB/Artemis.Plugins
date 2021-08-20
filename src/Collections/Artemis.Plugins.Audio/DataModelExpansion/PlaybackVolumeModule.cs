@@ -119,6 +119,49 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                     channelDataModel.Value.PeakVolumeNormalized = channelsVolumeNormalized[i];
                     channelDataModel.Value.PeakVolume = channelsVolumeNormalized[i] * 100f;
                 }
+
+                // Populate Sessions DataModel
+                var audioSessions = _playbackDevice?.AudioSessionManager.Sessions;
+                for (int i = 0; i < audioSessions.Count; i++)
+                {
+                    var session = audioSessions[i];
+                    // Don't waste resources parsing system sessions data
+                    if (session.IsSystemSoundsSession)
+                        continue;
+
+                    var slices = session.GetSessionInstanceIdentifier.Split("%b");
+                    string key = slices[2];
+                    string name = System.IO.Path.GetFileNameWithoutExtension(slices[0]);
+
+                    // Ignore sessions without name. It may be a valid session but without a name it is useless for conditions system
+                    if (string.IsNullOrEmpty(name) || !int.TryParse(key, out _))
+                        continue;
+
+                    if (DataModel.Sessions.TryGetDynamicChild<SessionDataModel>(key, out DynamicChild<SessionDataModel> sessionDataModel))
+                    {
+                        sessionDataModel.Value.Id = key;
+                        sessionDataModel.Value.Name = name;
+                        sessionDataModel.Value.State = session.State;
+                        sessionDataModel.Value.PeakVolume = session.AudioMeterInformation.MasterPeakValue;
+                        sessionDataModel.Value.PeakVolumeNormalized = session.AudioMeterInformation.MasterPeakValue / 100;
+                        sessionDataModel.Value.debugData = session.GetSessionInstanceIdentifier;
+                    }
+                    else
+                    {
+                        DataModel.Sessions.AddDynamicChild(
+                            key,
+                            new SessionDataModel()
+                            {
+                                Id = key,
+                                Name = name,
+                                State = _playbackDevice?.AudioSessionManager.Sessions[i].State,
+                                PeakVolume = _playbackDevice?.AudioSessionManager.Sessions[i].AudioMeterInformation.MasterPeakValue ?? 0,
+                                PeakVolumeNormalized = _playbackDevice?.AudioSessionManager.Sessions[i].AudioMeterInformation.MasterPeakValue / 100 ?? 0
+                            },
+                            name
+                            );
+                    }
+                }
             }
         }
 
