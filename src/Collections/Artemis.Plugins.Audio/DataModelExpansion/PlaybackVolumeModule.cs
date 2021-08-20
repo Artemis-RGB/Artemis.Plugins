@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Plugins.Audio.DataModelExpansion.DataModels;
@@ -16,10 +17,11 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         #region Constructor
 
-        public PlaybackVolumeModule(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService)
+        public PlaybackVolumeModule(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings)
         {
             _logger = logger;
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
+            _savedSessionsSetting = pluginSettings.GetSetting("SavedSessionsSetting", new HashSet<string>());
         }
 
         #endregion
@@ -30,6 +32,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         private readonly ILogger _logger;
         private readonly object _audioEventLock = new();
         private readonly List<DynamicChild<ChannelDataModel>> _channelsDataModels = new();
+        private readonly PluginSetting<HashSet<string>> _savedSessionsSetting;
         private bool _playbackDeviceChanged;
         private float _lastMasterPeakVolumeNormalized;
         private MMDevice _playbackDevice;
@@ -46,6 +49,55 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
             // We don't need mor than ~30 updates per second. It will keep CPU usage controlled. 60 or more updates per second could rise cpu usage
             AddTimedUpdate(TimeSpan.FromMilliseconds(33), UpdatePeakVolume, "UpdatePeakVolume");
+
+            LoadInUseSessions();
+
+            DataModel.ActivePathAdded += DataModel_ActivePathAdded;
+            DataModel.ActivePathRemoved += DataModel_ActivePathRemoved;
+        }
+
+        private void LoadInUseSessions()
+        {
+            // We need to create used sessions datamodels before plugin is enabled or the conditions system will be set these conditions as invalid.
+            // Just create a default session datamodel for each used session.
+
+            foreach (var sName in _savedSessionsSetting.Value)
+            {
+                DataModel.Sessions.AddDynamicChild(
+                       sName,
+                        new SessionDataModel()
+                        {
+                            Name = sName,
+                            State = NAudio.CoreAudioApi.Interfaces.AudioSessionState.AudioSessionStateInactive,
+                            PeakVolume = 0,
+                            PeakVolumeNormalized = 0
+                        },
+                        sName
+                        );
+            }
+        }
+
+        private void DataModel_ActivePathRemoved(object sender, DataModelPathEventArgs e)
+        {
+            if (e.DataModelPath.Path.StartsWith("Sessions."))
+            {
+                string sName = e.DataModelPath.Path.Split(".")[1];
+                if (DataModel.ActivePaths.Count(p => p.Path.Contains($".{sName}.")) <= 1)
+                {
+                    _ = _savedSessionsSetting.Value.Remove(sName);
+                    _savedSessionsSetting.Save();
+                }
+            }
+        }
+
+        private void DataModel_ActivePathAdded(object sender, DataModelPathEventArgs e)
+        {
+            if (e.DataModelPath.Path.StartsWith("Sessions."))
+            {
+                string sName = e.DataModelPath.Path.Split(".")[1];
+                _ = _savedSessionsSetting.Value.Add(sName);
+                _savedSessionsSetting.Save();
+            }
         }
 
         public override void Disable()
@@ -120,11 +172,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                     channelDataModel.Value.PeakVolume = channelsVolumeNormalized[i] * 100f;
                 }
 
-                // Populate Sessions DataModel
+                // Populate Sessions DataModel. Note that if the node don't exists, conditions using these values will become invalid
                 var audioSessions = _playbackDevice?.AudioSessionManager.Sessions;
                 for (int i = 0; i < audioSessions.Count; i++)
                 {
                     var session = audioSessions[i];
+
                     // Don't waste resources parsing system sessions data
                     if (session.IsSystemSoundsSession)
                         continue;
@@ -137,18 +190,16 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                     ReadOnlySpan<char> nameSlice = data.Slice(nameStart);
                     int nameEnd = nameSlice.LastIndexOf(".");
                     string name = nameSlice.Slice(0, nameEnd).ToString();
+                    if (!uint.TryParse(data.Slice(pidStart), out uint pid))
+                        continue;
 
                     // Ignore sessions without name. It may be a valid session but without a name it is useless for conditions system
                     if (string.IsNullOrEmpty(name))
                         continue;
 
-                    if (!uint.TryParse(data.Slice(pidStart), out uint pid))
-                        continue;
-
                     // Don't remove unused sessions as these becomes just inactive for a while. It is faster to keep them than scan and remove them.
-                    if (DataModel.Sessions.TryGetDynamicChild<SessionDataModel>(pid.ToString(), out DynamicChild<SessionDataModel> sessionDataModel))
+                    if (DataModel.Sessions.TryGetDynamicChild<SessionDataModel>(name, out DynamicChild<SessionDataModel> sessionDataModel))
                     {
-                        sessionDataModel.Value.Id = pid;
                         sessionDataModel.Value.Name = name;
                         sessionDataModel.Value.State = session.State;
                         sessionDataModel.Value.PeakVolume = session.AudioMeterInformation.MasterPeakValue * 100;
@@ -157,14 +208,13 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                     else
                     {
                         DataModel.Sessions.AddDynamicChild(
-                            pid.ToString(),
+                            name,
                             new SessionDataModel()
                             {
-                                Id = pid,
                                 Name = name,
-                                State = _playbackDevice?.AudioSessionManager.Sessions[i].State,
-                                PeakVolume = _playbackDevice?.AudioSessionManager.Sessions[i].AudioMeterInformation.MasterPeakValue ?? 0,
-                                PeakVolumeNormalized = _playbackDevice?.AudioSessionManager.Sessions[i].AudioMeterInformation.MasterPeakValue / 100 ?? 0
+                                State = session.State,
+                                PeakVolume = session.AudioMeterInformation.MasterPeakValue * 100,
+                                PeakVolumeNormalized = session.AudioMeterInformation.MasterPeakValue
                             },
                             name
                             );
