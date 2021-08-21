@@ -82,7 +82,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             if (e.DataModelPath.Path.StartsWith("Sessions."))
             {
                 string sName = e.DataModelPath.Path.Split(".")[1];
-                if (DataModel.ActivePaths.Count(p => p.Path.Contains($".{sName}.")) <= 1)
+                if (DataModel.ActivePaths.Count(p => p.Path.Contains($".{sName}")) <= 1)
                 {
                     _ = _savedSessionsSetting.Value.Remove(sName);
                     _savedSessionsSetting.Save();
