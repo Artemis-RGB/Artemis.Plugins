@@ -189,7 +189,10 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
                     ReadOnlySpan<char> nameSlice = data.Slice(nameStart);
                     int nameEnd = nameSlice.LastIndexOf(".");
-                    string name = nameSlice.Slice(0, nameEnd).ToString();
+                    
+                    // To avoid crashed with exe name that contains '.' character
+                    string name = nameSlice.Slice(0, nameEnd).ToString().Replace('.',' '); 
+                    
                     if (!uint.TryParse(data.Slice(pidStart), out uint pid))
                         continue;
 
