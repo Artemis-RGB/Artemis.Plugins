@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
@@ -26,6 +28,20 @@ namespace Artemis.Plugins.WebAPI.Controllers
         public async Task GetDataModel()
         {
             List<DataModel> dataModel = _dataModelService.GetDataModels();
+
+            // Use a custom ContractResolver that respects [DataModelIgnore]
+            HttpContext.Response.ContentType = MimeType.Json;
+            await using TextWriter writer = HttpContext.OpenResponseText();
+            string json = JsonConvert.SerializeObject(dataModel, _serializerSettings);
+            await writer.WriteAsync(json);
+        }
+
+        [Route(HttpVerbs.Get, "/data-model/{plugin}")]
+        public async Task GetDataModel(Guid plugin)
+        {
+            DataModel dataModel = _dataModelService.GetDataModels().FirstOrDefault(dm => dm.Module.Plugin.Guid == plugin);
+            if (dataModel == null)
+                throw HttpException.NotFound();
 
             // Use a custom ContractResolver that respects [DataModelIgnore]
             HttpContext.Response.ContentType = MimeType.Json;
