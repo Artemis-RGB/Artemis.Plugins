@@ -38,7 +38,7 @@ namespace Artemis.Plugins.Modules.General.DataModels
         public float CpuUsage { get; set; }
 
         [DataModelProperty(Name = "RAM usage", Affix = "%")]
-        public float RamUsage => (TotalRam - AvailableRam) / TotalRam;
+        public float RamUsage => (TotalRam - AvailableRam) / (TotalRam != 0 ? TotalRam : 1);
 
         [DataModelProperty(Name = "Available RAM", Affix = "MB")]
         public long AvailableRam { get; set; }
