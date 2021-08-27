@@ -11,7 +11,9 @@ using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Utilities;
 using Esprima;
 using Jint;
+using Jint.Native;
 using Jint.Runtime;
+using Jint.Runtime.Descriptors;
 using Jint.Runtime.Interop;
 using Ninject;
 using Ninject.Parameters;
@@ -24,7 +26,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
     {
         private readonly ILogger _logger;
         private readonly Plugin _plugin;
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource? _cts;
 
         public PluginJintEngine(Script script, Plugin plugin, ILogger logger)
         {
@@ -36,7 +38,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
         }
 
         public Script Script { get; }
-        public Engine Engine { get; private set; }
+        public Engine? Engine { get; private set; }
         public Dictionary<string, IManualScriptBinding> ExtraValues { get; } = new();
 
         public Dictionary<string, Assembly> ExtraAssemblies { get; } = new()
@@ -48,7 +50,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
         public List<Type> ExtraTypes { get; } = new()
         {
             typeof(TimeSpan),
-            typeof(EasingNumber)
+            typeof(EasingNumber),
+            typeof(Audio)
         };
 
         /// <summary>
@@ -114,6 +117,17 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             _cts?.Cancel();
             _cts?.Dispose();
             _cts = null;
+
+            // If there is an engine, dispose any instances of IDisposable
+            if (Engine != null)
+            {
+                IEnumerable<KeyValuePair<JsValue, PropertyDescriptor>> keyValuePairs = Engine.Global.GetOwnProperties();
+                foreach (var (_, propertyDescriptor) in keyValuePairs)
+                {
+                    if (propertyDescriptor.Value.IsObject() && propertyDescriptor.Value.ToObject() is IDisposable disposable)
+                        disposable.Dispose();
+                }
+            }
 
             Engine = null;
         }
