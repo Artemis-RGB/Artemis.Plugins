@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Artemis.Core;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
+using Jint;
 using Jint.Native;
 using Jint.Native.Function;
 using Jint.Runtime;
 using SkiaSharp;
 
-namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
+namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
 {
-    public class ProfileBinding : IManualScriptBinding
+    public class ProfileBinding : IContextBinding
     {
         private readonly Plugin _plugin;
-        private readonly PluginJintEngine _pluginJintEngine;
         private readonly Profile _profile;
         private readonly List<FunctionInstance> _renderedCallbacks = new();
         private readonly List<FunctionInstance> _renderingCallbacks = new();
         private readonly List<FunctionInstance> _updatedCallbacks = new();
         private readonly List<FunctionInstance> _updatingCallbacks = new();
+        private Engine? _engine;
 
-        public ProfileBinding(Profile profile, Plugin plugin, PluginJintEngine pluginJintEngine)
+        public ProfileBinding(Profile profile, Plugin plugin)
         {
             _profile = profile;
             _plugin = plugin;
-            _pluginJintEngine = pluginJintEngine;
         }
 
         internal void ProfileUpdating(double deltaTime)
@@ -60,13 +59,13 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 
         internal void ProfileRendering(SKCanvas canvas, SKRect bounds)
         {
-            if (_pluginJintEngine.Engine == null)
+            if (_engine == null)
                 return;
 
             JsValue[] arguments =
             {
-                JsValue.FromObject(_pluginJintEngine.Engine, canvas),
-                JsValue.FromObject(_pluginJintEngine.Engine, bounds)
+                JsValue.FromObject(_engine, canvas),
+                JsValue.FromObject(_engine, bounds)
             };
             foreach (FunctionInstance callback in _renderingCallbacks.ToList())
             {
@@ -83,13 +82,13 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
 
         internal void ProfileRendered(SKCanvas canvas, SKRect bounds)
         {
-            if (_pluginJintEngine.Engine == null)
+            if (_engine == null)
                 return;
 
             JsValue[] arguments =
             {
-                JsValue.FromObject(_pluginJintEngine.Engine, canvas),
-                JsValue.FromObject(_pluginJintEngine.Engine, bounds)
+                JsValue.FromObject(_engine, canvas),
+                JsValue.FromObject(_engine, bounds)
             };
             foreach (FunctionInstance callback in _renderedCallbacks.ToList())
             {
@@ -104,12 +103,17 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual
             }
         }
 
-        #region Implementation of IManualScriptBinding
+        public void Initialize(Engine engine)
+        {
+            _engine = engine;
+            engine.SetValue("Profile", this);
+        }
 
-        /// <inheritdoc />
-        public string Declaration => File.ReadAllText(_plugin.ResolveRelativePath("StaticDeclarations/ProfileWrapper.ts"));
+        public string GetDeclaration()
+        {
+            return File.ReadAllText(_plugin.ResolveRelativePath("StaticDeclarations/ProfileWrapper.ts"));
+        }
 
-        #endregion
 
         #region JS functions
 

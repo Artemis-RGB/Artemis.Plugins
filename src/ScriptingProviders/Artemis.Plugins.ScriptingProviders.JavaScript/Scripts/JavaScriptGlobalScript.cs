@@ -13,15 +13,15 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
         {
             ScriptConfiguration.ScriptContentChanged += ConfigurationOnScriptContentChanged;
 
-            Engine = plugin.Kernel!.Get<PluginJintEngine>(new ConstructorArgument("script", this));
-            Engine.ExecuteScript();
+            EngineManager = plugin.Kernel!.Get<EngineManager>(new ConstructorArgument("script", this));
+            EngineManager.ExecuteScript();
         }
 
-        public PluginJintEngine Engine { get; }
+        public EngineManager EngineManager { get; }
 
         private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
         {
-            Engine.ExecuteScript();
+            EngineManager.ExecuteScript();
         }
 
         #region IDisposable
@@ -32,7 +32,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
             if (disposing)
             {
                 ScriptConfiguration.ScriptContentChanged -= ConfigurationOnScriptContentChanged;
-                Engine.Dispose();
+                EngineManager.Dispose();
             }
 
             base.Dispose(disposing);

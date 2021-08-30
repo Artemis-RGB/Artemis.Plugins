@@ -6,6 +6,6 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
     public interface IJavaScriptScript
     {
         ScriptConfiguration ScriptConfiguration { get; }
-        PluginJintEngine Engine { get; }
+        EngineManager EngineManager { get; }
     }
 }

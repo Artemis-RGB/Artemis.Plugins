@@ -10,8 +10,6 @@ using System.Windows;
 using System.Windows.Input;
 using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
-using Artemis.Core.Services;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Scripts;
 using Artemis.UI.Shared;
@@ -26,27 +24,23 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
 {
     public class MonacoEditorViewModel : ScriptEditorViewModel
     {
-        private readonly IDataModelService _dataModelService;
         private readonly IDialogService _dialogService;
         private readonly Plugin _plugin;
-        private string? _assembliesDeclarations;
-        private string? _dataModelDeclarations;
+        private string? _declarations;
         private WebView2 _editorWebView = null!;
-        private string? _extraDeclarations;
         private bool _loadingEditor;
         private bool _subscribed;
 
-        public MonacoEditorViewModel(ScriptType scriptType, Plugin plugin, IDialogService dialogService, IDataModelService dataModelService) : base(scriptType)
+        public MonacoEditorViewModel(ScriptType scriptType, Plugin plugin, IDialogService dialogService) : base(scriptType)
         {
             _plugin = plugin;
             _dialogService = dialogService;
-            _dataModelService = dataModelService;
             _loadingEditor = true;
 
             EditorUri = new Uri(plugin.Directory.FullName + "\\Editor\\index.html");
         }
 
-        public IJavaScriptScript? JavaScriptScript { get; private set; }
+        public IJavaScriptScript? JSScript { get; private set; }
         public Uri EditorUri { get; }
 
         public bool LoadingEditor
@@ -57,7 +51,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
 
         public async Task ExportScript()
         {
-            if (JavaScriptScript == null)
+            if (JSScript == null)
                 return;
 
             VistaSaveFileDialog dialog = new()
@@ -79,7 +73,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
 
         public async Task ImportScript()
         {
-            if (JavaScriptScript == null)
+            if (JSScript == null)
                 return;
 
             VistaOpenFileDialog dialog = new()
@@ -109,31 +103,28 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
 
         public void OpenUrl(string url)
         {
-            Core.Utilities.OpenUrl(url);
+            Utilities.OpenUrl(url);
         }
 
         public async Task UpdateScript(IJavaScriptScript? javaScriptScript)
         {
-            JavaScriptScript = javaScriptScript;
+            JSScript = javaScriptScript;
 
-            if (javaScriptScript == null)
+            if (JSScript == null)
                 return;
 
             // Load the default script
-            if (string.IsNullOrWhiteSpace(javaScriptScript.ScriptConfiguration.PendingScriptContent))
-            {
-                javaScriptScript.ScriptConfiguration.PendingScriptContent = ScriptType switch
+            if (string.IsNullOrWhiteSpace(JSScript.ScriptConfiguration.PendingScriptContent))
+                JSScript.ScriptConfiguration.PendingScriptContent = ScriptType switch
                 {
                     ScriptType.Global => await File.ReadAllTextAsync(_plugin.ResolveRelativePath("Templates/GlobalScript.js")),
                     ScriptType.Profile => await File.ReadAllTextAsync(_plugin.ResolveRelativePath("Templates/ProfileScript.js")),
-                    _ => javaScriptScript.ScriptConfiguration.PendingScriptContent
+                    _ => JSScript.ScriptConfiguration.PendingScriptContent
                 };
-            }
 
-            _dataModelDeclarations = GenerateDataModelDeclarations();
-            _assembliesDeclarations = GenerateAssembliesDeclarations(javaScriptScript.Engine.ExtraAssemblies);
-            _extraDeclarations = $"{GenerateExtraDeclarations(javaScriptScript.Engine.ExtraValues)}\r\n" +
-                                 $"{GenerateExtraTypeDeclarations(javaScriptScript.Engine.ExtraTypes)}";
+            _declarations = string.Join("\r\n", JSScript.EngineManager.ScriptBindings.Select(s => s.GetDeclaration()));
+            _declarations += string.Join("\r\n", JSScript.EngineManager.ContextBindings.Select(s => s.GetDeclaration()));
+            _declarations += "\r\n" + GenerateAssembliesDeclarations(JSScript.EngineManager.ExtraAssemblies);
 
             if (!LoadingEditor)
                 await ApplyScript();
@@ -157,27 +148,27 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
 
         private async Task UpdateScriptContents()
         {
-            if (JavaScriptScript == null)
+            if (JSScript == null)
                 return;
 
             string value = await _editorWebView.ExecuteScriptAsync("window.scriptEditor.getValue()");
             string currentScript = Regex.Unescape(value);
             currentScript = currentScript.Substring(1, currentScript.Length - 2);
 
-            JavaScriptScript.ScriptConfiguration.PendingScriptContent = currentScript;
-            JavaScriptScript.ScriptConfiguration.ApplyPendingChanges();
+            JSScript.ScriptConfiguration.PendingScriptContent = currentScript;
+            JSScript.ScriptConfiguration.ApplyPendingChanges();
         }
 
         private async Task UpdateHasChanges()
         {
-            if (JavaScriptScript == null)
+            if (JSScript == null)
                 return;
 
             string value = await _editorWebView.ExecuteScriptAsync("window.scriptEditor.getValue()");
             string currentScript = Regex.Unescape(value);
             currentScript = currentScript.Substring(1, currentScript.Length - 2);
 
-            JavaScriptScript.ScriptConfiguration.PendingScriptContent = currentScript;
+            JSScript.ScriptConfiguration.PendingScriptContent = currentScript;
         }
 
         private async void EditorWebViewOnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
@@ -191,12 +182,6 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
             LoadingEditor = false;
         }
 
-        private string GenerateDataModelDeclarations()
-        {
-            TypeScriptDataModelCollection dataModelCollection = new(_dataModelService.GetDataModels());
-            return dataModelCollection.GenerateCode();
-        }
-
         private string GenerateAssembliesDeclarations(Dictionary<string, Assembly> extraAssemblies)
         {
             List<TypeScriptAssembly> typeScriptAssemblies = new();
@@ -206,11 +191,6 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
             return string.Join("\r\n", typeScriptAssemblies.Select(a => a.GenerateCode()));
         }
 
-        private string GenerateExtraDeclarations(Dictionary<string, IManualScriptBinding> manualScriptBindings)
-        {
-            return string.Join("\r\n", manualScriptBindings.Values.Select(v => v.Declaration));
-        }
-
         private string GenerateExtraTypeDeclarations(List<Type> extraTypes)
         {
             return string.Join("\r\n", extraTypes.Select(v => new TypeScriptClass(null, v, true, TypeScriptClass.MaxDepth).GenerateCode("declare")));
@@ -218,17 +198,15 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
 
         private async Task ApplyScript()
         {
-            if (JavaScriptScript == null)
+            if (JSScript == null)
                 return;
 
             await _editorWebView.ExecuteScriptAsync(
                 "if (window.dataModelDeclarations) window.dataModelDeclarations.dispose(); \r\n" +
                 "if (window.assembliesDeclarations) window.assembliesDeclarations.dispose(); \r\n" +
                 "if (window.extraDeclarations) window.extraDeclarations.dispose(); \r\n" +
-                $"window.dataModelDeclarations = monaco.languages.typescript.javascriptDefaults.addExtraLib(\"{HttpUtility.JavaScriptStringEncode(_dataModelDeclarations)}\", 'dataModelDeclarations.d.ts'); \r\n" +
-                $"window.assembliesDeclarations = monaco.languages.typescript.javascriptDefaults.addExtraLib(\"{HttpUtility.JavaScriptStringEncode(_assembliesDeclarations)}\", 'assembliesDeclarations.d.ts'); \r\n" +
-                $"window.extraDeclarations = monaco.languages.typescript.javascriptDefaults.addExtraLib(\"{HttpUtility.JavaScriptStringEncode(_extraDeclarations)}\", 'extraDeclarations.d.ts'); \r\n" +
-                $"window.scriptEditor.setValue(\"{HttpUtility.JavaScriptStringEncode(JavaScriptScript.ScriptConfiguration.PendingScriptContent)}\");"
+                $"window.dataModelDeclarations = monaco.languages.typescript.javascriptDefaults.addExtraLib(\"{HttpUtility.JavaScriptStringEncode(_declarations)}\", 'artemisDeclarations.d.ts'); \r\n" +
+                $"window.scriptEditor.setValue(\"{HttpUtility.JavaScriptStringEncode(JSScript.ScriptConfiguration.PendingScriptContent)}\");"
             );
         }
 
@@ -237,17 +215,17 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
         /// <inheritdoc />
         public override async Task<bool> CanCloseAsync()
         {
-            if (JavaScriptScript == null || !JavaScriptScript.ScriptConfiguration.HasChanges)
+            if (JSScript == null || !JSScript.ScriptConfiguration.HasChanges)
                 return true;
 
             bool discard = await _dialogService.ShowConfirmDialogAt(
                 "ScriptsDialog",
-                JavaScriptScript.ScriptConfiguration.Name,
+                JSScript.ScriptConfiguration.Name,
                 "You have unsaved changes, do you want to discard them?",
                 "Discard"
             );
             if (discard)
-                JavaScriptScript.ScriptConfiguration.DiscardPendingChanges();
+                JSScript.ScriptConfiguration.DiscardPendingChanges();
 
             return discard;
         }
@@ -264,6 +242,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels
                 _editorWebView.WebMessageReceived += EditorWebViewOnWebMessageReceived;
                 _subscribed = true;
             }
+
             _editorWebView.Unloaded += EditorWebViewOnUnloaded;
 
             base.OnViewLoaded();

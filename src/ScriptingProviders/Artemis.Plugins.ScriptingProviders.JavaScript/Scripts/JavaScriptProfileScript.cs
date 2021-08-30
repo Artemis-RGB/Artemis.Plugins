@@ -2,7 +2,7 @@
 using System.IO;
 using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Ninject;
 using Ninject.Parameters;
@@ -16,16 +16,16 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
 
         public JavaScriptProfileScript(Profile profile, Plugin plugin, ScriptConfiguration configuration) : base(profile, configuration)
         {
+            _profileBinding = new ProfileBinding(profile, plugin);
+
+            EngineManager = plugin.Kernel!.Get<EngineManager>(new ConstructorArgument("script", this));
+            EngineManager.ContextBindings.Add(_profileBinding);
+            EngineManager.ExecuteScript();
+
             ScriptConfiguration.ScriptContentChanged += ConfigurationOnScriptContentChanged;
-
-            Engine = plugin.Kernel!.Get<PluginJintEngine>(new ConstructorArgument("script", this));
-            _profileBinding = new ProfileBinding(profile, plugin, Engine);
-
-            Engine.ExtraValues.Add("Profile", _profileBinding);
-            Engine.ExecuteScript();
         }
 
-        public PluginJintEngine Engine { get; }
+        public EngineManager EngineManager { get; }
 
         public override void OnProfileUpdating(double deltaTime)
         {
@@ -49,7 +49,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
 
         private void ConfigurationOnScriptContentChanged(object? sender, EventArgs e)
         {
-            Engine.ExecuteScript();
+            EngineManager.ExecuteScript();
         }
 
         #region IDisposable
@@ -60,7 +60,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
             if (disposing)
             {
                 ScriptConfiguration.ScriptContentChanged -= ConfigurationOnScriptContentChanged;
-                Engine.Dispose();
+                EngineManager.Dispose();
             }
 
             base.Dispose(disposing);

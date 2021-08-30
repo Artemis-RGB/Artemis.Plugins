@@ -1,15 +1,15 @@
 ﻿using System.Linq;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
+using Jint;
 using Jint.Native;
 using Serilog;
 
-namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
+namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
 {
-    public class ConsoleBinding : IScriptBinding
+    public class ConsoleBinding : IServiceBinding
     {
         private readonly ILogger _logger;
 
-        public ConsoleBinding(PluginJintEngine engine, ILogger logger)
+        public ConsoleBinding(ILogger logger)
         {
             _logger = logger;
         }
@@ -46,6 +46,15 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
                 _logger.Error(string.Join(" ", logObjects.Select(l => l.ToString())));
         }
 
-        public string Name => "console";
+        public void Initialize(Engine engine)
+        {
+            engine.SetValue("console", this);
+        }
+
+        public string? GetDeclaration()
+        {
+            // No need for a declaration as console is a default API
+            return null;
+        }
     }
 }

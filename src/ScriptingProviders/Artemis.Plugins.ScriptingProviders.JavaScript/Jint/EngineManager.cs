@@ -4,54 +4,43 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
+using Artemis.Core.Services;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.Manual;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Utilities;
 using Esprima;
 using Jint;
 using Jint.Native;
 using Jint.Runtime;
 using Jint.Runtime.Descriptors;
 using Jint.Runtime.Interop;
-using Ninject;
-using Ninject.Parameters;
 using Serilog;
 using SkiaSharp;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
 {
-    public class PluginJintEngine : IDisposable
+    public class EngineManager : IDisposable
     {
         private readonly ILogger _logger;
-        private readonly Plugin _plugin;
         private CancellationTokenSource? _cts;
 
-        public PluginJintEngine(Script script, Plugin plugin, ILogger logger)
+        public EngineManager(Script script, ILogger logger, List<IScriptBinding> scriptBindings)
         {
-            _plugin = plugin;
             _logger = logger;
 
             Script = script;
-            ExecuteScript();
+            ScriptBindings = scriptBindings;
         }
 
         public Script Script { get; }
         public Engine? Engine { get; private set; }
-        public Dictionary<string, IManualScriptBinding> ExtraValues { get; } = new();
+
+        public List<IScriptBinding> ScriptBindings { get; set; }
+        public List<IContextBinding> ContextBindings { get; } = new();
 
         public Dictionary<string, Assembly> ExtraAssemblies { get; } = new()
         {
-            {"Artemis.Core", typeof(Profile).Assembly},
+            {"Artemis.Core", typeof(ICoreService).Assembly},
             {"SkiaSharp", typeof(SKColor).Assembly}
-        };
-
-        public List<Type> ExtraTypes { get; } = new()
-        {
-            typeof(TimeSpan),
-            typeof(EasingNumber),
-            typeof(Audio)
         };
 
         /// <summary>
@@ -76,20 +65,16 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             Engine.Global.RemoveOwnProperty(Engine.Global.GetOwnProperties().First(p => p.Key.AsString() == "System").Key);
             Engine.Global.RemoveOwnProperty(Engine.Global.GetOwnProperties().First(p => p.Key.AsString() == "importNamespace").Key);
 
+            Engine.Execute("Artemis = {};");
+
             // Register extra assemblies by their namespace
             foreach ((string name, Assembly _) in ExtraAssemblies)
                 Engine.SetValue(name, new NamespaceReference(Engine, name));
 
-            // Register script bindings
-            List<IScriptBinding> scriptBindings = _plugin.Kernel!.GetAll<IScriptBinding>(new ConstructorArgument("engine", this)).ToList();
-            foreach (IScriptBinding scriptBinding in scriptBindings.Where(b => b.Name != null))
-                Engine.SetValue(scriptBinding.Name, scriptBinding);
-
-            // Register extra values, whatever they may be
-            foreach ((string key, object value) in ExtraValues)
-                Engine.SetValue(key, value);
-            foreach (Type extraType in ExtraTypes)
-                Engine.SetValue(extraType.Name, TypeReference.CreateTypeReference(Engine, extraType));
+            foreach (IScriptBinding scriptBinding in ScriptBindings)
+                scriptBinding.Initialize(Engine);
+            foreach (IContextBinding contextBinding in ContextBindings) 
+                contextBinding.Initialize(Engine);
 
             // Execute the script in a separate thread until the cancellation token is cancelled
             Task.Run(() =>
@@ -118,7 +103,20 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             _cts?.Dispose();
             _cts = null;
 
-            // If there is an engine, dispose any instances of IDisposable
+            // ReSharper disable SuspiciousTypeConversion.Global
+            foreach (IScriptBinding scriptBinding in ScriptBindings)
+            {
+                if (scriptBinding is IDisposable disposable)
+                    disposable.Dispose();
+            }
+            foreach (IContextBinding contextBinding in ContextBindings)
+            {
+                if (contextBinding is IDisposable disposable)
+                    disposable.Dispose();
+            }
+            // ReSharper restore SuspiciousTypeConversion.Global
+
+            // If there is an engine, dispose any instances of IDisposable, hardly foolproof though
             if (Engine != null)
             {
                 IEnumerable<KeyValuePair<JsValue, PropertyDescriptor>> keyValuePairs = Engine.Global.GetOwnProperties();

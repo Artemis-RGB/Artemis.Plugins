@@ -1,32 +1,47 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Media;
-using System.Windows.Threading;
-using Jint.Native;
-using Jint.Native.Function;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Jint;
+using Jint.Runtime.Interop;
 using Stylet;
 
-namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
+namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBindings
 {
+    public class AudioBinding : IInstanceBinding
+    {
+        public void Initialize(Engine engine)
+        {
+            engine.SetValue("Audio", TypeReference.CreateTypeReference(engine, typeof(Audio)));
+        }
+
+        public string GetDeclaration()
+        {
+            return new TypeScriptClass(null, typeof(Audio), true, TypeScriptClass.MaxDepth).GenerateCode("declare");
+        }
+    }
+
     public class Audio : IDisposable
     {
-        private readonly string _path;
         private MediaPlayer _player;
 
         public Audio(string path)
         {
-            _path = path;
+            if (!File.Exists(path))
+                throw new Exception($"File '{path}' not found.");
 
+            _player = null!;
             Execute.OnUIThreadSync(() =>
             {
                 _player = new MediaPlayer();
                 _player.MediaOpened += PlayerOnMediaOpened;
                 _player.MediaFailed += PlayerOnMediaFailed;
                 _player.MediaEnded += PlayerOnMediaEnded;
-                _player.Open(new Uri(_path));
+                _player.Open(new Uri(path));
             });
         }
 
-        public double duration
+        public double Duration
         {
             get
             {
@@ -36,7 +51,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
             }
         }
 
-        public bool ended
+        public bool Ended
         {
             get
             {
@@ -46,7 +61,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
             }
         }
 
-        public double volume
+        public double Volume
         {
             get
             {
@@ -57,19 +72,19 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
             set => Execute.OnUIThreadSync(() => _player.Volume = value);
         }
 
-        public bool loop { get; set; }
+        public bool Loop { get; set; }
 
-        public void play()
+        public void Play()
         {
             Execute.OnUIThreadSync(() => _player.Play());
         }
 
-        public void pause()
+        public void Pause()
         {
             Execute.OnUIThreadSync(() => _player.Pause());
         }
 
-        public void stop()
+        public void Stop()
         {
             Execute.OnUIThreadSync(() => _player.Stop());
         }
@@ -89,7 +104,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
 
         private void PlayerOnMediaEnded(object? sender, EventArgs e)
         {
-            if (loop)
+            if (Loop)
             {
                 _player.Position = TimeSpan.Zero;
                 _player.Play();

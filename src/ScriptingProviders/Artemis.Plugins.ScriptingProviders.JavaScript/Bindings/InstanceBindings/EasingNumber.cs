@@ -1,8 +1,35 @@
 ﻿using System;
 using Artemis.Core;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Jint;
 
-namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
+namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBindings
 {
+    public class EasingNumberBinding : IInstanceBinding
+    {
+        public void Initialize(Engine engine)
+        {
+            TypeScriptEnum typeScriptEnum = new(typeof(Easings.Functions));
+            string enums = "";
+            for (int index = 0; index < typeScriptEnum.Names.Length; index++)
+                enums = enums + typeScriptEnum.Names[index] + ": " + typeScriptEnum.Values[index] + ",\r\n";
+
+            string enumDeclaration = "if (!Artemis.Core) {\r\n" +
+                                     "  Artemis.Core = {}\r\n" +
+                                     "}\r\n" +
+                                     "Artemis.Core.EasingsFunctions = {\r\n" +
+                                     $"   {enums.Trim()}\r\n" +
+                                     "}";
+
+            engine.Execute(enumDeclaration);
+        }
+
+        public string? GetDeclaration()
+        {
+            return new TypeScriptClass(null, typeof(TimeSpan), true, TypeScriptClass.MaxDepth).GenerateCode("declare");
+        }
+    }
+
     public class EasingNumber
     {
         private DateTime _lastUpdate;
@@ -40,15 +67,15 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Utilities
             }
         }
 
-        public void followUp(double end)
+        public void FollowUp(double end)
         {
             Start = End;
             End = end;
 
-            reset();
+            Reset();
         }
 
-        public void reset()
+        public void Reset()
         {
             _progress = 0;
             _progressNormalized = 0;

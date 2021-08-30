@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings
 {
-    public interface IScriptBinding
+    public interface IContextBinding
     {
         void Initialize(Engine engine);
         string? GetDeclaration();
