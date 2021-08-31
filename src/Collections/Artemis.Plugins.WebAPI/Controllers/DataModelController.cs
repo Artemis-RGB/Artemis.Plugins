@@ -27,12 +27,11 @@ namespace Artemis.Plugins.WebAPI.Controllers
         [Route(HttpVerbs.Get, "/data-model")]
         public async Task GetDataModel()
         {
-            List<DataModel> dataModel = _dataModelService.GetDataModels();
-
             // Use a custom ContractResolver that respects [DataModelIgnore]
+            string json = JsonConvert.SerializeObject(_dataModelService.GetDataModels(), _serializerSettings);
+
             HttpContext.Response.ContentType = MimeType.Json;
             await using TextWriter writer = HttpContext.OpenResponseText();
-            string json = JsonConvert.SerializeObject(dataModel, _serializerSettings);
             await writer.WriteAsync(json);
         }
 
@@ -44,9 +43,10 @@ namespace Artemis.Plugins.WebAPI.Controllers
                 throw HttpException.NotFound();
 
             // Use a custom ContractResolver that respects [DataModelIgnore]
+            string json = JsonConvert.SerializeObject(dataModel, _serializerSettings);
+
             HttpContext.Response.ContentType = MimeType.Json;
             await using TextWriter writer = HttpContext.OpenResponseText();
-            string json = JsonConvert.SerializeObject(dataModel, _serializerSettings);
             await writer.WriteAsync(json);
         }
     }
