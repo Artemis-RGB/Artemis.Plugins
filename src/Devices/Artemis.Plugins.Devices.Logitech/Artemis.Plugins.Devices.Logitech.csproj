@@ -13,10 +13,12 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="x86\**" />
+    <EmbeddedResource Remove="x86\**" />
+    <None Remove="x86\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="x64\LogitechLedEnginesWrapper.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\LogitechLedEnginesWrapper.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

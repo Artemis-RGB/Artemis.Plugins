@@ -13,6 +13,11 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="x86\**" />
+    <EmbeddedResource Remove="x86\**" />
+    <None Remove="x86\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -40,9 +45,6 @@
 
   <ItemGroup>
     <Content Include="x64\CUESDK.x64_2017.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\CUESDK_2017.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
