@@ -12,12 +12,14 @@ namespace Artemis.Plugins.Devices.Wooting
         public WootingDeviceProvider(IRgbService rgbService) : base(RGB.NET.Devices.Wooting.WootingDeviceProvider.Instance)
         {
             _rgbService = rgbService;
+            CanDetectPhysicalLayout = true;
         }
 
         public override void Enable()
         {
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "wooting-rgb-sdk64.dll"));
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "wooting-rgb-sdk.dll"));
+            
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
