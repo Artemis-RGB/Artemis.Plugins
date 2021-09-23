@@ -1,4 +1,4 @@
-﻿using Artemis.Core;
+using Artemis.Core;
 using Artemis.Plugins.Devices.Logitech.Prerequisites;
 
 namespace Artemis.Plugins.Devices.Logitech
@@ -8,6 +8,7 @@ namespace Artemis.Plugins.Devices.Logitech
         public override void OnPluginLoaded(Plugin plugin)
         {
             AddPluginPrerequisite(new VcRedistPrerequisite(plugin));
+            AddPluginPrerequisite(new LgsOrGhubPrerequisite(plugin));
         }
     }
 }
