@@ -54,7 +54,7 @@ namespace Artemis.Plugins.Audio.Services
             {
                 if (_handlingDeviceChanged)
                     return;
-                
+
                 _handlingDeviceChanged = true;
                 // If plugin is enabled, create the new WasapiCapture on setting change.
                 if (!_isActivated)
@@ -111,27 +111,30 @@ namespace Artemis.Plugins.Audio.Services
 
         private void Activate()
         {
-            if (_isActivated) return;
+            lock (this)
+            {
+                if (_isActivated) return;
 
-            // Pass Enumerator instance from NAudioDeviceEnumerationService
-            // Could also pass the Service to register events to update EndPoint on default device change.
+                // Pass Enumerator instance from NAudioDeviceEnumerationService
+                // Could also pass the Service to register events to update EndPoint on default device change.
 
-            _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService, _useCustomWasapiCapture.Value, _logger);
-            _audioInput.Initialize();
+                _audioInput = new NAudioAudioInput(_naudioDeviceEnumerationService, _useCustomWasapiCapture.Value, _logger);
+                _audioInput.Initialize();
 
-            _audioBuffer = new AudioBuffer(4096); // Working with ~93ms
-            _audioInput.DataAvailable += (left, right) => _audioBuffer?.Put(left, right);
+                _audioBuffer = new AudioBuffer(4096); // Working with ~93ms
+                _audioInput.DataAvailable += (left, right) => _audioBuffer?.Put(left, right);
 
-            _spectrumProviders.Add(Channel.Mix, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Mix)));
-            _spectrumProviders.Add(Channel.Left, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Left)));
-            _spectrumProviders.Add(Channel.Right, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Right)));
+                _spectrumProviders.Add(Channel.Mix, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Mix)));
+                _spectrumProviders.Add(Channel.Left, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Left)));
+                _spectrumProviders.Add(Channel.Right, new FourierSpectrumProvider(new SpectrumAudioDataProvider(_audioBuffer, Channel.Right)));
 
-            foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
-                spectrumProvider.Initialize();
+                foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
+                    spectrumProvider.Initialize();
 
-            _coreService.FrameRendering += Update;
+                _coreService.FrameRendering += Update;
 
-            _isActivated = true;
+                _isActivated = true;
+            }
         }
 
         private void Deactivate()
