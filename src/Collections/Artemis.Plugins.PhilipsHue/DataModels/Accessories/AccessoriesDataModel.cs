@@ -33,8 +33,8 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
             {
                 accessoryDataModel = accessory.Type switch
                 {
-                    "ZLLSwitch" => AddDynamicChild(accessoryKey, new DimmerSwitch(accessory)).Value,
-                    "ZGPSwitch" => AddDynamicChild(accessoryKey, new Tap(accessory)).Value,
+                    "ZLLSwitch" => AddDynamicChild(accessoryKey, new DimmerSwitch(accessory), accessory.Name).Value,
+                    "ZGPSwitch" => AddDynamicChild(accessoryKey, new Tap(accessory), accessory.Name).Value,
                     _ => null
                 };
             }
@@ -55,7 +55,7 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Accessories
             if (accessoryDataModel != null)
                 accessoryDataModel.Update(mainSensor, sensors);
             else
-                accessoryDataModel = AddDynamicChild(sensorKey, new MotionSensorDataModel(mainSensor, sensors)).Value;
+                accessoryDataModel = AddDynamicChild(sensorKey, new MotionSensorDataModel(mainSensor, sensors), mainSensor.Name).Value;
 
             accessoryDataModel.DataModelDescription.Name = accessoryDataModel.Name;
         }

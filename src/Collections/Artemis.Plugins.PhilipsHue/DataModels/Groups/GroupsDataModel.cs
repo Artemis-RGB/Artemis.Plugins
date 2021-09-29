@@ -51,11 +51,9 @@ namespace Artemis.Plugins.PhilipsHue.DataModels.Groups
                     groupDataModel.HueGroup = group;
                 else
                 {
-                    groupDataModel = AddDynamicChild(groupKey, new GroupDataModel(group, bridge.BridgeInfo)).Value;
+                    groupDataModel = AddDynamicChild(groupKey, new GroupDataModel(group, bridge.BridgeInfo), group.Name).Value;
                     Groups.Add(groupDataModel);
                 }
-
-                groupDataModel.DataModelDescription.Name = groupDataModel.Name;
             }
 
             // Remove groups that no longer exist
