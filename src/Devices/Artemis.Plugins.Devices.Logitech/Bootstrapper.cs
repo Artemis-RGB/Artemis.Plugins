@@ -1,4 +1,4 @@
-using Artemis.Core;
+﻿using Artemis.Core;
 using Artemis.Plugins.Devices.Logitech.Prerequisites;
 
 namespace Artemis.Plugins.Devices.Logitech
@@ -9,6 +9,7 @@ namespace Artemis.Plugins.Devices.Logitech
         {
             AddPluginPrerequisite(new VcRedistPrerequisite(plugin));
             AddPluginPrerequisite(new LgsOrGhubPrerequisite(plugin));
+            AddPluginPrerequisite(new AuroraWrapperPatchPrerequisite());
         }
     }
 }
