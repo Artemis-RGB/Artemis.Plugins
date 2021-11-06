@@ -1,10 +1,7 @@
 ﻿using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
-using Microsoft.Win32;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
 using Serilog;
@@ -17,7 +14,6 @@ namespace Artemis.Plugins.Devices.Corsair
     {
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
-        private bool _suspended;
 
         public CorsairDeviceProvider(ILogger logger, IRgbService rgbService) : base(RGBDeviceProvider.Instance)
         {
@@ -25,10 +21,6 @@ namespace Artemis.Plugins.Devices.Corsair
             _rgbService = rgbService;
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
-
-            // iCUE becomes unavailable on power mode Suspend but only becomes available again after SessionUnlock
-            SystemEvents.PowerModeChanged += SystemEventsPowerModeChanged;
-            SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch;
         }
 
         public override void Enable()
@@ -70,40 +62,5 @@ namespace Artemis.Plugins.Devices.Corsair
 
             return null;
         }
-
-        #region Event handlers
-
-        private void SystemEventsOnSessionSwitch(object sender, SessionSwitchEventArgs e)
-        {
-            if (!IsEnabled)
-                return;
-
-            if (e.Reason == SessionSwitchReason.SessionUnlock && _suspended)
-            {
-                Task.Run(() =>
-                {
-                    // Give iCUE a moment to think about its sins
-                    Thread.Sleep(5000);
-                    _logger.Debug("Detected PC unlock and we're suspended, calling Enable");
-                    _suspended = false;
-                    Enable();
-                });
-            }
-        }
-
-        private void SystemEventsPowerModeChanged(object sender, PowerModeChangedEventArgs e)
-        {
-            if (!IsEnabled)
-                return;
-
-            if (e.Mode == PowerModes.Suspend && !_suspended)
-            {
-                _logger.Debug("Detected power state change to Suspend, calling Disable");
-                _suspended = true;
-                Disable();
-            }
-        }
-
-        #endregion
     }
 }
