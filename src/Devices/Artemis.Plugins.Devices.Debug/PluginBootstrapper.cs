@@ -1,6 +1,6 @@
 ﻿using Artemis.Core;
 using Artemis.Plugins.Devices.Debug.ViewModels;
-using Artemis.UI.Shared;
+using Artemis.UI.Avalonia.Shared;
 
 namespace Artemis.Plugins.Devices.Debug
 {
