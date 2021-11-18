@@ -32,10 +32,10 @@
       <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net5.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="Artemis.UI.Avalonia.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI.Avalonia\bin\net5.0\Artemis.UI.Avalonia.Shared.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+	  <Reference Include="Artemis.UI.Shared">
+		  <HintPath>..\..\..\..\Artemis\src\Avalonia\Artemis.UI.Shared\bin\net5.0\Artemis.UI.Shared.dll</HintPath>
+		  <Private>false</Private>
+	  </Reference>
   </ItemGroup>
 
   <ItemGroup>
