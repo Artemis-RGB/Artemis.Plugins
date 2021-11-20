@@ -4,7 +4,6 @@
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
     <AssemblyName>Artemis.Plugins.ScriptingProviders.JavaScript</AssemblyName>
     <RootNamespace>Artemis.Plugins.ScriptingProviders.JavaScript</RootNamespace>
-    <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
@@ -18,9 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Jint" Version="3.0.0-beta-2032" />
-    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
+    <PackageReference Include="Avalonia" Version="0.10.10" PrivateAssets="All" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
     <PackageReference Include="Ninject" Version="3.3.4">
       <PrivateAssets>All</PrivateAssets>
@@ -42,11 +40,11 @@
 
   <ItemGroup>
     <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\net5.0-windows\Artemis.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net5.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Artemis.UI.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\net5.0-windows\Artemis.UI.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Avalonia\Artemis.UI.Shared\bin\net5.0\Artemis.UI.Shared.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

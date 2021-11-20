@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <PackageReference Include="EmbedIO" Version="3.4.3" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
   </ItemGroup>

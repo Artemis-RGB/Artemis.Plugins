@@ -1,6 +1,7 @@
 ﻿using Artemis.Core;
 using Artemis.Plugins.Modules.TestData.DataModels;
 using Artemis.UI.Shared;
+using ReactiveUI;
 
 namespace Artemis.Plugins.Modules.TestData.ViewModels
 {
@@ -20,7 +21,7 @@ namespace Artemis.Plugins.Modules.TestData.ViewModels
         public string Event2Argument
         {
             get => _event2Argument;
-            set => SetAndNotify(ref _event2Argument, value);
+            set => this.RaiseAndSetIfChanged(ref _event2Argument, value);
         }
 
         public void TriggerEvent1()

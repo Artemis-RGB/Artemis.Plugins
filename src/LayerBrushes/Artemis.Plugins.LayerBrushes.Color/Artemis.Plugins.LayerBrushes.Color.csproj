@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
   </ItemGroup>

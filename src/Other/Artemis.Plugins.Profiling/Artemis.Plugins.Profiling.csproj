@@ -4,7 +4,6 @@
     <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
     <AssemblyName>Artemis.Plugins.Profiling</AssemblyName>
     <RootNamespace>Artemis.Plugins.Profiling</RootNamespace>
-    <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
     <GenerateDependencyFile>False</GenerateDependencyFile>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
@@ -17,9 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Profiler.SelfApi" Version="2.1.2" />
-    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
+    <PackageReference Include="Avalonia" Version="0.10.10" PrivateAssets="All" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" PrivateAssets="All" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
@@ -37,11 +35,11 @@
 
   <ItemGroup>
     <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\net5.0-windows\Artemis.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net5.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Artemis.UI.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\net5.0-windows\Artemis.UI.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Avalonia\Artemis.UI.Shared\bin\net5.0\Artemis.UI.Shared.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

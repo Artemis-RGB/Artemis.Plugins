@@ -22,7 +22,6 @@
     <PackageReference Include="Avalonia" Version="0.10.10" PrivateAssets="All" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
   </ItemGroup>

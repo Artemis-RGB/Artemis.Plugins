@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Modules.TestData.Views.TestPluginConfigurationView">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="15" MaxWidth="800">
+            <TextBlock Classes="h5" Margin="0 15">Events</TextBlock>
+            <Border Classes="card">
+                <StackPanel>
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0">
+                            <TextBlock>What are events?</TextBlock>
+                            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                                Events are a different kind of data model property useful for things that happen
+                            </TextBlock>
+                            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                                in games, like scoring a goal, killing someone or winning a round.
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                            <Button Command="{Binding TriggerEvent1}" Width="150">
+                                Trigger Event1
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Separator Classes="card-separator" />
+
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock>Event arguments</TextBlock>
+                            <TextBlock Classes="subtitle">
+                                An event can optionally have arguments just like C# events.
+                            </TextBlock>
+                            <TextBlock Classes="subtitle">
+                                These allow you to provide extra info with your event.
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBox Text="{Binding Event2Argument}" Watermark="Enter event arguments" Width="150" Margin="0 0 0 5"/>
+                            <Button Command="{Binding TriggerEvent2}" Width="150">
+                                Trigger Event2
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
