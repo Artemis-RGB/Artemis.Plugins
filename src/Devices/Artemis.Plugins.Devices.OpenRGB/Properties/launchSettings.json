@@ -2,8 +2,8 @@
   "profiles": {
     "Artemis.Plugins.Devices.OpenRGB": {
       "commandName": "Executable",
-      "executablePath": ".\\Artemis.UI.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"
+      "executablePath": ".\\Artemis.UI.Windows.exe",
+      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Avalonia\\Artemis.UI.Windows\\bin\\Debug\\net5.0-windows"
     }
   }
 }
