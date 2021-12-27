@@ -40,14 +40,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="RGB.NET.Devices.Wooting">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Wooting.dll</HintPath>
-    </Reference>
+    <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0-prerelease1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Images\**">

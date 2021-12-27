@@ -19,9 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.10" PrivateAssets="All" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.10" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" PrivateAssets="All" />
+    <PackageReference Include="Avalonia" Version="0.10.11" PrivateAssets="All" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.11" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" PrivateAssets="All" />
+    <PackageReference Include="RGB.NET.Devices.Debug" Version="1.0.0-prerelease1" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
   </ItemGroup>
@@ -35,19 +36,6 @@
 		  <HintPath>..\..\..\..\Artemis\src\Avalonia\Artemis.UI.Shared\bin\net5.0\Artemis.UI.Shared.dll</HintPath>
 		  <Private>false</Private>
 	  </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="RGB.NET.Devices.Debug">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Debug.dll</HintPath>
-    </Reference>
-    <Reference Include="RGB.NET.Layout">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Layout.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="Images\**">

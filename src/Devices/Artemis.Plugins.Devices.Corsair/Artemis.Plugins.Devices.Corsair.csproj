@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="RGB.NET.Devices.Corsair" Version="1.0.0-prerelease1" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
   </ItemGroup>
@@ -34,16 +35,6 @@
     <Content Include="x64\CUESDK.x64_2017.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="RGB.NET.Devices.Corsair">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Corsair.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="Images\**">

@@ -26,14 +26,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="RGB.NET.Devices.Novation" Version="1.0.0-prerelease1" />
     <PackageReference Include="Sanford.Multimedia.Midi" Version="6.6.0">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.10" PrivateAssets="All" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" PrivateAssets="All" />
+    <PackageReference Include="Avalonia" Version="0.10.11" PrivateAssets="All" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" PrivateAssets="All" />
     <PackageReference Include="Serilog" Version="2.10.0" PrivateAssets="All" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
     <PackageReference Include="Stylet" Version="1.3.6" PrivateAssets="All" />
@@ -47,16 +48,6 @@
     <Reference Include="Artemis.UI.Shared">
       <HintPath>..\..\..\..\Artemis\src\Avalonia\Artemis.UI.Shared\bin\net5.0\Artemis.UI.Shared.dll</HintPath>
       <Private>false</Private>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="RGB.NET.Core">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="RGB.NET.Devices.Novation">
-      <HintPath>..\..\..\..\RGB.NET\bin\net5.0\RGB.NET.Devices.Novation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

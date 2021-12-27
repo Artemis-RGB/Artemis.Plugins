@@ -30,8 +30,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="0.10.10" PrivateAssets="All" />
-		<PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" PrivateAssets="All" />
+		<PackageReference Include="Avalonia" Version="0.10.11" PrivateAssets="All" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" PrivateAssets="All" />
 		<PackageReference Include="ScreenCapture.NET" Version="1.0.2" />
 		<PackageReference Include="Serilog" Version="2.10.0" />
 		<PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />

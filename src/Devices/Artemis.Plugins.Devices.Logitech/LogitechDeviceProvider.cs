@@ -32,7 +32,7 @@ namespace Artemis.Plugins.Devices.Logitech
 
             
             RGB.NET.Devices.Logitech.LogitechDeviceProvider.PerZoneDeviceDefinitions.Add(
-                0xC092, RGBDeviceType.Keyboard, "G203 Lightsync", LedMappings.ZoneMouse, (LogitechDeviceType.Mouse, 3)
+                0xC092, RGBDeviceType.Keyboard, "G203 Lightsync", LedMappings.ZoneMouse, (LogitechDeviceType.Mouse, 3, 0)
             );
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
