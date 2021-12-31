@@ -1,36 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
-    <AssemblyName>Artemis.Plugins.ScriptingProviders.JavaScript</AssemblyName>
-    <RootNamespace>Artemis.Plugins.ScriptingProviders.JavaScript</RootNamespace>
-    <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
-    <GenerateDependencyFile>False</GenerateDependencyFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
-    <Nullable>enable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Jint" Version="3.0.0-beta-2032" />
-    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" PrivateAssets="All" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" PrivateAssets="All" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
-    <PackageReference Include="Ninject" Version="3.3.4">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="ninject.extensions.conventions" Version="3.3.0" />
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="SkiaSharp" Version="2.80.3" PrivateAssets="All" />
-    <PackageReference Include="Stylet" Version="1.3.6" PrivateAssets="All" />
-  </ItemGroup>
 
   <ItemGroup>
     <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
@@ -38,6 +13,26 @@
       <SubType>Designer</SubType>
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0"  />
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0"  />
+    <PackageReference Include="FluentValidation" Version="10.2.3"  />
+    <PackageReference Include="Ninject" Version="3.3.4"/>
+    <PackageReference Include="ninject.extensions.conventions" Version="3.3.0" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3"  />
+    <PackageReference Include="Stylet" Version="1.3.6"  />
+
+    <!--All packages Artemis already references are compile-only dependencies-->
+    <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
+    <PackageReference Include="Jint" Version="3.0.0-beta-2032" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,78 +45,22 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  
-    <ItemGroup>
-    <None Update="Editor\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+
+  <ItemGroup>
+    <Content Include="Editor\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="plugin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="StaticDeclarations\LayerPropertyWrapper.ts">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Code</SubType>
-    </None>
-    <None Update="StaticDeclarations\LayerWrapper.ts">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Code</SubType>
-    </None>
-    <None Update="StaticDeclarations\InputWrapper.ts">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="StaticDeclarations\ProfileWrapper.ts">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Templates\GlobalScript.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Templates\ProfileScript.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="StaticDeclarations\LayerPropertyWrapper.ts" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="StaticDeclarations\LayerWrapper.ts" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="StaticDeclarations\InputWrapper.ts" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="StaticDeclarations\ProfileWrapper.ts" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Templates\GlobalScript.js" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Templates\ProfileScript.js" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
-	<ItemGroup>
-		<PluginJson Include="plugin.json" />
-	</ItemGroup>
-
-	<UsingTask TaskName="GetPluginPath" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildBinPath)\Microsoft.Build.Tasks.Core.dll">
-		<ParameterGroup>
-			<AssemblyName ParameterType="System.String" Required="true" />
-			<Json ParameterType="System.String" Required="true" />
-			<PluginPath ParameterType="System.String" Output="true" />
-		</ParameterGroup>
-		<Task>
-			<Using Namespace="System" />
-			<Using Namespace="System.IO" />
-			<Using Namespace="System.Text.RegularExpressions" />
-			<Code Type="Fragment" Language="C#">
-				<![CDATA[
-				Match guidMatch = Regex.Match(Json, "\"Guid\": \"([^\"]+)\"");
-				string guid = guidMatch.Groups.Count > 1 ? guidMatch.Groups[1].Value.Substring(0, 8) : "ffffffff";
-				PluginPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Artemis", "plugins", AssemblyName + "-" + guid);
-				]]>
-			</Code>
-		</Task>
-	</UsingTask>
-
-  <!-- Copy the plugin files to the Artemis plugin directory -->
-  <Target Name="PostBuildCopy" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <!-- Determine the file path based on plugin.json contents -->
-    <ReadLinesFromFile File="@(PluginJson)">
-      <Output TaskParameter="Lines" ItemName="JsonContents" />
-    </ReadLinesFromFile>
-    <GetPluginPath AssemblyName="$(AssemblyName)" Json="@(JsonContents)">
-      <Output TaskParameter="PluginPath" PropertyName="PluginPath" />
-    </GetPluginPath>
-
-    <ItemGroup>
-      <BuildFiles Include="$(TargetDir)\**\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="$(PluginPath)\%(RecursiveDir)" SkipUnchangedFiles="true" />
-    <Message Text="Placed debug build in file:\\$(PluginPath)" Importance="High" />
-    <Message Text="To share your plugin with others, use 'dotnet publish'" Importance="High" />
-  </Target>
+  <ItemGroup>
+    <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
+  </ItemGroup>
 </Project>
