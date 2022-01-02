@@ -1,0 +1,12 @@
+﻿{
+  "Guid": "8A53050A-CAD1-44B5-9B50-1519299C1D60",
+  "Name": "PicoPi Devices",
+  "Author": "DarthAffe",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "Memory",
+  "Description": "Allows Artemis to control lighting through RP2040-microcontrollers",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Devices.PicoPi.dll",
+  "AutoEnableFeatures": false
+}

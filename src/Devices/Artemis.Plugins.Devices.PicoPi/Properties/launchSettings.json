@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Artemis.Plugins.Devices.PicoPi": {
+      "commandName": "Executable",
+      "executablePath": ".\\Artemis.UI.exe",
+      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"
+    }
+  }
+}
