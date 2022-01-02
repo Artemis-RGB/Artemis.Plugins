@@ -29,9 +29,7 @@ Due to the volatine nature of the project right now, there is no documentation y
 
 #### Want to build? Follow these instructions
 1. Create a central folder like ```C:\Repos```
-2. Clone RGB.NET's development branch into ```<central folder>\RGB.NET```
-3. Clone Artemis into  ```<central folder>\Artemis```
-5. Open ```<central folder>\RGB.NET\RGB.NET.sln``` and build with the default config
-4. Open ```<central folder>\Artemis\src\Artemis.sln``` and build with the default config
-5. Clone Artemis.Plugins into  ```<central folder>\Artemis.Plugins```
-6. Open ```<central folder>\Artemis.Plugins\src\Artemis.Plugins.sln``` and build with the default config
+2. Clone Artemis into  ```<central folder>\Artemis```
+3. Open ```<central folder>\Artemis\src\Artemis.sln``` and build with the default config
+4. Clone Artemis.Plugins into  ```<central folder>\Artemis.Plugins```
+5. Open ```<central folder>\Artemis.Plugins\src\Artemis.Plugins.sln``` and build with the default config
