@@ -31,26 +31,6 @@ namespace Artemis.Plugins.Devices.Razer
 
             _loadEmulatorDevices = _pluginSettings.GetSetting("LoadEmulatorDevices", false);
             _loadEmulatorDevices.SettingChanged += LoadEmulatorDevicesOnSettingChanged;
-
-            // ChromaLink
-            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0xF1F, RGBDeviceType.Unknown, "Addressable RGB Controller", RGB.NET.Devices.Razer.LedMappings.ChromaLink, RazerEndpointType.ChromaLink
-            );
-
-            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0x96, RGBDeviceType.Mouse, "Naga X", RGB.NET.Devices.Razer.LedMappings.Mouse, RazerEndpointType.Mouse
-            );    
-            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0x024E, RGBDeviceType.Keyboard, "BlackWidow V3", LedMappings.KeyboardBlackWidowV3, RazerEndpointType.Keyboard
-            );
-
-            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0x91, RGBDeviceType.Mouse, "Viper 8khz", RGB.NET.Devices.Razer.LedMappings.Mouse, RazerEndpointType.Mouse
-            );
-
-            RGB.NET.Devices.Razer.RazerDeviceProvider.DeviceDefinitions.Add(
-                0x266, RGBDeviceType.Keyboard, "Huntsman V2", RGB.NET.Devices.Razer.LedMappings.Keyboard, RazerEndpointType.Keyboard
-            );
         }
 
         public override void Enable()

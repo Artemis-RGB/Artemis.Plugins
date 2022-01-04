@@ -1,27 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <ShouldIncludeNativeSkiaSharp>false</ShouldIncludeNativeSkiaSharp>
-    <AssemblyName>Artemis.Plugins.Devices.Wooting</AssemblyName>
-    <RootNamespace>Artemis.Plugins.Devices.Wooting</RootNamespace>
     <Platforms>x64</Platforms>
-    <GenerateDependencyFile>False</GenerateDependencyFile>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="x86\**" />
-    <EmbeddedResource Remove="x86\**" />
-    <None Remove="x86\**" />
-    <Page Remove="x86\**" />
+    <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease1" />
+
+    <!--All packages Artemis already references are compile-only dependencies-->
+    <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="plugin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0-prerelease1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,69 +22,15 @@
       <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net5.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="Artemis.UI.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Avalonia\Artemis.UI.Shared\bin\net5.0\Artemis.UI.Shared.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="x64\wooting-rgb-sdk64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="x64\wooting-rgb-sdk64.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0-prerelease1" />
+    <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Images\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Layouts\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-	<ItemGroup>
-		<PluginJson Include="plugin.json" />
-	</ItemGroup>
-
-	<UsingTask TaskName="GetPluginPath" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildBinPath)\Microsoft.Build.Tasks.Core.dll">
-		<ParameterGroup>
-			<AssemblyName ParameterType="System.String" Required="true" />
-			<Json ParameterType="System.String" Required="true" />
-			<PluginPath ParameterType="System.String" Output="true" />
-		</ParameterGroup>
-		<Task>
-			<Using Namespace="System" />
-			<Using Namespace="System.IO" />
-			<Using Namespace="System.Text.RegularExpressions" />
-			<Code Type="Fragment" Language="C#">
-				<![CDATA[
-				Match guidMatch = Regex.Match(Json, "\"Guid\": \"([^\"]+)\"");
-				string guid = guidMatch.Groups.Count > 1 ? guidMatch.Groups[1].Value.Substring(0, 8) : "ffffffff";
-				PluginPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Artemis", "plugins", AssemblyName + "-" + guid);
-				]]>
-			</Code>
-		</Task>
-	</UsingTask>
-
-  <!-- Copy the plugin files to the Artemis plugin directory -->
-  <Target Name="PostBuildCopy" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-    <!-- Determine the file path based on plugin.json contents -->
-    <ReadLinesFromFile File="@(PluginJson)">
-      <Output TaskParameter="Lines" ItemName="JsonContents" />
-    </ReadLinesFromFile>
-    <GetPluginPath AssemblyName="$(AssemblyName)" Json="@(JsonContents)">
-      <Output TaskParameter="PluginPath" PropertyName="PluginPath" />
-    </GetPluginPath>
-
-    <ItemGroup>
-      <BuildFiles Include="$(TargetDir)\**\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="$(PluginPath)\%(RecursiveDir)" SkipUnchangedFiles="true" />
-    <Message Text="Placed debug build in file:\\$(PluginPath)" Importance="High" />
-    <Message Text="To share your plugin with others, use 'dotnet publish'" Importance="High" />
-  </Target>
 </Project>
