@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <Platforms>x64</Platforms>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <TargetFramework>net5.0</TargetFramework>
+	  <Platforms>x64</Platforms>
+	  <EnableDynamicLoading>true</EnableDynamicLoading>
+	  <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HidSharp" Version="2.1.0" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease1" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
@@ -14,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0-prerelease1" />
+    <PackageReference Include="LibUsbDotNet" Version="3.0.87-alpha" />
+    <PackageReference Include="RGB.NET.Devices.PicoPi" Version="1.0.0-prerelease1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +24,6 @@
       <HintPath>..\..\..\..\Artemis\src\Artemis.UI\bin\net5.0-windows\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="x64\wooting-rgb-sdk64.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
