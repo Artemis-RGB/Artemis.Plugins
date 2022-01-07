@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -76,7 +77,7 @@ namespace Artemis.Plugins.Devices.Corsair
         {
             // Pumps can have different amounts of LEDs but share the model name "PUMP", by including the LED count in the layout name
             // we can still have different layouts of each type of pump
-            if (device.RgbDevice.DeviceInfo.Model == "PUMP")
+            if (device.RgbDevice.DeviceInfo.Model.Equals("pump", StringComparison.InvariantCultureIgnoreCase))
                 return $"PUMP-{device.RgbDevice.Count()}-ZONE.xml";
 
             return base.GetDeviceLayoutName(device);
