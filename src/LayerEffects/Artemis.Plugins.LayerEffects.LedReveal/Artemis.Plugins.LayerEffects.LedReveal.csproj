@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp" Version="2.88.0-preview.178" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease1" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
