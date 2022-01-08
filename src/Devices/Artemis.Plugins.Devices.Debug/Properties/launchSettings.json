@@ -3,7 +3,7 @@
     "Artemis.Plugins.Devices.Debug": {
       "commandName": "Executable",
       "executablePath": ".\\Artemis.UI.Avalonia.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI.Avalonia\\bin\\net5.0"
+      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI.Avalonia\\bin\\net6.0"
     }
   }
 }

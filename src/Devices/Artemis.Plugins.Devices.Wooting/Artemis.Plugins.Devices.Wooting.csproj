@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net5.0\Artemis.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net6.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
