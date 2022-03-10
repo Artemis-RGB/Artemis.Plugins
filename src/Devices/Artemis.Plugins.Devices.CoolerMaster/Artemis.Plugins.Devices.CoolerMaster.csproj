@@ -15,7 +15,6 @@
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
   </ItemGroup>
 
-
   <ItemGroup>
     <PackageReference Include="RGB.NET.Devices.CoolerMaster" Version="1.0.0-prerelease7" />
   </ItemGroup>
@@ -26,6 +25,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="x64\CMSDK.dll" CopyToOutputDirectory="PreserveNewest" />

@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="RGB.NET.Devices.Logitech" Version="1.0.0-prerelease7" />
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +27,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="x64\LogitechLedEnginesWrapper.dll" CopyToOutputDirectory="PreserveNewest" />
