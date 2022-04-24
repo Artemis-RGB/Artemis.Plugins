@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
+using Avalonia.Media.Imaging;
+using ReactiveUI;
 using ScreenCapture.NET;
-using Stylet;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 {
-    public sealed class DisplayPreview : PropertyChangedBase, IDisposable
+    public sealed class DisplayPreview : ReactiveObject, IDisposable
     {
         #region Properties & Fields
 
@@ -32,7 +30,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
         public WriteableBitmap Preview
         {
             get => _preview;
-            set => SetAndNotify(ref _preview, value);
+            set => this.RaiseAndSetIfChanged(ref _preview, value);
         }
 
         private WriteableBitmap _processedPreview;
@@ -40,7 +38,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
         public WriteableBitmap ProcessedPreview
         {
             get => _processedPreview;
-            set => SetAndNotify(ref _processedPreview, value);
+            set => this.RaiseAndSetIfChanged(ref _processedPreview, value);
         }
 
         #endregion
@@ -54,7 +52,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             _captureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(0, 0, display.Width, display.Height, highQuality ? 0 : 2);
 
             _previewBuffer = new byte[_captureZone.Buffer.Length];
-            Preview = new WriteableBitmap(BitmapSource.Create(_captureZone.Width, _captureZone.Height, 96, 96, PixelFormats.Bgra32, null, _previewBuffer, _captureZone.Stride));
+            // Preview = new WriteableBitmap(BitmapSource.Create(_captureZone.Width, _captureZone.Height, 96, 96, PixelFormats.Bgra32, null, _previewBuffer, _captureZone.Stride));
         }
 
         public DisplayPreview(Display display, AmbilightCaptureProperties properties)
@@ -67,16 +65,16 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
             _captureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(0, 0, display.Width, display.Height);
             _previewBuffer = new byte[_captureZone.Buffer.Length];
-            Preview = new WriteableBitmap(BitmapSource.Create(_captureZone.Width, _captureZone.Height, 96, 96, PixelFormats.Bgra32, null, _previewBuffer, _captureZone.Stride));
+            // Preview = new WriteableBitmap(BitmapSource.Create(_captureZone.Width, _captureZone.Height, 96, 96, PixelFormats.Bgra32, null, _previewBuffer, _captureZone.Stride));
 
             if (properties.X + properties.Width <= display.Width && properties.Y + properties.Height <= display.Height)
             {
                 _processedCaptureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display).RegisterCaptureZone(properties.X, properties.Y, properties.Width, properties.Height, properties.DownscaleLevel);
                 _processedCaptureZone.BlackBars.Threshold = properties.BlackBarDetectionThreshold;
                 _processedPreviewBuffer = new byte[_processedCaptureZone.Buffer.Length];
-                ProcessedPreview = new WriteableBitmap(
-                    BitmapSource.Create(_processedCaptureZone.Width, _processedCaptureZone.Height, 96, 96, PixelFormats.Bgra32, null, _processedPreviewBuffer, _processedCaptureZone.Stride)
-                );
+                // ProcessedPreview = new WriteableBitmap(
+                    // BitmapSource.Create(_processedCaptureZone.Width, _processedCaptureZone.Height, 96, 96, PixelFormats.Bgra32, null, _processedPreviewBuffer, _processedCaptureZone.Stride)
+                // );
             }
         }
 
@@ -90,7 +88,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
 
             lock (_captureZone.Buffer)
             {
-                Preview.WritePixels(new Int32Rect(0, 0, _captureZone.Width, _captureZone.Height), _captureZone.Buffer, _captureZone.Stride, 0, 0);
+                // Preview.WritePixels(new Int32Rect(0, 0, _captureZone.Width, _captureZone.Height), _captureZone.Buffer, _captureZone.Stride, 0, 0);
             }
 
             if (_processedCaptureZone == null)
@@ -100,22 +98,22 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
             {
                 if (_processedCaptureZone.Buffer.Length == 0) return;
 
-                if (_blackBarDetectionTop || _blackBarDetectionBottom || _blackBarDetectionLeft || _blackBarDetectionRight)
-                {
-                    int x = _blackBarDetectionLeft ? _processedCaptureZone.BlackBars.Left : 0;
-                    int y = _blackBarDetectionTop ? _processedCaptureZone.BlackBars.Top : 0;
-                    int width = _processedCaptureZone.Width - (_blackBarDetectionRight ? _processedCaptureZone.BlackBars.Right : 0) - x;
-                    int height = _processedCaptureZone.Height - (_blackBarDetectionBottom ? _processedCaptureZone.BlackBars.Bottom : 0) - y;
-
-                    if ((ProcessedPreview.PixelWidth != width || ProcessedPreview.PixelHeight != height) && width > 0 && height > 0)
-                        ProcessedPreview = new WriteableBitmap(
-                            BitmapSource.Create(width, height, 96, 96, PixelFormats.Bgra32, null, _processedPreviewBuffer, _processedCaptureZone.Stride));
-
-                    ProcessedPreview.WritePixels(new Int32Rect(x, y, width, height), _processedCaptureZone.Buffer, _processedCaptureZone.Stride, 0, 0);
-                }
-                else
-                    ProcessedPreview.WritePixels(new Int32Rect(0, 0, _processedCaptureZone.Width, _processedCaptureZone.Height), _processedCaptureZone.Buffer,
-                        _processedCaptureZone.Stride, 0, 0);
+                // if (_blackBarDetectionTop || _blackBarDetectionBottom || _blackBarDetectionLeft || _blackBarDetectionRight)
+                // {
+                //     int x = _blackBarDetectionLeft ? _processedCaptureZone.BlackBars.Left : 0;
+                //     int y = _blackBarDetectionTop ? _processedCaptureZone.BlackBars.Top : 0;
+                //     int width = _processedCaptureZone.Width - (_blackBarDetectionRight ? _processedCaptureZone.BlackBars.Right : 0) - x;
+                //     int height = _processedCaptureZone.Height - (_blackBarDetectionBottom ? _processedCaptureZone.BlackBars.Bottom : 0) - y;
+                //
+                //     if ((ProcessedPreview.PixelWidth != width || ProcessedPreview.PixelHeight != height) && width > 0 && height > 0)
+                //         ProcessedPreview = new WriteableBitmap(
+                //             BitmapSource.Create(width, height, 96, 96, PixelFormats.Bgra32, null, _processedPreviewBuffer, _processedCaptureZone.Stride));
+                //
+                //     ProcessedPreview.WritePixels(new Int32Rect(x, y, width, height), _processedCaptureZone.Buffer, _processedCaptureZone.Stride, 0, 0);
+                // }
+                // else
+                //     ProcessedPreview.WritePixels(new Int32Rect(0, 0, _processedCaptureZone.Width, _processedCaptureZone.Height), _processedCaptureZone.Buffer,
+                //         _processedCaptureZone.Stride, 0, 0);
             }
         }
 

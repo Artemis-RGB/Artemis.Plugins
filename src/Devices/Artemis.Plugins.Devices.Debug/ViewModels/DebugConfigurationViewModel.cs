@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Plugins.Devices.Debug.Settings;
 using Artemis.UI.Shared;
-using Artemis.UI.Shared.Services.Interfaces;
+using Artemis.UI.Shared.Services;
 
 namespace Artemis.Plugins.Devices.Debug.ViewModels
 {

@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.UI.Shared;
-using Artemis.UI.Shared.Services.Interfaces;
-using ReactiveUI;
+using Artemis.UI.Shared.Services;
 using RGB.NET.Devices.OpenRGB;
 
 namespace Artemis.Plugins.Devices.OpenRGB.ViewModels

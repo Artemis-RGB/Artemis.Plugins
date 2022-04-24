@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
-    public class DilateEffectProperties : LayerPropertyGroup
+    public class DilateEffectProperties : LayerEffectPropertyGroup
     {
         [PropertyDescription(Description = "The amount of dilation to apply", MinInputValue = 0)]
         public SKSizeLayerProperty DilateRadius { get; set; }

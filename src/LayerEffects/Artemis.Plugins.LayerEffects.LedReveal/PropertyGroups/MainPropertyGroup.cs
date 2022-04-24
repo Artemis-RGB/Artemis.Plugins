@@ -3,7 +3,7 @@ using Artemis.Core;
 
 namespace Artemis.Plugins.LayerEffects.LedReveal.PropertyGroups
 {
-    public class MainPropertyGroup : LayerPropertyGroup
+    public class MainPropertyGroup : LayerEffectPropertyGroup
     {
         [PropertyDescription(InputAffix = "%", MinInputValue = 0, MaxInputValue = 100)]
         public FloatLayerProperty Percentage { get; set; }

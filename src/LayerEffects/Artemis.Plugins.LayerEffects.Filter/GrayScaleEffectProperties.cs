@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
-    public class GrayScaleEffectProperties : LayerPropertyGroup
+    public class GrayScaleEffectProperties : LayerEffectPropertyGroup
     {
         [PropertyDescription(Name = "Gray-scale strength (NYI)")]
         public FloatLayerProperty GrayScaleStrength { get; set; }

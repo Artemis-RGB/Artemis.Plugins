@@ -3,7 +3,7 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
-    public class GlowEffectProperties : LayerPropertyGroup
+    public class GlowEffectProperties : LayerEffectPropertyGroup
     {
         [PropertyDescription(Description = "The offset of the glow")]
         public SKPointLayerProperty GlowOffset { get; set; }

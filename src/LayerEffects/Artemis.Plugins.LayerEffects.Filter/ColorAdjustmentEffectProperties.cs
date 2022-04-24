@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
-    public class ColorAdjustmentEffectProperties : LayerPropertyGroup
+    public class ColorAdjustmentEffectProperties : LayerEffectPropertyGroup
     {
         [PropertyDescription]
         public EnumLayerProperty<ColorAdjustmentType> Type { get; set; }
