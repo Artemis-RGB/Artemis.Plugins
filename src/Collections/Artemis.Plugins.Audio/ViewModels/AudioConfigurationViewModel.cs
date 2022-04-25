@@ -17,5 +17,7 @@ namespace Artemis.Plugins.Audio.ViewModels
         {
             UseCustomWasapiCapture.AutoSave = false;
         }
+
+        public PluginSetting<bool> UseCustomWasapiCapture { get; }
     }
 }

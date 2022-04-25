@@ -7,8 +7,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.11" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
+    <PackageReference Include="Avalonia" Version="0.10.13" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.13" />
     <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
     <PackageReference Include="ReactiveUI" Version="16.3.10" />
     <PackageReference Include="ReactiveUI.Validation" Version="2.2.1" />
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.11" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.13" />
     <PackageReference Include="OpenRGB.NET" Version="1.7.0" />
     <!--<PackageReference Include="RGB.NET.Devices.OpenRGB" Version="1.7.0" />-->
   </ItemGroup>

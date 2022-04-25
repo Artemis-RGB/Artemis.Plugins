@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LibUsbDotNet" Version="3.0.87-alpha" />
     <PackageReference Include="RGB.NET.Devices.PicoPi" Version="1.0.0-prerelease7" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
@@ -25,6 +25,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="x64\MysticLight_SDK.dll" CopyToOutputDirectory="PreserveNewest" />
