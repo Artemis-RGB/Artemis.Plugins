@@ -8,14 +8,20 @@ namespace Artemis.Plugins.Devices.Razer.ViewModels
         public RazerConfigurationViewModel(Plugin plugin, PluginSettings settings) : base(plugin)
         {
             LoadEmulatorDevices = settings.GetSetting("LoadEmulatorDevices", false);
-            LoadEmulatorDevices.AutoSave = true;
         }
 
         public PluginSetting<bool> LoadEmulatorDevices { get; }
 
-        public override void OnCloseRequested()
+        protected override void OnInitialActivate()
+        {
+            LoadEmulatorDevices.AutoSave = true;
+            base.OnInitialActivate();
+        }
+
+        protected override void OnClose()
         {
             LoadEmulatorDevices.AutoSave = false;
+            base.OnClose();
         }
     }
 }

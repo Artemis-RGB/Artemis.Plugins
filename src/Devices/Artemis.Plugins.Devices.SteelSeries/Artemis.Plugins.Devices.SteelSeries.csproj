@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
@@ -7,9 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HidSharp" Version="2.1.0" />
+    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="1.0.0-prerelease7" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease7" />
-    <PackageReference Include="HidSharp" Version="2.1.0" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
@@ -25,7 +26,6 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

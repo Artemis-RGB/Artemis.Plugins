@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="RGB.NET.Devices.Corsair" Version="1.0.0-prerelease7" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +31,6 @@
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="x64\CUESDK.x64_2017.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />

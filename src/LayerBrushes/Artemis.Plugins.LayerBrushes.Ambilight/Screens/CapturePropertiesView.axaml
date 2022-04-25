@@ -1,0 +1,124 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.UI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:attachedProperties="clr-namespace:Artemis.UI.Shared.AttachedProperties;assembly=Artemis.UI.Shared"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CapturePropertiesView"
+             x:DataType="ui:CapturePropertiesViewModel">
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*" Margin="15">
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="0 0 15 0"
+                Width="300"
+                Classes="card"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left">
+            <StackPanel>
+                <Grid VerticalAlignment="Stretch" Margin="-5 0" RowDefinitions="*,*" ColumnDefinitions="*,*">
+                    <Label Content="Region" />
+                    <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Classes="AppBarButton icon-button"
+                            ToolTip.Tip="Reset"
+                            HorizontalAlignment="Right"
+                            Command="{CompiledBinding ResetRegion}">
+                        <avalonia:MaterialIcon Kind="ArrowExpandAll" />
+                    </Button>
+
+                    <controls:NumberBox Grid.Row="1"
+                                        Grid.Column="0"
+                                        Margin="5"
+                                        Value="{CompiledBinding X}"
+                                        attachedProperties:NumberBoxAssist.SuffixText="px"
+                                        HorizontalAlignment="Stretch" />
+                    <controls:NumberBox Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        Value="{CompiledBinding Y}"
+                                        attachedProperties:NumberBoxAssist.SuffixText="px"
+                                        HorizontalAlignment="Stretch" />
+                </Grid>
+
+                <Grid VerticalAlignment="Stretch" Margin="-5 0" ColumnDefinitions="*,*">
+                    <controls:NumberBox Grid.Column="0"
+                                        Margin="5"
+                                        Value="{CompiledBinding Width}"
+                                        attachedProperties:NumberBoxAssist.SuffixText="px"
+                                        HorizontalAlignment="Stretch" />
+                    <controls:NumberBox Grid.Column="1"
+                                        Margin="5"
+                                        Value="{CompiledBinding Height}"
+                                        attachedProperties:NumberBoxAssist.SuffixText="px"
+                                        HorizontalAlignment="Stretch" />
+                </Grid>
+
+                <Label Content="Adjustments" Margin="-5 10 0 0" />
+                <CheckBox Content="Flip horizontally" IsChecked="{CompiledBinding Properties.FlipHorizontal.BaseValue}" />
+                <CheckBox Content="Flip vertically" IsChecked="{CompiledBinding Properties.FlipVertical.BaseValue}" />
+
+                <Label Content="Downscale level" Margin="-5 10 0 0" />
+                <Grid ColumnDefinitions="Auto,*">
+                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding Properties.DownscaleLevel.BaseValue}" Margin="0 0 5 0" VerticalAlignment="Center" />
+                    <!-- TODO: Add a delay of 200ms -->
+                    <Slider Grid.Column="1"
+                            Minimum="0" Maximum="10"
+                            TickFrequency="1"
+                            TickPlacement="BottomRight"
+                            ToolTip.Tip="Downscale level"
+                            Value="{CompiledBinding Properties.DownscaleLevel.BaseValue}" />
+                </Grid>
+
+
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0" Content="Black-bar detection" Margin="-5 10 0 0" />
+                    <avalonia:MaterialIcon Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Kind="HelpCircle"
+                                           ToolTip.Tip="Attempts to remove black borders (also known as letterboxing) from the image" />
+                </Grid>
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="Left" IsChecked="{CompiledBinding Properties.BlackBarDetectionLeft.BaseValue}" MinWidth="80" />
+                    <CheckBox Content="Right" IsChecked="{CompiledBinding Properties.BlackBarDetectionRight.BaseValue}" MinWidth="80" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="Top" IsChecked="{CompiledBinding Properties.BlackBarDetectionTop.BaseValue}" MinWidth="80" />
+                    <CheckBox Content="Bottom" IsChecked="{CompiledBinding Properties.BlackBarDetectionBottom.BaseValue}" MinWidth="80" />
+                </StackPanel>
+
+                <Label Content="Detection threshold" Margin="-5 10 0 0" />
+                <Grid ColumnDefinitions="Auto,*">
+                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding Properties.BlackBarDetectionThreshold.BaseValue}" Margin="0 0 5 0" VerticalAlignment="Center" />
+                    <!-- TODO: Add a delay of 200ms -->
+                    <Slider Grid.Column="1"
+                            Minimum="0" Maximum="50"
+                            TickFrequency="2"
+                            TickPlacement="BottomRight"
+                            ToolTip.Tip="Black-Bar detection theshold"
+                            Value="{CompiledBinding Properties.BlackBarDetectionThreshold.BaseValue}" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" Padding="0 0 0 15" Margin="0 0 0 15">
+            <ItemsControl Items="{CompiledBinding CaptureScreens}" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="10" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" Grid.Row="1" ColumnDefinitions="*,Auto,*" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ContentControl Grid.Column="0" Content="{CompiledBinding RegionEditor}" VerticalAlignment="Center" />
+            <avalonia:MaterialIcon Grid.Column="1" Kind="ChevronRight" VerticalAlignment="Center" Width="64" Height="64" Margin="0 62 0 0" />
+            <ContentControl Grid.Column="2" Content="{CompiledBinding RegionDisplay}" VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+</UserControl>
