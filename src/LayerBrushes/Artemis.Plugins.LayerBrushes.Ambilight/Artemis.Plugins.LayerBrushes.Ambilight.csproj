@@ -43,4 +43,9 @@
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="UI\CapturePropertiesView.axaml" />
+    <UpToDateCheckInput Remove="UI\CaptureScreenView.axaml" />
+  </ItemGroup>
 </Project>

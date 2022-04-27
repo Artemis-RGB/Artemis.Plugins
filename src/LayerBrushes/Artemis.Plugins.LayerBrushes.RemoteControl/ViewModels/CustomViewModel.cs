@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using System.Windows.Navigation;
-using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.UI.Shared.LayerBrushes;
 
@@ -17,10 +15,5 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl.ViewModels
 
         public string BrushUrl { get; }
         public RemoteControlBrush RemoteControlBrush { get; }
-
-        public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
-        {
-            Utilities.OpenUrl(e.Uri.AbsoluteUri);
-        }
     }
 }

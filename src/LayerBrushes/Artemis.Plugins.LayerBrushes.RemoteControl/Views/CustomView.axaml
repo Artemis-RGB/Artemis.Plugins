@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.LayerBrushes.RemoteControl.Views.CustomView">
+    <Border Classes="card" Margin="75">
+        <StackPanel>
+            <avalonia:MaterialIcon Kind="WifiCheck" Width="150" Height="150" HorizontalAlignment="Center" Margin="60" />
+            <TextBlock Classes="h4" HorizontalAlignment="Center">
+                Your remote brush is ready.
+            </TextBlock>
+            <TextBlock Classes="h5" HorizontalAlignment="Center" Margin="0 20 0 0">
+                You can access it at
+            </TextBlock>
+            <TextBox Margin="0 10 0 0"
+                     VerticalAlignment="Top"
+                     TextWrapping="Wrap"
+                     IsReadOnly="True"
+                     Text="{Binding BrushUrl, Mode=OneWay}" />
+
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Classes="subtitle" VerticalAlignment="Center" Margin="0 20 0 0">
+                    For more information on how to use the web API check out the wiki.
+                </TextBlock>
+                <controls:HyperlinkButton
+                    HorizontalAlignment="Center"
+                    NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/brushes/remote-control-brush">
+                    Learn more
+                </controls:HyperlinkButton>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

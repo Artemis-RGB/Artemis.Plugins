@@ -3,7 +3,7 @@ using System.Linq;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
-using Artemis.Plugins.LayerBrushes.Ambilight.UI;
+using Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 using Artemis.UI.Shared.LayerBrushes;
 using ScreenCapture.NET;
 using SkiaSharp;
@@ -61,7 +61,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
         public override void EnableLayerBrush()
         {
-            ConfigurationDialog = new LayerBrushConfigurationDialog<CapturePropertiesViewModel>(1280, 720);
+            ConfigurationDialog = new LayerBrushConfigurationDialog<CapturePropertiesViewModel>(1300, 600);
 
             Properties.Capture.LayerPropertyOnCurrentValueSet += CaptureOnLayerPropertyOnCurrentValueSet;
             RecreateCaptureZone();

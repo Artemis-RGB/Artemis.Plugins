@@ -2,11 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ui="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.UI"
+             xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Screens"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CaptureScreenView"
-             x:DataType="ui:CaptureScreenViewModel">
-    <Border Classes="card" Padding="0" ClipToBounds="True">
+             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CaptureScreenView"
+             x:DataType="screens:CaptureScreenViewModel">
+    <Border Classes="card" Padding="0" ClipToBounds="True" Margin="5 0">
         <Grid ColumnDefinitions="*,Auto">
             <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Margin="25">
                 <TextBlock Text="{CompiledBinding DisplayName}" Classes="h4"></TextBlock>

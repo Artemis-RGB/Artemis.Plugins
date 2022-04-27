@@ -1,25 +1,16 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
-using System.Threading.Tasks;
-using System.Timers;
-using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
-using Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture;
-using Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 using Artemis.UI.Shared.Extensions;
 using Artemis.UI.Shared.LayerBrushes;
 using DynamicData;
 using ReactiveUI;
-using ReactiveUI.Validation.Extensions;
 using ScreenCapture.NET;
-using SkiaSharp;
 
-namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
+namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens
 {
     public class CapturePropertiesViewModel : BrushConfigurationViewModel
     {

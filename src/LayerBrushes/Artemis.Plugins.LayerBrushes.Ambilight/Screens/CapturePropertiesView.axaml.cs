@@ -1,9 +1,7 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 
-namespace Artemis.Plugins.LayerBrushes.Ambilight.UI;
+namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
 public partial class CapturePropertiesView : ReactiveUserControl<CapturePropertiesViewModel>
 {

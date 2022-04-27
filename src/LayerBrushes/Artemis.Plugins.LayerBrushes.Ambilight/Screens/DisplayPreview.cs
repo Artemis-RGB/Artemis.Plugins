@@ -4,7 +4,7 @@ using Avalonia.Media.Imaging;
 using ReactiveUI;
 using ScreenCapture.NET;
 
-namespace Artemis.Plugins.LayerBrushes.Ambilight.UI
+namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens
 {
     public sealed class DisplayPreview : ReactiveObject, IDisposable
     {

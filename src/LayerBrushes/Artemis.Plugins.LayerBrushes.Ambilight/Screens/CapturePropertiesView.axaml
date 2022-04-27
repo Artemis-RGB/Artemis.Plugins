@@ -2,13 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ui="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.UI"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:attachedProperties="clr-namespace:Artemis.UI.Shared.AttachedProperties;assembly=Artemis.UI.Shared"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Screens"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.UI.CapturePropertiesView"
-             x:DataType="ui:CapturePropertiesViewModel">
+             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CapturePropertiesView"
+             x:DataType="screens:CapturePropertiesViewModel">
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*" Margin="15">
         <Border Grid.Column="0"
                 Grid.Row="0"
@@ -106,19 +106,21 @@
         </Border>
 
         <ScrollViewer Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" Padding="0 0 0 15" Margin="0 0 0 15">
-            <ItemsControl Items="{CompiledBinding CaptureScreens}" HorizontalAlignment="Center">
+            <ItemsControl Items="{CompiledBinding CaptureScreens}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="10" />
+                        <UniformGrid Rows="1" Margin="-5 0"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-
-        <Grid Grid.Column="1" Grid.Row="1" ColumnDefinitions="*,Auto,*" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ContentControl Grid.Column="0" Content="{CompiledBinding RegionEditor}" VerticalAlignment="Center" />
-            <avalonia:MaterialIcon Grid.Column="1" Kind="ChevronRight" VerticalAlignment="Center" Width="64" Height="64" Margin="0 62 0 0" />
-            <ContentControl Grid.Column="2" Content="{CompiledBinding RegionDisplay}" VerticalAlignment="Center" />
-        </Grid>
+        
+        <Border Grid.Column="1" Grid.Row="1" Classes="card">
+            <Grid ColumnDefinitions="*,Auto,*" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ContentControl Grid.Column="0" Content="{CompiledBinding RegionEditor}" VerticalAlignment="Center" />
+                <avalonia:MaterialIcon Grid.Column="1" Kind="ChevronRight" VerticalAlignment="Center" Width="64" Height="64" Margin="0 62 0 0" />
+                <ContentControl Grid.Column="2" Content="{CompiledBinding RegionDisplay}" VerticalAlignment="Center" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
