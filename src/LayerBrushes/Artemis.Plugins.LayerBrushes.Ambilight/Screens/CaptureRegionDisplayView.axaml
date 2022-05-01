@@ -3,12 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.RegionEditorView">
+             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CaptureRegionDisplayView">
     <Border Classes="card-condensed" ClipToBounds="True" Padding="0">
         <Grid RowDefinitions="Auto,Auto,*">
-            <TextBlock Grid.Row="0" Classes="h4" TextAlignment="Center" Margin="10 10 10 0">Source region</TextBlock>    
+            <TextBlock Grid.Row="0" Classes="h4" TextAlignment="Center" Margin="10 10 10 0">Result</TextBlock>    
             <TextBlock Grid.Row="1" Classes="subtitle" TextAlignment="Center" Margin="10" TextWrapping="Wrap">
-                To only mirror parts of the screen, resize the rectangle below
+                The image shown below is drawn by the brush
             </TextBlock>    
             <Image Grid.Row="2" 
                    Source="C:\Users\Robert\Documents\ShareX\Screenshots\2022-04\K2F9In3yKr.jpg" 

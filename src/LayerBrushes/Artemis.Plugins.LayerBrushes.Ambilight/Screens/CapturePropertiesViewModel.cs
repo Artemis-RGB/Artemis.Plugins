@@ -1,112 +1,287 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
-using Artemis.Core.LayerBrushes;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
-using Artemis.UI.Shared.Extensions;
 using Artemis.UI.Shared.LayerBrushes;
+using Artemis.UI.Shared.Services;
+using Artemis.UI.Shared.Services.Builders;
 using DynamicData;
 using ReactiveUI;
 using ScreenCapture.NET;
 
-namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens
+namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
+
+public class CapturePropertiesViewModel : BrushConfigurationViewModel
 {
-    public class CapturePropertiesViewModel : BrushConfigurationViewModel
+    private readonly IWindowService _windowService;
+    private readonly AmbilightCaptureProperties _properties;
+    private bool _blackBarDetectionBottom;
+    private bool _blackBarDetectionLeft;
+    private bool _blackBarDetectionRight;
+    private int _blackBarDetectionThreshold;
+    private bool _blackBarDetectionTop;
+    private int _downscaleLevel;
+    private bool _flipHorizontal;
+    private bool _flipVertical;
+    private int _height;
+    private int _width;
+    private int _x;
+    private int _y;
+
+    private CaptureRegionDisplayViewModel? _captureRegionDisplay;
+    private CaptureRegionEditorViewModel? _captureRegionEditor;
+    private CaptureScreenViewModel? _selectedCaptureScreen;
+    private readonly ObservableAsPropertyHelper<int> _maxX;
+    private readonly ObservableAsPropertyHelper<int> _maxY;
+    private readonly ObservableAsPropertyHelper<int> _maxWidth;
+    private readonly ObservableAsPropertyHelper<int> _maxHeight;
+    private bool _enableValidation;
+
+    public CapturePropertiesViewModel(AmbilightLayerBrush layerBrush, IWindowService windowService) : base(layerBrush)
     {
-        private CaptureScreenViewModel? _selectedCaptureScreen;
-        private ObservableAsPropertyHelper<int>? _x;
-        private ObservableAsPropertyHelper<int>? _y;
-        private ObservableAsPropertyHelper<int>? _width;
-        private ObservableAsPropertyHelper<int>? _height;
-        private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
+        _windowService = windowService;
+        _properties = layerBrush.Properties.Capture;
 
-        public CapturePropertiesViewModel(BaseLayerBrush layerBrush) : base(layerBrush)
+        AmbilightLayerBrush = layerBrush;
+        CaptureScreens = new ObservableCollection<CaptureScreenViewModel>();
+        ResetRegion = ReactiveCommand.CreateFromTask(ExecuteResetRegion);
+
+        _maxX = this.WhenAnyValue(vm => vm.Width, vm => vm.SelectedCaptureScreen, (width, screen) => (screen?.Display.Width ?? 0) - width).ToProperty(this, vm => vm.MaxX);
+        _maxY = this.WhenAnyValue(vm => vm.Height, vm => vm.SelectedCaptureScreen, (height, screen) => (screen?.Display.Height ?? 0) - height).ToProperty(this, vm => vm.MaxY);
+        _maxWidth = this.WhenAnyValue(vm => vm.X, vm => vm.SelectedCaptureScreen, (x, screen) => (screen?.Display.Width ?? 0) - x).ToProperty(this, vm => vm.MaxWidth);
+        _maxHeight = this.WhenAnyValue(vm => vm.Y, vm => vm.SelectedCaptureScreen, (y, screen) => (screen?.Display.Height ?? 0) - y).ToProperty(this, vm => vm.MaxHeight);
+
+        this.WhenActivated(async d =>
         {
-            Properties = ((AmbilightLayerBrush) layerBrush).Properties.Capture;
-            CaptureScreens = new ObservableCollection<CaptureScreenViewModel>();
-            RegionEditor = new RegionEditorViewModel();
-            RegionDisplay = new RegionDisplayViewModel();
-            ResetRegion = ReactiveCommand.Create(ExecuteResetRegion);
-            this.WhenActivated(d =>
-            {
-                CreateCaptureScreens();
-                _x = Properties.X.AsObservable().ToProperty(this, vm => vm.X).DisposeWith(d);
-                _y = Properties.X.AsObservable().ToProperty(this, vm => vm.Y).DisposeWith(d);
-                _width = Properties.X.AsObservable().ToProperty(this, vm => vm.Width).DisposeWith(d);
-                _height = Properties.X.AsObservable().ToProperty(this, vm => vm.Height).DisposeWith(d);
+            if (!await CreateCaptureScreens())
+                return;
 
-                Disposable.Create(() => CaptureScreens.Clear()).DisposeWith(d);
-            });
+            Load();
+            CaptureRegionEditor = new CaptureRegionEditorViewModel(this, CaptureScreens.First().Display);
+            CaptureRegionDisplay = new CaptureRegionDisplayViewModel();
+            Disposable.Create(() => CaptureScreens.Clear()).DisposeWith(d);
+        });
+    }
 
-            // this.ValidationRule(vm => vm.X, x => x < 0, "X needs to be 0 or greater");
-            // this.ValidationRule(vm => vm.Y, x => x < 0, "Y needs to be 0 or greater");
-            //
-            // RuleFor(vm => vm.X).GreaterThanOrEqualTo(0).WithName("X").WithMessage("X needs to be 0 or greater");
-            // RuleFor(vm => vm.Y).GreaterThanOrEqualTo(0).WithName("Y").WithMessage("Y needs to be 0 or greater");
-            // RuleFor(vm => vm.Width).GreaterThan(0).WithName("Width").WithMessage("Width needs to be greater than 0");
-            // RuleFor(vm => vm.Height).GreaterThan(0).WithName("Height").WithMessage("Height needs to be greater than 0");
-            // RuleFor(vm => vm.SelectedDisplay).NotNull().WithName("Display").WithMessage("No display selected.").DependentRules(() =>
-            // {
-            //     RuleFor(vm => vm.X + vm.Width).LessThanOrEqualTo(vm => vm.SelectedDisplay.Display.Width).WithName("X/Width").WithMessage("The region exceeds the display width.");
-            //     RuleFor(vm => vm.Y + vm.Height).LessThanOrEqualTo(vm => vm.SelectedDisplay.Display.Height).WithName("Y/Height").WithMessage("The region exceeds the display height.");
-            // });
+    public AmbilightLayerBrush AmbilightLayerBrush { get; }
+    public ObservableCollection<CaptureScreenViewModel> CaptureScreens { get; }
+
+    public int MaxX => _maxX.Value;
+    public int MaxY => _maxY.Value;
+    public int MaxWidth => _maxWidth.Value;
+    public int MaxHeight => _maxHeight.Value;
+
+    public CaptureRegionEditorViewModel? CaptureRegionEditor
+    {
+        get => _captureRegionEditor;
+        set => RaiseAndSetIfChanged(ref _captureRegionEditor, value);
+    }
+
+    public CaptureRegionDisplayViewModel? CaptureRegionDisplay
+    {
+        get => _captureRegionDisplay;
+        set => RaiseAndSetIfChanged(ref _captureRegionDisplay, value);
+    }
+
+    public CaptureScreenViewModel? SelectedCaptureScreen
+    {
+        get => _selectedCaptureScreen;
+        set
+        {
+            if (_selectedCaptureScreen != null)
+                _selectedCaptureScreen.IsSelected = false;
+
+            RaiseAndSetIfChanged(ref _selectedCaptureScreen, value);
+
+            if (value != null)
+                value.IsSelected = true;
+        }
+    }
+
+    public ReactiveCommand<Unit, Unit> ResetRegion { get; }
+
+    public int X
+    {
+        get => _x;
+        set => RaiseAndSetIfChanged(ref _x, value);
+    }
+
+    public int Y
+    {
+        get => _y;
+        set => RaiseAndSetIfChanged(ref _y, value);
+    }
+
+    public int Width
+    {
+        get => _width;
+        set => RaiseAndSetIfChanged(ref _width, value);
+    }
+
+    public int Height
+    {
+        get => _height;
+        set => RaiseAndSetIfChanged(ref _height, value);
+    }
+
+    public bool FlipHorizontal
+    {
+        get => _flipHorizontal;
+        set => RaiseAndSetIfChanged(ref _flipHorizontal, value);
+    }
+
+    public bool FlipVertical
+    {
+        get => _flipVertical;
+        set => RaiseAndSetIfChanged(ref _flipVertical, value);
+    }
+
+    public int DownscaleLevel
+    {
+        get => _downscaleLevel;
+        set => RaiseAndSetIfChanged(ref _downscaleLevel, value);
+    }
+
+    public bool BlackBarDetectionTop
+    {
+        get => _blackBarDetectionTop;
+        set => RaiseAndSetIfChanged(ref _blackBarDetectionTop, value);
+    }
+
+    public bool BlackBarDetectionBottom
+    {
+        get => _blackBarDetectionBottom;
+        set => RaiseAndSetIfChanged(ref _blackBarDetectionBottom, value);
+    }
+
+    public bool BlackBarDetectionLeft
+    {
+        get => _blackBarDetectionLeft;
+        set => RaiseAndSetIfChanged(ref _blackBarDetectionLeft, value);
+    }
+
+    public bool BlackBarDetectionRight
+    {
+        get => _blackBarDetectionRight;
+        set => RaiseAndSetIfChanged(ref _blackBarDetectionRight, value);
+    }
+
+    public int BlackBarDetectionThreshold
+    {
+        get => _blackBarDetectionThreshold;
+        set => RaiseAndSetIfChanged(ref _blackBarDetectionThreshold, value);
+    }
+
+    public bool EnableValidation
+    {
+        get => _enableValidation;
+        set => RaiseAndSetIfChanged(ref _enableValidation, value);
+    }
+
+    private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
+
+    public void Load()
+    {
+        SelectedCaptureScreen = CaptureScreens.FirstOrDefault(s => s.Display.GraphicsCard.VendorId == _properties.GraphicsCardVendorId &&
+                                                                   s.Display.GraphicsCard.DeviceId == _properties.GraphicsCardDeviceId &&
+                                                                   s.Display.DeviceName == _properties.DisplayName.CurrentValue) ?? CaptureScreens.FirstOrDefault();
+
+        X = _properties.X;
+        Y = _properties.Y;
+        Width = _properties.Width;
+        Height = _properties.Height;
+
+        FlipHorizontal = _properties.FlipHorizontal;
+        FlipVertical = _properties.FlipVertical;
+        DownscaleLevel = _properties.DownscaleLevel;
+
+        BlackBarDetectionTop = _properties.BlackBarDetectionTop;
+        BlackBarDetectionBottom = _properties.BlackBarDetectionBottom;
+        BlackBarDetectionLeft = _properties.BlackBarDetectionLeft;
+        BlackBarDetectionRight = _properties.BlackBarDetectionRight;
+        BlackBarDetectionThreshold = _properties.BlackBarDetectionThreshold;
+
+        if (_properties.CaptureFullScreen && SelectedCaptureScreen != null)
+        {
+            X = 0;
+            Y = 0;
+            Width = SelectedCaptureScreen.Display.Width;
+            Height = SelectedCaptureScreen.Display.Height;
+        }
+    }
+
+    public async Task Save()
+    {
+        _properties.X.SetCurrentValue(X);
+        _properties.X.SetCurrentValue(Y);
+        _properties.Width.SetCurrentValue(Width);
+        _properties.Height.SetCurrentValue(Height);
+
+        _properties.FlipHorizontal.SetCurrentValue(FlipHorizontal);
+        _properties.FlipVertical.SetCurrentValue(FlipVertical);
+        _properties.DownscaleLevel.SetCurrentValue(DownscaleLevel);
+
+        _properties.BlackBarDetectionTop.SetCurrentValue(BlackBarDetectionTop);
+        _properties.BlackBarDetectionBottom.SetCurrentValue(BlackBarDetectionBottom);
+        _properties.BlackBarDetectionLeft.SetCurrentValue(BlackBarDetectionLeft);
+        _properties.BlackBarDetectionRight.SetCurrentValue(BlackBarDetectionRight);
+        _properties.BlackBarDetectionThreshold.SetCurrentValue(BlackBarDetectionThreshold);
+
+        if (SelectedCaptureScreen != null)
+        {
+            _properties.GraphicsCardVendorId.SetCurrentValue(SelectedCaptureScreen.Display.GraphicsCard.VendorId);
+            _properties.GraphicsCardDeviceId.SetCurrentValue(SelectedCaptureScreen.Display.GraphicsCard.DeviceId);
+            _properties.DisplayName.SetCurrentValue(SelectedCaptureScreen.Display.DeviceName);
+
+            _properties.CaptureFullScreen.SetCurrentValue(X == 0 &&
+                                                          Y == 0 &&
+                                                          SelectedCaptureScreen.Display.Width == Width &&
+                                                          SelectedCaptureScreen.Display.Height == Height);
         }
 
+        await Task.Run(() => AmbilightLayerBrush.RecreateCaptureZone());
+    }
 
-        public AmbilightCaptureProperties Properties { get; }
-        public ObservableCollection<CaptureScreenViewModel> CaptureScreens { get; }
-        public RegionEditorViewModel RegionEditor { get; }
-        public RegionDisplayViewModel RegionDisplay { get; }
+    private async Task<bool> CreateCaptureScreens()
+    {
+        CaptureScreens.AddRange(_screenCaptureService.GetGraphicsCards()
+            .SelectMany(gg => _screenCaptureService.GetDisplays(gg))
+            .Select(d => new CaptureScreenViewModel(d))
+            .ToList());
 
-        public ReactiveCommand<Unit, Unit> ResetRegion { get; }
-
-        public CaptureScreenViewModel? SelectedCaptureScreen
+        if (!CaptureScreens.Any())
         {
-            get => _selectedCaptureScreen;
-            set => this.RaiseAndSetIfChanged(ref _selectedCaptureScreen, value);
+            await _windowService.CreateContentDialog().WithTitle("No displays found").WithContent("The plugin could not locate any displays. Try updating your graphics drivers")
+                .WithDefaultButton(ContentDialogButton.Close)
+                .ShowAsync();
+
+            RequestClose();
+            return false;
         }
 
-        public int X
-        {
-            get => _x?.Value ?? 0;
-            set => Properties.X.SetCurrentValue(value);
-        }
+        return true;
+    }
 
-        public int Y
-        {
-            get => _y?.Value ?? 0;
-            set => Properties.Y.SetCurrentValue(value);
-        }
+    private void Update()
+    {
+        foreach (CaptureScreenViewModel captureScreenViewModel in CaptureScreens)
+            captureScreenViewModel.Update();
+    }
 
-        public int Width
-        {
-            get => _width?.Value ?? 0;
-            set => Properties.Width.SetCurrentValue(value);
-        }
+    private async Task ExecuteResetRegion()
+    {
+        if (SelectedCaptureScreen == null)
+            return;
 
-        public int Height
-        {
-            get => _height?.Value ?? 0;
-            set => Properties.Height.SetCurrentValue(value);
-        }
+        X = 0;
+        Y = 0;
+        Width = SelectedCaptureScreen.Display.Width;
+        Height = SelectedCaptureScreen.Display.Height;
 
-        private void CreateCaptureScreens()
-        {
-            CaptureScreens.AddRange(_screenCaptureService.GetGraphicsCards()
-                .SelectMany(gg => _screenCaptureService.GetDisplays(gg))
-                .Select(d => new CaptureScreenViewModel(d))
-                .ToList());
-        }
-
-        private void Update()
-        {
-            foreach (CaptureScreenViewModel captureScreenViewModel in CaptureScreens)
-                captureScreenViewModel.Update();
-        }
-
-        private void ExecuteResetRegion()
-        {
-        }
+        await Save();
     }
 }

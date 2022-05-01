@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public partial class RegionEditorView : UserControl
+public partial class CaptureRegionDisplayView : UserControl
 {
-    public RegionEditorView()
+    public CaptureRegionDisplayView()
     {
         InitializeComponent();
     }

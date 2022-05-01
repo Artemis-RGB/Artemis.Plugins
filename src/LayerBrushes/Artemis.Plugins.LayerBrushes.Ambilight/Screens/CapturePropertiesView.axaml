@@ -6,6 +6,7 @@
              xmlns:attachedProperties="clr-namespace:Artemis.UI.Shared.AttachedProperties;assembly=Artemis.UI.Shared"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Screens"
+             xmlns:behaviors="clr-namespace:Artemis.UI.Shared.Behaviors;assembly=Artemis.UI.Shared"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CapturePropertiesView"
              x:DataType="screens:CapturePropertiesViewModel">
@@ -35,13 +36,19 @@
                                         Margin="5"
                                         Value="{CompiledBinding X}"
                                         attachedProperties:NumberBoxAssist.SuffixText="px"
-                                        HorizontalAlignment="Stretch" />
+                                        HorizontalAlignment="Stretch" 
+                                        Minimum="0"
+                                        Maximum="{CompiledBinding MaxX}"
+                                        AcceptsExpression="True"/>
                     <controls:NumberBox Grid.Row="1"
                                         Grid.Column="1"
                                         Margin="5"
                                         Value="{CompiledBinding Y}"
                                         attachedProperties:NumberBoxAssist.SuffixText="px"
-                                        HorizontalAlignment="Stretch" />
+                                        HorizontalAlignment="Stretch" 
+                                        Minimum="0"
+                                        Maximum="{CompiledBinding MaxY}"
+                                        AcceptsExpression="True"/>
                 </Grid>
 
                 <Grid VerticalAlignment="Stretch" Margin="-5 0" ColumnDefinitions="*,*">
@@ -49,28 +56,33 @@
                                         Margin="5"
                                         Value="{CompiledBinding Width}"
                                         attachedProperties:NumberBoxAssist.SuffixText="px"
-                                        HorizontalAlignment="Stretch" />
+                                        HorizontalAlignment="Stretch" 
+                                        Minimum="1"
+                                        Maximum="{CompiledBinding MaxWidth}"
+                                        AcceptsExpression="True"/>
                     <controls:NumberBox Grid.Column="1"
                                         Margin="5"
                                         Value="{CompiledBinding Height}"
                                         attachedProperties:NumberBoxAssist.SuffixText="px"
-                                        HorizontalAlignment="Stretch" />
+                                        HorizontalAlignment="Stretch" 
+                                        Minimum="1"
+                                        Maximum="{CompiledBinding MaxHeight}"
+                                        AcceptsExpression="True"/>
                 </Grid>
 
                 <Label Content="Adjustments" Margin="-5 10 0 0" />
-                <CheckBox Content="Flip horizontally" IsChecked="{CompiledBinding Properties.FlipHorizontal.BaseValue}" />
-                <CheckBox Content="Flip vertically" IsChecked="{CompiledBinding Properties.FlipVertical.BaseValue}" />
+                <CheckBox Content="Flip horizontally" IsChecked="{CompiledBinding FlipHorizontal}" />
+                <CheckBox Content="Flip vertically" IsChecked="{CompiledBinding FlipVertical}" />
 
                 <Label Content="Downscale level" Margin="-5 10 0 0" />
                 <Grid ColumnDefinitions="Auto,*">
-                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding Properties.DownscaleLevel.BaseValue}" Margin="0 0 5 0" VerticalAlignment="Center" />
-                    <!-- TODO: Add a delay of 200ms -->
+                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding DownscaleLevel}" Margin="0 0 5 0" VerticalAlignment="Center" />
                     <Slider Grid.Column="1"
                             Minimum="0" Maximum="10"
                             TickFrequency="1"
                             TickPlacement="BottomRight"
-                            ToolTip.Tip="Downscale level"
-                            Value="{CompiledBinding Properties.DownscaleLevel.BaseValue}" />
+                            Value="{CompiledBinding DownscaleLevel}"
+                            ToolTip.Tip="Downscale level"/>
                 </Grid>
 
 
@@ -83,24 +95,24 @@
                 </Grid>
 
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Left" IsChecked="{CompiledBinding Properties.BlackBarDetectionLeft.BaseValue}" MinWidth="80" />
-                    <CheckBox Content="Right" IsChecked="{CompiledBinding Properties.BlackBarDetectionRight.BaseValue}" MinWidth="80" />
+                    <CheckBox Content="Left" IsChecked="{CompiledBinding BlackBarDetectionLeft}" MinWidth="80" />
+                    <CheckBox Content="Right" IsChecked="{CompiledBinding BlackBarDetectionRight}" MinWidth="80" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Content="Top" IsChecked="{CompiledBinding Properties.BlackBarDetectionTop.BaseValue}" MinWidth="80" />
-                    <CheckBox Content="Bottom" IsChecked="{CompiledBinding Properties.BlackBarDetectionBottom.BaseValue}" MinWidth="80" />
+                    <CheckBox Content="Top" IsChecked="{CompiledBinding BlackBarDetectionTop}" MinWidth="80" />
+                    <CheckBox Content="Bottom" IsChecked="{CompiledBinding BlackBarDetectionBottom}" MinWidth="80" />
                 </StackPanel>
 
                 <Label Content="Detection threshold" Margin="-5 10 0 0" />
                 <Grid ColumnDefinitions="Auto,*">
-                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding Properties.BlackBarDetectionThreshold.BaseValue}" Margin="0 0 5 0" VerticalAlignment="Center" />
-                    <!-- TODO: Add a delay of 200ms -->
+                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding BlackBarDetectionThreshold}" Margin="0 0 5 0" VerticalAlignment="Center" />
                     <Slider Grid.Column="1"
                             Minimum="0" Maximum="50"
                             TickFrequency="2"
                             TickPlacement="BottomRight"
-                            ToolTip.Tip="Black-Bar detection theshold"
-                            Value="{CompiledBinding Properties.BlackBarDetectionThreshold.BaseValue}" />
+                            Value="{CompiledBinding BlackBarDetectionThreshold}"
+                            ToolTip.Tip="Black-Bar detection theshold">
+                    </Slider>
                 </Grid>
             </StackPanel>
         </Border>
@@ -112,14 +124,19 @@
                         <UniformGrid Rows="1" Margin="-5 0"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}" PointerReleased="InputElement_OnPointerReleased"></ContentControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
         
         <Border Grid.Column="1" Grid.Row="1" Classes="card">
             <Grid ColumnDefinitions="*,Auto,*" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ContentControl Grid.Column="0" Content="{CompiledBinding RegionEditor}" VerticalAlignment="Center" />
+                <ContentControl Grid.Column="0" Content="{CompiledBinding CaptureRegionEditor}" VerticalAlignment="Center" ClipToBounds="False"/>
                 <avalonia:MaterialIcon Grid.Column="1" Kind="ChevronRight" VerticalAlignment="Center" Width="64" Height="64" Margin="0 62 0 0" />
-                <ContentControl Grid.Column="2" Content="{CompiledBinding RegionDisplay}" VerticalAlignment="Center" />
+                <ContentControl Grid.Column="2" Content="{CompiledBinding CaptureRegionDisplay}" VerticalAlignment="Center" />
             </Grid>
         </Border>
     </Grid>

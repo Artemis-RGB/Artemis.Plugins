@@ -18,7 +18,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
         public bool PropertiesOpen { get; set; }
 
         private Display? _display;
-        private CaptureZone _captureZone;
+        private CaptureZone? _captureZone;
         private bool _creatingCaptureZone;
 
         #endregion
@@ -62,12 +62,8 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
         public override void EnableLayerBrush()
         {
             ConfigurationDialog = new LayerBrushConfigurationDialog<CapturePropertiesViewModel>(1300, 600);
-
-            Properties.Capture.LayerPropertyOnCurrentValueSet += CaptureOnLayerPropertyOnCurrentValueSet;
             RecreateCaptureZone();
         }
-
-        private void CaptureOnLayerPropertyOnCurrentValueSet(object sender, LayerPropertyEventArgs e) => RecreateCaptureZone();
 
         public void RecreateCaptureZone()
         {
@@ -124,7 +120,6 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
         public override void DisableLayerBrush()
         {
-            Properties.Capture.LayerPropertyOnCurrentValueSet -= CaptureOnLayerPropertyOnCurrentValueSet;
             RemoveCaptureZone();
         }
 
