@@ -3,12 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.UI.Shared.LayerBrushes;
 using Artemis.UI.Shared.Services;
 using Artemis.UI.Shared.Services.Builders;
+using Avalonia.Threading;
 using DynamicData;
 using ReactiveUI;
 using ScreenCapture.NET;
@@ -17,29 +17,30 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
 public class CapturePropertiesViewModel : BrushConfigurationViewModel
 {
-    private readonly IWindowService _windowService;
+    private readonly ObservableAsPropertyHelper<int> _maxHeight;
+    private readonly ObservableAsPropertyHelper<int> _maxWidth;
+    private readonly ObservableAsPropertyHelper<int> _maxX;
+    private readonly ObservableAsPropertyHelper<int> _maxY;
     private readonly AmbilightCaptureProperties _properties;
+    private readonly DispatcherTimer _updateTimer;
+    private readonly IWindowService _windowService;
     private bool _blackBarDetectionBottom;
     private bool _blackBarDetectionLeft;
     private bool _blackBarDetectionRight;
     private int _blackBarDetectionThreshold;
     private bool _blackBarDetectionTop;
-    private int _downscaleLevel;
-    private bool _flipHorizontal;
-    private bool _flipVertical;
-    private int _height;
-    private int _width;
-    private int _x;
-    private int _y;
 
     private CaptureRegionDisplayViewModel? _captureRegionDisplay;
     private CaptureRegionEditorViewModel? _captureRegionEditor;
-    private CaptureScreenViewModel? _selectedCaptureScreen;
-    private readonly ObservableAsPropertyHelper<int> _maxX;
-    private readonly ObservableAsPropertyHelper<int> _maxY;
-    private readonly ObservableAsPropertyHelper<int> _maxWidth;
-    private readonly ObservableAsPropertyHelper<int> _maxHeight;
+    private int _downscaleLevel;
     private bool _enableValidation;
+    private bool _flipHorizontal;
+    private bool _flipVertical;
+    private int _height;
+    private CaptureScreenViewModel? _selectedCaptureScreen;
+    private int _width;
+    private int _x;
+    private int _y;
 
     public CapturePropertiesViewModel(AmbilightLayerBrush layerBrush, IWindowService windowService) : base(layerBrush)
     {
@@ -50,21 +51,15 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         CaptureScreens = new ObservableCollection<CaptureScreenViewModel>();
         ResetRegion = ReactiveCommand.CreateFromTask(ExecuteResetRegion);
 
+        Load();
         _maxX = this.WhenAnyValue(vm => vm.Width, vm => vm.SelectedCaptureScreen, (width, screen) => (screen?.Display.Width ?? 0) - width).ToProperty(this, vm => vm.MaxX);
         _maxY = this.WhenAnyValue(vm => vm.Height, vm => vm.SelectedCaptureScreen, (height, screen) => (screen?.Display.Height ?? 0) - height).ToProperty(this, vm => vm.MaxY);
         _maxWidth = this.WhenAnyValue(vm => vm.X, vm => vm.SelectedCaptureScreen, (x, screen) => (screen?.Display.Width ?? 0) - x).ToProperty(this, vm => vm.MaxWidth);
         _maxHeight = this.WhenAnyValue(vm => vm.Y, vm => vm.SelectedCaptureScreen, (y, screen) => (screen?.Display.Height ?? 0) - y).ToProperty(this, vm => vm.MaxHeight);
+        _updateTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Normal, (_, _) => Update());
+        _updateTimer.Start();
 
-        this.WhenActivated(async d =>
-        {
-            if (!await CreateCaptureScreens())
-                return;
-
-            Load();
-            CaptureRegionEditor = new CaptureRegionEditorViewModel(this, CaptureScreens.First().Display);
-            CaptureRegionDisplay = new CaptureRegionDisplayViewModel();
-            Disposable.Create(() => CaptureScreens.Clear()).DisposeWith(d);
-        });
+        this.WhenActivated(Initialize);
     }
 
     public AmbilightLayerBrush AmbilightLayerBrush { get; }
@@ -92,6 +87,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         get => _selectedCaptureScreen;
         set
         {
+            // TODO: Move this out of the setting and into a observable subscription
             if (_selectedCaptureScreen != null)
                 _selectedCaptureScreen.IsSelected = false;
 
@@ -99,6 +95,8 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
 
             if (value != null)
                 value.IsSelected = true;
+
+            Task.Run(ExecuteResetRegion);
         }
     }
 
@@ -182,14 +180,10 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         set => RaiseAndSetIfChanged(ref _enableValidation, value);
     }
 
-    private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
+    private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService!;
 
     public void Load()
     {
-        SelectedCaptureScreen = CaptureScreens.FirstOrDefault(s => s.Display.GraphicsCard.VendorId == _properties.GraphicsCardVendorId &&
-                                                                   s.Display.GraphicsCard.DeviceId == _properties.GraphicsCardDeviceId &&
-                                                                   s.Display.DeviceName == _properties.DisplayName.CurrentValue) ?? CaptureScreens.FirstOrDefault();
-
         X = _properties.X;
         Y = _properties.Y;
         Width = _properties.Width;
@@ -204,20 +198,12 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         BlackBarDetectionLeft = _properties.BlackBarDetectionLeft;
         BlackBarDetectionRight = _properties.BlackBarDetectionRight;
         BlackBarDetectionThreshold = _properties.BlackBarDetectionThreshold;
-
-        if (_properties.CaptureFullScreen && SelectedCaptureScreen != null)
-        {
-            X = 0;
-            Y = 0;
-            Width = SelectedCaptureScreen.Display.Width;
-            Height = SelectedCaptureScreen.Display.Height;
-        }
     }
 
     public async Task Save()
     {
         _properties.X.SetCurrentValue(X);
-        _properties.X.SetCurrentValue(Y);
+        _properties.Y.SetCurrentValue(Y);
         _properties.Width.SetCurrentValue(Width);
         _properties.Height.SetCurrentValue(Height);
 
@@ -241,9 +227,31 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
                                                           Y == 0 &&
                                                           SelectedCaptureScreen.Display.Width == Width &&
                                                           SelectedCaptureScreen.Display.Height == Height);
+
+            CaptureRegionDisplay = new CaptureRegionDisplayViewModel(SelectedCaptureScreen.Display, _properties);
         }
 
         await Task.Run(() => AmbilightLayerBrush.RecreateCaptureZone());
+    }
+
+    private async void Initialize(CompositeDisposable d)
+    {
+        if (!await CreateCaptureScreens())
+            return;
+
+        if (SelectedCaptureScreen != null)
+        {
+            CaptureRegionEditor = new CaptureRegionEditorViewModel(this, SelectedCaptureScreen.Display);
+            CaptureRegionDisplay = new CaptureRegionDisplayViewModel(SelectedCaptureScreen.Display, _properties);
+        }
+
+        EnableValidation = true;
+
+        Disposable.Create(() =>
+        {
+            CaptureScreens.Clear();
+            _updateTimer.Stop();
+        }).DisposeWith(d);
     }
 
     private async Task<bool> CreateCaptureScreens()
@@ -263,6 +271,22 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
             return false;
         }
 
+        // Don't use the setter to avoid a save
+        _selectedCaptureScreen = CaptureScreens.FirstOrDefault(s => s.Display.GraphicsCard.VendorId == _properties.GraphicsCardVendorId &&
+                                                                    s.Display.GraphicsCard.DeviceId == _properties.GraphicsCardDeviceId &&
+                                                                    s.Display.DeviceName == _properties.DisplayName.CurrentValue) ??
+                                 CaptureScreens.First();
+        _selectedCaptureScreen.IsSelected = true;
+        this.RaisePropertyChanged(nameof(SelectedCaptureScreen));
+
+        if (_properties.CaptureFullScreen)
+        {
+            X = 0;
+            Y = 0;
+            Width = SelectedCaptureScreen.Display.Width;
+            Height = SelectedCaptureScreen.Display.Height;
+        }
+
         return true;
     }
 
@@ -270,6 +294,8 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
     {
         foreach (CaptureScreenViewModel captureScreenViewModel in CaptureScreens)
             captureScreenViewModel.Update();
+        CaptureRegionEditor?.Update();
+        CaptureRegionDisplay?.Update();
     }
 
     private async Task ExecuteResetRegion()

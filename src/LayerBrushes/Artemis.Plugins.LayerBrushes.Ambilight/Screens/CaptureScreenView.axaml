@@ -22,27 +22,28 @@
             <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}" />
         </Style>
     </UserControl.Styles>
-    <Border Classes="card screen" 
+    <Border Classes="card screen"
             Classes.screen-selected="{CompiledBinding IsSelected}"
-            Padding="0" 
+            Padding="0"
             Margin="5 0">
         <Grid ColumnDefinitions="*,Auto">
             <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Margin="25">
-                <TextBlock Text="{CompiledBinding DisplayName}" Classes="h4"></TextBlock>
+                <TextBlock Text="{CompiledBinding DisplayName}" Classes="h4" />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{CompiledBinding Display.Width}"></TextBlock>
-                    <TextBlock Text="x"></TextBlock>
-                    <TextBlock Text="{CompiledBinding Display.Height}"></TextBlock>
+                    <TextBlock Text="{CompiledBinding Display.Width}" />
+                    <TextBlock Text="x" />
+                    <TextBlock Text="{CompiledBinding Display.Height}" />
                 </StackPanel>
-                <TextBlock Text="{CompiledBinding Display.GraphicsCard.Name}" Classes="subtitle"></TextBlock>
+                <TextBlock Text="{CompiledBinding Display.GraphicsCard.Name}" Classes="subtitle" />
             </StackPanel>
             <Border Grid.Row="0" Grid.Column="1" ClipToBounds="True" CornerRadius="0 8 8 0">
-                <Image Height="130" 
-                       Source="C:\Users\Robert\Documents\ShareX\Screenshots\2022-04\K2F9In3yKr.jpg" 
-                       RenderOptions.BitmapInterpolationMode="LowQuality" 
-                       Stretch="Uniform"/>    
+                <Image Name="DisplayPreviewImage"
+                       Height="130"
+                       Source="{CompiledBinding DisplayPreview.Preview}"
+                       RenderOptions.BitmapInterpolationMode="LowQuality"
+                       Stretch="Uniform" />
             </Border>
-            
+
         </Grid>
     </Border>
 </UserControl>

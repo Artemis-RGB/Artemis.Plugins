@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
@@ -7,34 +6,36 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using Avalonia.Skia;
-using FluentAvalonia.Interop;
 using ReactiveUI;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorViewModel>
+public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorViewModel>
 {
-    private readonly Image _screenDisplay;
+    private readonly Image _displayPreviewImage;
     private readonly Rectangle _regionRectangle;
-    private bool _resizing;
+    private Point _moveOffset;
     private bool _moving;
     private Point _resizeOffset;
-    private Point _moveOffset;
+    private bool _resizing;
 
     public CaptureRegionEditorView()
     {
         InitializeComponent();
 
-        _screenDisplay = this.Get<Image>("ScreenDisplay");
+        _displayPreviewImage = this.Get<Image>("DisplayPreviewImage");
         _regionRectangle = this.Get<Rectangle>("RegionRectangle");
 
-        _screenDisplay.LayoutUpdated += ScreenDisplayOnLayoutUpdated;
-        this.WhenActivated(d => ViewModel.WhenAnyValue(vm => vm.CaptureRegion).Subscribe(UpdateDisplay).DisposeWith(d));
+        _displayPreviewImage.LayoutUpdated += DisplayPreviewImageOnLayoutUpdated;
+        this.WhenActivated(d =>
+        {
+            ViewModel.WhenAnyValue(vm => vm.CaptureRegion).Subscribe(UpdateDisplay).DisposeWith(d);
+            ViewModel!.PreviewImage = _displayPreviewImage;
+        });
     }
 
-    private void ScreenDisplayOnLayoutUpdated(object? sender, EventArgs e)
+    private void DisplayPreviewImageOnLayoutUpdated(object? sender, EventArgs e)
     {
         if (ViewModel != null)
             UpdateDisplay(ViewModel.CaptureRegion);
@@ -51,8 +52,8 @@ public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegion
             return;
 
         // Determine the scale of the preview
-        double scaleX = _screenDisplay.Bounds.Width / ViewModel.Display.Width;
-        double scaleY = _screenDisplay.Bounds.Height / ViewModel.Display.Height;
+        double scaleX = _displayPreviewImage.Bounds.Width / ViewModel.Display.Width;
+        double scaleY = _displayPreviewImage.Bounds.Height / ViewModel.Display.Height;
 
         // Scale down the capture region and apply to the rect 
         _regionRectangle.Width = rect.Width * scaleX;
@@ -60,7 +61,7 @@ public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegion
         Canvas.SetLeft(_regionRectangle, rect.X * scaleX);
         Canvas.SetTop(_regionRectangle, rect.Y * scaleY);
 
-        _screenDisplay.InvalidateVisual();
+        _displayPreviewImage.InvalidateVisual();
     }
 
     private void UpdateRegion(SKRectI rect)
@@ -72,6 +73,36 @@ public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegion
         ViewModel.CapturePropertiesViewModel.Y = rect.Top;
         ViewModel.CapturePropertiesViewModel.Width = rect.Width;
         ViewModel.CapturePropertiesViewModel.Height = rect.Height;
+    }
+
+    private Point GetScaledPosition(PointerEventArgs e)
+    {
+        if (ViewModel == null)
+            return e.GetPosition(_displayPreviewImage);
+
+        Point position = e.GetPosition(_displayPreviewImage);
+        Point normalizedPosition = new(position.X / _displayPreviewImage.Bounds.Width, position.Y / _displayPreviewImage.Bounds.Height);
+        return new Point(normalizedPosition.X * ViewModel.Display.Width, normalizedPosition.Y * ViewModel.Display.Height);
+    }
+
+    private int LimitVertically(Point position, bool fromTop)
+    {
+        int result = (int) Math.Round(position.Y, MidpointRounding.AwayFromZero);
+        if (ViewModel == null)
+            return result;
+        return fromTop
+            ? Math.Clamp(result, 0, (int) ViewModel.CaptureRegion.Bottom - 1)
+            : Math.Clamp(result, (int) ViewModel.CaptureRegion.Top + 1, ViewModel.Display.Height);
+    }
+
+    private int LimitHorizontally(Point position, bool fromLeft)
+    {
+        int result = (int) Math.Round(position.X, MidpointRounding.AwayFromZero);
+        if (ViewModel == null)
+            return result;
+        return fromLeft
+            ? Math.Clamp(result, 0, (int) ViewModel.CaptureRegion.Right - 1)
+            : Math.Clamp(result, (int) ViewModel.CaptureRegion.Left + 1, ViewModel.Display.Width);
     }
 
     #region Resizing
@@ -232,8 +263,7 @@ public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegion
         e.Pointer.Capture(null);
         _resizing = false;
 
-        if (ViewModel != null)
-            ViewModel.CapturePropertiesViewModel.EnableValidation = true;
+        ViewModel?.ApplyRegion();
     }
 
     #endregion
@@ -267,39 +297,8 @@ public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegion
         e.Pointer.Capture(null);
         _moving = false;
 
-        if (ViewModel != null)
-            ViewModel.CapturePropertiesViewModel.EnableValidation = true;
+        ViewModel?.ApplyRegion();
     }
 
     #endregion
-
-    private Point GetScaledPosition(PointerEventArgs e)
-    {
-        if (ViewModel == null)
-            return e.GetPosition(_screenDisplay);
-
-        Point position = e.GetPosition(_screenDisplay);
-        Point normalizedPosition = new(position.X / _screenDisplay.Bounds.Width, position.Y / _screenDisplay.Bounds.Height);
-        return new Point(normalizedPosition.X * ViewModel.Display.Width, normalizedPosition.Y * ViewModel.Display.Height);
-    }
-
-    private int LimitVertically(Point position, bool fromTop)
-    {
-        int result = (int) Math.Round(position.Y, MidpointRounding.AwayFromZero);
-        if (ViewModel == null)
-            return result;
-        return fromTop
-            ? Math.Clamp(result, 0, (int) ViewModel.CaptureRegion.Bottom - 1)
-            : Math.Clamp(result, (int) ViewModel.CaptureRegion.Top + 1, ViewModel.Display.Height);
-    }
-
-    private int LimitHorizontally(Point position, bool fromLeft)
-    {
-        int result = (int) Math.Round(position.X, MidpointRounding.AwayFromZero);
-        if (ViewModel == null)
-            return result;
-        return fromLeft 
-            ? Math.Clamp(result, 0, (int) ViewModel.CaptureRegion.Right - 1) 
-            : Math.Clamp(result, (int) ViewModel.CaptureRegion.Left + 1, ViewModel.Display.Width);
-    }
 }

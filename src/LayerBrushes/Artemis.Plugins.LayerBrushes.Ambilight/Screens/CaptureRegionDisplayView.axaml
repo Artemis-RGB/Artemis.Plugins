@@ -2,18 +2,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Screens"
+             xmlns:converters="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CaptureRegionDisplayView">
+             x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CaptureRegionDisplayView"
+             x:DataType="screens:CaptureRegionDisplayViewModel">
+    <UserControl.Resources>
+        <converters:RenderScaleConverter x:Key="RenderScaleConverter" />
+    </UserControl.Resources>
     <Border Classes="card-condensed" ClipToBounds="True" Padding="0">
         <Grid RowDefinitions="Auto,Auto,*">
-            <TextBlock Grid.Row="0" Classes="h4" TextAlignment="Center" Margin="10 10 10 0">Result</TextBlock>    
+            <TextBlock Grid.Row="0" Classes="h4" TextAlignment="Center" Margin="10 10 10 0">Result</TextBlock>
             <TextBlock Grid.Row="1" Classes="subtitle" TextAlignment="Center" Margin="10" TextWrapping="Wrap">
                 The image shown below is drawn by the brush
-            </TextBlock>    
-            <Image Grid.Row="2" 
-                   Source="C:\Users\Robert\Documents\ShareX\Screenshots\2022-04\K2F9In3yKr.jpg" 
-                   Stretch="Uniform" 
-                   RenderOptions.BitmapInterpolationMode="LowQuality" />
+            </TextBlock>
+            <Image Name="DisplayPreviewImage"
+                   Grid.Row="2"
+                   Source="{CompiledBinding DisplayPreview.ProcessedPreview}"
+                   Stretch="Uniform"
+                   RenderOptions.BitmapInterpolationMode="LowQuality">
+                <Image.RenderTransform>
+                    <ScaleTransform ScaleX="{CompiledBinding Properties.FlipHorizontal.BaseValue, Converter={StaticResource RenderScaleConverter}}"
+                                    ScaleY="{CompiledBinding Properties.FlipVertical.BaseValue, Converter={StaticResource RenderScaleConverter}}" />
+                </Image.RenderTransform>
+            </Image>
         </Grid>
     </Border>
 </UserControl>

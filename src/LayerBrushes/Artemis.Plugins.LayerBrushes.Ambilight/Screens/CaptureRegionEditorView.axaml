@@ -2,8 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.Ambilight.Screens"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.LayerBrushes.Ambilight.Screens.CaptureRegionEditorView"
+             x:DataType="screens:CaptureRegionEditorViewModel"
              ClipToBounds="False">
     <UserControl.Styles>
         <!-- Resize -->
@@ -31,16 +33,16 @@
                 To only mirror parts of the screen, resize the rectangle below
             </TextBlock>
             <Border Grid.Row="2" CornerRadius="0 0 8 8">
-                <Image Name="ScreenDisplay"
-                       Source="C:\Users\Robert\Documents\ShareX\Screenshots\2022-04\K2F9In3yKr.jpg"
+                <Image Name="DisplayPreviewImage"
+                       Source="{CompiledBinding DisplayPreview.Preview}"
                        Stretch="Uniform"
                        RenderOptions.BitmapInterpolationMode="LowQuality" />
             </Border>
 
 
             <Canvas Grid.Row="2"
-                    Width="{Binding #ScreenDisplay.Bounds.Width}"
-                    Height="{Binding #ScreenDisplay.Bounds.Height}"
+                    Width="{Binding #DisplayPreviewImage.Bounds.Width}"
+                    Height="{Binding #DisplayPreviewImage.Bounds.Height}"
                     HorizontalAlignment="Center">
                 <Rectangle Name="RegionRectangle"
                            Stroke="{DynamicResource SystemAccentColorLight1}"
@@ -50,7 +52,7 @@
                            PointerReleased="FinishMove"
                            Cursor="Hand">
                     <Rectangle.Fill>
-                        <SolidColorBrush Color="{DynamicResource SystemAccentColorLight1}" Opacity="0.2"></SolidColorBrush>
+                        <SolidColorBrush Color="{DynamicResource SystemAccentColorLight1}" Opacity="0.2" />
                     </Rectangle.Fill>
                 </Rectangle>
 
@@ -65,56 +67,56 @@
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeTopLeft"
                                  PointerReleased="FinishResize"
-                                 Cursor="TopLeftCorner"/>
+                                 Cursor="TopLeftCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Top" HorizontalAlignment="Center" Name="ResizeTopCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeTop"
                                  PointerReleased="FinishResize"
-                                 Cursor="TopSide"/>
+                                 Cursor="TopSide" />
                     </Panel>
                     <Panel VerticalAlignment="Top" HorizontalAlignment="Right" Name="ResizeTopRight">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeTopRight"
-                                 PointerReleased="FinishResize" 
-                                 Cursor="TopRightCorner"/>
+                                 PointerReleased="FinishResize"
+                                 Cursor="TopRightCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Center" HorizontalAlignment="Right" Name="ResizeRightCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeRight"
                                  PointerReleased="FinishResize"
-                                 Cursor="RightSide"/>
+                                 Cursor="RightSide" />
                     </Panel>
                     <Panel VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="ResizeBottomRight">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeBottomRight"
-                                 PointerReleased="FinishResize" 
-                                 Cursor="BottomRightCorner"/>
+                                 PointerReleased="FinishResize"
+                                 Cursor="BottomRightCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Bottom" HorizontalAlignment="Center" Name="ResizeBottomCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeBottom"
-                                 PointerReleased="FinishResize" 
-                                 Cursor="BottomSide"/>
+                                 PointerReleased="FinishResize"
+                                 Cursor="BottomSide" />
                     </Panel>
                     <Panel VerticalAlignment="Bottom" HorizontalAlignment="Left" Name="ResizeBottomLeft">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeBottomLeft"
                                  PointerReleased="FinishResize"
-                                 Cursor="BottomLeftCorner"/>
+                                 Cursor="BottomLeftCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Center" HorizontalAlignment="Left" Name="ResizeLeftCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
                                  PointerMoved="ResizeLeft"
                                  PointerReleased="FinishResize"
-                                 Cursor="LeftSide"/>
+                                 Cursor="LeftSide" />
                     </Panel>
                 </Grid>
             </Canvas>

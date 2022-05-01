@@ -3,6 +3,7 @@ using System.Reactive.Disposables;
 using Artemis.UI.Shared.Extensions;
 using Avalonia;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
@@ -10,7 +11,7 @@ using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public partial class CapturePropertiesView : ReactiveUserControl<CapturePropertiesViewModel>
+public class CapturePropertiesView : ReactiveUserControl<CapturePropertiesViewModel>
 {
     public CapturePropertiesView()
     {
@@ -36,5 +37,15 @@ public partial class CapturePropertiesView : ReactiveUserControl<CaptureProperti
 
         if (ViewModel != null)
             ViewModel.SelectedCaptureScreen = viewModel;
+    }
+
+    private void InputFinished(object? sender, RoutedEventArgs e)
+    {
+        ViewModel?.Save();
+    }
+
+    private void PointerInputFinished(object? sender, PointerCaptureLostEventArgs pointerCaptureLostEventArgs)
+    {
+        ViewModel?.Save();
     }
 }

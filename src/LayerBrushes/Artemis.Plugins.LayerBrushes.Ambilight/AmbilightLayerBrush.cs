@@ -14,7 +14,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
     {
         #region Properties & Fields
 
-        private IScreenCaptureService _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
+        private IScreenCaptureService? _screenCaptureService => AmbilightBootstrapper.ScreenCaptureService;
         public bool PropertiesOpen { get; set; }
 
         private Display? _display;
@@ -42,8 +42,11 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
                 fixed (byte* ptr = capture)
                 {
-                    using SKImage image = SKImage.FromPixels(new SKImageInfo(_captureZone.Width, _captureZone.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), new IntPtr(ptr),
-                        _captureZone.Stride);
+                    using SKImage image = SKImage.FromPixels(
+                        new SKImageInfo(_captureZone.Width, _captureZone.Height, SKColorType.Bgra8888, SKAlphaType.Opaque),
+                        new IntPtr(ptr),
+                        _captureZone.Stride
+                    );
 
                     if (properties.BlackBarDetectionTop || properties.BlackBarDetectionBottom || properties.BlackBarDetectionLeft || properties.BlackBarDetectionRight)
                     {
@@ -61,13 +64,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
         public override void EnableLayerBrush()
         {
-            ConfigurationDialog = new LayerBrushConfigurationDialog<CapturePropertiesViewModel>(1300, 600);
+            ConfigurationDialog = new LayerBrushConfigurationDialog<CapturePropertiesViewModel>(1300, 650);
             RecreateCaptureZone();
         }
 
         public void RecreateCaptureZone()
         {
-            if (PropertiesOpen || _creatingCaptureZone)
+            if (PropertiesOpen || _creatingCaptureZone || _screenCaptureService == null)
                 return;
 
             try
@@ -88,7 +91,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
                     .Where(d => defaulting || d.DeviceName.Equals(props.DisplayName.CurrentValue, StringComparison.OrdinalIgnoreCase))
                     .Cast<Display?>()
                     .FirstOrDefault();
-                if (_display == null) 
+                if (_display == null)
                     return;
 
                 // If we're defaulting or always capturing full screen, apply the display to the properties
