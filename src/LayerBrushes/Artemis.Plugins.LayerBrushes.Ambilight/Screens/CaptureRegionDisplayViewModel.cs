@@ -13,11 +13,13 @@ public class CaptureRegionDisplayViewModel : ActivatableViewModelBase
 
     public CaptureRegionDisplayViewModel(Display display, AmbilightCaptureProperties properties)
     {
+        Display = display;
         Properties = properties;
         DisplayPreview = new DisplayPreview(display, properties);
         this.WhenActivated(d => Disposable.Create(() => DisplayPreview.Dispose()).DisposeWith(d));
     }
 
+    public Display Display { get; }
     public AmbilightCaptureProperties Properties { get; }
     public DisplayPreview DisplayPreview { get; }
 

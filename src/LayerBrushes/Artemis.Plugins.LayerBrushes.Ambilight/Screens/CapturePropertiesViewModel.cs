@@ -41,6 +41,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
     private int _width;
     private int _x;
     private int _y;
+    private bool _saveOnChange;
 
     public CapturePropertiesViewModel(AmbilightLayerBrush layerBrush, IWindowService windowService) : base(layerBrush)
     {
@@ -49,9 +50,8 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
 
         AmbilightLayerBrush = layerBrush;
         CaptureScreens = new ObservableCollection<CaptureScreenViewModel>();
-        ResetRegion = ReactiveCommand.CreateFromTask(ExecuteResetRegion);
+        ResetRegion = ReactiveCommand.Create(ExecuteResetRegion);
 
-        Load();
         _maxX = this.WhenAnyValue(vm => vm.Width, vm => vm.SelectedCaptureScreen, (width, screen) => (screen?.Display.Width ?? 0) - width).ToProperty(this, vm => vm.MaxX);
         _maxY = this.WhenAnyValue(vm => vm.Height, vm => vm.SelectedCaptureScreen, (height, screen) => (screen?.Display.Height ?? 0) - height).ToProperty(this, vm => vm.MaxY);
         _maxWidth = this.WhenAnyValue(vm => vm.X, vm => vm.SelectedCaptureScreen, (x, screen) => (screen?.Display.Width ?? 0) - x).ToProperty(this, vm => vm.MaxWidth);
@@ -59,7 +59,13 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         _updateTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Normal, (_, _) => Update());
         _updateTimer.Start();
 
-        this.WhenActivated(Initialize);
+        this.WhenActivated(d =>
+        {
+            Initialize(d);
+            this.WhenAnyValue(vm => vm.SelectedCaptureScreen).Subscribe(OnSelectedCaptureScreenChanged);
+
+            _saveOnChange = true;
+        });
     }
 
     public AmbilightLayerBrush AmbilightLayerBrush { get; }
@@ -85,19 +91,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
     public CaptureScreenViewModel? SelectedCaptureScreen
     {
         get => _selectedCaptureScreen;
-        set
-        {
-            // TODO: Move this out of the setting and into a observable subscription
-            if (_selectedCaptureScreen != null)
-                _selectedCaptureScreen.IsSelected = false;
-
-            RaiseAndSetIfChanged(ref _selectedCaptureScreen, value);
-
-            if (value != null)
-                value.IsSelected = true;
-
-            Task.Run(ExecuteResetRegion);
-        }
+        set => RaiseAndSetIfChanged(ref _selectedCaptureScreen, value);
     }
 
     public ReactiveCommand<Unit, Unit> ResetRegion { get; }
@@ -198,9 +192,17 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         BlackBarDetectionLeft = _properties.BlackBarDetectionLeft;
         BlackBarDetectionRight = _properties.BlackBarDetectionRight;
         BlackBarDetectionThreshold = _properties.BlackBarDetectionThreshold;
+
+        if (_properties.CaptureFullScreen && SelectedCaptureScreen != null)
+        {
+            X = 0;
+            Y = 0;
+            Width = SelectedCaptureScreen.Display.Width;
+            Height = SelectedCaptureScreen.Display.Height;
+        }
     }
 
-    public async Task Save()
+    public void Save()
     {
         _properties.X.SetCurrentValue(X);
         _properties.Y.SetCurrentValue(Y);
@@ -231,7 +233,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
             CaptureRegionDisplay = new CaptureRegionDisplayViewModel(SelectedCaptureScreen.Display, _properties);
         }
 
-        await Task.Run(() => AmbilightLayerBrush.RecreateCaptureZone());
+        Task.Run(() => AmbilightLayerBrush.RecreateCaptureZone()).ConfigureAwait(false);
     }
 
     private async void Initialize(CompositeDisposable d)
@@ -239,12 +241,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         if (!await CreateCaptureScreens())
             return;
 
-        if (SelectedCaptureScreen != null)
-        {
-            CaptureRegionEditor = new CaptureRegionEditorViewModel(this, SelectedCaptureScreen.Display);
-            CaptureRegionDisplay = new CaptureRegionDisplayViewModel(SelectedCaptureScreen.Display, _properties);
-        }
-
+        Load();
         EnableValidation = true;
 
         Disposable.Create(() =>
@@ -271,22 +268,10 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
             return false;
         }
 
-        // Don't use the setter to avoid a save
-        _selectedCaptureScreen = CaptureScreens.FirstOrDefault(s => s.Display.GraphicsCard.VendorId == _properties.GraphicsCardVendorId &&
-                                                                    s.Display.GraphicsCard.DeviceId == _properties.GraphicsCardDeviceId &&
-                                                                    s.Display.DeviceName == _properties.DisplayName.CurrentValue) ??
-                                 CaptureScreens.First();
-        _selectedCaptureScreen.IsSelected = true;
-        this.RaisePropertyChanged(nameof(SelectedCaptureScreen));
-
-        if (_properties.CaptureFullScreen)
-        {
-            X = 0;
-            Y = 0;
-            Width = SelectedCaptureScreen.Display.Width;
-            Height = SelectedCaptureScreen.Display.Height;
-        }
-
+        SelectedCaptureScreen = CaptureScreens.FirstOrDefault(s => s.Display.GraphicsCard.VendorId == _properties.GraphicsCardVendorId &&
+                                                                   s.Display.GraphicsCard.DeviceId == _properties.GraphicsCardDeviceId &&
+                                                                   s.Display.DeviceName == _properties.DisplayName.CurrentValue) ?? CaptureScreens.First();
+        SelectedCaptureScreen.IsSelected = true;
         return true;
     }
 
@@ -298,7 +283,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         CaptureRegionDisplay?.Update();
     }
 
-    private async Task ExecuteResetRegion()
+    private void ExecuteResetRegion()
     {
         if (SelectedCaptureScreen == null)
             return;
@@ -308,6 +293,27 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         Width = SelectedCaptureScreen.Display.Width;
         Height = SelectedCaptureScreen.Display.Height;
 
-        await Save();
+        Save();
+    }
+
+    private void OnSelectedCaptureScreenChanged(CaptureScreenViewModel? selected)
+    {
+        foreach (CaptureScreenViewModel captureScreen in CaptureScreens)
+            captureScreen.IsSelected = captureScreen == selected;
+
+        if (SelectedCaptureScreen == null)
+            return;
+
+        // Reset the region if it no longer fits
+        if (X + Width > SelectedCaptureScreen.Display.Width || Y + Height > SelectedCaptureScreen.Display.Height)
+            ExecuteResetRegion();
+        // Recreate the region editor for the screen
+        if (CaptureRegionEditor?.Display != SelectedCaptureScreen.Display)
+            CaptureRegionEditor = new CaptureRegionEditorViewModel(this, SelectedCaptureScreen.Display);
+        if (CaptureRegionDisplay?.Display != SelectedCaptureScreen.Display)
+            CaptureRegionDisplay = new CaptureRegionDisplayViewModel(SelectedCaptureScreen.Display, _properties);
+        
+        if (_saveOnChange)
+            Save();
     }
 }

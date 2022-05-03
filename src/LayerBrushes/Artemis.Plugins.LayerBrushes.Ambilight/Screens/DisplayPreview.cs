@@ -93,8 +93,8 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
 
         lock (_processedCaptureZone.Buffer)
         {
-            if (_processedCaptureZone.Buffer.Length == 0) return;
-
+            if (_processedCaptureZone.Buffer.Length == 0)
+                return;
             if (_blackBarDetectionTop || _blackBarDetectionBottom || _blackBarDetectionLeft || _blackBarDetectionRight)
             {
                 int x = _blackBarDetectionLeft ? _processedCaptureZone.BlackBars.Left : 0;
@@ -104,9 +104,9 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
                 if (width <= 0 && height <= 0)
                     return;
 
-                if (ProcessedPreview == null || ProcessedPreview.Size.Width != width || ProcessedPreview.Size.Height != height)
+                if (ProcessedPreview == null || Math.Abs(ProcessedPreview.Size.Width - width) > 0.001 || Math.Abs(ProcessedPreview.Size.Height - height) > 0.001)
                     ProcessedPreview = new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
-                WritePixelsRegion(ProcessedPreview, _processedCaptureZone, x, y, width, height);
+                WriteCroppedPixels(ProcessedPreview, _processedCaptureZone);
             }
             else if (ProcessedPreview != null)
             {
@@ -121,11 +121,27 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
         Marshal.Copy(captureZone.Buffer, 0, framebuffer.Address, captureZone.Buffer.Length);
     }
 
-    private void WritePixelsRegion(WriteableBitmap preview, CaptureZone captureZone, int x, int y, int width, int height)
+    private void WriteCroppedPixels(WriteableBitmap preview, CaptureZone captureZone)
     {
-        // TODO: Maths
         using ILockedFramebuffer framebuffer = preview.Lock();
-        Marshal.Copy(captureZone.Buffer, 0, framebuffer.Address, captureZone.Buffer.Length);
+        IntPtr framebufferPtr = framebuffer.Address;
+        
+        int left = _blackBarDetectionLeft ? captureZone.BlackBars.Left : 0;
+        int right = _blackBarDetectionRight ? captureZone.BlackBars.Right : 0;
+        int top = _blackBarDetectionTop ? captureZone.BlackBars.Top : 0;
+        int bottom = _blackBarDetectionBottom ? captureZone.BlackBars.Bottom : 0;
+        
+        int stride = captureZone.Stride;
+        int rowOffset = left * captureZone.BytesPerPixel;
+        int rowLength = (captureZone.Width - left - right) * captureZone.BytesPerPixel;
+        int height = captureZone.Height;
+        
+        for (int y = top; y < (height - bottom); y++)
+        {
+            int offset = (y * stride) + rowOffset;
+            Marshal.Copy(captureZone.Buffer, offset, framebufferPtr, rowLength);
+            framebufferPtr += rowLength;
+        }
     }
 
     public void Dispose()
