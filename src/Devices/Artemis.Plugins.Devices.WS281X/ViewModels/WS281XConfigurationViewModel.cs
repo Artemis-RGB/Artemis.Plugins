@@ -1,100 +1,115 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Threading.Tasks;
-using System.Windows.Navigation;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.WS281X.Settings;
 using Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
-using Stylet;
+using FluentAvalonia.UI.Controls;
+using ReactiveUI;
+using ContentDialogButton = Artemis.UI.Shared.Services.Builders.ContentDialogButton;
 
-namespace Artemis.Plugins.Devices.WS281X.ViewModels
+namespace Artemis.Plugins.Devices.WS281X.ViewModels;
+
+public class WS281XConfigurationViewModel : PluginConfigurationViewModel
 {
-    public class WS281XConfigurationViewModel : PluginConfigurationViewModel
+    private readonly PluginSetting<List<DeviceDefinition>> _definitions;
+    private readonly IPluginManagementService _pluginManagementService;
+    private readonly PluginSettings _settings;
+    private readonly IWindowService _windowService;
+
+
+    public WS281XConfigurationViewModel(Plugin plugin, PluginSettings settings, IWindowService windowService, IPluginManagementService pluginManagementService) : base(plugin)
     {
-        private readonly PluginSetting<List<DeviceDefinition>> _definitions;
-        private readonly IDialogService _dialogService;
-        private readonly IPluginManagementService _pluginManagementService;
-        private readonly PluginSettings _settings;
-        private bool _turnOffLedsOnShutdown;
+        _settings = settings;
+        _windowService = windowService;
+        _pluginManagementService = pluginManagementService;
+        _definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
 
-        public WS281XConfigurationViewModel(Plugin plugin, PluginSettings settings, IDialogService dialogService, IPluginManagementService pluginManagementService)
-            : base(plugin)
+        Definitions = new ObservableCollection<DeviceDefinition>(_definitions.Value);
+        TurnOffLedsOnShutdown = _settings.GetSetting("TurnOffLedsOnShutdown", false);
+
+        AddDevice = ReactiveCommand.CreateFromTask(ExecuteAddDevice);
+        EditDevice = ReactiveCommand.CreateFromTask<DeviceDefinition>(ExecuteEditDevice);
+        RemoveDevice = ReactiveCommand.Create<DeviceDefinition>(ExecuteRemoveDevice);
+        Save = ReactiveCommand.Create(ExecuteSave);
+        Cancel = ReactiveCommand.CreateFromTask(ExecuteCancel);
+    }
+
+    public ReactiveCommand<Unit, Unit> AddDevice { get; }
+    public ReactiveCommand<DeviceDefinition, Unit> EditDevice { get; }
+    public ReactiveCommand<DeviceDefinition, Unit> RemoveDevice { get; }
+    public ReactiveCommand<Unit, Unit> Save { get; }
+    public ReactiveCommand<Unit, Unit> Cancel { get; }
+
+    public ObservableCollection<DeviceDefinition> Definitions { get; }
+    public PluginSetting<bool> TurnOffLedsOnShutdown { get; }
+
+    private async Task ExecuteAddDevice()
+    {
+        DeviceDefinition device = new() {Name = $"Device {_definitions.Value.Count + 1}"};
+        ContentDialogResult result = await _windowService.CreateContentDialog()
+            .WithTitle("Add device")
+            .WithViewModel(out DeviceConfigurationDialogViewModel vm, ("device", device))
+            .HavingPrimaryButton(b => b.WithText("Accept").WithCommand(vm.Accept))
+            .WithDefaultButton(ContentDialogButton.Primary)
+            .ShowAsync();
+
+        if (result == ContentDialogResult.Primary)
         {
-            _settings = settings;
-            _dialogService = dialogService;
-            _pluginManagementService = pluginManagementService;
-            _definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
-
-            TurnOffLedsOnShutdown = _settings.GetSetting("TurnOffLedsOnShutdown", false).Value;
-            Definitions = new BindableCollection<DeviceDefinition>(_definitions.Value);
-        }
-
-        public BindableCollection<DeviceDefinition> Definitions { get; }
-
-        public bool TurnOffLedsOnShutdown
-        {
-            get => _turnOffLedsOnShutdown;
-            set => SetAndNotify(ref _turnOffLedsOnShutdown, value);
-        }
-
-        public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
-        {
-            Utilities.OpenUrl(e.Uri.AbsoluteUri);
-        }
-
-        public async Task AddDevice()
-        {
-            DeviceDefinition device = new() {Name = $"Device {_definitions.Value.Count + 1}"};
-            Dictionary<string, object> parameters = new() {{"device", device}};
-            object result = await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
-
-            if (result is bool boolResult && boolResult == false || result is not bool)
-                return;
-
             _definitions.Value.Add(device);
             Definitions.Add(device);
-
-            _definitions.Save();
         }
+    }
 
-        public async Task EditDevice(DeviceDefinition device)
+    private async Task ExecuteEditDevice(DeviceDefinition device)
+    {
+        await _windowService.CreateContentDialog()
+            .WithTitle("Edit device")
+            .WithViewModel(out DeviceConfigurationDialogViewModel vm, ("device", device))
+            .HavingPrimaryButton(b => b.WithText("Accept").WithCommand(vm.Accept))
+            .HavingSecondaryButton(b => b.WithText("Delete").WithAction(() => ExecuteRemoveDevice(device)))
+            .WithDefaultButton(ContentDialogButton.Primary)
+            .ShowAsync();
+    }
+
+    private void ExecuteRemoveDevice(DeviceDefinition device)
+    {
+        _definitions.Value.Remove(device);
+        Definitions.Remove(device);
+    }
+
+    private void ExecuteSave()
+    {
+        _definitions.Save();
+        TurnOffLedsOnShutdown.Save();
+
+        // Fire & forget re-enabling the plugin
+        Task.Run(() =>
         {
-            Dictionary<string, object> parameters = new() {{"device", device}};
-            await _dialogService.ShowDialogAt<DeviceConfigurationDialogViewModel>("PluginSettingsDialog", parameters);
+            WS281XDeviceProvider deviceProvider = Plugin.GetFeature<WS281XDeviceProvider>();
+            if (deviceProvider == null || !deviceProvider.IsEnabled) return;
+            _pluginManagementService.DisablePluginFeature(deviceProvider, false);
+            _pluginManagementService.EnablePluginFeature(deviceProvider, false);
+        });
 
-            _definitions.Save();
-        }
+        Close();
+    }
 
-        public void RemoveDevice(DeviceDefinition device)
+    private async Task ExecuteCancel()
+    {
+        if (TurnOffLedsOnShutdown.HasChanged || _definitions.HasChanged)
         {
-            _definitions.Value.Remove(device);
-            Definitions.Remove(device);
-
-            _definitions.Save();
+            if (!await _windowService.ShowConfirmContentDialog("Discard changes", "Do you want to discard any changes you made?"))
+                return;
         }
 
-        #region Overrides of Screen
+        _definitions.RejectChanges();
+        _settings.GetSetting("TurnOffLedsOnShutdown", false).RejectChanges();
 
-        /// <inheritdoc />
-        protected override void OnClose()
-        {
-            _settings.GetSetting("TurnOffLedsOnShutdown", false).Value = TurnOffLedsOnShutdown;
-            _settings.GetSetting("TurnOffLedsOnShutdown", false).Save();
-
-            // Fire & forget re-enabling the plugin
-            Task.Run(() =>
-            {
-                WS281XDeviceProvider deviceProvider = Plugin.GetFeature<WS281XDeviceProvider>();
-                if (deviceProvider == null || !deviceProvider.IsEnabled) return;
-                _pluginManagementService.DisablePluginFeature(deviceProvider, false);
-                _pluginManagementService.EnablePluginFeature(deviceProvider, false);
-            });
-            
-            base.OnClose();
-        }
-
-        #endregion
+        Close();
     }
 }

@@ -18,6 +18,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 
         protected override void PopulateDefaults()
         {
+            Colors.DefaultValue = ColorGradient.GetUnicornBarf();
             ResizeMode.DefaultValue = RadialGradientResizeMode.Fit;
         }
 

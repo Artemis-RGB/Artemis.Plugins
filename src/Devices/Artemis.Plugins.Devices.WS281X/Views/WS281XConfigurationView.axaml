@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.Devices.WS281X.ViewModels"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Devices.WS281X.Views.WS281XConfigurationView"
+             x:DataType="viewModels:WS281XConfigurationViewModel">
+    <Grid Margin="15" RowDefinitions="Auto,Auto,300,Auto,Auto,*">
+        <TextBlock Grid.Row="0" Classes="h4">Manage devices</TextBlock>
+        <StackPanel Grid.Row="1">
+            <TextBlock Classes="h5">Introduction</TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                This plugin supports Arduino, Bitwizard and ESP8266 devices in combination with WS2812B- and WS2811-LED strips.
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                To get started you can use the sketches found on the RGB.NET repository.
+            </TextBlock>
+            <controls:HyperlinkButton NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/ws281x" HorizontalAlignment="Right">
+                Learn more
+            </controls:HyperlinkButton>
+        </StackPanel>
+        <Border Grid.Row="2" Classes="card" Margin="0 10">
+            <DataGrid Items="{CompiledBinding Definitions}"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="False"
+                      SelectionMode="Single"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      MaxHeight="300">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Name}"
+                                        Header="Name"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Type}"
+                                        Header="Type"
+                                        IsReadOnly="True" />
+
+                    <DataGridTemplateColumn Width="Auto" Header="COM port" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Port}" IsVisible="{Binding Port, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                    <TextBlock IsVisible="{Binding Port, Converter={x:Static ObjectConverters.IsNull}}">N/A</TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="Auto" Header="Hostname" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Hostname}" IsVisible="{Binding Hostname, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                    <TextBlock IsVisible="{Binding Hostname, Converter={x:Static ObjectConverters.IsNull}}">N/A</TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding $parent[UserControl].DataContext.EditDevice}"
+                                        CommandParameter="{Binding}"
+                                        Classes="icon-button"
+                                        ToolTip.Tip="Edit device"
+                                        HorizontalAlignment="Center">
+                                    <avalonia:MaterialIcon Kind="Edit" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <TextBlock Grid.Row="3" Classes="h4">General</TextBlock>
+        <Border Grid.Row="4" Classes="card">
+            <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0">
+                    <TextBlock>
+                        Turn off LEDs on shutdown
+                    </TextBlock>
+                    <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                        If enabled, all LEDs are turned off before the plugin is disabled (which happens on Artemis shutdown).
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                    <ToggleSwitch IsChecked="{CompiledBinding TurnOffLedsOnShutdown.Value}" MinWidth="0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="5" ColumnDefinitions="*,Auto" VerticalAlignment="Bottom">
+            <Button Command="{CompiledBinding AddDevice}">
+                Add device
+            </Button>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Classes="accent" Margin="0 0 5 0" Command="{CompiledBinding Save}">
+                    Save changes
+                </Button>
+                <Button Command="{CompiledBinding Cancel}">
+                    Cancel
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

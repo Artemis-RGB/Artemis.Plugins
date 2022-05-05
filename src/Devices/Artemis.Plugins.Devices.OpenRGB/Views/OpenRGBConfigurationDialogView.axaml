@@ -24,13 +24,13 @@
                     <DataGridTextColumn Width="*"
                                         Binding="{Binding ClientName}"
                                         Header="Client Name" />
-                    <DataGridTextColumn Width="*"
+                    <DataGridTextColumn Width="Auto"
                                         Binding="{Binding Ip}"
                                         Header="IP Address" />
-                    <DataGridTextColumn Width="*"
+                    <DataGridTextColumn Width="Auto"
                                         Binding="{Binding Port}"
                                         Header="Port" />
-                    <DataGridTemplateColumn Width="45" IsReadOnly="True">
+                    <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Command="{Binding $parent[UserControl].DeleteRow}"
@@ -81,5 +81,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-
 </UserControl>

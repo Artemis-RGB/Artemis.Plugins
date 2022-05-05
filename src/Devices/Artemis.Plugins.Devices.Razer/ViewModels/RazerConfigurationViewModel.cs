@@ -1,5 +1,7 @@
-﻿using Artemis.Core;
+﻿using System.Reactive.Disposables;
+using Artemis.Core;
 using Artemis.UI.Shared;
+using ReactiveUI;
 
 namespace Artemis.Plugins.Devices.Razer.ViewModels
 {
@@ -8,20 +10,13 @@ namespace Artemis.Plugins.Devices.Razer.ViewModels
         public RazerConfigurationViewModel(Plugin plugin, PluginSettings settings) : base(plugin)
         {
             LoadEmulatorDevices = settings.GetSetting("LoadEmulatorDevices", false);
+            this.WhenActivated(d =>
+            {
+                LoadEmulatorDevices.AutoSave = true;
+                Disposable.Create(() => LoadEmulatorDevices.AutoSave = false).DisposeWith(d);
+            });
         }
 
         public PluginSetting<bool> LoadEmulatorDevices { get; }
-
-        protected override void OnInitialActivate()
-        {
-            LoadEmulatorDevices.AutoSave = true;
-            base.OnInitialActivate();
-        }
-
-        protected override void OnClose()
-        {
-            LoadEmulatorDevices.AutoSave = false;
-            base.OnClose();
-        }
     }
 }
