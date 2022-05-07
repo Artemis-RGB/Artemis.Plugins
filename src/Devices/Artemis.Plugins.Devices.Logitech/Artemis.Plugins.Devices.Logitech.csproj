@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="HidSharp" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease7" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
+    <PackageReference Update="Microsoft.Win32.SystemEvents" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
-using RGB.NET.Core;
-using RGB.NET.Devices.Logitech;
+using Microsoft.Win32;
 using Serilog;
 using Serilog.Events;
 
@@ -18,6 +19,7 @@ namespace Artemis.Plugins.Devices.Logitech
         private const int VENDOR_ID = 0x046D;
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
+        private bool _suspended;
 
         public LogitechDeviceProvider(IRgbService rgbService, ILogger logger) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
         {
@@ -34,6 +36,9 @@ namespace Artemis.Plugins.Devices.Logitech
 
             if (_logger.IsEnabled(LogEventLevel.Debug))
                 LogDeviceIds();
+
+            SystemEvents.PowerModeChanged += SystemEventsPowerModeChanged;
+            SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch;
         }
 
         public override void Disable()
@@ -47,6 +52,7 @@ namespace Artemis.Plugins.Devices.Logitech
             List<HidDevice> devices = DeviceList.Local.GetHidDevices(VENDOR_ID).DistinctBy(d => d.ProductID).ToList();
             _logger.Debug("Found {count} Logitech device(s)", devices.Count);
             foreach (HidDevice hidDevice in devices)
+            {
                 try
                 {
                     _logger.Debug("Found Logitech device {name} with PID 0x{pid}", hidDevice.GetFriendlyName(), hidDevice.ProductID.ToString("X"));
@@ -55,6 +61,40 @@ namespace Artemis.Plugins.Devices.Logitech
                 {
                     _logger.Debug("Found Logitech device with PID 0x{pid}", hidDevice.ProductID.ToString("X"));
                 }
+            }
         }
+
+        #region Event handlers
+
+        private void SystemEventsOnSessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            if (!IsEnabled)
+                return;
+
+            if (e.Reason == SessionSwitchReason.SessionUnlock && _suspended)
+                Task.Run(() =>
+                {
+                    // Give LGS a moment to think about its sins
+                    Thread.Sleep(5000);
+                    _logger.Debug("Detected PC unlock and we're suspended, calling Enable");
+                    _suspended = false;
+                    Enable();
+                });
+        }
+
+        private void SystemEventsPowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            if (!IsEnabled)
+                return;
+
+            if (e.Mode == PowerModes.Suspend && !_suspended)
+            {
+                _logger.Debug("Detected power state change to Suspend, calling Disable");
+                _suspended = true;
+                Disable();
+            }
+        }
+
+        #endregion
     }
 }
