@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Alpenföhn AiO Header</Name>
+  <Description>Alpenföhn AiO Header</Description>
+  <Author>SvNawesome</Author>
+  <Type>Cooler</Type>
+  <Vendor>Alpenföhn</Vendor>
+  <Model>Alpenföhn AiO Header</Model>
+  <Width>60</Width>
+  <Height>60</Height>
+  <LedUnitWidth>10</LedUnitWidth>
+  <LedUnitHeight>10</LedUnitHeight>
+  <Leds>
+    <Led Id="LedStripe12">
+      <Shape>Circle</Shape>
+      <X>50</X>
+      <Y>25</Y>
+    </Led>
+    <Led Id="LedStripe11">
+      <Shape>Circle</Shape>
+      <X>46.65063509</X>
+      <Y>12.5</Y>
+    </Led>
+    <Led Id="LedStripe10">
+      <Shape>Circle</Shape>
+      <X>37.5</X>
+      <Y>3.349364905</Y>
+    </Led>
+    <Led Id="LedStripe9">
+      <Shape>Circle</Shape>
+      <X>25</X>
+      <Y>0</Y>
+    </Led>
+    <Led Id="LedStripe8">
+      <Shape>Circle</Shape>
+      <X>12.5</X>
+      <Y>3.349364905</Y>
+    </Led>
+    <Led Id="LedStripe7">
+      <Shape>Circle</Shape>
+      <X>3.349364905</X>
+      <Y>12.5</Y>
+    </Led>
+    <Led Id="LedStripe6">
+      <Shape>Circle</Shape>
+      <X>0</X>
+      <Y>25</Y>
+    </Led>
+    <Led Id="LedStripe5">
+      <Shape>Circle</Shape>
+      <X>3.349364905</X>
+      <Y>37.5</Y>
+    </Led>
+    <Led Id="LedStripe4">
+      <Shape>Circle</Shape>
+      <X>12.5</X>
+      <Y>46.65063509</Y>
+    </Led>
+    <Led Id="LedStripe3">
+      <Shape>Circle</Shape>
+      <X>25</X>
+      <Y>50</Y>
+    </Led>
+    <Led Id="LedStripe2">
+      <Shape>Circle</Shape>
+      <X>37.5</X>
+      <Y>46.65063509</Y>
+    </Led>
+    <Led Id="LedStripe1">
+      <Shape>Circle</Shape>
+      <X>46.65063509</X>
+      <Y>37.5</Y>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>AiO-Head.png</DeviceImage>
+  </CustomData>
+</Device>
