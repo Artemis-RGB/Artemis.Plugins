@@ -14,7 +14,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SkiaSharp" Version="2.80.3"  />
     <PackageReference Include="Stylet" Version="1.3.6"  />
-    <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease7" />
+    <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease32" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />

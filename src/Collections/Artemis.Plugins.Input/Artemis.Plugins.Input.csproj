@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
-    <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease7" />
+    <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease32" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
