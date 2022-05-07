@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Asus ROG Strix X570-F Gaming</Name>
+  <Description>Physical layout of Asus' ROG Strix X570-F Gaming Mainboard</Description>
+  <Author>Elias*</Author>
+  <Type>Mainboard</Type>
+  <Vendor>Asus</Vendor>
+  <Model>ROG STRIX X570-F GAMING</Model>
+  <Width>244</Width>
+  <Height>305</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>115</LedUnitHeight>
+  <Leds>
+    <Led Id="Mainboard1">
+      <X>1</X>
+      <Y>50</Y>
+      <Width>1</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Mainboard2">
+      <Width>0.85</Width>
+    </Led>
+    <Led Id="Mainboard3" />
+    <Led Id="Mainboard4">
+      <X>196.5</X>
+      <Y>15</Y>
+      <Width>13.5mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="Mainboard5">
+      <X>~3</X>
+      <Y>296.5</Y>
+      <Width>13.5mm</Width>
+      <Height>5mm</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>ROG STRIX X570-F GAMING.png</DeviceImage>
+  </CustomData>
+</Device>
