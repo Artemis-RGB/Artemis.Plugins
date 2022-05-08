@@ -62,8 +62,6 @@ public class PhilipsHueConfigurationViewModel : PluginConfigurationViewModel
         AddHueBridge = ReactiveCommand.Create(ExecuteAddHueBridge);
         ResetPlugin = ReactiveCommand.CreateFromTask(ExecuteResetPlugin);
         ReloadDeviceProvider = ReactiveCommand.Create(ExecuteReloadDeviceProvider);
-
-        WizardPage = 1;
     }
 
     public ReactiveCommand<Unit, int> ShowSettings { get; }

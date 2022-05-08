@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Artemis.Plugins.PhilipsHue.ViewModels"
+             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.PhilipsHue.Views.Steps.SyncStep"
              x:DataType="viewModels:PhilipsHueConfigurationViewModel">
@@ -22,6 +23,12 @@
         </Style>
     </UserControl.Styles>
     <Border Classes="card" Margin="25" Padding="80">
+        <Border.Styles>
+            <styling:FluentAvaloniaTheme RequestedTheme="Dark" />
+            <Style Selector="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+        </Border.Styles>
         <Border.Background>
             <LinearGradientBrush StartPoint="0%,100%" EndPoint="100%,0%">
                 <GradientStop Color="#00786B" Offset="0" />

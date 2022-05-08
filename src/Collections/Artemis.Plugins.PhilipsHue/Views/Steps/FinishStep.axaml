@@ -4,10 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Artemis.Plugins.PhilipsHue.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.PhilipsHue.Views.Steps.FinishStep"
              x:DataType="viewModels:PhilipsHueConfigurationViewModel">
     <Border Classes="card" Margin="25" Padding="80">
+        <Border.Styles>
+            <styling:FluentAvaloniaTheme RequestedTheme="Dark" />
+            <Style Selector="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+        </Border.Styles>
         <Border.Background>
             <LinearGradientBrush StartPoint="0%,20%" EndPoint="100%,100%">
                 <GradientStop Color="#7D384B" Offset="0" />
