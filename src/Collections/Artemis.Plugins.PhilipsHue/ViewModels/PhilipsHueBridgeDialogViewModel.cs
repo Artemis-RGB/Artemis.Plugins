@@ -1,24 +1,26 @@
-﻿using Artemis.Plugins.PhilipsHue.Models;
-using Artemis.UI.Shared.Services;
+﻿using Artemis.UI.Shared;
+using FluentAvalonia.UI.Controls;
+using ReactiveUI.Validation.Extensions;
 
-namespace Artemis.Plugins.PhilipsHue.ViewModels
+namespace Artemis.Plugins.PhilipsHue.ViewModels;
+
+public class PhilipsHueBridgeDialogViewModel : ContentDialogViewModelBase
 {
-    public class PhilipsHueBridgeDialogViewModel : DialogViewModelBase
+    private string _ipAddress;
+
+    public PhilipsHueBridgeDialogViewModel()
     {
-        public string BridgeId { get; set; }
-        public string Hostname { get; set; }
+        this.ValidationRule(vm => vm.IpAddress, s => !string.IsNullOrWhiteSpace(s), "IP address or hostname is required");
+    }
 
+    public string IpAddress
+    {
+        get => _ipAddress;
+        set => RaiseAndSetIfChanged(ref _ipAddress, value);
+    }
 
-        public void Accept()
-        {
-            if (Session != null && !Session.IsEnded)
-                Session.Close(new PhilipsHueBridge {BridgeId = BridgeId, IpAddress = Hostname});
-        }
-
-        public new void Cancel()
-        {
-            if (Session != null && !Session.IsEnded)
-                Session.Close();
-        }
+    public void Accept()
+    {
+        ContentDialog?.Hide(ContentDialogResult.Primary);
     }
 }

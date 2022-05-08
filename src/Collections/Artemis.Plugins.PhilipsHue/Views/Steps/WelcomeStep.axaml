@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.PhilipsHue.ViewModels"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.PhilipsHue.Views.Steps.WelcomeStep"
+             x:DataType="viewModels:PhilipsHueConfigurationViewModel">
+    <Border Classes="card" Margin="25" Padding="80">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Color="#387D67" Offset="0" />
+                <GradientStop Color="#141d3a" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <StackPanel>
+            <TextBlock Classes="h3" TextAlignment="Center" TextWrapping="Wrap" Margin="0 20 0 80">
+                Get started with Philips Hue
+            </TextBlock>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap">
+                To use Philips Hue with Artemis you need a Hue Bridge.
+            </TextBlock>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Margin="0 10 0 0">
+                Ensure the bridge is connected to the same network as your computer and click the search button below.
+            </TextBlock>
+
+            <Button Classes="AppBarButton icon-button"
+                    Margin="0 64 0 0"
+                    Command="{CompiledBinding FindHueBridge}"
+                    HorizontalAlignment="Center">
+                <avalonia:MaterialIcon Width="64" Height="64" Kind="Magnify" />
+            </Button>
+
+            <!-- Only show when searching, wrap in a border so it doesn't suddenly push the button down when showing -->
+            <Border Height="50">
+                <StackPanel IsVisible="{CompiledBinding LocatingBridges}">
+                    <ProgressBar IsIndeterminate="True" HorizontalAlignment="Center" Margin="0 10" />
+                    <TextBlock TextAlignment="Center">Locating your Hue Bridge...</TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Button Command="{CompiledBinding FindHueBridgeManual}"
+                    IsEnabled="{CompiledBinding !LocatingBridges}"
+                    Margin="0 10"
+                    HorizontalAlignment="Center"
+                    Content="Connect manually" />
+        </StackPanel>
+    </Border>
+</UserControl>

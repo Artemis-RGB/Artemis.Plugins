@@ -77,6 +77,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Profiling",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.PicoPi", "Devices\Artemis.Plugins.Devices.PicoPi\Artemis.Plugins.Devices.PicoPi.csproj", "{78A7CA0E-D93D-4C8B-9E30-6BD3C5F8C283}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.UI.Windows", "..\..\Artemis\src\Artemis.UI.Windows\Artemis.UI.Windows.csproj", "{D103A194-3F3F-43A1-96D4-DB093BE2D569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -333,6 +335,14 @@ Global
 		{85D6B6A8-97CC-44CD-A524-111E89E2750D}.Release|Any CPU.Build.0 = Release|x64
 		{85D6B6A8-97CC-44CD-A524-111E89E2750D}.Release|x64.ActiveCfg = Release|x64
 		{85D6B6A8-97CC-44CD-A524-111E89E2750D}.Release|x64.Build.0 = Release|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Debug|Any CPU.Build.0 = Debug|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Debug|x64.ActiveCfg = Debug|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Debug|x64.Build.0 = Debug|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Release|Any CPU.ActiveCfg = Release|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Release|Any CPU.Build.0 = Release|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Release|x64.ActiveCfg = Release|x64
+		{D103A194-3F3F-43A1-96D4-DB093BE2D569}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
