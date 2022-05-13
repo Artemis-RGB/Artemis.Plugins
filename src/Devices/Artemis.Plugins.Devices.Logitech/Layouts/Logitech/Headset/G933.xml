@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Logitech G935</Name>
-  <Description>Layout of the G935 Headset</Description>
+  <Name>Logitech G933</Name>
+  <Description>Layout of the G933 Headset</Description>
   <Author>F-Lehmann</Author>
   <Type>Headset</Type>
   <Lighting>Key</Lighting>
   <Vendor>Logitech</Vendor>
-  <Model>G935</Model>
+  <Model>G933</Model>
   <Width>200</Width>
   <Height>213</Height>
   <LedUnitWidth>15</LedUnitWidth>

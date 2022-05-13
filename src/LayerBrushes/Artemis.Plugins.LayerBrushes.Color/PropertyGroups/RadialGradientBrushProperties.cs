@@ -15,6 +15,9 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 
         [PropertyDescription(Name = "Resize mode", Description = "How to make the gradient adjust to scale changes")]
         public EnumLayerProperty<RadialGradientResizeMode> ResizeMode { get; set; }
+        
+        [PropertyDescription(Name = "Zoom speed", Description = "How fast to zoom the gradient, if set to 0 is static, a negative value zooms out", InputAffix = "p/s")]
+        public FloatLayerProperty ZoomSpeed { get; set; }
 
         protected override void PopulateDefaults()
         {
