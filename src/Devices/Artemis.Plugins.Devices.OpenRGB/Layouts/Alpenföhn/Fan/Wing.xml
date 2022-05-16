@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Alpenföhn Wing</Name>
+  <Description>Physical layout of Alpenföhn Wing</Description>
+  <Author>SvNawesome</Author>
+  <Type>Fan</Type>
+  <Vendor>Alpenföhn</Vendor>
+  <Model>Wing</Model>
+  <Width>120</Width>
+  <Height>120</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>20</LedUnitHeight>
+  <Leds>
+    <Led Id="LedStripe11">
+      <Shape>Circle</Shape>
+      <X>99.99997258</X>
+      <Y>49.94764013</Y>
+    </Led>
+    <Led Id="LedStripe10">
+      <Shape>Circle</Shape>
+      <X>95.02732672</X>
+      <Y>28.2620183</Y>
+    </Led>
+    <Led Id="LedStripe9">
+      <Shape>Circle</Shape>
+      <X>81.13938902</X>
+      <Y>10.88045947</Y>
+    </Led>
+    <Led Id="LedStripe8">
+      <Shape>Circle</Shape>
+      <X>61.0859345</X>
+      <Y>1.244466403</Y>
+    </Led>
+    <Led Id="LedStripe7">
+      <Shape>Circle</Shape>
+      <X>38.8374942</X>
+      <Y>1.26194029</Y>
+    </Led>
+    <Led Id="LedStripe6">
+      <Shape>Circle</Shape>
+      <X>18.79920059</X>
+      <Y>10.92942135</Y>
+    </Led>
+    <Led Id="LedStripe5">
+      <Shape>Circle</Shape>
+      <X>4.9385829</X>
+      <Y>28.33277385</Y>
+    </Led>
+    <Led Id="LedStripe4">
+      <Shape>Circle</Shape>
+      <X>6.85389E-06</X>
+      <Y>50.02617994</Y>
+    </Led>
+    <Led Id="LedStripe3">
+      <Shape>Circle</Shape>
+      <X>4.96129747</X>
+      <Y>71.71440246</Y>
+    </Led>
+    <Led Id="LedStripe2">
+      <Shape>Circle</Shape>
+      <X>18.8401323</X>
+      <Y>89.10323062</Y>
+    </Led>
+    <Led Id="LedStripe1">
+      <Shape>Circle</Shape>
+      <X>38.88853869</X>
+      <Y>98.74972233</Y>
+    </Led>
+    <Led Id="LedStripe14">
+      <Shape>Circle</Shape>
+      <X>61.14</X>
+      <Y>98.74</Y>
+    </Led>
+    <Led Id="LedStripe13">
+      <Shape>Circle</Shape>
+      <X>81.17</X>
+      <Y>89.09</Y>
+    </Led>
+    <Led Id="LedStripe12">
+      <Shape>Circle</Shape>
+      <X>95.05</X>
+      <Y>71.69</Y>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Wing.png</DeviceImage>
+  </CustomData>
+</Device>

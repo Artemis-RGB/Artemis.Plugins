@@ -4,11 +4,13 @@ namespace Artemis.Plugins.Devices.Logitech.Prerequisites
 {
     internal static class LogitechSoftwareChecker
     {
-        internal static bool IsLgsInstalled() => DoesRegistrySubKeyExist(REGISTRY_LGS);
+        private const string REGISTRY_INSTALLED_SOFTWARE = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+        private const string REGISTRY_LGHUB = "{521c89be-637f-4274-a840-baaf7460c2b2}";
+        private const string REGISTRY_LGS = "Logitech Gaming Software";
 
-        internal static bool IsLghubInstalled() => DoesRegistrySubKeyExist(REGISTRY_LGHUB);
+        private const string REGISTRY_LOGI_SDK_DLL_PATH = @"SOFTWARE\Classes\CLSID\{a6519e67-7632-4375-afdf-caa889744403}\ServerBinary";
 
-        internal static bool DoesRegistrySubKeyExist(string subkey)
+        private static bool DoesRegistrySubKeyExist(string subkey)
         {
             using RegistryKey installedPrograms = Registry.LocalMachine.OpenSubKey(REGISTRY_INSTALLED_SOFTWARE);
 
@@ -17,8 +19,15 @@ namespace Artemis.Plugins.Devices.Logitech.Prerequisites
             return subkey != null;
         }
 
-        private const string REGISTRY_INSTALLED_SOFTWARE = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-        private const string REGISTRY_LGHUB = "{521c89be-637f-4274-a840-baaf7460c2b2}";
-        private const string REGISTRY_LGS = "Logitech Gaming Software";
+        internal static bool IsLgsInstalled() => DoesRegistrySubKeyExist(REGISTRY_LGS);
+
+        internal static bool IsLghubInstalled() => DoesRegistrySubKeyExist(REGISTRY_LGHUB);
+
+        internal static string GetLogitechDllPath()
+        {
+            using RegistryKey key = Registry.LocalMachine.OpenSubKey(REGISTRY_LOGI_SDK_DLL_PATH);
+
+            return key?.GetValue(null)?.ToString();
+        }
     }
 }
