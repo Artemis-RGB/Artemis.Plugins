@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Asus ROG Crosshair VIII Formula X570 Mainboard</Name>
+  <Description>Asus ROG Crosshair VIII Formula X570 Mainboard</Description>
+  <Author>Codename-Antares</Author>
+  <Type>Mainboard</Type>
+  <Vendor>Asus</Vendor>
+  <Model>Asus ROG Crosshair VIII Formula X570 Mainboard</Model>
+  <Width>244</Width>
+  <Height>305</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>115</LedUnitHeight>
+  <Leds>
+    <Led Id="Mainboard1">
+      <Shape> M0.029,0.078 L0.029,0.645 L1,0.888 L1,0.314z</Shape>
+      <X>5</X>
+      <Y>40</Y>
+      <Width>0.7</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mainboard2">
+      <Shape> M0.022,0.148 L0.022,0.715 L0.991,0.951 L0.98,0.387z</Shape>
+      <X>19</X>
+      <Y>50</Y>
+      <Width>0.7</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mainboard3">
+      <Shape> M0.824,0.423 L0.813,0.972 L0.008,0.779 L0.008,0.218z</Shape>
+      <X>33</X>
+      <Y>60</Y>
+      <Width>0.7</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mainboard4">
+      <X>228</X>
+      <Y>45</Y>
+      <Width>0.8</Width>
+      <Height>0.18</Height>
+    </Led>
+    <Led Id="Mainboard5">
+      <Shape> M0.028,0.009 L0.751,0.014 L0.834,0.12 L0.113,0.12z M0.316,0.348 L0.995,0.35 L0.999,0.982 L0.852,0.982z</Shape>
+      <X>36</X>
+      <Y>174</Y>
+      <Width>4.</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Mainboard6">
+      <Shape> M-0.027,-0.026 L0.014,-0.026 L0.996,0.956 L0.722,0.956 L0.7,0.686 L0.393,0.676 L0.355,0.726 L0.001,0.72z</Shape>
+      <X>118</X>
+      <Y>200</Y>
+      <Width>2.8</Width>
+      <Height>0.5</Height>
+    </Led>
+    <Led Id="Mainboard7">
+      <Shape> M0.062,0.41 L0.248,0.648 L0.213,0.646 L0.152,0.614 L0.11,0.576 L0.075,0.492z M0.322,0.536 L0.404,0.424 L0.504,0.288 L0.58,0.188 L0.626,0.15 L0.701,0.118 L0.783,0.101 L0.87,0.091 L0.926,0.098 L0.929,0.111 L0.824,0.15 L0.722,0.227 L0.598,0.337 L0.493,0.448 L0.391,0.565 L0.334,0.637 L0.322,0.679 L0.354,0.74 L0.404,0.815 L0.398,0.826 L0.334,0.766 L0.288,0.696 L0.241,0.599 L0.192,0.489 L0.177,0.447 L0.203,0.457 L0.267,0.504z M0.962,0.208 L0.913,0.215 L0.829,0.244 L0.751,0.29 L0.593,0.419 L0.42,0.592 L0.353,0.668 L0.401,0.705 L0.51,0.763 L0.622,0.799 L0.701,0.806 L0.734,0.789 L0.762,0.758 L0.791,0.715 L0.821,0.654 L0.857,0.569 L0.884,0.481 L0.922,0.345 L0.92,0.335 L0.805,0.409 L0.684,0.493 L0.562,0.584 L0.647,0.557 L0.781,0.49 L0.746,0.597 L0.697,0.677 L0.645,0.715 L0.573,0.715 L0.495,0.687 L0.451,0.664 L0.548,0.562 L0.649,0.486 L0.753,0.406 L0.824,0.356 L0.945,0.281z</Shape>
+      <X>175</X>
+      <Y>224</Y>
+      <Width>2.5</Width>
+      <Height>0.3</Height>
+    </Led>
+    <Led Id="Mainboard8">
+      <X>232</X>
+      <Y>26</Y>
+      <Width>0.5</Width>
+      <Height>0.13</Height>
+    </Led>
+    <Led Id="Mainboard9">
+      <X>94.5</X>
+      <Y>290</Y>
+      <Width>0.7</Width>
+      <Height>0.08</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Asus ROG Crosshair VIII Formula X570 Mainboard.png</DeviceImage>
+  </CustomData>
+</Device>
