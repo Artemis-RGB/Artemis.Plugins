@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>NZXT HuePlus LED Strip</Name>
+  <Description>NZXT HuePlus LED Strip</Description>
+  <Author>Codename-Antares</Author>
+  <Type>LedStripe</Type>
+  <Vendor>NZXT</Vendor>
+  <Model>NZXT HuePlus LED Strip</Model>
+  <Width>1780</Width>
+  <Height>13</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>115</LedUnitHeight>
+  <Leds>
+    <Led Id="LedStripe41">
+      <X>20</X>
+      <Y>0</Y>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe42">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe43">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe44">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe45">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe46">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe47">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe48">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe49">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe50">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe51">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe52">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe53">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe54">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe55">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe56">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe57">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe58">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe59">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe60">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe61">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe62">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe63">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe64">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe65">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe66">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe67">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe68">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe69">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe70">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe71">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe72">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe73">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe74">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe75">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe76">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe77">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe78">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe79">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="LedStripe80">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>NZXT HuePlus LED Strip.png</DeviceImage>
+  </CustomData>
+</Device>
