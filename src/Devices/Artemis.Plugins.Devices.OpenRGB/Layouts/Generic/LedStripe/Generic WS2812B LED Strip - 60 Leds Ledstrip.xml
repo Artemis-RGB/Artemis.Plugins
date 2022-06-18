@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Generic WS2812B LED Strip</Name>
+  <Description>Generic WS2812B LED Strip</Description>
+  <Author>Codename-Antares</Author>
+  <Type>LedStripe</Type>
+  <Vendor>Custom</Vendor>
+  <Model>Generic WS2812B LED Strip</Model>
+  <Width>2690</Width>
+  <Height>13</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>115</LedUnitHeight>
+  <Leds>
+    <Led Id="Ledstripe1">
+      <X>20</X>
+      <Y>0</Y>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe2">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe3">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe4">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe5">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe6">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe7">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe8">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe9">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe10">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe11">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe12">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe13">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe14">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe15">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe16">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe17">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe18">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe19">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe20">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe21">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe22">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe23">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe24">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe25">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe26">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe27">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe28">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe29">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe30">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe31">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe32">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe33">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe34">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe35">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe36">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe37">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe38">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe39">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe40">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe41">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe42">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe43">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe44">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe45">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe46">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe47">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe48">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe49">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe50">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe51">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe52">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe53">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe54">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe55">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe56">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe57">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe58">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe59">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Ledstripe60">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>	
+  </Leds>
+  <CustomData>
+    <DeviceImage>Generic WS2812B LED Strip.png</DeviceImage>
+  </CustomData>
+</Device>
