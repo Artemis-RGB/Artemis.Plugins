@@ -1,17 +1,23 @@
 ﻿using Artemis.Core.Modules;
-using Serilog;
+using RGB.NET.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Artemis.Plugins.Devices.Wooting
 {
     public class WootingModule : Module<WootingDataModel>
     {
+        private readonly WootingAnalogService _service;
+        private readonly Dictionary<LedId, DynamicChild<float>> _cache;
+
         public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
+
+        public WootingModule(WootingAnalogService service)
+        {
+            _service = service;
+            _cache = new();
+        }
 
         public override void Enable()
         {
@@ -26,20 +32,27 @@ namespace Artemis.Plugins.Devices.Wooting
 
         public override void Update(double deltaTime)
         {
+            UpdateAnalogValues();
         }
 
         public override void Disable()
         {
         }
-    }
 
-    public class WootingDataModel : DataModel
-    {
-        public int Profile { get; set; }
+        private void UpdateAnalogValues()
+        {
+            _service.Update();
+            foreach (var item in _service.Values)
+            {
+                if (!_cache.TryGetValue(item.Key, out var keyDataModel))
+                {
+                    keyDataModel = DataModel.Analog.AddDynamicChild(item.Key.ToString(), item.Value);
+                    _cache.Add(item.Key, keyDataModel);
+                }
 
-        public bool IsInAnalogProfile => Profile != 0;
-
-        public bool IsInDigitalProfile => Profile == 0;
+                keyDataModel.Value = item.Value;
+            }
+        }
     }
 
     internal static class WootingImports

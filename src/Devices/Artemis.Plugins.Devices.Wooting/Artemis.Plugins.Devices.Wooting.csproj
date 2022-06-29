@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0-prerelease32" />
+    <PackageReference Include="WootingAnalogSDK.NET" Version="0.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="x64\wooting-rgb-sdk64.dll" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="x64\wooting_analog_wrapper.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
