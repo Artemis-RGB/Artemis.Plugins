@@ -9,16 +9,17 @@ using RGB.NET.Core;
 using System.Collections.ObjectModel;
 using Artemis.Core;
 using Artemis.Core.Services;
+using System.Collections.Concurrent;
 
 namespace Artemis.Plugins.Devices.Wooting
 {
     public class WootingAnalogService : IPluginService, IDisposable
     {
-        private readonly Dictionary<LedId, float> _analogValues;
+        private readonly ConcurrentDictionary<LedId, float> _analogValues;
 
         public IReadOnlyDictionary<LedId, float> Values { get; }
 
-        public WootingAnalogService(Plugin profiler)
+        public WootingAnalogService()
         {
             _analogValues = new();
             Values = new ReadOnlyDictionary<LedId, float>(_analogValues);
@@ -29,33 +30,44 @@ namespace Artemis.Plugins.Devices.Wooting
                 throw new Exception();
 
             WootingAnalogSDK.SetKeycodeMode(KeycodeType.VirtualKey);
-            Update();
+
+            _reversed = _virtualKeyCodes.ToDictionary(k => (short)k.Value, s => s.Key);
         }
 
         public void Update()
         {
-            foreach ((var ledId, var virtualShortCode) in _virtualKeyCodes)
+            var (data, res) = WootingAnalogSDK.ReadFullBuffer();
+            foreach (var item in data)
             {
-                var (analogValue, analogReadResult) = WootingAnalogSDK.ReadAnalog(virtualShortCode);
-
-                if (analogReadResult == WootingAnalogResult.NoMapping)
-                    continue;
-
-                if (analogReadResult != WootingAnalogResult.Ok)
-                    throw new InvalidOperationException();
-
-                _analogValues[ledId] = analogValue;
+                if (_reversed.TryGetValue(item.Item1, out var ledId))
+                {
+                    _analogValues[ledId] = item.Item2;
+                }
+                else
+                {
+                    Console.WriteLine(item.Item1);
+                }
             }
+
+            //foreach ((var ledId, var virtualShortCode) in _virtualKeyCodes)
+            //{
+            //    var (analogValue, analogReadResult) = WootingAnalogSDK.ReadAnalog(virtualShortCode);
+
+            //    if (analogReadResult == WootingAnalogResult.NoMapping)
+            //        continue;
+
+            //    if (analogReadResult != WootingAnalogResult.Ok)
+            //        throw new InvalidOperationException();
+
+            //    _analogValues[ledId] = analogValue;
+            //}
         }
 
-        private readonly Dictionary<LedId, ushort> _virtualKeyCodes = new Dictionary<LedId, ushort>()
+        private readonly Dictionary<LedId, ushort> _virtualKeyCodes = new()
         {
             [LedId.Keyboard_Backspace] = 8,
             [LedId.Keyboard_Tab] = 9,
             [LedId.Keyboard_Enter] = 13,
-            [LedId.Keyboard_LeftShift] = 16,
-            [LedId.Keyboard_LeftCtrl] = 17,
-            [LedId.Keyboard_LeftAlt] = 18,
             [LedId.Keyboard_PauseBreak] = 19,
             [LedId.Keyboard_CapsLock] = 20,
             [LedId.Keyboard_Escape] = 27,
@@ -137,8 +149,32 @@ namespace Artemis.Plugins.Devices.Wooting
             [LedId.Keyboard_F10] = 121,
             [LedId.Keyboard_F11] = 122,
             [LedId.Keyboard_F12] = 123,
+            [LedId.Keyboard_NumLock] = 144,
+            [LedId.Keyboard_ScrollLock] = 145,
+            [LedId.Keyboard_LeftShift] = 160,
+            [LedId.Keyboard_RightShift] = 161,
+            [LedId.Keyboard_LeftCtrl] = 162,
+            [LedId.Keyboard_RightCtrl] = 163,
+            [LedId.Keyboard_LeftAlt] = 164,
+            [LedId.Keyboard_RightAlt] = 165,
+
+            [LedId.Keyboard_SemicolonAndColon] = 186,
+            [LedId.Keyboard_EqualsAndPlus] = 187,
+            [LedId.Keyboard_CommaAndLessThan] = 188,
+            [LedId.Keyboard_MinusAndUnderscore] = 189,
+            [LedId.Keyboard_PeriodAndBiggerThan] = 190,
+            [LedId.Keyboard_SlashAndQuestionMark] = 191,
+            [LedId.Keyboard_GraveAccentAndTilde] = 192,
+            [LedId.Keyboard_BracketLeft] = 219,
+            //[LedId.Keyboard_NonUsBackslash] = 220,
+            [LedId.Keyboard_Backslash] = 220,
+            [LedId.Keyboard_BracketRight] = 221,
+            [LedId.Keyboard_ApostropheAndDoubleQuote] = 222,
+            //[LedId.Keyboard_Backslash] = 226,
+            [LedId.Keyboard_NonUsBackslash] = 226,
         };
 
+        private Dictionary<short, LedId> _reversed;
         #region IDisposable
         private bool disposedValue;
 
