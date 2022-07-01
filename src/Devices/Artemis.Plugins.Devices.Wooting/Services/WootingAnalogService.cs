@@ -29,6 +29,8 @@ namespace Artemis.Plugins.Devices.Wooting
             if (count < 1 || result != WootingAnalogResult.Ok)
                 throw new Exception();
 
+            WootingAnalogSDK.SetKeycodeMode(KeycodeType.HID);
+
             _reversed = _HIDCodes.ToDictionary(k => (short)k.Value, s => s.Key);
         }
 
