@@ -120,7 +120,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom1">
+    <Led Id="Keyboard_Custom4">
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="EU" Image="Regular_Keys/Mode.png" />
