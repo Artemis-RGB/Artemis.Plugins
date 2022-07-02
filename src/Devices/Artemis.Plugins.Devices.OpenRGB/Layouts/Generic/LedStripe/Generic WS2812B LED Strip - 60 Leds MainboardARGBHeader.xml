@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Generic WS2812B LED Strip</Name>
+  <Description>Generic WS2812B LED Strip</Description>
+  <Author>Codename-Antares</Author>
+  <Type>LedStripe</Type>
+  <Vendor>Custom</Vendor>
+  <Model>Generic WS2812B LED Strip</Model>
+  <Width>2690</Width>
+  <Height>13</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>115</LedUnitHeight>
+  <Leds>
+    <Led Id="Mainboard10">
+      <X>20</X>
+      <Y>0</Y>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard11">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard12">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard13">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard14">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard15">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard16">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard17">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard18">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard19">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard20">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard21">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard22">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard23">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard24">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard25">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard26">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard27">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard28">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard29">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard30">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard31">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard32">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard33">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard34">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard35">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard36">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard37">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard38">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard39">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard40">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard41">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard42">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard43">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard44">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard45">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard46">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard47">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard48">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard49">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard50">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard51">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard52">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard53">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard54">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard55">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard56">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard57">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard58">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard59">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard60">
+      <X>+60</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard61">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard62">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard63">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard64">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard65">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard66">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard67">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard68">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>
+    <Led Id="Mainboard69">
+      <X>+30</X>
+      <Width>0.6</Width>
+      <Height>0.1</Height>
+    </Led>	
+  </Leds>
+  <CustomData>
+    <DeviceImage>Generic WS2812B LED Strip.png</DeviceImage>
+  </CustomData>
+</Device>
