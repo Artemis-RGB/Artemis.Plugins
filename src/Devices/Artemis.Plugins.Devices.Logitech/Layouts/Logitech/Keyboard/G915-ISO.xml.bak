@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Logitech G915 Lightspeed</Name>
-  <Description>Logitech G915 Lightspeed - Physical ISO - OpenRGB Full Media Keys Compatible</Description>
-  <Author>Codename-Antares</Author>
+  <Name>Logitech G915 - Physical ISO</Name>
+  <Description>Physical ISO - Layout of Logitech G915</Description>
+  <Author>Skygamer</Author>
   <Type>Keyboard</Type>
   <Vendor>Logitech</Vendor>
-  <Model>Logitech G915 Lightspeed</Model>
+  <Model>G915</Model>
   <Width>470</Width>
   <Height>152</Height>
   <Leds>
@@ -142,31 +142,6 @@
           <LogicalLayout Image="" Name="US" />
         </LogicalLayouts>
       </CustomData>
-    </Led>
-    <Led Id="Keyboard_MediaPreviousTrack">
-      <Shape>Circle</Shape>
-      <X>+8</X>
-      <Y>30</Y>
-      <Width>0.8</Width>
-      <Height>0.8</Height>
-    </Led>
-    <Led Id="Keyboard_MediaPlay">
-      <Shape>Circle</Shape>
-      <X>+2.5</X>
-      <Width>0.8</Width>
-      <Height>0.8</Height>
-    </Led>
-    <Led Id="Keyboard_MediaNextTrack">
-      <Shape>Circle</Shape>
-      <X>+2.5</X>
-      <Width>0.8</Width>
-      <Height>0.8</Height>
-    </Led>
-    <Led Id="Keyboard_MediaMute">
-      <Shape>Circle</Shape>
-      <X>+2.5</X>
-      <Width>0.8</Width>
-      <Height>0.8</Height>
     </Led>
     <Led Id="Keyboard_GraveAccentAndTilde">
       <X>34</X>
@@ -968,14 +943,8 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Brightness">
-      <Shape>Circle</Shape>
-      <X>+182</X>
-      <Width>0.8</Width>
-      <Height>0.8</Height>
-    </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>G915-G815 ISO.png</DeviceImage>
+    <DeviceImage>g915_ISO.png</DeviceImage>
   </CustomData>
 </Device>
