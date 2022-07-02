@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Razer Base Station Chroma Mercury Black OpenRGB Edition</Name>
+  <Description>Razer Base Station Chroma Mercury Black OpenRGB Edition</Description>
+  <Author>Codename-Antares</Author>
+  <Type>Mousepad</Type>
+  <Vendor>Razer</Vendor>
+  <Model>Razer Base Station Chroma Mercury Black</Model>
+  <Width>356</Width>
+  <Height>356</Height>
+  <LedUnitWidth>22.5</LedUnitWidth>
+  <LedUnitHeight>76.5</LedUnitHeight>
+  <Leds>
+    <Led Id="HeadsetStand1">
+      <Shape>M1,0 L0,0 L0,1 L1,1z M0,0.23 L0.1,0.17 L0.3,0.1 L0.5,0.05 L0.7,0.02 L1,0 L0,0z</Shape>
+      <X>5</X>
+      <Y>60</Y>
+      <Height>.66</Height>
+    </Led>
+    <Led Id="HeadsetStand2">
+      <X>=</X>
+      <Y>+</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand3">
+      <X>=</X>
+      <Y>+</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand4">
+      <X>=</X>
+      <Y>+</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand5">
+      <X>=</X>
+      <Y>+</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand6">
+      <Shape> M0.22,0.01 L0.22,0.01 L0.22,0.184 L0.237,0.347 L0.247,0.411 L0.258,0.459 L0.273,0.508 L0.288,0.55 L0.3,0.571 L0.324,0.613 L0.344,0.647 L0.365,0.672 L0.394,0.706 L0.421,0.723 L0.448,0.735 L0.506,0.749 L0.722,0.746 L0.736,0.701 L0.964,0.291 L0.994,0.002 L0.999,0.005 L0.999,0.998 L0.286,0.998 L0.235,0.973 L0.189,0.934 L0.147,0.882 L0.103,0.812 L0.075,0.745 L0.045,0.661 L0.015,0.52 L0.006,0.397 L0.002,0.261 L0.001,0.009z</Shape>
+      <X>=</X>
+      <Y>+</Y>
+      <Width>4.45</Width>
+      <Height>0.63</Height>
+    </Led>
+    <Led Id="HeadsetStand7">
+      <Y>~</Y>
+      <Width>2.16</Width>
+      <Height>0.63</Height>
+    </Led>
+    <Led Id="HeadsetStand8">
+      <Width>2.15</Width>
+      <Height>0.63</Height>
+    </Led>
+    <Led Id="HeadsetStand9">
+      <Width>2.16</Width>
+      <Height>0.63</Height>
+    </Led>
+    <Led Id="HeadsetStand10">
+      <Shape> M0.777,0.004 L0.768,0.298 L0.759,0.37 L0.751,0.418 L0.732,0.494 L0.706,0.562 L0.679,0.614 L0.656,0.648 L0.628,0.683 L0.624,0.686 L0.595,0.712 L0.551,0.736 L0.51,0.752 L0.272,0.752 L0.039,0.328 L0.005,0.003 L0.001,0.003 L0.001,0.998 L0.698,0.994 L0.737,0.98 L0.769,0.962 L0.798,0.938 L0.834,0.9 L0.868,0.85 L0.894,0.805 L0.916,0.758 L0.94,0.691 L0.96,0.619 L0.974,0.549 L0.985,0.474 L0.993,0.39 L0.998,0.31 L0.999,0.004z</Shape>
+      <Y>~</Y>
+      <Width>4.45</Width>
+      <Height>0.63</Height>
+    </Led>
+    <Led Id="HeadsetStand11">
+      <X>~</X>
+      <Y>-</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand12">
+      <X>=</X>
+      <Y>-</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand13">
+      <X>=</X>
+      <Y>-</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand14">
+      <X>=</X>
+      <Y>-</Y>
+      <Height>.63</Height>
+    </Led>
+    <Led Id="HeadsetStand15">
+      <Shape>M1,0 L0,0 L0,1 L1,1z M1,0.23 L0.9,0.17 L0.7,0.1 L0.5,0.05 L0.3,0.02 L0,0 L1,0z</Shape>
+      <X>=</X>
+      <Y>-</Y>
+      <Height>.66</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Razer Base Station Chroma Mercury Black OpenRGB Edition.png</DeviceImage>
+  </CustomData>
+</Device>
