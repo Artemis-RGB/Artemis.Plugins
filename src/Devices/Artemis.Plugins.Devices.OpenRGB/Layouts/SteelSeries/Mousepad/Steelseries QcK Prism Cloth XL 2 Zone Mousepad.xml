@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>SteelSeries QcK Prism Cloth XL 2 Zone Mousepad</Name>
+  <Description>SteelSeries QcK Prism Cloth XL 2 Zone Mousepad</Description>
+  <Author>Codename-Antares</Author>
+  <Type>Mousepad</Type>
+  <Vendor>SteelSeries</Vendor>
+  <Model>SteelSeries QcK Prism Cloth XL 2 Zone Mousepad</Model>
+  <Width>660</Width>
+  <Height>220</Height>
+  <Leds>
+    <Led Id="Mousepad1">
+      <X>30</X>
+      <Y>215</Y>
+      <Width>32</Width>
+      <Height>0.3</Height>
+    </Led>
+    <Led Id="Mousepad2">
+      <X>30</X>
+      <Y>0</Y>
+      <Width>32</Width>
+      <Height>0.3</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>SteelSeries QcK Prism Cloth XL 2 Zone Mousepad.png</DeviceImage>
+  </CustomData>
+</Device>

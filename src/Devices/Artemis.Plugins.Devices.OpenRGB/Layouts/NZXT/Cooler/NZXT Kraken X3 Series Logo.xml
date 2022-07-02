@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>NZXT Kraken X3 Series Logo</Name>
+  <Description>NZXT Kraken X3 Series Logo</Description>
+  <Author>Codename-Antares</Author>
+  <Type>Cooler</Type>
+  <Vendor>NZXT</Vendor>
+  <Model>NZXT Kraken X3 Series Logo</Model>
+  <Width>80</Width>
+  <Height>80</Height>
+  <LedUnitWidth>1</LedUnitWidth>
+  <LedUnitHeight>1</LedUnitHeight>
+  <Leds>
+    <Led Id="LedStripe49">
+      <Shape> M0.001,0.995 L0.003,0.014 L0.075,0.008 L0.161,0.483 L0.163,0.002 L0.235,0.002 L0.235,0.995 L0.164,0.995 L0.073,0.477 L0.073,0.995z M0.272,0.002 L0.486,0.002 L0.384,0.757 L0.484,0.745 L0.486,0.989 L0.269,0.995 L0.367,0.258 L0.276,0.258z M0.511,0.002 L0.599,0.002 L0.64,0.258 L0.684,0.002 L0.762,0.002 L0.684,0.483 L0.767,0.989 L0.677,0.995 L0.638,0.739 L0.597,0.995 L0.513,0.989 L0.594,0.508z M0.782,0.002 L0.997,0.002 L0.999,0.264 L0.933,0.264 L0.933,0.995 L0.855,0.995 L0.852,0.258 L0.786,0.252z</Shape>
+      <X>25.25</X>
+      <Y>36.2</Y>
+      <Width>29.5</Width>
+      <Height>7.6</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>NZXT Kraken X3 Series Logo.png</DeviceImage>
+  </CustomData>
+</Device>

@@ -945,6 +945,6 @@
     </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>G915-G815 ISO.png</DeviceImage>
+    <DeviceImage>g915_ISO.png</DeviceImage>
   </CustomData>
 </Device>
