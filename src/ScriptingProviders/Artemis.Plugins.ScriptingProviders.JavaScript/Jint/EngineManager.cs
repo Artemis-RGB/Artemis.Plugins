@@ -62,8 +62,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             });
 
             // Get rid of these straight away, ain't nobody got time for that
-            Engine.Global.RemoveOwnProperty(Engine.Global.GetOwnProperties().First(p => p.Key.AsString() == "System").Key);
-            Engine.Global.RemoveOwnProperty(Engine.Global.GetOwnProperties().First(p => p.Key.AsString() == "importNamespace").Key);
+            Engine.Realm.GlobalObject.RemoveOwnProperty(Engine.Realm.GlobalObject.GetOwnProperties().First(p => p.Key.AsString() == "System").Key);
+            Engine.Realm.GlobalObject.RemoveOwnProperty(Engine.Realm.GlobalObject.GetOwnProperties().First(p => p.Key.AsString() == "importNamespace").Key);
 
             Engine.Execute("Artemis = {};");
 
@@ -119,7 +119,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             // If there is an engine, dispose any instances of IDisposable, hardly foolproof though
             if (Engine != null)
             {
-                IEnumerable<KeyValuePair<JsValue, PropertyDescriptor>> keyValuePairs = Engine.Global.GetOwnProperties();
+                IEnumerable<KeyValuePair<JsValue, PropertyDescriptor>> keyValuePairs = Engine.Realm.GlobalObject.GetOwnProperties();
                 foreach (var (_, propertyDescriptor) in keyValuePairs)
                 {
                     if (propertyDescriptor.Value.IsObject() && propertyDescriptor.Value.ToObject() is IDisposable disposable)

@@ -1,33 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.15" />    
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.15" />    
+    <PackageReference Include="EmbedIO" Version="3.4.3" />
+    <PackageReference Include="FluentAvaloniaUI" Version="1.4.1" />
+    <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="ninject.extensions.conventions" Version="3.3.0" />
+    <PackageReference Include="ReactiveUI" Version="17.1.50" />
+    <PackageReference Include="ReactiveUI.Validation" Version="2.2.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.0-preview.178" />
+    <PackageReference Include="SkiaSharp" Version="2.88.1-preview.1" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
+    <PackageReference Include="ManagedBass" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
-    <PackageReference Include="Jint" Version="3.0.0-beta-2032" />
+    <PackageReference Include="Jint" Version="3.0.0-beta-2038" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +42,18 @@
 
   <ItemGroup>
     <Content Include="Editor\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Remove="bass.dll" />
+    <Content Include="bass.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="libbass.dylib" />
+    <Content Include="libbass.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="libbass.so" />
+    <Content Include="libbass.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

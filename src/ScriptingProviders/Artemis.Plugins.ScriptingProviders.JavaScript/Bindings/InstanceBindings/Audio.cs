@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Media;
+using System.Threading.Tasks;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
 using Jint;
 using Jint.Runtime.Interop;
-using Stylet;
+using ManagedBass;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBindings
 {
@@ -23,102 +23,64 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
 
     public class Audio : IDisposable
     {
-        private MediaPlayer _player;
+        private readonly string _path;
+        private readonly MediaPlayer _player;
+        private bool _loaded;
 
         public Audio(string path)
         {
             if (!File.Exists(path))
                 throw new Exception($"File '{path}' not found.");
 
-            _player = null!;
-            Execute.OnUIThreadSync(() =>
-            {
-                _player = new MediaPlayer();
-                _player.MediaOpened += PlayerOnMediaOpened;
-                _player.MediaFailed += PlayerOnMediaFailed;
-                _player.MediaEnded += PlayerOnMediaEnded;
-                _player.Open(new Uri(path));
-            });
+            _path = path;
+            _player = new MediaPlayer();
         }
 
-        public double Duration
-        {
-            get
-            {
-                double value = 0;
-                Execute.OnUIThreadSync(() => value = _player.NaturalDuration.TimeSpan.TotalSeconds);
-                return value;
-            }
-        }
+        public double Duration => _player.Duration.TotalSeconds;
 
-        public bool Ended
-        {
-            get
-            {
-                bool value = false;
-                Execute.OnUIThreadSync(() => value = _player.Position >= _player.NaturalDuration.TimeSpan);
-                return value;
-            }
-        }
+        public bool Ended => _player.Position >= _player.Duration;
 
         public double Volume
         {
-            get
-            {
-                double value = 0;
-                Execute.OnUIThreadSync(() => value = _player.Volume);
-                return value;
-            }
-            set => Execute.OnUIThreadSync(() => _player.Volume = value);
+            get => _player.Volume;
+            set => _player.Volume = value;
         }
 
-        public bool Loop { get; set; }
+        public bool Loop
+        {
+            get => _player.Loop;
+            set => _player.Loop = value;
+        }
 
         public void Play()
         {
-            Execute.OnUIThreadSync(() => _player.Play());
+            Task.Run(async () =>
+            {
+                if (!_loaded)
+                {
+                    await _player.LoadAsync(_path);
+                    _loaded = true;
+                }
+
+                _player.Loop = Loop;
+                _player.Play();
+            });
         }
 
         public void Pause()
         {
-            Execute.OnUIThreadSync(() => _player.Pause());
+            _player.Pause();
         }
 
         public void Stop()
         {
-            Execute.OnUIThreadSync(() => _player.Stop());
-        }
-
-        private void PlayerOnMediaOpened(object? sender, EventArgs e)
-        {
-            if (_player.HasVideo)
-            {
-                _player.Close();
-                throw new Exception("Only audio is supported");
-            }
-        }
-
-        private void PlayerOnMediaFailed(object? sender, ExceptionEventArgs e)
-        {
-        }
-
-        private void PlayerOnMediaEnded(object? sender, EventArgs e)
-        {
-            if (Loop)
-            {
-                _player.Position = TimeSpan.Zero;
-                _player.Play();
-            }
+            _player.Stop();
         }
 
         public void Dispose()
         {
-            _player.MediaOpened -= PlayerOnMediaOpened;
-            _player.MediaFailed -= PlayerOnMediaFailed;
-            _player.MediaEnded -= PlayerOnMediaEnded;
-
             _player.Stop();
-            _player.Close();
+            _player.Dispose();
         }
     }
 }
