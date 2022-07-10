@@ -1,3 +1,4 @@
+using System;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using Artemis.Core;
@@ -14,17 +15,36 @@ public class JavaScriptEditorViewModel : ScriptEditorViewModel
 {
     private readonly ScriptEditorService _scriptEditorService;
     public Plugin Plugin { get; }
-
+    public string EditorUrl { get; }
+    
     public JavaScriptEditorViewModel(ScriptEditorService scriptEditorService, ScriptType scriptType, Plugin plugin) : base(scriptType)
     {
         _scriptEditorService = scriptEditorService;
         Plugin = plugin;
-        
+        EditorUrl = scriptEditorService.EditorUrl;
         this.WhenActivated(d =>
         {
             _scriptEditorService.SetSuspended(false);
-            Disposable.Create(() => _scriptEditorService.SetSuspended(true)).DisposeWith(d);
+            _scriptEditorService.WebSocketCommandReceived += ScriptEditorServiceOnWebSocketCommandReceived;
+            Disposable.Create(() =>
+            {
+                _scriptEditorService.WebSocketCommandReceived -= ScriptEditorServiceOnWebSocketCommandReceived;
+                _scriptEditorService.SetSuspended(true);
+            }).DisposeWith(d);
         });
+    }
+
+    
+
+    private void ScriptEditorServiceOnWebSocketCommandReceived(object? sender, WebSocketCommandEventArgs e)
+    {
+        if (Script == null)
+            return;
+        
+        if (e.Command.Command == "valueChanged")
+            Script.ScriptConfiguration.PendingScriptContent = e.Command.Argument;
+        else if (e.Command.Command == "save")
+            Script.ScriptConfiguration.ApplyPendingChanges();
     }
 
     protected override void OnScriptChanged(Script? script)

@@ -7,6 +7,7 @@ using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Scripts;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Services;
 using EmbedIO.WebSockets;
+using Newtonsoft.Json;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.EmbedIO;
 
@@ -19,9 +20,20 @@ public class WebSocketsEditorServer : WebSocketModule
         _scriptEditorService = scriptEditorService;
     }
 
-    protected override async Task OnMessageReceivedAsync(IWebSocketContext context, byte[] buffer, IWebSocketReceiveResult result)
+    protected override Task OnMessageReceivedAsync(IWebSocketContext context, byte[] buffer, IWebSocketReceiveResult result)
     {
-        await SendAsync(context, $"You sent me: {Encoding.GetString(buffer)}");
+        string content = Encoding.GetString(buffer);
+        try
+        {
+            WebSocketCommand command = JsonConvert.DeserializeObject<WebSocketCommand>(content);
+            OnWebSocketCommandReceived(new WebSocketCommandEventArgs(command));
+        }
+        catch (Exception)
+        {
+            // ignored, not content we can work with
+        }
+
+        return Task.CompletedTask;
     }
 
     protected override async Task OnClientConnectedAsync(IWebSocketContext context)
@@ -35,7 +47,7 @@ public class WebSocketsEditorServer : WebSocketModule
         await SendCommand(new WebSocketCommand("reset"), null);
         await SendScript(null);
     }
-    
+
     public async Task SetSuspended()
     {
         await SendSuspended(null);
@@ -63,7 +75,7 @@ public class WebSocketsEditorServer : WebSocketModule
         if (script.ScriptConfiguration.PendingScriptContent != null)
             await SendCommand(new WebSocketCommand("setScript", script.ScriptConfiguration.PendingScriptContent), context);
     }
-    
+
     private async Task SendSuspended(IWebSocketContext? context)
     {
         if (_scriptEditorService.Suspended)
@@ -79,5 +91,12 @@ public class WebSocketsEditorServer : WebSocketModule
             typeScriptAssemblies.Add(new TypeScriptAssembly(name, assembly));
 
         return string.Join("\r\n", typeScriptAssemblies.Select(a => a.GenerateCode()));
+    }
+
+    public event EventHandler<WebSocketCommandEventArgs>? WebSocketCommandReceived;
+
+    protected virtual void OnWebSocketCommandReceived(WebSocketCommandEventArgs e)
+    {
+        WebSocketCommandReceived?.Invoke(this, e);
     }
 }

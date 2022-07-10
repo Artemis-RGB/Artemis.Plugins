@@ -9,6 +9,12 @@ export class EditorWebSocket {
         this.connect();
     }
 
+    public sendCommand(command: WebSocketCommand) {
+        if (this.connection) {
+            this.connection.send(JSON.stringify(command));
+        }
+    }
+
     private connect() {
         this.connection = new WebSocket("ws://localhost:9696/dd35f1b7-3d3f-4f90-a60f-40354783049b/editor-ws");
         this.connection.onclose = _ => setTimeout(() => this.connect(), 250);

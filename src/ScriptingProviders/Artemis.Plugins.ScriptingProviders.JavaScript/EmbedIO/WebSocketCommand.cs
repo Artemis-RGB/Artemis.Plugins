@@ -9,6 +9,7 @@ public class WebSocketCommand
         Command = command;
     }
 
+    [JsonConstructor]
     public WebSocketCommand(string command, string argument)
     {
         Command = command;

@@ -41,19 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Editor\**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="WebApplication\dist\**" CopyToOutputDirectory="Always" />
     <None Remove="bass.dll" />
-    <Content Include="bass.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Remove="libbass.dylib" />
-    <Content Include="libbass.dylib">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Remove="libbass.so" />
-    <Content Include="libbass.so">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -68,5 +59,12 @@
   <ItemGroup>
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\bass.zip" />
+    <Content Include="Resources\bass.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

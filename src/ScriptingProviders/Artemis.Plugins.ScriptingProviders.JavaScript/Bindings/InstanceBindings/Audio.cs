@@ -26,6 +26,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
         private readonly string _path;
         private readonly MediaPlayer _player;
         private bool _loaded;
+        private double _requestedVolume = 0.5;
 
         public Audio(string path)
         {
@@ -43,7 +44,11 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
         public double Volume
         {
             get => _player.Volume;
-            set => _player.Volume = value;
+            set
+            {
+                _player.Volume = value;
+                _requestedVolume = value;
+            }
         }
 
         public bool Loop
@@ -62,7 +67,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
                     _loaded = true;
                 }
 
-                _player.Loop = Loop;
+                _player.Volume = _requestedVolume;
                 _player.Play();
             });
         }

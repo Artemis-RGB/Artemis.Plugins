@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.Services;
@@ -10,6 +11,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Services;
 
 public class ScriptEditorService
 {
+    private const string EDITOR_URL = "dd35f1b7-3d3f-4f90-a60f-40354783049b/editor";
     private readonly Plugin _plugin;
     private readonly IWebServerService _webServerService;
     private WebSocketsEditorServer? _websocketModule;
@@ -19,21 +21,24 @@ public class ScriptEditorService
         _plugin = plugin;
         _webServerService = webServerService;
     }
-    
+
     public IJavaScriptScript? CurrentScript { get; private set; }
-    public bool Suspended { get; set; } = true;
+    public bool Suspended { get; private set; } = true;
+    public string EditorUrl => $"{_webServerService.Server!.Listener.Prefixes.First().Replace("*", "localhost")}{EDITOR_URL}";
+
     public void Initialize(PluginFeature pluginFeature)
     {
         // Serve the static files of the editor web application
         _webServerService.AddModule(pluginFeature, () =>
         {
-            FileSystemProvider provider = new(_plugin.ResolveRelativePath("editor"), true);
-            return new FileModule("/dd35f1b7-3d3f-4f90-a60f-40354783049b/editor", provider);
+            FileSystemProvider provider = new(_plugin.ResolveRelativePath("WebApplication\\dist"), true);
+            return new FileModule($"/{EDITOR_URL}", provider);
         });
 
         _webServerService.AddModule(pluginFeature, () =>
         {
-            _websocketModule = new WebSocketsEditorServer("/dd35f1b7-3d3f-4f90-a60f-40354783049b/editor-ws", this);
+            _websocketModule = new WebSocketsEditorServer($"/{EDITOR_URL}-ws", this);
+            _websocketModule.WebSocketCommandReceived += (sender, args) => WebSocketCommandReceived?.Invoke(sender, args);
             return _websocketModule;
         });
     }
@@ -60,4 +65,6 @@ public class ScriptEditorService
         if (_websocketModule != null)
             Task.Run(async () => await _websocketModule.SetSuspended());
     }
+
+    public event EventHandler<WebSocketCommandEventArgs>? WebSocketCommandReceived;
 }
