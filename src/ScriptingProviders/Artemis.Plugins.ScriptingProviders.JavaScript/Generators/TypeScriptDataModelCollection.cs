@@ -22,6 +22,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
             string code = $"{dataModels}\r\n" +
                           "declare class DataModelContainer {\r\n" +
                           $"{rootClasses}\r\n" +
+                          $"GetPath(dataModel: Artemis.Core.DataModel, path: string): Artemis.Core.DataModelPath;\r\n" +
                           "}\r\n" +
                           "const DataModel = new DataModelContainer();";
             return code;

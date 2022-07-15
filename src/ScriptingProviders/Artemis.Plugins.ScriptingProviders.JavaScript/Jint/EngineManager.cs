@@ -72,9 +72,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
                 Engine.SetValue(name, new NamespaceReference(Engine, name));
 
             foreach (IScriptBinding scriptBinding in ScriptBindings)
-                scriptBinding.Initialize(Engine);
-            foreach (IContextBinding contextBinding in ContextBindings) 
-                contextBinding.Initialize(Engine);
+                scriptBinding.Initialize(this);
+            foreach (IContextBinding contextBinding in ContextBindings)
+                contextBinding.Initialize(this);
 
             // Execute the script in a separate thread until the cancellation token is cancelled
             Task.Run(() =>
@@ -109,6 +109,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
                 if (scriptBinding is IDisposable disposable)
                     disposable.Dispose();
             }
+
             foreach (IContextBinding contextBinding in ContextBindings)
             {
                 if (contextBinding is IDisposable disposable)
@@ -120,16 +121,33 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Jint
             if (Engine != null)
             {
                 IEnumerable<KeyValuePair<JsValue, PropertyDescriptor>> keyValuePairs = Engine.Realm.GlobalObject.GetOwnProperties();
-                foreach (var (_, propertyDescriptor) in keyValuePairs)
+                foreach ((JsValue _, PropertyDescriptor propertyDescriptor) in keyValuePairs)
                 {
-                    if (propertyDescriptor.Value.IsObject() && propertyDescriptor.Value.ToObject() is IDisposable disposable)
+                    if (!propertyDescriptor.Value.IsObject() || propertyDescriptor.Value.ToObject() is not IDisposable disposable)
+                        continue;
+                    
+                    try
+                    {
                         disposable.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.Warning(e, "Failed to dispose object used by script");
+                    }
                 }
             }
 
+            OnDisposed();
             Engine = null;
         }
 
         #endregion
+        
+        public event EventHandler? Disposed;
+
+        protected virtual void OnDisposed()
+        {
+            Disposed?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

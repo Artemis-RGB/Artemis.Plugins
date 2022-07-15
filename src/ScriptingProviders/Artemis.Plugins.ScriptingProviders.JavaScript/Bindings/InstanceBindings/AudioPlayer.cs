@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 using Jint.Runtime.Interop;
 using ManagedBass;
@@ -10,25 +11,49 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
 {
     public class AudioBinding : IInstanceBinding
     {
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
-            engine.SetValue("Audio", TypeReference.CreateTypeReference(engine, typeof(Audio)));
+            Engine? engine = engineManager.Engine;
+            if (engine == null)
+                return;
+
+            engine.Execute("const Audio = {}");
+            engine.SetValue("GetAudio", (string p) =>
+            {
+                AudioPlayer audioPlayer = new(p);
+
+                void OnEngineManagerOnDisposed(object? o, EventArgs eventArgs)
+                {
+                    audioPlayer.Dispose();
+                    engineManager.Disposed -= OnEngineManagerOnDisposed;
+                }
+
+                engineManager.Disposed += OnEngineManagerOnDisposed;
+                return audioPlayer;
+            });
+            engine.Execute("Audio.Create = GetAudio");
         }
 
         public string GetDeclaration()
         {
-            return new TypeScriptClass(null, typeof(Audio), true, TypeScriptClass.MaxDepth).GenerateCode("declare");
+            return $@"
+            declare class AudioFactory {{
+                public Create(path: string): AudioPlayer; 
+            }}
+
+            const Audio = new AudioFactory();
+            {new TypeScriptClass(null, typeof(AudioPlayer), true, TypeScriptClass.MaxDepth).GenerateCode("declare")}";
         }
     }
 
-    public class Audio : IDisposable
+    public class AudioPlayer : IDisposable
     {
         private readonly string _path;
         private readonly MediaPlayer _player;
         private bool _loaded;
         private double _requestedVolume = 0.5;
 
-        public Audio(string path)
+        public AudioPlayer(string path)
         {
             if (!File.Exists(path))
                 throw new Exception($"File '{path}' not found.");

@@ -22,7 +22,7 @@ onMounted(() => {
       return;
     }
 
-    const editorWebSocket = new EditorWebSocket();
+    const editorWebSocket = new EditorWebSocket(state);
     const monacoEditor = monaco.editor.create(editor.value, {
       language: "javascript",
       lineNumbers: "on",
@@ -33,6 +33,19 @@ onMounted(() => {
 
     let declarations: IDisposable | null = null;
     let hasSetScript = false;
+
+    // validation settings
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: false,
+      noSyntaxValidation: false
+    });
+
+    // compiler options
+    monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+      noLib: true,
+      target: monaco.languages.typescript.ScriptTarget.ES2020,
+      allowNonTsExtensions: true
+    });
 
     // Script state handlers
     editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("reset", () => {
@@ -61,19 +74,6 @@ onMounted(() => {
           }
         })
     );
-
-    // validation settings
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
-
-    // compiler options
-    monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
-      target: monaco.languages.typescript.ScriptTarget.ES2020,
-      allowNonTsExtensions: true
-    });
-
 
     monacoEditor.onDidChangeModelContent(() => {
       if (!hasSetScript) {

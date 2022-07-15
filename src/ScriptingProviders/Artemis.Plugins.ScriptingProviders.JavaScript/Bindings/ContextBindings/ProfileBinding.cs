@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Artemis.Core;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 using Jint.Native;
 using Jint.Native.Function;
@@ -103,10 +104,11 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
             }
         }
 
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
-            _engine = engine;
-            engine.SetValue("Profile", this);
+            _engine = engineManager.Engine;
+            if (_engine != null)
+                _engine.SetValue("Profile", this);
         }
 
         public string GetDeclaration()

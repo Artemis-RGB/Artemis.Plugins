@@ -5,6 +5,7 @@ using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 using Jint.Native;
 using Jint.Native.Function;
@@ -120,11 +121,11 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
             }
         }
 
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
-            DeclareEnums(engine, typeof(KeyboardKey), "Artemis.Core.KeyboardKey");
-            DeclareEnums(engine, typeof(MouseButton), "Artemis.Core.MouseButton");
-            engine.SetValue("Input", this);
+            DeclareEnums(engineManager.Engine!, typeof(KeyboardKey), "Artemis.Core.KeyboardKey");
+            DeclareEnums(engineManager.Engine!, typeof(MouseButton), "Artemis.Core.MouseButton");
+            engineManager.Engine!.SetValue("Input", this);
         }
 
         public string GetDeclaration()

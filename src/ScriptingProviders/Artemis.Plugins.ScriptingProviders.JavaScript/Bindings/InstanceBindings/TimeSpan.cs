@@ -1,5 +1,6 @@
 ﻿using System;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 using Jint.Runtime.Interop;
 
@@ -7,9 +8,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
 {
     public class TimeSpanBinding : IInstanceBinding
     {
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
-            engine.SetValue("TimeSpan", TypeReference.CreateTypeReference(engine, typeof(TimeSpan)));
+            engineManager.Engine!.SetValue("TimeSpan", TypeReference.CreateTypeReference(engineManager.Engine, typeof(TimeSpan)));
         }
 
         public string GetDeclaration()

@@ -14,14 +14,14 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels;
 public class JavaScriptEditorViewModel : ScriptEditorViewModel
 {
     private readonly ScriptEditorService _scriptEditorService;
-    public Plugin Plugin { get; }
-    public string EditorUrl { get; }
     
     public JavaScriptEditorViewModel(ScriptEditorService scriptEditorService, ScriptType scriptType, Plugin plugin) : base(scriptType)
     {
         _scriptEditorService = scriptEditorService;
         Plugin = plugin;
         EditorUrl = scriptEditorService.EditorUrl;
+        WebViewSupported = OperatingSystem.IsMacOS() || OperatingSystem.IsWindows();
+        
         this.WhenActivated(d =>
         {
             _scriptEditorService.SetSuspended(false);
@@ -33,9 +33,11 @@ public class JavaScriptEditorViewModel : ScriptEditorViewModel
             }).DisposeWith(d);
         });
     }
-
     
-
+    public Plugin Plugin { get; }
+    public string EditorUrl { get; }
+    public bool WebViewSupported { get; }
+    
     private void ScriptEditorServiceOnWebSocketCommandReceived(object? sender, WebSocketCommandEventArgs e)
     {
         if (Script == null)
