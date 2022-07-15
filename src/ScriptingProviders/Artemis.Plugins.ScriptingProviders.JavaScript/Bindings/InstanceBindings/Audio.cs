@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Media;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 using Jint.Runtime.Interop;
 using Stylet;
@@ -10,9 +11,9 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
 {
     public class AudioBinding : IInstanceBinding
     {
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
-            engine.SetValue("Audio", TypeReference.CreateTypeReference(engine, typeof(Audio)));
+            engineManager.Engine.SetValue("Audio", TypeReference.CreateTypeReference(engineManager.Engine, typeof(Audio)));
         }
 
         public string GetDeclaration()

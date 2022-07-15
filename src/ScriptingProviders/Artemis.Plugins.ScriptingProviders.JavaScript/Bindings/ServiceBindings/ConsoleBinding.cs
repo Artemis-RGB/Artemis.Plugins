@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 using Jint.Native;
 using Serilog;
@@ -46,15 +47,22 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
                 _logger.Error(string.Join(" ", logObjects.Select(l => l.ToString())));
         }
 
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
-            engine.SetValue("console", this);
+            engineManager.Engine!.SetValue("console", this);
         }
 
         public string? GetDeclaration()
         {
-            // No need for a declaration as console is a default API
-            return null;
+            return @"
+declare class Console {
+    log(message?: any, ...optionalParams: any[]): void
+    info(message?: any, ...optionalParams: any[]): void
+    warn(message?: any, ...optionalParams: any[]): void
+    error(message?: any, ...optionalParams: any[]): void
+}
+const console = new Console();
+";
         }
     }
 }

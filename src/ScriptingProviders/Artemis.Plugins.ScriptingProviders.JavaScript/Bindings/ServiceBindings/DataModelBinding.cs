@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
@@ -18,8 +20,12 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
             _dataModelService = dataModelService;
         }
 
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
+            Engine? engine = engineManager.Engine;
+            if (engine == null)
+                return;
+
             engine.Execute("const DataModel = {}");
 
             List<DataModel> list = _dataModelService.GetDataModels();
@@ -42,6 +48,23 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
                 string variableName = "DataModel" + Guid.NewGuid().ToString().Substring(0, 8);
                 engine.SetValue(variableName, dataModel);
                 engine.Execute($"DataModel.{name} = {variableName}");
+
+                DataModelPath Create(DataModel d, string p)
+                {
+                    DataModelPath path = new(d, p);
+
+                    void OnEngineManagerOnDisposed(object? o, EventArgs eventArgs)
+                    {
+                        path.Dispose();
+                        engineManager.Disposed -= OnEngineManagerOnDisposed;
+                    }
+
+                    engineManager.Disposed += OnEngineManagerOnDisposed;
+                    return path;
+                }
+
+                engine.SetValue("DataModelGetPath", (Func<DataModel, string, DataModelPath>) Create);
+                engine.Execute("DataModel.GetPath = DataModelGetPath");
             }
         }
 

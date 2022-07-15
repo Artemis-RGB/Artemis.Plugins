@@ -1,13 +1,14 @@
 ﻿using System;
 using Artemis.Core;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
 using Jint;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBindings
 {
     public class EasingNumberBinding : IInstanceBinding
     {
-        public void Initialize(Engine engine)
+        public void Initialize(EngineManager engineManager)
         {
             TypeScriptEnum typeScriptEnum = new(typeof(Easings.Functions));
             string enums = "";
@@ -21,7 +22,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.InstanceBinding
                                      $"   {enums.Trim()}\r\n" +
                                      "}";
 
-            engine.Execute(enumDeclaration);
+            engineManager.Engine!.Execute(enumDeclaration);
         }
 
         public string? GetDeclaration()

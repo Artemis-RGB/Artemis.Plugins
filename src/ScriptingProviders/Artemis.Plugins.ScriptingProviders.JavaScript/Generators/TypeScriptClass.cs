@@ -96,12 +96,12 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
         public List<TypeScriptProperty> TypeScriptProperties { get; } = new();
         public List<TypeScriptMethod> TypeScriptMethods { get; } = new();
 
-        public string GenerateCode(string prefix = "export")
+        public string GenerateCode(string prefix = "export", string? affix = null)
         {
             // Exclude anything that still came out invalid like nested generics which aren't supported
             string properties = string.Join("\r\n", TypeScriptProperties.Select(c => c.GenerateCode()).Where(c => !c.Contains("`")));
             string methods = string.Join("\r\n", TypeScriptMethods.Select(c => c.GenerateCode()).Where(c => !c.Contains("`")));
-            return $"   {prefix} class {Name} {{\r\n" +
+            return $"   {prefix} class {Name} {affix} {{\r\n" +
                    $"   {properties}\r\n" +
                    $"   {methods}\r\n" +
                    $"       {GenerateConstructor()}\r\n" +

@@ -23,7 +23,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
 
         public string GenerateCode()
         {
-            string classes = string.Join("\r\n", TypeScriptClasses.GroupBy(c => c.Name).Select(g => g.First()).Select(c => c.GenerateCode()));
+            string classes = string.Join("\r\n", TypeScriptClasses.GroupBy(c => c.Name).Select(g => g.First()).Select(c => c.GenerateCode("export", "extends Artemis.Core.DataModel")));
             string enums = string.Join("\r\n", TypeScriptEnums.GroupBy(c => c.Name).Select(g => g.First()).Select(c => c.GenerateCode()));
             return $"declare namespace {Name} {{\r\n" +
                    $"{classes}\r\n" +
