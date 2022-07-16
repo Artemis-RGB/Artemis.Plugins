@@ -10,8 +10,8 @@
              x:Class="Artemis.Plugins.ScriptingProviders.JavaScript.Views.JavaScriptEditorView"
              x:DataType="viewModels:JavaScriptEditorViewModel">
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <TextBlock Classes="h4" TextAlignment="Center" TextWrapping="Wrap">Unfortunately the in-app editor is not supported on your platform, please open the editor in your browser.</TextBlock>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10">
+            <TextBlock Classes="h4" TextAlignment="Center" TextWrapping="Wrap">Unfortunately the in-app editor is not supported on Avalonia, please open the editor in your browser.</TextBlock>
             <controls:HyperlinkButton HorizontalAlignment="Center" NavigateUri="{CompiledBinding EditorUrl}">
                 <StackPanel>
                     <avalonia:MaterialIcon Kind="OpenInBrowser" HorizontalAlignment="Center" Width="128" Height="128"/>

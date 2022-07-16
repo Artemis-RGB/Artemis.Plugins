@@ -74,6 +74,7 @@ public class WebSocketsEditorServer : WebSocketModule
         await SendCommand(new WebSocketCommand("setDeclarations", declarations), context);
         if (script.ScriptConfiguration.PendingScriptContent != null)
             await SendCommand(new WebSocketCommand("setScript", script.ScriptConfiguration.PendingScriptContent), context);
+        await SendCommand(new WebSocketCommand("setTitle", script.ScriptConfiguration.Name), context);
     }
 
     private async Task SendSuspended(IWebSocketContext? context)

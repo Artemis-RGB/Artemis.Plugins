@@ -1,6 +1,6 @@
 <template>
   <div id="suspended-container" v-show="state.suspended">
-    <img src="../assets/logo.svg" width="128" height="128">
+    <img src="../../public/favicon.ico" width="80" height="80">
     <h2>Open the script editor in Artemis to start editing here :)</h2>
   </div>
   <div v-show="!state.suspended" id="editor" ref="editor"></div>
@@ -51,15 +51,22 @@ onMounted(() => {
     editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("reset", () => {
       hasSetScript = false;
       monacoEditor.setValue("");
+      document.title = "Artemis JS Editor";
     }));
     editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("setScript", a => {
       // setValue seems to be async, here's an ugly workaround to make sure we're ready
       monacoEditor.setValue(a ?? "");
       window.requestIdleCallback(() => hasSetScript = true);
     }));
+    editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("setTitle", a => {
+      document.title = a ? `Artemis JS Editor | ${a}` : "Artemis JS Editor";
+    }));
 
     // Suspension state handlers
-    editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("suspend", () => state.suspended = true));
+    editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("suspend", () => {
+      document.title = "Artemis JS Editor";
+      state.suspended = true;
+    }));
     editorWebSocket.commandHandlers.push(new EditorWebSocketCommandHandler("resume", () => state.suspended = false));
 
     // Editor config handlers
