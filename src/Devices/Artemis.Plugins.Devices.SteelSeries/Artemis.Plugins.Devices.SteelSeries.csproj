@@ -7,15 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HidSharp" Version="2.1.0" />
+    <PackageReference Include="HidSharp" Version="2.1.0" />    
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease.32" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
   </ItemGroup>
-
+  
   <ItemGroup>
+    <PackageReference Include="RGB.NET.HID" Version="1.0.0-prerelease.32" />
     <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="1.0.0-prerelease.32" />
   </ItemGroup>
 

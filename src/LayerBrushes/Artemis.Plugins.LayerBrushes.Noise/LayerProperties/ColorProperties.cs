@@ -5,15 +5,6 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 {
     public class ColorProperties : LayerPropertyGroup
     {
-        [PropertyDescription(Name = "Color mapping type", Description = "The way the noise is converted to colors")]
-        public EnumLayerProperty<ColorMappingType> ColorType { get; set; }
-
-        [PropertyDescription(Description = "The main color of the noise")]
-        public SKColorLayerProperty MainColor { get; set; }
-
-        [PropertyDescription(Description = "The secondary color of the noise")]
-        public SKColorLayerProperty SecondaryColor { get; set; }
-
         [PropertyDescription(Name = "Noise gradient map", Description = "The gradient the noise will map it's value to")]
         public ColorGradientLayerProperty GradientColor { get; set; }
 
@@ -30,16 +21,10 @@ namespace Artemis.Plugins.LayerBrushes.Noise
         protected override void EnableProperties()
         {
             Segments.IsVisibleWhen(SegmentColors, s => s.CurrentValue);
-            GradientColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Gradient);
-            MainColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Simple);
-            SecondaryColor.IsVisibleWhen(ColorType, c => c.BaseValue == ColorMappingType.Simple);
         }
 
         protected override void PopulateDefaults()
         {
-            ColorType.DefaultValue = ColorMappingType.Gradient;
-            MainColor.DefaultValue = new SKColor(255, 0, 0);
-            SecondaryColor.DefaultValue = new SKColor(0, 0, 255);
             GradientColor.DefaultValue = ColorGradient.GetUnicornBarf();
             SegmentColors.DefaultValue = false;
             Segments.DefaultValue = 2;
