@@ -41,7 +41,7 @@
 
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="OpenRGB.svg" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="OpenRGB.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

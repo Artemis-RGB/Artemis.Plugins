@@ -30,15 +30,9 @@ public class DeviceConfigurationDialogViewModel : ContentDialogViewModelBase
         
         Ports = new ObservableCollection<string>(SerialPort.GetPortNames());
         this.ValidationRule(vm => vm.Type, type => type != null, "Device type is required");
-        this.ValidationRule(
-            vm => vm.Port,
-            this.WhenAnyValue(vm => vm.IsUdpBased, vm => vm.Port, (udpBased, port) => udpBased || !string.IsNullOrWhiteSpace(port)), "Device port is required"
-        );
-        this.ValidationRule(
-            vm => vm.Hostname,
-            this.WhenAnyValue(vm => vm.IsUdpBased, vm => vm.Hostname, (udpBased, hostname) => !udpBased || !string.IsNullOrWhiteSpace(hostname)), "A hostname is required"
-        );
-        Accept = ReactiveCommand.Create(ExecuteAccept, this.ValidationContext.Valid);
+        this.ValidationRule(vm => vm.Port, this.WhenAnyValue(vm => vm.IsUdpBased, vm => vm.Port, (udpBased, port) => udpBased || !string.IsNullOrWhiteSpace(port)), "Device port is required");
+        this.ValidationRule(vm => vm.Hostname, this.WhenAnyValue(vm => vm.IsUdpBased, vm => vm.Hostname, (udpBased, hostname) => !udpBased || !string.IsNullOrWhiteSpace(hostname)), "A hostname is required");
+        Accept = ReactiveCommand.Create(ExecuteAccept, ValidationContext.Valid);
     }
 
     public string Name

@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:views="clr-namespace:Artemis.Plugins.Devices.OpenRGB.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.Devices.OpenRGB.Views.OpenRGBConfigurationDialogView">
     <Grid Margin="15" RowDefinitions="Auto,Auto,300,Auto,Auto,*">
@@ -19,8 +20,7 @@
             <DataGrid Items="{Binding Definitions}"
                       AutoGenerateColumns="False"
                       CanUserSortColumns="True"
-                      HeadersVisibility="All"
-                      Margin="-25">
+                      HeadersVisibility="All">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*"
                                         Binding="{Binding ClientName}"
@@ -31,10 +31,10 @@
                     <DataGridTextColumn Width="Auto"
                                         Binding="{Binding Port}"
                                         Header="Port" />
-                    <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+                    <DataGridTemplateColumn Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding $parent[UserControl].DeleteRow}"
+                                <Button Command="{Binding $parent[UserControl].DataContext.DeleteDefinition}"
                                         CommandParameter="{Binding}"
                                         Classes="icon-button"
                                         ToolTip.Tip="Delete server configuration"

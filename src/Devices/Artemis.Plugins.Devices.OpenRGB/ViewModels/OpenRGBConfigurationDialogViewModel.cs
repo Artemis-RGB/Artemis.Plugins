@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
+using ReactiveUI;
 using RGB.NET.Devices.OpenRGB;
 
 namespace Artemis.Plugins.Devices.OpenRGB.ViewModels
@@ -27,7 +29,10 @@ namespace Artemis.Plugins.Devices.OpenRGB.ViewModels
 
             Definitions = new ObservableCollection<OpenRGBServerDefinition>(_definitions.Value);
             ForceAddAllDevices = _forceAddAllDevicesSetting.Value;
+            DeleteDefinition = ReactiveCommand.Create<OpenRGBServerDefinition>(ExecuteDeleteDefinition);
         }
+
+        public ReactiveCommand<OpenRGBServerDefinition,Unit> DeleteDefinition { get; }
 
         public ObservableCollection<OpenRGBServerDefinition> Definitions { get; }
 
@@ -42,10 +47,9 @@ namespace Artemis.Plugins.Devices.OpenRGB.ViewModels
             Definitions.Add(new OpenRGBServerDefinition());
         }
 
-        public void DeleteRow(object def)
+        private void ExecuteDeleteDefinition(OpenRGBServerDefinition def)
         {
-            if (def is OpenRGBServerDefinition serverDefinition) 
-                Definitions.Remove(serverDefinition);
+            Definitions.Remove(def);
         }
 
         public void SaveChanges()
