@@ -7,15 +7,8 @@ namespace Artemis.Plugins.Devices.DMX.Settings
     {
         private int _b;
         private int _g;
-        private LedId _ledId;
         private int _r;
-
-        public LedId LedId
-        {
-            get => _ledId;
-            set => SetAndNotify(ref _ledId, value);
-        }
-
+        
         public int R
         {
             get => _r;

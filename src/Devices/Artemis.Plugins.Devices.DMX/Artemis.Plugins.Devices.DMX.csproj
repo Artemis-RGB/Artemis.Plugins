@@ -44,4 +44,15 @@
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Dialogs\DeviceConfigurationDialogView.axaml.cs">
+      <DependentUpon>DMXConfigurationView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DMXConfigurationView.axaml.cs">
+      <DependentUpon>WS281XConfigurationView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

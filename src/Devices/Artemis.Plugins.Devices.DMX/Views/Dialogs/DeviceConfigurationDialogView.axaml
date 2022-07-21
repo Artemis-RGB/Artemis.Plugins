@@ -1,0 +1,104 @@
+<controls:CoreWindow xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                     xmlns:dialogs="clr-namespace:Artemis.Plugins.Devices.DMX.ViewModels.Dialogs"
+                     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                     x:Class="Artemis.Plugins.Devices.DMX.Views.Dialogs.DeviceConfigurationDialogView"
+                     x:DataType="dialogs:DeviceConfigurationDialogViewModel"
+                     Title="DMX Device Settings | Artemis"
+                     WindowStartupLocation="CenterOwner"
+                     Width="700"
+                     Height="750">
+    <controls:CoreWindow.Styles>
+        <Style Selector="Label">
+            <Setter Property="Margin" Value="0 5 0 0" />
+        </Style>
+    </controls:CoreWindow.Styles>
+
+    <Grid Margin="15" ColumnDefinitions="250,*" RowDefinitions="*,Auto">
+        <Border Classes="card" Margin="0 0 8 0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+            <StackPanel>
+                <Label>Display name</Label>
+                <TextBox Text="{CompiledBinding Name}" />
+
+                <Label>IP/Hostname*</Label>
+                <TextBox Text="{CompiledBinding Hostname}" />
+
+                <Label>Port*</Label>
+                <controls:NumberBox Value="{CompiledBinding Port}" HorizontalAlignment="Stretch" Minimum="1" Maximum="65536" />
+
+                <Label>Universe*</Label>
+                <controls:NumberBox Value="{CompiledBinding Universe}" HorizontalAlignment="Stretch" Minimum="1" Maximum="63999" />
+
+                <Label>Model</Label>
+                <TextBox Text="{CompiledBinding Model}" />
+
+                <Label>Manufacturer</Label>
+                <TextBox Text="{CompiledBinding Manufacturer}" />
+            </StackPanel>
+
+        </Border>
+
+        <Border Classes="card" Margin="8 0 0 0" Grid.Row="0" Grid.Column="1">
+            <Grid RowDefinitions="Auto,*">
+                <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Right" Margin="0 0 0 5">
+                    <Button Command="{CompiledBinding AddLed}">
+                        Add LED
+                    </Button>
+                    <Button Command="{CompiledBinding AddLeds}">
+                        Add LEDs
+                    </Button>
+                    <Button Command="{CompiledBinding ClearLeds}">
+                        Clear
+                    </Button>
+                </StackPanel>
+
+                <DataGrid Grid.Row="1"
+                          Items="{CompiledBinding LedDefinitions}"
+                          AutoGenerateColumns="False"
+                          CanUserSortColumns="True"
+                          HeadersVisibility="Column"
+                          HorizontalAlignment="Stretch">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Width="100" Binding="{Binding R}" Header="R channel" />
+                        <DataGridTextColumn Width="100" Binding="{Binding G}" Header="G channel" />
+                        <DataGridTextColumn Width="100" Binding="{Binding B}" Header="B channel" />
+                        <DataGridTemplateColumn Width="*" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding $parent[controls:CoreWindow].DataContext.DeleteLed}"
+                                            CommandParameter="{Binding}"
+                                            Classes="icon-button"
+                                            ToolTip.Tip="Delete LED"
+                                            HorizontalAlignment="Right"
+                                            Margin="10 0"
+                                            Width="25"
+                                            Height="25">
+                                        <avalonia:MaterialIcon Kind="Delete" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <Button  Grid.Row="1" Grid.Column="0" Command="{CompiledBinding RemoveDevice}">
+            Remove device
+        </Button>
+        
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Right" Margin="0 15 0 0">
+            <Button Classes="accent" Command="{CompiledBinding Save}">
+                Save changes
+            </Button>
+            <Button Command="{CompiledBinding Cancel}">
+                Cancel
+            </Button>
+        </StackPanel>
+    </Grid>
+</controls:CoreWindow>
