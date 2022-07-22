@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\jetbrains.svg" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\logo.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

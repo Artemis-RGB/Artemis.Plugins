@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.Profiling.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Profiling.Views.ProfilerConfigurationView"
+             x:DataType="viewModels:ProfilerConfigurationViewModel">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="15" MaxWidth="800">
+            <TextBlock Classes="h4" Margin="0 15">
+                Profiling
+            </TextBlock>
+            <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
+                <StackPanel>
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0">
+                            <TextBlock>
+                                Profile CPU usage
+                            </TextBlock>
+                            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                                Profiling CPU usage can help us identify issues with high CPU usage and application slowdowns. After starting, try taking one or more snapshots at moments where CPU usage is high.
+                            </TextBlock>
+                            <TextBlock Foreground="GoldenRod"
+                                       TextWrapping="Wrap"
+                                       IsVisible="{CompiledBinding !IsCpuProfilerAvailable}">
+                                To use CPU profiling, enable the CPU profiling plugin feature.
+                            </TextBlock>
+                        </StackPanel>
+
+                        <ProgressBar Grid.Row="0" Grid.Column="1" IsVisible="{CompiledBinding IsProfilingCpu}" IsIndeterminate="True" MinWidth="155" VerticalAlignment="Top" />
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Spacing="5">
+                            <Button Content="Start"
+                                    Width="155"
+                                    Command="{CompiledBinding StartCpuProfiling}"
+                                    IsVisible="{CompiledBinding !IsProfilingCpu}" />
+                            <Button Content="Snapshot &amp; stop"
+                                    Width="155"
+                                    Command="{CompiledBinding StopCpuProfiling}"
+                                    IsVisible="{CompiledBinding IsProfilingCpu}" />
+                            <Button Content="Snapshot"
+                                    Width="155"
+                                    Command="{CompiledBinding TakeCpuSnapshot}"
+                                    IsVisible="{CompiledBinding IsProfilingCpu}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Separator Classes="card-separator" />
+
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0">
+                            <TextBlock>
+                                Profile memory usage
+                            </TextBlock>
+                            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                                Profiling memory usage can help us identify issues with high memory usage and fluctuating memory usage. Generally one snapshot is enough but for memory usage that increases over time multiple snapshots may be needed.
+                            </TextBlock>
+                            <TextBlock Foreground="GoldenRod"
+                                       TextWrapping="Wrap"
+                                       IsVisible="{CompiledBinding !IsMemoryProfilerAvailable}">
+                                To use memory profiling, enable the memory profiling plugin feature.
+                            </TextBlock>
+                        </StackPanel>
+
+                        <ProgressBar Grid.Row="0" Grid.Column="1" IsVisible="{CompiledBinding IsProfilingMemory}" IsIndeterminate="True" MinWidth="155" VerticalAlignment="Top" />
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Spacing="5">
+                            <Button Content="Start"
+                                    Width="155"
+                                    Command="{CompiledBinding StartMemoryProfiling}"
+                                    IsVisible="{CompiledBinding !IsProfilingMemory}" />
+                            <Button Content="Snapshot &amp; stop"
+                                    Width="155"
+                                    Command="{CompiledBinding StopMemoryProfiling}"
+                                    IsVisible="{CompiledBinding IsProfilingMemory}" />
+                            <Button Content="Snapshot"
+                                    Width="155"
+                                    Command="{CompiledBinding TakeMemorySnapshot}"
+                                    IsVisible="{CompiledBinding IsProfilingMemory}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

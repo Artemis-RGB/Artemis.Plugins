@@ -1,12 +1,13 @@
 ﻿{
   "Guid": "926629ab-8170-42f3-be18-22c694aa91cd",
   "Name": "Corsair Devices",
-  "Author": "DarthAffe & SpoinkyNL",
+  "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control lighting on all iCUE enabled Corsair products",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.Corsair.dll",
-  "AutoEnableFeatures": false
+  "AutoEnableFeatures": false,
+  "Platforms":"Windows"
 }

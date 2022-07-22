@@ -1,12 +1,13 @@
 ﻿{
   "Guid": "62a45c0c-884c-4868-9fd7-3c5987fe07ca",
   "Name": "Logitech Devices",
-  "Author": "DarthAffe & SpoinkyNL",
+  "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control the lighting on Logitech mice and keyboards.",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.Logitech.dll",
-  "AutoEnableFeatures": false
+  "AutoEnableFeatures": false,
+  "Platforms":"Windows"
 }

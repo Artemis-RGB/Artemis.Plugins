@@ -1,7 +1,7 @@
 ﻿{
   "Guid": "9177c320-1206-48a3-af52-b1749c758786",
   "Name": "MSI Devices",
-  "Author": "DarthAffe & SpoinkyNL",
+  "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Chip",
@@ -9,5 +9,6 @@
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.Msi.dll",
   "AutoEnableFeatures": false,
-  "RequiresAdmin": true
+  "RequiresAdmin": true,
+  "Platforms":"Windows"
 }

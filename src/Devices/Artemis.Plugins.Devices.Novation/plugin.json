@@ -1,12 +1,13 @@
 {
   "Guid": "a487332f-c4b3-43e7-b80f-f33adc6fff87",
   "Name": "Novation Devices",
-  "Author": "DarthAffe & SpoinkyNL",
+  "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "DotsGrid",
   "Description": "Allows Artemis to control the lighting on Novation launchpads.",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.Novation.dll",
-  "AutoEnableFeatures": false
+  "AutoEnableFeatures": false,
+  "Platforms":"Windows"
 }
