@@ -1,0 +1,152 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.LayerBrushes.Particle.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.LayerBrushes.Particle.Views.ParticlesConfigurationView"
+             x:DataType="viewModels:ParticlesConfigurationViewModel">
+    <Grid Margin="15" RowDefinitions="Auto,Auto,*,Auto">
+        <TextBlock Grid.Row="0" Classes="h4">Manage particles</TextBlock>
+
+        <TextBlock Grid.Row="1" TextWrapping="Wrap">
+            Use the list below to add/remove the particles that will be emitted by the brush. If you add more than one particle, different particles are emitted based on their spawn chance.
+        </TextBlock>
+
+        <Border Grid.Row="2" Classes="card" Margin="0 10" ClipToBounds="True">
+            <DataGrid Items="{CompiledBinding ParticleViewModels}"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="False"
+                      SelectionMode="Single"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      AreRowDetailsFrozen="True">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="Auto" Header="Shape" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="viewModels:ParticleViewModel">
+                                <Panel>
+                                    <Rectangle IsVisible="{CompiledBinding IsRectangleType}"
+                                               Fill="{DynamicResource TextFillColorPrimary}"
+                                               Width="22"
+                                               Height="22" />
+                                    <Ellipse IsVisible="{CompiledBinding IsEllipseType}"
+                                             Fill="{DynamicResource TextFillColorPrimary}"
+                                             Width="22"
+                                             Height="22" />
+                                    <Path IsVisible="{CompiledBinding IsPathType}"
+                                          Data="{CompiledBinding PathGeometry}"
+                                          Fill="{DynamicResource TextFillColorPrimary}"
+                                          Stretch="Uniform"
+                                          Width="22"
+                                          Height="22" />
+                                </Panel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="*" Header="Width" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="viewModels:ParticleViewModel">
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5 0">
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MinWidth}"></TextBlock>
+                                    <TextBlock Text="px - "/>
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MaxWidth}"></TextBlock>
+                                    <TextBlock Text="px"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="Height" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="viewModels:ParticleViewModel">
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5 0">
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MinHeight}"></TextBlock>
+                                    <TextBlock Text="px - "/>
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MaxHeight}"></TextBlock>
+                                    <TextBlock Text="px"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Width="*" Header="X rotation" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="viewModels:ParticleViewModel">
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5 0">
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MinRotationVelocityX}"></TextBlock>
+                                    <TextBlock Text="° - "/>
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MaxRotationVelocityX}"></TextBlock>
+                                    <TextBlock Text="°"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="Y rotation" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="viewModels:ParticleViewModel">
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5 0">
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MinRotationVelocityY}"></TextBlock>
+                                    <TextBlock Text="° - "/>
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MaxRotationVelocityY}"></TextBlock>
+                                    <TextBlock Text="°"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="Z rotation" IsReadOnly="True" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="viewModels:ParticleViewModel">
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5 0">
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MinRotationVelocityZ}"></TextBlock>
+                                    <TextBlock Text="° - "/>
+                                    <TextBlock Text="{CompiledBinding ParticleConfiguration.MaxRotationVelocityZ}"></TextBlock>
+                                    <TextBlock Text="°"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="5" Margin="5 0">
+                                    <Button Command="{Binding $parent[UserControl].DataContext.EditParticle}"
+                                            CommandParameter="{Binding}"
+                                            Classes="icon-button"
+                                            ToolTip.Tip="Edit particle"
+                                            HorizontalAlignment="Center">
+                                        <avalonia:MaterialIcon Kind="Edit" />
+                                    </Button>
+                                    <Button Command="{Binding $parent[UserControl].DataContext.RemoveParticle}"
+                                            CommandParameter="{Binding}"
+                                            Classes="icon-button"
+                                            ToolTip.Tip="Remove particle"
+                                            HorizontalAlignment="Center">
+                                        <avalonia:MaterialIcon Kind="Delete" />
+                                    </Button>
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Grid Grid.Row="3" ColumnDefinitions="*,Auto" VerticalAlignment="Bottom">
+            <Button Command="{CompiledBinding AddParticle}">
+                Add particle
+            </Button>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Classes="accent" Margin="0 0 5 0" Command="{CompiledBinding Save}">
+                    Save changes
+                </Button>
+                <Button Command="{CompiledBinding Cancel}">
+                    Cancel
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

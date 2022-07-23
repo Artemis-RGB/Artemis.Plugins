@@ -11,7 +11,6 @@
     <Grid Margin="15" RowDefinitions="Auto,Auto,300,Auto,Auto,*">
         <TextBlock Grid.Row="0" Classes="h4">Manage devices</TextBlock>
         <StackPanel Grid.Row="1">
-            <TextBlock Classes="h5">Introduction</TextBlock>
             <TextBlock TextWrapping="Wrap">
                 This plugin supports Arduino, Bitwizard and ESP8266 devices in combination with WS2812B- and WS2811-LED strips.
             </TextBlock>

@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared"
+             xmlns:dialogs="clr-namespace:Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:attachedProperties="clr-namespace:Artemis.UI.Shared.AttachedProperties;assembly=Artemis.UI.Shared"
+             mc:Ignorable="d" d:DesignWidth="548" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.LayerBrushes.Particle.Views.Dialogs.ParticleDialogView"
+             x:DataType="dialogs:ParticleDialogViewModel">
+    <UserControl.Styles>
+        <Styles>
+            <Style Selector="StackPanel.particle-form controls|NumberBox">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+            </Style>
+            <Style Selector="StackPanel.particle-form Label">
+                <Setter Property="Margin" Value="0 5 0 0" />
+            </Style>
+        </Styles>
+    </UserControl.Styles>
+    <ScrollViewer Name="ParticleFormScrollViewer" MaxHeight="400">
+        <StackPanel Classes="particle-form" Margin="0 0 15 0">
+            <Label>Type</Label>
+            <shared:EnumComboBox Value="{CompiledBinding ParticleType}" />
+
+            <Label IsVisible="{CompiledBinding IsCustomPath}">SVG path data</Label>
+            <TextBox IsVisible="{CompiledBinding IsCustomPath}" Text="{CompiledBinding Path}" Height="100" Width="460" AcceptsReturn="True" TextWrapping="Wrap" />
+            <controls:HyperlinkButton IsVisible="{CompiledBinding IsCustomPath}"
+                                      HorizontalAlignment="Right"
+                                      NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/profiles/brushes/particle"
+                                      Margin="0 5 0 0">
+                Learn more
+            </controls:HyperlinkButton>
+
+            <Label>Minimum width</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="px" Value="{CompiledBinding MinWidth}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Maximum width</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="px" Value="{CompiledBinding MaxWidth}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Minimum height</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="px" Value="{CompiledBinding MinHeight}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Maximum heigh</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="px" Value="{CompiledBinding MaxHeight}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Min. X rotation speed</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="deg/s" Value="{CompiledBinding MinX}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Max. X rotation speed</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="deg/s" Value="{CompiledBinding MaxX}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Min. Y rotation speed</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="deg/s" Value="{CompiledBinding MinY}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Max. Y rotation speed</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="deg/s" Value="{CompiledBinding MaxY}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Min. Z rotation speed</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="deg/s" Value="{CompiledBinding MinZ}" SpinButtonPlacementMode="Inline" />
+
+            <Label>Max. Z rotation speed</Label>
+            <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="deg/s" Value="{CompiledBinding MaxZ}" SpinButtonPlacementMode="Inline" />
+        </StackPanel>
+    </ScrollViewer>
+
+
+</UserControl>

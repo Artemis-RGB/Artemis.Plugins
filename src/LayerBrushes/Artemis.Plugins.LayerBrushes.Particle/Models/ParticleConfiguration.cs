@@ -4,6 +4,28 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Models
 {
     public class ParticleConfiguration
     {
+        public ParticleConfiguration()
+        {
+        }
+
+        public ParticleConfiguration(ParticleConfiguration source)
+        {
+            ParticleType = source.ParticleType;
+            Path = source.Path;
+            
+            MinWidth = source.MinWidth;
+            MaxWidth = source.MaxWidth;
+            MinHeight = source.MinHeight;
+            MaxHeight = source.MaxHeight;
+            
+            MinRotationVelocityX = source.MinRotationVelocityX;
+            MaxRotationVelocityX = source.MaxRotationVelocityX;
+            MinRotationVelocityY = source.MinRotationVelocityY;
+            MaxRotationVelocityY = source.MaxRotationVelocityY;
+            MinRotationVelocityZ = source.MinRotationVelocityZ;
+            MaxRotationVelocityZ = source.MaxRotationVelocityZ;
+        }
+
         private static readonly Random Rand = new();
 
         public ParticleType ParticleType { get; set; }
