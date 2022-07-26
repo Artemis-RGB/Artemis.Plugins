@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Artemis.Plugins.Modules.DefaultProfile": {
+      "commandName": "Executable",
+      "executablePath": ".\\Artemis.UI.Windows.exe",
+      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI.Windows\\bin\\x64\\Debug\\net6.0-windows"
+    }
+  }
+}

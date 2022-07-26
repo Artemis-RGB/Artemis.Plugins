@@ -1,0 +1,11 @@
+﻿{
+  "Guid": "4e1e54fd-6636-40ad-afdc-b3b0135feab2",
+  "Name": "Default profile",
+  "Author": "Robert",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "ToyBrickPlus",
+  "Description": "This module automatically creates a default profile.",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Modules.DefaultProfile.dll"
+}

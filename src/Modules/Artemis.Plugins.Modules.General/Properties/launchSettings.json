@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "Artemis.Plugins.Modules.General": {
-      "commandName": "Executable",
-      "executablePath": ".\\Artemis.UI.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net6.0-windows"
-    }
-  }
-}

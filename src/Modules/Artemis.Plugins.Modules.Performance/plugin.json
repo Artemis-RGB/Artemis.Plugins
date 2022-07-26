@@ -1,0 +1,12 @@
+﻿{
+  "Guid": "440be010-a0b1-47a9-95bc-7ac03ca5fd7b",
+  "Name": "Performance",
+  "Author": "Robert",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "Speedometer",
+  "Description": "This module provide basic hardware performance and usage metrics.",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Modules.Performance.dll",
+  "Platforms": "Windows"
+}
