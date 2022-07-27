@@ -21,7 +21,7 @@ namespace Artemis.Plugins.Modules.Processes.DataModels
             ProgramLocation = process.GetProcessFilename();
 
             // Get Icon colors
-            if (!File.Exists(ProgramLocation)) 
+            if (!File.Exists(ProgramLocation))
                 return;
             using MemoryStream stream = new();
             Icon.ExtractAssociatedIcon(ProgramLocation)?.Save(stream);

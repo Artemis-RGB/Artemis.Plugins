@@ -1,7 +1,7 @@
 ﻿using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Plugins.Modules.Time.DataModels;
-using Artemis.Plugins.Modules.Time.Services.TimeServices;
+using Artemis.Plugins.Modules.Time.Platform.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,16 +15,14 @@ namespace Artemis.Plugins.Modules.Time
 
         public override List<IModuleActivationRequirement> ActivationRequirements => null;
         private readonly DateTime _artemisStartTime;
-        private readonly ITimeService _timeServices;
 
         #endregion
 
         #region Constructors
 
-        public TimeModule(ITimeService timeServices)
+        public TimeModule()
         {
             _artemisStartTime = Process.GetCurrentProcess().StartTime;
-            _timeServices = timeServices;
         }
 
         #endregion
@@ -50,7 +48,20 @@ namespace Artemis.Plugins.Modules.Time
         {
             DataModel.CurrentTime = DateTimeOffset.Now;
             DataModel.TimeSinceMidnight = DateTimeOffset.Now - DateTimeOffset.Now.Date;
-            DataModel.TimeSinceSystemBoot = _timeServices.GetTimeSinceSystemStart();
+
+            if (OperatingSystem.IsWindows())
+            {
+                DataModel.TimeSinceSystemBoot = WindowsTimeUtils.GetTimeSinceSystemStart();
+            }
+            else if (OperatingSystem.IsLinux())
+            {
+                //TODO: Write Linux platform GetTimeSinceSystemStart()
+            }
+            else if (OperatingSystem.IsMacOS())
+            {
+                //TODO: Write MacOS platform GetTimeSinceSystemStart()
+            }
+
             DataModel.TimeSinceArtemisStart = DateTimeOffset.Now - _artemisStartTime;
         }
 

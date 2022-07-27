@@ -5,7 +5,7 @@ using System.Runtime.Versioning;
 namespace Artemis.Plugins.Modules.Time.Platform.Windows
 {
     [SupportedOSPlatform("windows")]
-    public class WindowsTimeUtils
+    public static class WindowsTimeUtils
     {
         public static TimeSpan GetTimeSinceSystemStart()
         {

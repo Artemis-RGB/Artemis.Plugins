@@ -1,12 +1,11 @@
 ﻿{
   "Guid": "af8fa030-70cc-47ed-a877-bf5eca09a11d",
   "Name": "Time module",
-  "Author": "Robert",
+  "Author": "Robert & Cheerpipe",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "ClockTimeThree",
   "Description": "A simple module to get current time and date values.",
   "Version": "1.0.0.0",
-  "Main": "Artemis.Plugins.Modules.Time.dll",
-  "Platforms": "Windows, Linux"
+  "Main": "Artemis.Plugins.Modules.Time.dll"
 }
