@@ -62,7 +62,7 @@ namespace Artemis.Plugins.Modules.Processes
             if (!_enableActiveWindow.Value)
                 return;
 
-            int processId = WindowUtilities.GetActiveProcessId();
+            int processId = _windowService.GetActiveProcessId();
             if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
                 DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService, _windowService);
 
