@@ -38,7 +38,7 @@
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBox Text="{Binding Event2Argument}" Watermark="Enter event arguments" Width="150" Margin="0 0 0 5"/>
+                            <TextBox Text="{Binding Event2Argument}" Watermark="Enter event arguments" Width="150" Margin="0 0 0 5" />
                             <Button Command="{Binding TriggerEvent2}" Width="150">
                                 Trigger Event2
                             </Button>

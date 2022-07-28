@@ -2,13 +2,12 @@
 using Artemis.Plugins.Modules.TestData.ViewModels;
 using Artemis.UI.Shared;
 
-namespace Artemis.Plugins.Modules.TestData
+namespace Artemis.Plugins.Modules.TestData;
+
+public class Bootstrapper : PluginBootstrapper
 {
-    public class Bootstrapper : PluginBootstrapper
+    public override void OnPluginLoaded(Plugin plugin)
     {
-        public override void OnPluginLoaded(Plugin plugin)
-        {
-            plugin.ConfigurationDialog = new PluginConfigurationDialog<TestPluginConfigurationViewModel>();
-        }
+        plugin.ConfigurationDialog = new PluginConfigurationDialog<TestPluginConfigurationViewModel>();
     }
 }

@@ -1,19 +1,18 @@
-﻿using Artemis.Plugins.Modules.Processes.Platform.Windows;
-using System.Runtime.Versioning;
+﻿using System.Runtime.Versioning;
+using Artemis.Plugins.Modules.Processes.Platform.Windows;
 
-namespace Artemis.Plugins.Modules.Processes.Services
+namespace Artemis.Plugins.Modules.Processes.Services.Windows.WindowServices;
+
+[SupportedOSPlatform("windows")]
+public class WindowsWindowService : IWindowService
 {
-    [SupportedOSPlatform("windows")]
-    public class WindowsWindowService : IWindowService
+    public int GetActiveProcessId()
     {
-        public int GetActiveProcessId()
-        {
-            return WindowUtilities.GetActiveProcessId();
-        }
+        return WindowUtilities.GetActiveProcessId();
+    }
 
-        public string GetActiveWindowTitle()
-        {
-            return WindowUtilities.GetActiveWindowTitle();
-        }
+    public string GetActiveWindowTitle()
+    {
+        return WindowUtilities.GetActiveWindowTitle();
     }
 }

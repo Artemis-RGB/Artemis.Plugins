@@ -1,17 +1,16 @@
-﻿using Artemis.Core;
-using Artemis.Plugins.Modules.Processes.Services;
-using System;
+﻿using System;
+using Artemis.Core;
+using Artemis.Plugins.Modules.Processes.Services.Windows.WindowServices;
 
-namespace Artemis.Plugins.Modules.Processes
+namespace Artemis.Plugins.Modules.Processes;
+
+public class Bootstrapper : PluginBootstrapper
 {
-    public class Bootstrapper : PluginBootstrapper
+    public override void OnPluginEnabled(Plugin plugin)
     {
-        public override void OnPluginEnabled(Plugin plugin)
-        {
-            if (OperatingSystem.IsWindows())
-                plugin.Kernel!.Bind<IWindowService>().To<WindowsWindowService>().InSingletonScope();
-            else
-                throw new NotImplementedException("Platform support not implemented yet");
-        }
+        if (OperatingSystem.IsWindows())
+            plugin.Kernel!.Bind<IWindowService>().To<WindowsWindowService>().InSingletonScope();
+        else
+            throw new NotImplementedException("Platform support not implemented yet");
     }
 }

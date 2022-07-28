@@ -1,7 +1,6 @@
-﻿namespace Artemis.Plugins.Modules.Processes
+﻿namespace Artemis.Plugins.Modules.Processes;
+
+public class Constants
 {
-    public class Constants
-    {
-        public static readonly string[] IgnoredWindowsProcessList = { "svchost" };
-    }
+    public static readonly string[] IgnoredWindowsProcessList = {"svchost"};
 }

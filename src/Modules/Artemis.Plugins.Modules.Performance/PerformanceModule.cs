@@ -5,40 +5,42 @@ using Artemis.Core.Modules;
 using Artemis.Plugins.Modules.Performance.DataModels;
 using Artemis.Plugins.Modules.Performance.Services;
 
-namespace Artemis.Plugins.Modules.Performance
+namespace Artemis.Plugins.Modules.Performance;
+
+[PluginFeature(Name = "Performance", Icon = "Speedometer", AlwaysEnabled = true)]
+public class PerformanceModule : Module<PerformanceDataModel>
 {
-    [PluginFeature(Name = "Performance", Icon = "Speedometer", AlwaysEnabled = true)]
-    public class PerformanceModule : Module<PerformanceDataModel>
+    private readonly IPerformanceService _performanceService;
+
+    public PerformanceModule(IPerformanceService performanceService)
     {
-        private readonly IPerformanceService _performanceService;
-        public override List<IModuleActivationRequirement> ActivationRequirements => null;
+        _performanceService = performanceService;
+    }
 
-        public PerformanceModule(IPerformanceService performanceService)
-        {
-            _performanceService = performanceService;
-        }
+    public override List<IModuleActivationRequirement> ActivationRequirements => null;
 
-        public override void Enable() 
-        {
-            //TODO: Make update frequency configurable
-            AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance(), "UpdatePerformance");
-        }
+    public override void Enable()
+    {
+        //TODO: Make update frequency configurable
+        AddTimedUpdate(TimeSpan.FromSeconds(1.5), _ => UpdatePerformance(), "UpdatePerformance");
+    }
 
-        public override void Disable() { }
+    public override void Disable()
+    {
+    }
 
-        public override void Update(double deltaTime) { }
+    public override void Update(double deltaTime)
+    {
+    }
 
-        private void UpdatePerformance()
-        {
-            // Performance counters are slow, only update them if necessary
-            if (IsPropertyInUse("CpuUsage", false))
-                DataModel.CpuUsage = _performanceService.GetCpuUsage();
-            if (IsPropertyInUse("AvailableRam", false))
-                DataModel.AvailableRam = _performanceService.GetPhysicalAvailableMemoryInMiB();
-            if (IsPropertyInUse("TotalRam", false))
-                DataModel.TotalRam = _performanceService.GetTotalMemoryInMiB();
-        }
-
-
+    private void UpdatePerformance()
+    {
+        // Performance counters are slow, only update them if necessary
+        if (IsPropertyInUse("CpuUsage", false))
+            DataModel.CpuUsage = _performanceService.GetCpuUsage();
+        if (IsPropertyInUse("AvailableRam", false))
+            DataModel.AvailableRam = _performanceService.GetPhysicalAvailableMemoryInMiB();
+        if (IsPropertyInUse("TotalRam", false))
+            DataModel.TotalRam = _performanceService.GetTotalMemoryInMiB();
     }
 }
