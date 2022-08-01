@@ -26,21 +26,8 @@ public class TimeModule : Module<TimeDataModel>
     {
         DataModel.CurrentTime = DateTimeOffset.Now;
         DataModel.TimeSinceMidnight = DateTimeOffset.Now - DateTimeOffset.Now.Date;
-
-        if (OperatingSystem.IsWindows())
-        {
-            DataModel.TimeSinceSystemBoot = WindowsTimeUtils.GetTimeSinceSystemStart();
-        }
-        else if (OperatingSystem.IsLinux())
-        {
-            //TODO: Write Linux platform GetTimeSinceSystemStart()
-        }
-        else if (OperatingSystem.IsMacOS())
-        {
-            //TODO: Write MacOS platform GetTimeSinceSystemStart()
-        }
-
         DataModel.TimeSinceArtemisStart = DateTimeOffset.Now - _artemisStartTime;
+        DataModel.TimeSinceSystemBoot += TimeSpan.FromSeconds(deltaTime);
     }
 
     #endregion
@@ -59,6 +46,8 @@ public class TimeModule : Module<TimeDataModel>
         //Hide unsupported properties until propper support is added
         if (!OperatingSystem.IsWindows())
             HideProperty(d => d.TimeSinceSystemBoot);
+
+        DataModel.TimeSinceSystemBoot = GetTimeSinceSystemBoot();
     }
 
     public override void Disable()
@@ -66,4 +55,13 @@ public class TimeModule : Module<TimeDataModel>
     }
 
     #endregion
+
+    private static TimeSpan GetTimeSinceSystemBoot()
+    {
+        return Environment.OSVersion.Platform switch
+        {
+            PlatformID.Win32NT => WindowsTimeUtils.GetTimeSinceSystemStart(),
+            _ => throw new NotImplementedException()
+        };
+    }
 }
