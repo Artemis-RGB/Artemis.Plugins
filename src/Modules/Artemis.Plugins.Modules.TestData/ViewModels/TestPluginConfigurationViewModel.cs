@@ -7,6 +7,7 @@ namespace Artemis.Plugins.Modules.TestData.ViewModels;
 public class TestPluginConfigurationViewModel : PluginConfigurationViewModel
 {
     private string _event2Argument;
+    private int _staticValue;
 
     public TestPluginConfigurationViewModel(Plugin plugin) : base(plugin)
     {
@@ -21,6 +22,16 @@ public class TestPluginConfigurationViewModel : PluginConfigurationViewModel
     {
         get => _event2Argument;
         set => RaiseAndSetIfChanged(ref _event2Argument, value);
+    }
+
+    public int StaticValue
+    {
+        get => _staticValue;
+        set
+        {
+            RaiseAndSetIfChanged(ref _staticValue, value);
+            DataModelExpansion.DataModel.StaticValue = _staticValue;
+        }
     }
 
     public void TriggerEvent1()

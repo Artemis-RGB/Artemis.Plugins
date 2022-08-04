@@ -1,9 +1,11 @@
+using Artemis.UI.Shared;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 
 namespace Artemis.Plugins.Modules.TestData.Views;
 
-public class TestPluginConfigurationView : UserControl
+public class TestPluginConfigurationView : ReactiveUserControl<PluginConfigurationViewModel>
 {
     public TestPluginConfigurationView()
     {

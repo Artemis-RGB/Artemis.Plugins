@@ -48,7 +48,8 @@ public class PluginDataModel : DataModel
     public bool IsWinning { get; set; }
 
     public int Rotation { get; set; }
-
+    public int StaticValue { get; set; }
+    
     public List<SomeListItem> ListItems { get; set; }
 
     [DataModelProperty(Description = "Event without arguments")]
@@ -61,6 +62,7 @@ public class PluginDataModel : DataModel
     public string JsonString2 { get; set; }
     public RemoteData JsonData { get; set; }
     public RemoteData JsonData2 { get; set; }
+    
 }
 
 public class TestEventArgs : DataModelEventArgs

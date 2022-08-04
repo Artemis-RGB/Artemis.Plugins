@@ -44,6 +44,21 @@
                             </Button>
                         </StackPanel>
                     </Grid>
+                    
+                    <Separator Classes="card-separator" />
+
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock>Static values</TextBlock>
+                            <TextBlock Classes="subtitle">
+                                Values can also be used as events when they change
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBox Text="{Binding StaticValue}" Watermark="Enter event arguments" Width="150" Margin="0 0 0 5" />
+                            
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>
