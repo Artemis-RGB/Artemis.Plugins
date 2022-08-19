@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Plugins.Modules.Time.DataModels;
-using Artemis.Plugins.Modules.Time.Platform.Windows;
 
 namespace Artemis.Plugins.Modules.Time;
 
@@ -24,9 +23,10 @@ public class TimeModule : Module<TimeDataModel>
 
     public override void Update(double deltaTime)
     {
-        DataModel.CurrentTime = DateTimeOffset.Now;
-        DataModel.TimeSinceMidnight = DateTimeOffset.Now - DateTimeOffset.Now.Date;
-        DataModel.TimeSinceArtemisStart = DateTimeOffset.Now - _artemisStartTime;
+        var now = DateTime.Now;
+        DataModel.CurrentTime = now;
+        DataModel.TimeSinceMidnight = now - now.Date;
+        DataModel.TimeSinceArtemisStart = now - _artemisStartTime;
         DataModel.TimeSinceSystemBoot += TimeSpan.FromSeconds(deltaTime);
     }
 
@@ -43,11 +43,7 @@ public class TimeModule : Module<TimeDataModel>
 
     public override void Enable()
     {
-        //Hide unsupported properties until propper support is added
-        if (!OperatingSystem.IsWindows())
-            HideProperty(d => d.TimeSinceSystemBoot);
-
-        DataModel.TimeSinceSystemBoot = GetTimeSinceSystemBoot();
+        DataModel.TimeSinceSystemBoot = TimeSpan.FromMilliseconds(Environment.TickCount64);
     }
 
     public override void Disable()
@@ -55,13 +51,4 @@ public class TimeModule : Module<TimeDataModel>
     }
 
     #endregion
-
-    private static TimeSpan GetTimeSinceSystemBoot()
-    {
-        return Environment.OSVersion.Platform switch
-        {
-            PlatformID.Win32NT => WindowsTimeUtils.GetTimeSinceSystemStart(),
-            _ => throw new NotImplementedException()
-        };
-    }
 }
