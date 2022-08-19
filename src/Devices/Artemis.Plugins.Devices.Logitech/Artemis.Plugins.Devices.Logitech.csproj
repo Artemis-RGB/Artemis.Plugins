@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="HidSharp" Version="2.1.0" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.1-preview.1" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.1-preview.108" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease.46" />
 
     <!--All packages Artemis already references are compile-only dependencies-->

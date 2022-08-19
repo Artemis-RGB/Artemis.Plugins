@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ninject" Version="3.3.4"/>
+        <PackageReference Include="Ninject" Version="3.3.6" />
 
         <!--All packages Artemis already references are compile-only dependencies-->
-        <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build"/>
+        <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1"/>
+        <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest"/>
-        <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0"/>
+        <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
+        <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
     </ItemGroup>
 </Project>

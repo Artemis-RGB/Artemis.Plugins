@@ -3,7 +3,7 @@
     "Artemis - Windows": {
       "commandName": "Executable",
       "executablePath": ".\\Artemis.UI.Windows.exe",
-      "workingDirectory": "C:\\Repos\\Artemis\\src\\Artemis.UI.Windows\\bin\\x64\\Debug\\net6.0-windows"
+      "workingDirectory": "C:\\Repos\\Artemis\\src\\Artemis.UI.Windows\\bin"
     }
   }
 }
