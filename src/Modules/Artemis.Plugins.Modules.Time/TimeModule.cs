@@ -23,7 +23,7 @@ public class TimeModule : Module<TimeDataModel>
 
     public override void Update(double deltaTime)
     {
-        var now = DateTime.Now;
+        DateTime now = DateTime.Now;
         DataModel.CurrentTime = now;
         DataModel.TimeSinceMidnight = now - now.Date;
         DataModel.TimeSinceArtemisStart = now - _artemisStartTime;
