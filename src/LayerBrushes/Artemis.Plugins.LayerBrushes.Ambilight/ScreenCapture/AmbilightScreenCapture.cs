@@ -13,7 +13,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         private int _zoneCount = 0;
 
-        private Task _updateTask;
+        private Task? _updateTask;
         private CancellationTokenSource _cancellationTokenSource;
         private CancellationToken _cancellationToken;
 
@@ -85,6 +85,12 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
                 return result;
             }
+        }
+
+        public void UpdateCaptureZone(CaptureZone captureZone, int? x = null, int? y = null, int? width = null, int? height = null, int? downscaleLevel = null)
+        {
+            lock (_screenCapture)
+                _screenCapture.UpdateCaptureZone(captureZone, x, y, width, height, downscaleLevel);
         }
 
         public bool CaptureScreen() => false;
