@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.PhilipsHue.ViewModels"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.PhilipsHue.Views.Steps.FinishStep"
+             x:DataType="viewModels:PhilipsHueConfigurationViewModel">
+    <Border Classes="card" Margin="25" Padding="80">
+        <Border.Styles>
+            <styling:FluentAvaloniaTheme RequestedTheme="Dark" />
+            <Style Selector="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+        </Border.Styles>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0%,20%" EndPoint="100%,100%">
+                <GradientStop Color="#7D384B" Offset="0" />
+                <GradientStop Color="#D1C27B" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <StackPanel>
+            <TextBlock Classes="h3" TextAlignment="Center" TextWrapping="Wrap" Margin="0 20 0 0">
+                Success
+            </TextBlock>
+
+            <avalonia:MaterialIcon Width="64" Height="64" Margin="0 40" HorizontalAlignment="Center" Kind="Check" />
+
+            <TextBlock Text="{CompiledBinding FinishText}" TextAlignment="Center" TextWrapping="Wrap" />
+
+            <Button Margin="0 64 0 0" Command="{CompiledBinding ShowSettings}" HorizontalAlignment="Center">
+                Finish
+            </Button>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -1,7 +1,7 @@
 {
   "Guid": "184ce933-b8ff-465f-b3d2-a23a17b35f65",
   "Name": "Philips Hue",
-  "Author": "SpoinkyNL",
+  "Author": "Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Resources/hue.svg",

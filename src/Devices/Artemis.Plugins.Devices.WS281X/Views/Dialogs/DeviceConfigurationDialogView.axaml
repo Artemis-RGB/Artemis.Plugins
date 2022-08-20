@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogs="clr-namespace:Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs"
+             xmlns:shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Devices.WS281X.Views.Dialogs.DeviceConfigurationDialogView"
+             x:DataType="dialogs:DeviceConfigurationDialogViewModel">
+    <UserControl.Styles>
+        <Style Selector="Label">
+            <Setter Property="Margin" Value="0 5 0 0"/>
+        </Style>
+    </UserControl.Styles>
+    <StackPanel>
+        <Label>Display name:</Label>
+        <TextBox Watermark="Enter a name" Text="{CompiledBinding Name}" />
+
+        <Label>Device type:</Label>
+        <shared:EnumComboBox Value="{CompiledBinding Type}"/>
+
+        <StackPanel IsVisible="{CompiledBinding !IsUdpBased}" HorizontalAlignment="Stretch">
+            <Label>COM port:</Label>
+            <ComboBox HorizontalAlignment="Stretch" SelectedItem="{CompiledBinding Port}" Items="{CompiledBinding Ports}"/>
+        </StackPanel>
+
+        <StackPanel IsVisible="{CompiledBinding IsUdpBased}" HorizontalAlignment="Stretch">
+            <Label>Hostname:</Label>
+            <TextBox Watermark="Enter a hostname or IP" Text="{CompiledBinding Hostname}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,12 @@
+﻿{
+  "Guid": "7c490c59-b98c-4c7e-914d-e586f333a3f0",
+  "Name": "Processes module",
+  "Author": "Robert & Cheerpipe",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "Application",
+  "Description": "This modules gives information about running processes like executable file path, icon colors and opened windows.",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Modules.Processes.dll",
+  "Platforms": "Windows"
+}

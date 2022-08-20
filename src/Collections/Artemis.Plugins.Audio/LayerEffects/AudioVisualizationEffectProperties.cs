@@ -24,7 +24,7 @@ namespace Artemis.Plugins.Audio.LayerEffects
         [Description("Right")] Right = 2
     }
 
-    public class AudioVisualizationEffectProperties : LayerPropertyGroup
+    public class AudioVisualizationEffectProperties : LayerEffectPropertyGroup
     {
         #region Properties & Fields
 
@@ -40,19 +40,19 @@ namespace Artemis.Plugins.Audio.LayerEffects
         [PropertyDescription(Description = "The number of bars to display", MinInputValue = 1, MaxInputValue = 96)]
         public IntLayerProperty Bars { get; set; }
 
-        [PropertyDescription(Description = "The amount of smoothing", MinInputValue = 1, MaxInputValue = 10)]
+        [PropertyDescription(Description = "The amount of smoothing", MinInputValue = 1f, MaxInputValue = 10f)]
         public FloatLayerProperty Smoothing { get; set; }
 
-        [PropertyDescription(Description = "The minimum frequency", MinInputValue = 0, MaxInputValue = 22100)]
+        [PropertyDescription(Description = "The minimum frequency", MinInputValue = 0f, MaxInputValue = 22100f)]
         public FloatLayerProperty MinFrequency { get; set; }
 
-        [PropertyDescription(Description = "The maximum frequency", MinInputValue = 0, MaxInputValue = 22100)]
+        [PropertyDescription(Description = "The maximum frequency", MinInputValue = 0f, MaxInputValue = 22100f)]
         public FloatLayerProperty MaxFrequency { get; set; }
 
-        [PropertyDescription(Description = "The reference-level", MinInputValue = 1, MaxInputValue = 240)]
+        [PropertyDescription(Description = "The reference-level", MinInputValue = 1f, MaxInputValue = 240f)]
         public FloatLayerProperty ReferenceLevel { get; set; }
 
-        [PropertyDescription(Description = "The amount of peak-emphasization", MinInputValue = 0, MaxInputValue = 2)]
+        [PropertyDescription(Description = "The amount of peak-emphasization", MinInputValue = 0f, MaxInputValue = 2f)]
         public FloatLayerProperty EmphasisePeaks { get; set; }
 
         [PropertyDescription(Description = "The gamma-value used when spectrum-mode is gamma", MinInputValue = 1, MaxInputValue = 6)]

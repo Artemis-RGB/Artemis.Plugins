@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.LayerEffect.Strobe.PropertyGroups
 {
-    public class MainPropertyGroup : LayerPropertyGroup
+    public class MainPropertyGroup : LayerEffectPropertyGroup
     {
         [PropertyDescription(Description = "How often to strobe per second", InputAffix = "p/s", MinInputValue = 0, MaxInputValue = 10)]
         public FloatLayerProperty Speed { get; set; }

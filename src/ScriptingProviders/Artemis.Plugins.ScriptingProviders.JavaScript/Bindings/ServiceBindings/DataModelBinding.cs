@@ -49,7 +49,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
                 engine.SetValue(variableName, dataModel);
                 engine.Execute($"DataModel.{name} = {variableName}");
 
-                DataModelPath Create(DataModel d, string p)
+                engine.SetValue("DataModelGetPath", (DataModel d, string p) =>
                 {
                     DataModelPath path = new(d, p);
 
@@ -61,9 +61,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
 
                     engineManager.Disposed += OnEngineManagerOnDisposed;
                     return path;
-                }
-
-                engine.SetValue("DataModelGetPath", (Func<DataModel, string, DataModelPath>) Create);
+                });
                 engine.Execute("DataModel.GetPath = DataModelGetPath");
             }
         }

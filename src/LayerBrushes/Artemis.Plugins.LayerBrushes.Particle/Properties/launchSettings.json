@@ -1,10 +1,9 @@
 {
   "profiles": {
-    "ModuleProject": {
+    "Artemis - Windows": {
       "commandName": "Executable",
-      "executablePath": ".\\Artemis.UI.exe",
-      "commandLineArgs": "--pcmr",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"
+      "executablePath": ".\\Artemis.UI.Windows.exe",
+      "workingDirectory": "C:\\Repos\\Artemis\\src\\Artemis.UI.Windows\\bin"
     }
   }
 }

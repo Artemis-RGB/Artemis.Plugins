@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
-    public class BlurEffectProperties : LayerPropertyGroup
+    public class BlurEffectProperties : LayerEffectPropertyGroup
     {
         [PropertyDescription(Description = "The amount of blur to apply")]
         public SKSizeLayerProperty BlurAmount { get; set; }

@@ -9,76 +9,78 @@ using Q42.HueApi.Streaming;
 using Q42.HueApi.Streaming.Models;
 using RGB.NET.Core;
 
-namespace Artemis.Plugins.PhilipsHue.RGB.NET
+namespace Artemis.Plugins.PhilipsHue.RGB.NET;
+
+public class HueRGBDeviceProvider : AbstractRGBDeviceProvider
 {
-    public class HueRGBDeviceProvider : AbstractRGBDeviceProvider
+    #region Constructors
+
+    public HueRGBDeviceProvider()
     {
-        #region Constructors
+        if (_instance != null) throw new InvalidOperationException($"There can be only one instance of type {nameof(HueRGBDeviceProvider)}");
+        _instance = this;
+    }
 
-        public HueRGBDeviceProvider()
+    #endregion
+
+    #region Properties & Fields
+
+    private static HueRGBDeviceProvider _instance;
+
+    public static HueRGBDeviceProvider Instance => _instance ?? new HueRGBDeviceProvider();
+    public List<HueClientDefinition> ClientDefinitions { get; } = new();
+
+    #endregion
+
+    #region Methods
+
+    /// <inheritdoc />
+    protected override void InitializeSDK()
+    {
+        // Each client definition has its own connection initialized in LoadDevices
+    }
+
+    /// <inheritdoc />
+    protected override IEnumerable<IRGBDevice> LoadDevices()
+    {
+        HueDeviceUpdateTrigger updateTrigger = (HueDeviceUpdateTrigger) GetUpdateTrigger();
+
+        foreach (HueClientDefinition clientDefinition in ClientDefinitions)
         {
-            if (_instance != null) throw new InvalidOperationException($"There can be only one instance of type {nameof(HueRGBDeviceProvider)}");
-            _instance = this;
-        }
+            // Create a temporary for this definition 
+            ILocalHueClient client = new LocalHueClient(clientDefinition.Ip);
+            client.Initialize(clientDefinition.AppKey);
 
-        #endregion
+            // Get the entertainment groups, no point continuing without any entertainment groups
+            IReadOnlyList<Group> entertainmentGroups = AsyncHelper.RunSync(client.GetEntertainmentGroups);
+            if (!entertainmentGroups.Any())
+                continue;
 
-        #region Properties & Fields
+            // Get all lights once, all devices can use this list to identify themselves
+            List<Light> lights = AsyncHelper.RunSync(client.GetLightsAsync).ToList();
 
-        private static HueRGBDeviceProvider _instance;
-
-        public static HueRGBDeviceProvider Instance => _instance ?? new HueRGBDeviceProvider();
-        public List<HueClientDefinition> ClientDefinitions { get; } = new();
-
-        #endregion
-
-        #region Methods
-
-        /// <inheritdoc />
-        protected override void InitializeSDK()
-        {
-            // Each client definition has its own connection initialized in LoadDevices
-        }
-
-        /// <inheritdoc />
-        protected override IEnumerable<IRGBDevice> LoadDevices()
-        {
-            HueDeviceUpdateTrigger updateTrigger = (HueDeviceUpdateTrigger) GetUpdateTrigger();
-
-            foreach (HueClientDefinition clientDefinition in ClientDefinitions)
+            foreach (Group entertainmentGroup in entertainmentGroups.OrderBy(g => int.Parse(g.Id)))
             {
-                // Create a temporary for this definition 
-                ILocalHueClient client = new LocalHueClient(clientDefinition.Ip);
-                client.Initialize(clientDefinition.AppKey);
+                StreamingHueClient streamingClient = new(clientDefinition.Ip, clientDefinition.AppKey, clientDefinition.ClientKey);
+                StreamingGroup streamingGroup = new(entertainmentGroup.Locations);
+                AsyncHelper.RunSync(async () => await streamingClient.Connect(entertainmentGroup.Id));
 
-                // Get the entertainment groups, no point continuing without any entertainment groups
-                IReadOnlyList<Group> entertainmentGroups = AsyncHelper.RunSync(client.GetEntertainmentGroups);
-                if (!entertainmentGroups.Any())
-                    continue;
-
-                // Get all lights once, all devices can use this list to identify themselves
-                List<Light> lights = AsyncHelper.RunSync(client.GetLightsAsync).ToList();
-
-                foreach (Group entertainmentGroup in entertainmentGroups.OrderBy(g => int.Parse(g.Id)))
+                updateTrigger.ClientGroups.Add(streamingClient, streamingGroup);
+                foreach (string lightId in entertainmentGroup.Lights.OrderBy(int.Parse))
                 {
-                    StreamingHueClient streamingClient = new(clientDefinition.Ip, clientDefinition.AppKey, clientDefinition.ClientKey);
-                    StreamingGroup streamingGroup = new(entertainmentGroup.Locations);
-                    AsyncHelper.RunSync(async () => await streamingClient.Connect(entertainmentGroup.Id));
-                    
-                    updateTrigger.ClientGroups.Add(streamingClient, streamingGroup);
-                    foreach (string lightId in entertainmentGroup.Lights.OrderBy(int.Parse))
-                    {
-                        HueDeviceInfo deviceInfo = new(entertainmentGroup, lightId, lights);
-                        HueDevice device = new(deviceInfo, new HueUpdateQueue(updateTrigger, lightId, streamingGroup));
-                        yield return device;
-                    }
+                    HueDeviceInfo deviceInfo = new(entertainmentGroup, lightId, lights);
+                    HueDevice device = new(deviceInfo, new HueUpdateQueue(updateTrigger, lightId, streamingGroup));
+                    yield return device;
                 }
             }
         }
-
-        /// <inheritdoc />
-        protected override IDeviceUpdateTrigger CreateUpdateTrigger(int id, double updateRateHardLimit) => new HueDeviceUpdateTrigger();
-
-        #endregion
     }
+
+    /// <inheritdoc />
+    protected override IDeviceUpdateTrigger CreateUpdateTrigger(int id, double updateRateHardLimit)
+    {
+        return new HueDeviceUpdateTrigger();
+    }
+
+    #endregion
 }

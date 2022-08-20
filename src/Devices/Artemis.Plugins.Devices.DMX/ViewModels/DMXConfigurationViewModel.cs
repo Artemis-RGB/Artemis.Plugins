@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Threading.Tasks;
-using System.Windows.Navigation;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.DMX.Settings;
 using Artemis.Plugins.Devices.DMX.ViewModels.Dialogs;
 using Artemis.UI.Shared;
-using Ninject;
-using Ninject.Parameters;
-using Stylet;
+using Artemis.UI.Shared.Services;
+using DynamicData;
+using ReactiveUI;
 
 namespace Artemis.Plugins.Devices.DMX.ViewModels
 {
@@ -17,83 +18,80 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
         private readonly PluginSetting<List<DeviceDefinition>> _definitions;
         private readonly IPluginManagementService _pluginManagementService;
         private readonly PluginSettings _settings;
-        private readonly IWindowManager _windowManager;
-        private bool _turnOffLedsOnShutdown;
+        private readonly IWindowService _windowService;
 
-        public DMXConfigurationViewModel(Plugin plugin, PluginSettings settings, IWindowManager windowManager, IPluginManagementService pluginManagementService)
+        public DMXConfigurationViewModel(Plugin plugin, PluginSettings settings, IWindowService windowService, IPluginManagementService pluginManagementService)
             : base(plugin)
         {
             _settings = settings;
-            _windowManager = windowManager;
+            _windowService = windowService;
             _pluginManagementService = pluginManagementService;
             _definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
 
-            TurnOffLedsOnShutdown = _settings.GetSetting("TurnOffLedsOnShutdown", false).Value;
-            Definitions = new BindableCollection<DeviceDefinition>(_definitions.Value);
+            Definitions = new ObservableCollection<DeviceDefinition>(_definitions.Value);
+            TurnOffLedsOnShutdown = _settings.GetSetting("TurnOffLedsOnShutdown", false);
+
+            AddDevice = ReactiveCommand.CreateFromTask(ExecuteAddDevice);
+            EditDevice = ReactiveCommand.CreateFromTask<DeviceDefinition>(ExecuteEditDevice);
+            RemoveDevice = ReactiveCommand.Create<DeviceDefinition>(ExecuteRemoveDevice);
+            Save = ReactiveCommand.Create(ExecuteSave);
+            Cancel = ReactiveCommand.CreateFromTask(ExecuteCancel);
         }
 
-        public BindableCollection<DeviceDefinition> Definitions { get; }
+        public ReactiveCommand<Unit, Unit> AddDevice { get; }
+        public ReactiveCommand<DeviceDefinition, Unit> EditDevice { get; }
+        public ReactiveCommand<DeviceDefinition, Unit> RemoveDevice { get; }
+        public ReactiveCommand<Unit, Unit> Save { get; }
+        public ReactiveCommand<Unit, Unit> Cancel { get; }
 
-        public bool TurnOffLedsOnShutdown
-        {
-            get => _turnOffLedsOnShutdown;
-            set => SetAndNotify(ref _turnOffLedsOnShutdown, value);
-        }
+        public ObservableCollection<DeviceDefinition> Definitions { get; }
+        public PluginSetting<bool> TurnOffLedsOnShutdown { get; }
 
-        public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
-        {
-            Utilities.OpenUrl(e.Uri.AbsoluteUri);
-        }
-
-        public void AddDevice()
+        private async Task ExecuteAddDevice()
         {
             DeviceDefinition device = new()
             {
                 Name = $"Device {_definitions.Value.Count + 1}",
                 Port = 5568,
-                Manufacturer = "Unknown",
-                Model = "Generic DMX device"
+                Universe = 1
             };
-            bool? result = _windowManager.ShowDialog(
-                Plugin.Kernel!.Get<DeviceConfigurationDialogViewModel>(new ConstructorArgument("device", device))
-            );
-
-            if (!result.HasValue || result == false)
+            if (await _windowService.ShowDialogAsync<DeviceConfigurationDialogViewModel, DeviceDialogResult>(("device", device)) != DeviceDialogResult.Save)
                 return;
 
             _definitions.Value.Add(device);
             Definitions.Add(device);
-
-            _definitions.Save();
         }
 
-        public void EditDevice(DeviceDefinition device)
+        private async Task ExecuteEditDevice(DeviceDefinition device)
         {
-            bool? result = _windowManager.ShowDialog(
-                Plugin.Kernel!.Get<DeviceConfigurationDialogViewModel>(new ConstructorArgument("device", device))
-            );
-
-            if (!result.HasValue || result == false)
-                return;
-
-            _definitions.Save();
+            if (await _windowService.ShowDialogAsync<DeviceConfigurationDialogViewModel, DeviceDialogResult>(("device", device)) == DeviceDialogResult.Remove)
+                Definitions.Remove(device);
         }
 
-        public void RemoveDevice(DeviceDefinition device)
+        private async Task ExecuteCancel()
+        {
+            if (TurnOffLedsOnShutdown.HasChanged || _definitions.HasChanged)
+            {
+                if (!await _windowService.ShowConfirmContentDialog("Discard changes", "Do you want to discard any changes you made?"))
+                    return;
+            }
+
+            _definitions.RejectChanges();
+            _settings.GetSetting("TurnOffLedsOnShutdown", false).RejectChanges();
+
+            Close();
+        }
+
+        private void ExecuteRemoveDevice(DeviceDefinition device)
         {
             _definitions.Value.Remove(device);
             Definitions.Remove(device);
-
-            _definitions.Save();
         }
 
-        #region Overrides of Screen
-
-        /// <inheritdoc />
-        protected override void OnClose()
+        private void ExecuteSave()
         {
-            _settings.GetSetting("TurnOffLedsOnShutdown", false).Value = TurnOffLedsOnShutdown;
-            _settings.GetSetting("TurnOffLedsOnShutdown", false).Save();
+            _definitions.Save();
+            TurnOffLedsOnShutdown.Save();
 
             // Fire & forget re-enabling the plugin
             Task.Run(() =>
@@ -104,9 +102,7 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
                 _pluginManagementService.EnablePluginFeature(deviceProvider, false);
             });
 
-            base.OnClose();
+            Close();
         }
-
-        #endregion
     }
 }

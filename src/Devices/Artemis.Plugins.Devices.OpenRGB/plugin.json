@@ -1,10 +1,10 @@
 {
   "Guid": "821cf18b-2bbe-4877-b68f-d6a2a8bddc28",
-  "Name": "OpenRGB Device",
+  "Name": "OpenRGB Devices",
   "Author": "DrMeteor",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
-  "Icon": "OpenRGB.svg",
+  "Icon": "OpenRGB.png",
   "Description": "OpenRGB device support",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.OpenRGB.dll",

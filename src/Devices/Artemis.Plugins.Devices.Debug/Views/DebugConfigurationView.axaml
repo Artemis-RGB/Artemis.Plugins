@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Devices.Debug.Views.DebugConfigurationView">
+    <Grid Margin="15" RowDefinitions="Auto,Auto,*,Auto">
+        <StackPanel>
+            <TextBlock TextWrapping="Wrap">
+                Enter absolute paths to the device layout and choose the image layout you wish to test.
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                Please note that currently RGB.NET does not support changing devices on runtime and so any changes below won't be applied until you restart Artemis.
+            </TextBlock>
+        </StackPanel>
+
+        <Separator Grid.Row="1" />
+
+        <Border Classes="card" Grid.Row="2" Margin="0 10">
+            <DataGrid Items="{Binding Definitions}"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="True"
+                      HeadersVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Layout}"
+                                        Header="Layout path" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding ImageLayout}"
+                                        Header="Image layout (optional)" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
+            <Button Command="{Binding AddDefinition}">
+                Add definition
+            </Button>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+				<Button Classes="accent" Margin="0 0 5 0" Command="{Binding SaveChanges}">
+                    Save changes
+                </Button>
+                <Button Command="{Binding Cancel}">
+                    Cancel
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

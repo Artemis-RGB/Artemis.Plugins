@@ -7,5 +7,6 @@
   "Description": "Some super awesome audio-visualization effect and data models.",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Audio.dll",
-  "AutoEnableFeatures": true
+  "AutoEnableFeatures": true,
+  "Platforms":"Windows"
 }

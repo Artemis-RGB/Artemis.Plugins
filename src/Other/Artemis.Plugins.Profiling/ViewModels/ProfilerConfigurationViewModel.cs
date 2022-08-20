@@ -1,236 +1,265 @@
 ﻿using System;
 using System.IO;
+using System.Reactive;
+using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
-using MaterialDesignThemes.Wpf;
-using Ookii.Dialogs.Wpf;
+using Artemis.UI.Shared.Services.Builders;
+using ReactiveUI;
 
-namespace Artemis.Plugins.Profiling.ViewModels
+namespace Artemis.Plugins.Profiling.ViewModels;
+
+public class ProfilerConfigurationViewModel : PluginConfigurationViewModel
 {
-    public class ProfilerConfigurationViewModel : PluginConfigurationViewModel
+    private readonly INotificationService _notificationService;
+    private readonly IWindowService _windowService;
+
+    private CpuProfiler _cpuProfiler;
+    private bool _isCpuBusy;
+    private bool _isMemoryBusy;
+    private bool _isProfilingCpu;
+    private bool _isProfilingMemory;
+    private MemoryProfiler _memoryProfiler;
+
+    public ProfilerConfigurationViewModel(Plugin plugin, IPluginManagementService pluginManagementService, IWindowService windowService, INotificationService notificationService) : base(plugin)
     {
-        private readonly IDialogService _dialogService;
-        private readonly IPluginManagementService _pluginManagementService;
-        private CpuProfiler _cpuProfiler;
-        private bool _isCpuBusy;
-        private bool _isMemoryBusy;
+        _windowService = windowService;
+        _notificationService = notificationService;
 
-        private bool _isProfilingCpu;
-        private bool _isProfilingMemory;
-        private MemoryProfiler _memoryProfiler;
+        StartCpuProfiling = ReactiveCommand.CreateFromTask(ExecuteStartCpuProfiling, this.WhenAnyValue(vm => vm.IsCpuProfilerAvailable));
+        StopCpuProfiling = ReactiveCommand.CreateFromTask(ExecuteStopCpuProfiling, this.WhenAnyValue(vm => vm.IsProfilingCpu, vm => vm.IsCpuBusy, (p, b) => p && !b));
+        TakeCpuSnapshot = ReactiveCommand.CreateFromTask(ExecuteTakeCpuSnapshot, this.WhenAnyValue(vm => vm.IsCpuBusy, b => !b));
 
-        public ProfilerConfigurationViewModel(Plugin plugin, IPluginManagementService pluginManagementService, IDialogService dialogService) : base(plugin)
+        StartMemoryProfiling = ReactiveCommand.CreateFromTask(ExecuteStartMemoryProfiling, this.WhenAnyValue(vm => vm.IsMemoryProfilerAvailable));
+        StopMemoryProfiling = ReactiveCommand.CreateFromTask(ExecuteStopMemoryProfiling, this.WhenAnyValue(vm => vm.IsProfilingMemory, vm => vm.IsMemoryBusy, (p, b) => p && !b));
+        TakeMemorySnapshot = ReactiveCommand.CreateFromTask(ExecuteTakeMemorySnapshot, this.WhenAnyValue(vm => vm.IsMemoryBusy, b => !b));
+
+        this.WhenActivated(d =>
         {
-            _pluginManagementService = pluginManagementService;
-            _dialogService = dialogService;
-            ProfilingMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(3));
-        }
-
-        public SnackbarMessageQueue ProfilingMessageQueue { get; }
-
-        public bool IsCpuProfilerAvailable => _cpuProfiler != null;
-        public bool IsMemoryProfilerAvailable => _memoryProfiler != null;
-
-        public bool IsCpuBusy
-        {
-            get => _isCpuBusy;
-            set => SetAndNotify(ref _isCpuBusy, value);
-        }
-
-        public bool IsMemoryBusy
-        {
-            get => _isMemoryBusy;
-            set => SetAndNotify(ref _isMemoryBusy, value);
-        }
-
-        public bool IsProfilingCpu
-        {
-            get => _isProfilingCpu;
-            set => SetAndNotify(ref _isProfilingCpu, value);
-        }
-
-        public bool IsProfilingMemory
-        {
-            get => _isProfilingMemory;
-            set => SetAndNotify(ref _isProfilingMemory, value);
-        }
-
-        public void StartCpuProfiling()
-        {
-            if (_cpuProfiler == null || IsCpuBusy)
-                return;
-
-            VistaFolderBrowserDialog dialog = new() {Description = "Profile result directory"};
-            bool? result = dialog.ShowDialog();
-            if (result is not true)
-                return;
-
-            IsCpuBusy = true;
-            if (!Directory.Exists(dialog.SelectedPath))
-                Directory.CreateDirectory(dialog.SelectedPath);
-
-            Task.Run(() =>
-            {
-                try
-                {
-                    _cpuProfiler.StartProfiling(dialog.SelectedPath);
-                    IsProfilingCpu = _cpuProfiler.Profiling;
-                    IsCpuBusy = false;
-
-                    ProfilingMessageQueue.Enqueue("Started CPU profiling");
-                }
-                catch (Exception e)
-                {
-                    _dialogService.ShowExceptionDialog("An error occurred while starting CPU profiling", e);
-                }
-            });
-        }
-
-        public void TakeCpuSnapshot()
-        {
-            if (_cpuProfiler == null || !IsProfilingCpu)
-                return;
-
-            _cpuProfiler.TakeSnapshot();
-            ProfilingMessageQueue.Enqueue("Took CPU snapshot");
-        }
-
-        public void StopCpuProfiling()
-        {
-            if (_cpuProfiler == null || IsCpuBusy)
-                return;
-
-            Task.Run(() =>
-            {
-                try
-                {
-                    IsCpuBusy = true;
-                    _cpuProfiler.StopProfiling();
-                    IsProfilingCpu = _cpuProfiler.Profiling;
-                    IsCpuBusy = false;
-
-                    ProfilingMessageQueue.Enqueue("Finished CPU profiling");
-                }
-                catch (Exception e)
-                {
-                    _dialogService.ShowExceptionDialog("An error occurred while stopping CPU profiling", e);
-                }
-            });
-        }
-
-        public void StartMemoryProfiling()
-        {
-            if (_memoryProfiler == null || IsMemoryBusy)
-                return;
-
-            VistaFolderBrowserDialog dialog = new() {Description = "Profile result directory"};
-            bool? result = dialog.ShowDialog();
-            if (result is not true)
-                return;
-
-            IsMemoryBusy = true;
-            if (!Directory.Exists(dialog.SelectedPath))
-                Directory.CreateDirectory(dialog.SelectedPath);
-
-            Task.Run(() =>
-            {
-                try
-                {
-                    _memoryProfiler.StartProfiling(dialog.SelectedPath);
-                    IsProfilingMemory = _memoryProfiler.Profiling;
-                    IsMemoryBusy = false;
-
-                    ProfilingMessageQueue.Enqueue("Started memory profiling");
-                }
-                catch (Exception e)
-                {
-                    _dialogService.ShowExceptionDialog("An error occurred while starting memory profiling", e);
-                }
-            });
-        }
-
-        public void TakeMemorySnapshot()
-        {
-            if (_memoryProfiler == null || !IsProfilingMemory)
-                return;
-
-            _memoryProfiler.TakeSnapshot();
-            ProfilingMessageQueue.Enqueue("Took memory snapshot");
-        }
-
-        public void StopMemoryProfiling()
-        {
-            if (_memoryProfiler == null || IsMemoryBusy)
-                return;
-
-            Task.Run(() =>
-            {
-                try
-                {
-                    IsMemoryBusy = true;
-                    _memoryProfiler.StopProfiling();
-                    IsProfilingMemory = _memoryProfiler.Profiling;
-                    IsMemoryBusy = false;
-
-                    ProfilingMessageQueue.Enqueue("Finished memory profiling");
-                }
-                catch (Exception e)
-                {
-                    _dialogService.ShowExceptionDialog("An error occurred while stopping memory profiling", e);
-                }
-            });
-        }
-
-        protected override void OnInitialActivate()
-        {
-            _pluginManagementService.PluginFeatureEnabled += PluginManagementServiceOnPluginFeatureEnabled;
-            _pluginManagementService.PluginFeatureDisabled += PluginManagementServiceOnPluginFeatureEnabled;
+            pluginManagementService.PluginFeatureEnabled += PluginManagementServiceOnPluginFeatureEnabled;
+            pluginManagementService.PluginFeatureDisabled += PluginManagementServiceOnPluginFeatureEnabled;
             GetProfilers();
 
-            base.OnInitialActivate();
-        }
+            Disposable.Create(() =>
+            {
+                pluginManagementService.PluginFeatureEnabled -= PluginManagementServiceOnPluginFeatureEnabled;
+                pluginManagementService.PluginFeatureDisabled -= PluginManagementServiceOnPluginFeatureEnabled;
+            }).DisposeWith(d);
+        });
+    }
 
-        protected override void OnClose()
+    public ReactiveCommand<Unit, Unit> StartCpuProfiling { get; }
+    public ReactiveCommand<Unit, Unit> StopCpuProfiling { get; }
+    public ReactiveCommand<Unit, Unit> TakeCpuSnapshot { get; }
+    public ReactiveCommand<Unit, Unit> StartMemoryProfiling { get; }
+    public ReactiveCommand<Unit, Unit> StopMemoryProfiling { get; }
+    public ReactiveCommand<Unit, Unit> TakeMemorySnapshot { get; }
+
+    public bool IsCpuProfilerAvailable => _cpuProfiler != null;
+    public bool IsMemoryProfilerAvailable => _memoryProfiler != null;
+
+    public bool IsCpuBusy
+    {
+        get => _isCpuBusy;
+        set => RaiseAndSetIfChanged(ref _isCpuBusy, value);
+    }
+
+    public bool IsMemoryBusy
+    {
+        get => _isMemoryBusy;
+        set => RaiseAndSetIfChanged(ref _isMemoryBusy, value);
+    }
+
+    public bool IsProfilingCpu
+    {
+        get => _isProfilingCpu;
+        set => RaiseAndSetIfChanged(ref _isProfilingCpu, value);
+    }
+
+    public bool IsProfilingMemory
+    {
+        get => _isProfilingMemory;
+        set => RaiseAndSetIfChanged(ref _isProfilingMemory, value);
+    }
+
+    private async Task ExecuteStartCpuProfiling()
+    {
+        if (_cpuProfiler == null || IsCpuBusy)
+            return;
+
+        string folder = await _windowService.CreateOpenFolderDialog().WithTitle("Profile result directory").ShowAsync();
+        if (folder == null)
+            return;
+
+        IsCpuBusy = true;
+        try
         {
-            _pluginManagementService.PluginFeatureEnabled -= PluginManagementServiceOnPluginFeatureEnabled;
-            _pluginManagementService.PluginFeatureDisabled -= PluginManagementServiceOnPluginFeatureEnabled;
-            base.OnClose();
+            await Task.Run(() =>
+            {
+                if (!Directory.Exists(folder))
+                    Directory.CreateDirectory(folder);
+                _cpuProfiler.StartProfiling(folder);
+            });
+            _notificationService.CreateNotification().WithMessage("Started CPU profiling").Show();
         }
-
-        private void PluginManagementServiceOnPluginFeatureEnabled(object sender, PluginFeatureEventArgs e)
+        catch (Exception e)
         {
-            GetProfilers();
+            _windowService.ShowExceptionDialog("An error occurred while starting CPU profiling", e);
         }
-
-        private void GetProfilers()
+        finally
         {
-            if (Plugin.GetFeature<CpuProfiler>()?.IsEnabled == true)
-            {
-                _cpuProfiler = Plugin.GetFeature<CpuProfiler>();
-                IsProfilingCpu = _cpuProfiler!.Profiling;
-            }
-            else
-            {
-                _cpuProfiler = null;
-                IsProfilingCpu = false;
-            }
-
-            if (Plugin.GetFeature<MemoryProfiler>()?.IsEnabled == true)
-            {
-                _memoryProfiler = Plugin.GetFeature<MemoryProfiler>();
-                IsProfilingMemory = _memoryProfiler!.Profiling;
-            }
-            else
-            {
-                _memoryProfiler = null;
-                IsProfilingMemory = false;
-            }
-
-            NotifyOfPropertyChange(nameof(IsCpuProfilerAvailable));
-            NotifyOfPropertyChange(nameof(IsMemoryProfilerAvailable));
+            IsProfilingCpu = _cpuProfiler.Profiling;
+            IsCpuBusy = false;
         }
+    }
+
+    private async Task ExecuteTakeCpuSnapshot()
+    {
+        IsCpuBusy = true;
+        try
+        {
+            await Task.Run(() => _cpuProfiler.TakeSnapshot());
+            _notificationService.CreateNotification().WithSeverity(NotificationSeverity.Success).WithMessage("Took CPU snapshot").Show();
+        }
+        catch (Exception e)
+        {
+            _windowService.ShowExceptionDialog("An error occurred while taking CPU snapshot", e);
+        }
+        finally
+        {
+            IsCpuBusy = false;
+        }
+    }
+
+    private async Task ExecuteStopCpuProfiling()
+    {
+        if (_cpuProfiler == null || IsCpuBusy)
+            return;
+
+        IsCpuBusy = true;
+        try
+        {
+            await Task.Run(() => _cpuProfiler.StopProfiling());
+            _notificationService.CreateNotification().WithSeverity(NotificationSeverity.Success).WithMessage("Finished CPU profiling").Show();
+        }
+        catch (Exception e)
+        {
+            _windowService.ShowExceptionDialog("An error occurred while stopping CPU profiling", e);
+        }
+        finally
+        {
+            IsProfilingCpu = _cpuProfiler.Profiling;
+            IsCpuBusy = false;
+        }
+    }
+
+    private async Task ExecuteStartMemoryProfiling()
+    {
+        if (_memoryProfiler == null || IsMemoryBusy)
+            return;
+
+        string folder = await _windowService.CreateOpenFolderDialog().WithTitle("Profile result directory").ShowAsync();
+        if (folder == null)
+            return;
+
+        IsMemoryBusy = true;
+        try
+        {
+            await Task.Run(() =>
+            {
+                if (!Directory.Exists(folder))
+                    Directory.CreateDirectory(folder);
+                _memoryProfiler.StartProfiling(folder);
+            });
+            _notificationService.CreateNotification().WithMessage("Started memory profiling").Show();
+        }
+        catch (Exception e)
+        {
+            _windowService.ShowExceptionDialog("An error occurred while starting memory profiling", e);
+        }
+        finally
+        {
+            IsProfilingMemory = _memoryProfiler.Profiling;
+            IsMemoryBusy = false;
+        }
+    }
+
+    private async Task ExecuteTakeMemorySnapshot()
+    {
+        if (_memoryProfiler == null || !IsProfilingMemory)
+            return;
+
+        IsMemoryBusy = true;
+        try
+        {
+            await Task.Run(() => _memoryProfiler.TakeSnapshot());
+            _notificationService.CreateNotification().WithSeverity(NotificationSeverity.Success).WithMessage("Took memory snapshot").Show();
+        }
+        catch (Exception e)
+        {
+            _windowService.ShowExceptionDialog("An error occurred while taking memory snapshot", e);
+        }
+        finally
+        {
+            IsMemoryBusy = false;
+        }
+    }
+
+    private async Task ExecuteStopMemoryProfiling()
+    {
+        if (_memoryProfiler == null || IsMemoryBusy)
+            return;
+
+        IsMemoryBusy = true;
+        try
+        {
+            await Task.Run(() => _memoryProfiler.StopProfiling());
+            _notificationService.CreateNotification().WithSeverity(NotificationSeverity.Success).WithMessage("Finished memory profiling").Show();
+        }
+        catch (Exception e)
+        {
+            _windowService.ShowExceptionDialog("An error occurred while stopping memory profiling", e);
+        }
+        finally
+        {
+            IsProfilingMemory = _memoryProfiler.Profiling;
+            IsMemoryBusy = false;
+        }
+    }
+
+    private void PluginManagementServiceOnPluginFeatureEnabled(object sender, PluginFeatureEventArgs e)
+    {
+        GetProfilers();
+    }
+
+    private void GetProfilers()
+    {
+        if (Plugin.GetFeature<CpuProfiler>()?.IsEnabled == true)
+        {
+            _cpuProfiler = Plugin.GetFeature<CpuProfiler>();
+            IsProfilingCpu = _cpuProfiler!.Profiling;
+        }
+        else
+        {
+            _cpuProfiler = null;
+            IsProfilingCpu = false;
+        }
+
+        if (Plugin.GetFeature<MemoryProfiler>()?.IsEnabled == true)
+        {
+            _memoryProfiler = Plugin.GetFeature<MemoryProfiler>();
+            IsProfilingMemory = _memoryProfiler!.Profiling;
+        }
+        else
+        {
+            _memoryProfiler = null;
+            IsProfilingMemory = false;
+        }
+
+        this.RaisePropertyChanged(nameof(IsCpuProfilerAvailable));
+        this.RaisePropertyChanged(nameof(IsMemoryProfilerAvailable));
     }
 }

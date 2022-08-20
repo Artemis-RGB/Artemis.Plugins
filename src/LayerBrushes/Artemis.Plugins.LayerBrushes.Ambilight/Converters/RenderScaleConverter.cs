@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows.Data;
+using Avalonia.Data.Converters;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Converters
 {
-    [ValueConversion(typeof(bool), typeof(int))]
     public class RenderScaleConverter : IValueConverter
     {
         #region Methods

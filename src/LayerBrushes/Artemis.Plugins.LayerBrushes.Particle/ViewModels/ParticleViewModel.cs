@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Windows.Media;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
-using Stylet;
+using Artemis.UI.Shared;
+using Avalonia.Media;
+using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
 {
-    public class ParticleViewModel : Screen
+    public class ParticleViewModel : ViewModelBase
     {
         private readonly Random _rand;
         private ParticleType _particleType;
@@ -17,7 +18,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
         {
             _rand = new Random();
 
-            ParticleConfiguration = particleConfiguration;
+            ParticleConfiguration = new ParticleConfiguration(particleConfiguration);
             Update();
         }
 
@@ -26,25 +27,25 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
         public ParticleType ParticleType
         {
             get => _particleType;
-            set => SetAndNotify(ref _particleType, value);
+            set => RaiseAndSetIfChanged(ref _particleType, value);
         }
 
         public double PreviewWidth
         {
             get => _previewWidth;
-            set => SetAndNotify(ref _previewWidth, value);
+            set => RaiseAndSetIfChanged(ref _previewWidth, value);
         }
 
         public double PreviewHeight
         {
             get => _previewHeight;
-            set => SetAndNotify(ref _previewHeight, value);
+            set => RaiseAndSetIfChanged(ref _previewHeight, value);
         }
 
         public Geometry PathGeometry
         {
             get => _pathGeometry;
-            set => SetAndNotify(ref _pathGeometry, value);
+            set => RaiseAndSetIfChanged(ref _pathGeometry, value);
         }
 
         public bool IsRectangleType => ParticleType == ParticleType.Rectangle;
@@ -57,10 +58,10 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
             if (IsPathType)
                 PathGeometry = Geometry.Parse(ParticleConfiguration.Path);
 
-            NotifyOfPropertyChange(nameof(ParticleConfiguration));
-            NotifyOfPropertyChange(nameof(IsRectangleType));
-            NotifyOfPropertyChange(nameof(IsEllipseType));
-            NotifyOfPropertyChange(nameof(IsPathType));
+            this.RaisePropertyChanged(nameof(ParticleConfiguration));
+            this.RaisePropertyChanged(nameof(IsRectangleType));
+            this.RaisePropertyChanged(nameof(IsEllipseType));
+            this.RaisePropertyChanged(nameof(IsPathType));
 
             RandomizePreview();
         }

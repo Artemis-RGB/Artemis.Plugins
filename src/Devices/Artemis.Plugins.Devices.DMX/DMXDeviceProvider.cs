@@ -35,16 +35,19 @@ namespace Artemis.Plugins.Devices.DMX
                 E131DMXDeviceDefinition definition = new(deviceDefinition.Hostname)
                 {
                     Port = deviceDefinition.Port,
-                    Manufacturer = deviceDefinition.Manufacturer,
-                    Model = deviceDefinition.Model,
+                    Manufacturer = deviceDefinition.Manufacturer ?? "Artemis",
+                    Model = deviceDefinition.Model ?? "DMX Device",
                     Universe = deviceDefinition.Universe
                 };
-                foreach (LedDefinition ledDefinition in deviceDefinition.LedDefinitions.Where(l => l.LedId != LedId.Invalid))
+                
+                for (int i = 0; i < deviceDefinition.LedDefinitions.Count; i++)
                 {
+                    LedDefinition ledDefinition = deviceDefinition.LedDefinitions[i];
+                    LedId ledId = LedId.LedStripe1 + i;
                     int rChannel = ledDefinition.R;
                     int gChannel = ledDefinition.G;
                     int bChannel = ledDefinition.B;
-                    definition.AddLed(ledDefinition.LedId, (rChannel, c => c.GetR()), (gChannel, c => c.GetG()), (bChannel, c => c.GetB()));
+                    definition.AddLed(ledId, (rChannel, c => c.GetR()), (gChannel, c => c.GetG()), (bChannel, c => c.GetB()));
                 }
 
                 RGBDeviceProvider.Instance.AddDeviceDefinition(definition);

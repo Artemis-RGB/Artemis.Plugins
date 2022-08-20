@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "Artemis.Plugins.Devices.WS281X": {
+    "Artemis - Windows": {
       "commandName": "Executable",
-      "executablePath": ".\\Artemis.UI.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI\\bin\\net5.0-windows"
+      "executablePath": ".\\Artemis.UI.Windows.exe",
+      "workingDirectory": "C:\\Repos\\Artemis\\src\\Artemis.UI.Windows\\bin"
     }
   }
 }

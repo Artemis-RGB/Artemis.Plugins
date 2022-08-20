@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:views="clr-namespace:Artemis.Plugins.Devices.OpenRGB.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Devices.OpenRGB.Views.OpenRGBConfigurationDialogView">
+    <Grid Margin="15" RowDefinitions="Auto,Auto,300,Auto,Auto,*">
+        <TextBlock Grid.Row="0" Classes="h4">Manage servers</TextBlock>
+        <StackPanel Grid.Row="1">
+            <TextBlock TextWrapping="Wrap">
+                Enter absolute paths to the device layout and choose the image layout you wish to test.
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                Please note that currently RGB.NET does not support changing devices on runtime and so any changes below won't be applied until you restart Artemis.
+            </TextBlock>
+        </StackPanel>
+        <Border Grid.Row="2" Classes="card" Margin="0 10" ClipToBounds="True">
+            <DataGrid Items="{Binding Definitions}"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="True"
+                      HeadersVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding ClientName}"
+                                        Header="Client Name" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Ip}"
+                                        Header="IP Address" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Port}"
+                                        Header="Port" />
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding $parent[UserControl].DataContext.DeleteDefinition}"
+                                        CommandParameter="{Binding}"
+                                        Classes="icon-button"
+                                        ToolTip.Tip="Delete server configuration"
+                                        HorizontalAlignment="Center">
+                                    <avalonia:MaterialIcon Kind="Delete" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <TextBlock Grid.Row="3" Classes="h4">General</TextBlock>
+        <Border Grid.Row="4" Classes="card">
+            <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0">
+                    <TextBlock>
+                        Force using devices with no direct mode
+                    </TextBlock>
+                    <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                        If enabled, all OpenRGB devices are added, even those without a Direct mode.
+                    </TextBlock>
+                    <TextBlock Foreground="GoldenRod">
+                        This can cause hardware damage to some devices - use with caution &amp; at your own risk!
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                    <ToggleSwitch IsChecked="{Binding ForceAddAllDevices}" MinWidth="0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="5" ColumnDefinitions="*,Auto" VerticalAlignment="Bottom">
+            <Button Command="{Binding AddDefinition}">
+                Add definition
+            </Button>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Classes="accent" Margin="0 0 5 0" Command="{Binding SaveChanges}">
+                    Save changes
+                </Button>
+                <Button Command="{Binding Cancel}">
+                    Cancel
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

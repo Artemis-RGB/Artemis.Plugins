@@ -1,36 +1,35 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
-using Artemis.Core;
+using System.Reactive;
 using Artemis.Plugins.LayerBrushes.Particle.Models;
 using Artemis.UI.Shared;
-using Artemis.UI.Shared.Services;
-using FluentValidation;
-using FluentValidation.Validators;
+using ReactiveUI;
+using ReactiveUI.Validation.Extensions;
 using SkiaSharp;
-using Stylet;
 
 namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
 {
-    public class ParticleDialogViewModel : DialogViewModelBase
+    public class ParticleDialogViewModel : ContentDialogViewModelBase
     {
         private readonly ParticleConfiguration _particleConfiguration;
         private readonly ParticleViewModel _particleViewModel;
+        private readonly ObservableAsPropertyHelper<bool> _isCustomPath;
+
         private float _maxHeight;
-        private float _maxRotationVelocityX;
-        private float _maxRotationVelocityY;
-        private float _maxRotationVelocityZ;
+        private float _maxX;
+        private float _maxY;
+        private float _maxZ;
         private float _maxWidth;
         private float _minHeight;
-        private float _minRotationVelocityX;
-        private float _minRotationVelocityY;
-        private float _minRotationVelocityZ;
+        private float _minX;
+        private float _minY;
+        private float _minZ;
         private float _minWidth;
 
         private ParticleType _particleType;
         private string _path;
 
-        public ParticleDialogViewModel(ParticleViewModel particleViewModel, IModelValidator<ParticleDialogViewModel> validator) : base(validator)
+
+        public ParticleDialogViewModel(ParticleViewModel particleViewModel)
         {
             _particleViewModel = particleViewModel;
             _particleConfiguration = particleViewModel.ParticleConfiguration;
@@ -41,102 +40,103 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             MinHeight = _particleConfiguration.MinHeight;
             MaxHeight = _particleConfiguration.MaxHeight;
 
-            MinRotationVelocityX = _particleConfiguration.MinRotationVelocityX;
-            MaxRotationVelocityX = _particleConfiguration.MaxRotationVelocityX;
-            MinRotationVelocityY = _particleConfiguration.MinRotationVelocityY;
-            MaxRotationVelocityY = _particleConfiguration.MaxRotationVelocityY;
-            MinRotationVelocityZ = _particleConfiguration.MinRotationVelocityZ;
-            MaxRotationVelocityZ = _particleConfiguration.MaxRotationVelocityZ;
+            MinX = _particleConfiguration.MinRotationVelocityX;
+            MaxX = _particleConfiguration.MaxRotationVelocityX;
+            MinY = _particleConfiguration.MinRotationVelocityY;
+            MaxY = _particleConfiguration.MaxRotationVelocityY;
+            MinZ = _particleConfiguration.MinRotationVelocityZ;
+            MaxZ = _particleConfiguration.MaxRotationVelocityZ;
 
             Path = _particleConfiguration.Path;
+            Save = ReactiveCommand.Create(ExecuteSave, ValidationContext.Valid);
 
-            ParticleTypes = new BindableCollection<ValueDescription>(EnumUtilities.GetAllValuesAndDescriptions(typeof(ParticleType)));
+            _isCustomPath = this.WhenAnyValue(vm => vm.ParticleType, type => type == ParticleType.Path).ToProperty(this, vm => vm.IsCustomPath);
+            this.ValidationRule(
+                vm => vm.Path,
+                this.WhenAnyValue(vm => vm.ParticleType, vm => vm.Path, (type, path) => type != ParticleType.Path || IsPathValid(path)),
+                "Path must contain valid SVG path data"
+            );
+            
+            // Leaving this to NumberBox causes some issues with the value resetting
+            this.ValidationRule(vm => vm.MinWidth, this.WhenAnyValue(vm => vm.MinWidth, vm => vm.MaxWidth, (min, max) => min <= max), "Must be less than or equal to max width");
+            this.ValidationRule(vm => vm.MaxWidth, this.WhenAnyValue(vm => vm.MinWidth, vm => vm.MaxWidth, (min, max) => max >= min), "Must be greater than or equal to min width");
+            this.ValidationRule(vm => vm.MinHeight, this.WhenAnyValue(vm => vm.MinHeight, vm => vm.MaxHeight, (min, max) => min <= max), "Must be less than or equal to max height");
+            this.ValidationRule(vm => vm.MaxHeight, this.WhenAnyValue(vm => vm.MinHeight, vm => vm.MaxHeight, (min, max) => max >= min), "Must be greater than or equal to min height");
+            
+            this.ValidationRule(vm => vm.MinX, this.WhenAnyValue(vm => vm.MinX, vm => vm.MaxX, (min, max) => min <= max), "Must be less than or equal to max X rotation");
+            this.ValidationRule(vm => vm.MaxX, this.WhenAnyValue(vm => vm.MinX, vm => vm.MaxX, (min, max) => max >= min), "Must be greater than or equal to min X rotation");
+            this.ValidationRule(vm => vm.MinY, this.WhenAnyValue(vm => vm.MinY, vm => vm.MaxY, (min, max) => min <= max), "Must be less than or equal to max Y rotation");
+            this.ValidationRule(vm => vm.MaxY, this.WhenAnyValue(vm => vm.MinY, vm => vm.MaxY, (min, max) => max >= min), "Must be greater than or equal to min Y rotation");
+            this.ValidationRule(vm => vm.MinZ, this.WhenAnyValue(vm => vm.MinZ, vm => vm.MaxZ, (min, max) => min <= max), "Must be less than or equal to max Z rotation");
+            this.ValidationRule(vm => vm.MaxZ, this.WhenAnyValue(vm => vm.MinZ, vm => vm.MaxZ, (min, max) => max >= min), "Must be greater than or equal to min Z rotation");
         }
+
+        public ReactiveCommand<Unit, Unit> Save { get; }
 
         public ParticleType ParticleType
         {
             get => _particleType;
-            set
-            {
-                SetAndNotify(ref _particleType, value);
-                NotifyOfPropertyChange(nameof(IsCustomPath));
-            }
+            set => RaiseAndSetIfChanged(ref _particleType, value);
         }
 
         public float MinWidth
         {
             get => _minWidth;
-            set
-            {
-                SetAndNotify(ref _minWidth, value);
-                NotifyOfPropertyChange(nameof(MaxWidth));
-            }
+            set => RaiseAndSetIfChanged(ref _minWidth, value);
         }
 
         public float MaxWidth
         {
             get => _maxWidth;
-            set
-            {
-                SetAndNotify(ref _maxWidth, value);
-                NotifyOfPropertyChange(nameof(MinWidth));
-            }
+            set => RaiseAndSetIfChanged(ref _maxWidth, value);
         }
 
         public float MinHeight
         {
             get => _minHeight;
-            set
-            {
-                SetAndNotify(ref _minHeight, value);
-                NotifyOfPropertyChange(nameof(MaxHeight));
-            }
+            set => RaiseAndSetIfChanged(ref _minHeight, value);
         }
 
         public float MaxHeight
         {
             get => _maxHeight;
-            set
-            {
-                SetAndNotify(ref _maxHeight, value);
-                NotifyOfPropertyChange(nameof(MinHeight));
-            }
+            set => RaiseAndSetIfChanged(ref _maxHeight, value);
         }
 
-        public float MinRotationVelocityX
+        public float MinX
         {
-            get => _minRotationVelocityX;
-            set => SetAndNotify(ref _minRotationVelocityX, value);
+            get => _minX;
+            set => RaiseAndSetIfChanged(ref _minX, value);
         }
 
-        public float MaxRotationVelocityX
+        public float MaxX
         {
-            get => _maxRotationVelocityX;
-            set => SetAndNotify(ref _maxRotationVelocityX, value);
+            get => _maxX;
+            set => RaiseAndSetIfChanged(ref _maxX, value);
         }
 
-        public float MinRotationVelocityY
+        public float MinY
         {
-            get => _minRotationVelocityY;
-            set => SetAndNotify(ref _minRotationVelocityY, value);
+            get => _minY;
+            set => RaiseAndSetIfChanged(ref _minY, value);
         }
 
-        public float MaxRotationVelocityY
+        public float MaxY
         {
-            get => _maxRotationVelocityY;
-            set => SetAndNotify(ref _maxRotationVelocityY, value);
+            get => _maxY;
+            set => RaiseAndSetIfChanged(ref _maxY, value);
         }
 
-        public float MinRotationVelocityZ
+        public float MinZ
         {
-            get => _minRotationVelocityZ;
-            set => SetAndNotify(ref _minRotationVelocityZ, value);
+            get => _minZ;
+            set => RaiseAndSetIfChanged(ref _minZ, value);
         }
 
-        public float MaxRotationVelocityZ
+        public float MaxZ
         {
-            get => _maxRotationVelocityZ;
-            set => SetAndNotify(ref _maxRotationVelocityZ, value);
+            get => _maxZ;
+            set => RaiseAndSetIfChanged(ref _maxZ, value);
         }
 
         public string Path
@@ -144,20 +144,17 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             get => _path;
             set
             {
-                SetAndNotify(ref _path, value);
-                if (Path != null && (Path.Contains("\'") || Path.Contains("\"")))
-                    Path = Path.Replace("\'", "").Replace("\"", "");
+                string path = value;
+                if (value != null && (value.Contains("\'") || value.Contains("\"")))
+                    path = value.Replace("\'", "").Replace("\"", "");
+                RaiseAndSetIfChanged(ref _path, path);
             }
         }
 
-        public bool IsCustomPath => ParticleType == ParticleType.Path;
+        public bool IsCustomPath => _isCustomPath.Value;
 
-        public BindableCollection<ValueDescription> ParticleTypes { get; }
-
-        public async Task Accept()
+        private void ExecuteSave()
         {
-            await ValidateAsync();
-
             if (HasErrors)
                 return;
 
@@ -167,49 +164,26 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs
             _particleConfiguration.MinHeight = MinHeight;
             _particleConfiguration.MaxHeight = MaxHeight;
 
-            _particleConfiguration.MinRotationVelocityX = MinRotationVelocityX;
-            _particleConfiguration.MaxRotationVelocityX = MaxRotationVelocityX;
-            _particleConfiguration.MinRotationVelocityY = MinRotationVelocityY;
-            _particleConfiguration.MaxRotationVelocityY = MaxRotationVelocityY;
-            _particleConfiguration.MinRotationVelocityZ = MinRotationVelocityZ;
-            _particleConfiguration.MaxRotationVelocityZ = MaxRotationVelocityZ;
+            _particleConfiguration.MinRotationVelocityX = MinX;
+            _particleConfiguration.MaxRotationVelocityX = MaxX;
+            _particleConfiguration.MinRotationVelocityY = MinY;
+            _particleConfiguration.MaxRotationVelocityY = MaxY;
+            _particleConfiguration.MinRotationVelocityZ = MinZ;
+            _particleConfiguration.MaxRotationVelocityZ = MaxZ;
 
             _particleConfiguration.Path = Path;
-
             _particleViewModel.Update();
-
-            Session.Close(true);
         }
 
-        public void OpenHyperlink(object sender, RequestNavigateEventArgs e)
-        {
-            Utilities.OpenUrl(e.Uri.AbsoluteUri);
-        }
-    }
-
-    public class ParticleDialogViewModelValidator : AbstractValidator<ParticleDialogViewModel>
-    {
-        public ParticleDialogViewModelValidator()
-        {
-            RuleFor(m => m.ParticleType).NotNull().WithMessage("Particle type is required");
-            RuleFor(m => m.MinHeight).LessThanOrEqualTo(m => m.MaxHeight);
-            RuleFor(m => m.MaxHeight).GreaterThanOrEqualTo(m => m.MinHeight);
-            RuleFor(m => m.MinWidth).LessThanOrEqualTo(m => m.MaxWidth);
-            RuleFor(m => m.MaxWidth).GreaterThanOrEqualTo(m => m.MinWidth);
-            When(m => m.IsCustomPath, () => RuleFor(m => m.Path).Custom(ValidatePath));
-        }
-
-        private void ValidatePath(string input, ValidationContext<ParticleDialogViewModel> validationContext)
+        private bool IsPathValid(string path)
         {
             try
             {
-                SKPath path = SKPath.ParseSvgPathData(input);
-                if (path == null)
-                    validationContext.AddFailure("Path must contain valid SVG path data");
+                return SKPath.ParseSvgPathData(path) != null;
             }
             catch (Exception)
             {
-                validationContext.AddFailure("Path must contain valid SVG path data");
+                return false;
             }
         }
     }

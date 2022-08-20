@@ -5,32 +5,31 @@ using Artemis.Plugins.PhilipsHue.RGB.NET;
 using Artemis.Plugins.PhilipsHue.RGB.NET.Hue;
 using Artemis.Plugins.PhilipsHue.Services;
 
-namespace Artemis.Plugins.PhilipsHue
+namespace Artemis.Plugins.PhilipsHue;
+
+public class HueDeviceProvider : DeviceProvider
 {
-    public class HueDeviceProvider : DeviceProvider
+    private readonly IHueService _hueService;
+    private readonly IRgbService _rgbService;
+
+    public HueDeviceProvider(IRgbService rgbService, IHueService hueService) : base(HueRGBDeviceProvider.Instance)
     {
-        private readonly IRgbService _rgbService;
-        private readonly IHueService _hueService;
+        _rgbService = rgbService;
+        _hueService = hueService;
+    }
 
-        public HueDeviceProvider(IRgbService rgbService, IHueService hueService) : base(HueRGBDeviceProvider.Instance)
-        {
-            _rgbService = rgbService;
-            _hueService = hueService;
-        }
+    public override void Enable()
+    {
+        HueRGBDeviceProvider.Instance.ClientDefinitions.Clear();
+        foreach (PhilipsHueBridge bridge in _hueService.Bridges)
+            HueRGBDeviceProvider.Instance.ClientDefinitions.Add(new HueClientDefinition(bridge.IpAddress, bridge.AppKey, bridge.StreamingClientKey));
 
-        public override void Enable()
-        {
-            HueRGBDeviceProvider.Instance.ClientDefinitions.Clear();
-            foreach (PhilipsHueBridge bridge in _hueService.Bridges)
-                HueRGBDeviceProvider.Instance.ClientDefinitions.Add(new HueClientDefinition(bridge.IpAddress, bridge.AppKey, bridge.StreamingClientKey));
+        _rgbService.AddDeviceProvider(RgbDeviceProvider);
+    }
 
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
-        }
-
-        public override void Disable()
-        {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RgbDeviceProvider.Dispose();
-        }
+    public override void Disable()
+    {
+        _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+        RgbDeviceProvider.Dispose();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Artemis.Plugins.LayerEffects.Filter
 {
-    public class ColorMatrixEffectProperties : LayerPropertyGroup
+    public class ColorMatrixEffectProperties : LayerEffectPropertyGroup
     {
         [PropertyDescription]
         public LayerProperty<float[]> ColorMatrix { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Services;
 using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 
@@ -18,6 +19,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Ninject
                     .InheritedFrom<IScriptBinding>()
                     .BindAllInterfaces();
             });
+
+            Kernel!.Bind<ScriptEditorService>().ToSelf().InSingletonScope();
         }
 
         #endregion

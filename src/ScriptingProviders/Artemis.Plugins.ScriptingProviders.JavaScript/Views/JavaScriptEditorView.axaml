@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.ScriptingProviders.JavaScript.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.ScriptingProviders.JavaScript.Views.JavaScriptEditorView"
+             x:DataType="viewModels:JavaScriptEditorViewModel">
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10">
+            <TextBlock Classes="h4" TextAlignment="Center" TextWrapping="Wrap">Unfortunately the in-app editor is not supported on Avalonia, please open the editor in your browser.</TextBlock>
+            <controls:HyperlinkButton HorizontalAlignment="Center" NavigateUri="{CompiledBinding EditorUrl}">
+                <StackPanel>
+                    <avalonia:MaterialIcon Kind="OpenInBrowser" HorizontalAlignment="Center" Width="128" Height="128"/>
+                    <TextBlock TextAlignment="Center">Open editor</TextBlock>
+                </StackPanel>
+                
+            </controls:HyperlinkButton>
+        </StackPanel>
+    </Grid>
+</UserControl>
