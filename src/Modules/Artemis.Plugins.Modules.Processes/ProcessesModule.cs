@@ -15,9 +15,8 @@ public class ProcessesModule : Module<ProcessesDataModel>
 {
     #region Constructors
 
-    public ProcessesModule(IColorQuantizerService quantizerService, PluginSettings settings, IProcessMonitorService processMonitorService, IWindowService windowService)
+    public ProcessesModule(PluginSettings settings, IProcessMonitorService processMonitorService, IWindowService windowService)
     {
-        _quantizerService = quantizerService;
         _processMonitorService = processMonitorService;
         _windowService = windowService;
         _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
@@ -34,7 +33,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
         int processId = _windowService.GetActiveProcessId();
         if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
-            DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService, _windowService);
+            DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _windowService);
 
         DataModel.ActiveWindow?.UpdateWindowTitle();
     }
@@ -44,7 +43,6 @@ public class ProcessesModule : Module<ProcessesDataModel>
     #region Variables and properties
 
     private readonly PluginSetting<bool> _enableActiveWindow;
-    private readonly IColorQuantizerService _quantizerService;
     private readonly IProcessMonitorService _processMonitorService;
     private readonly IWindowService _windowService;
 

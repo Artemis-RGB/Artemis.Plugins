@@ -13,7 +13,7 @@ public class WindowDataModel
 {
     private readonly IWindowService _windowService;
 
-    public WindowDataModel(Process process, IColorQuantizerService quantizerService, IWindowService windowService)
+    public WindowDataModel(Process process, IWindowService windowService)
     {
         Process = process;
         ProcessName = process.ProcessName;
@@ -32,8 +32,7 @@ public class WindowDataModel
         if (bitmap == null)
             return;
 
-        SKColor[] colors = quantizerService.Quantize(bitmap.Pixels, 256);
-        Colors = quantizerService.FindAllColorVariations(colors, true);
+        Colors = ColorQuantizer.GetColorVariations(bitmap.Pixels, 256, true);
 
         _windowService = windowService;
     }
