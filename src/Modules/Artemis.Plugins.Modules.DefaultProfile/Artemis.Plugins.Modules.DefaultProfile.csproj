@@ -28,4 +28,13 @@
     <ItemGroup>
         <Folder Include="Profiles\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Profiles\Noise.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Profiles\Rainbow.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>

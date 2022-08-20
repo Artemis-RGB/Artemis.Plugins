@@ -12,15 +12,17 @@ public class DefaultProfileModule : Module
 {
     private readonly string[] _defaultProfileFilepaths =
     {
-        "Profiles/rainbow.json",
-        "Profiles/noise.json"
+        "./Profiles/Rainbow.json",
+        "./Profiles/Noise.json"
     };
 
     private readonly ILogger _logger;
+    private readonly Plugin _plugin;
     private readonly IProfileService _profileService;
 
-    public DefaultProfileModule(IProfileService profileService, ILogger logger)
+    public DefaultProfileModule(Plugin plugin, IProfileService profileService, ILogger logger)
     {
+        _plugin = plugin;
         _profileService = profileService;
         _logger = logger;
     }
@@ -36,17 +38,18 @@ public class DefaultProfileModule : Module
         // Validate if there are profiles
         if (_profileService.ProfileConfigurations.Count == 0)
         {
-            _logger.Information("There are no created profiles. Procedding. Proceeding to create default profiles");
+            _logger.Information("There are no created profiles. Proceeding to create default profiles");
             foreach (string profileFilePath in _defaultProfileFilepaths)
             {
-                if (File.Exists(profileFilePath))
+                string resolvedPath = _plugin.ResolveRelativePath(profileFilePath);
+                if (File.Exists(resolvedPath))
                 {
                     if (AddDefaultProfile(DefaultCategoryName.General, profileFilePath))
-                        _logger.Information($"Default profile file {profileFilePath} imported successfully");
+                        _logger.Information("Default profile file {ResolvedPath} imported successfully", resolvedPath);
                 }
                 else
                 {
-                    _logger.Warning($"Default profile file {profileFilePath} don't exists. Skipping profile creation");
+                    _logger.Warning("Default profile file {ResolvedPath} doesn't exists. Skipping profile creation", resolvedPath);
                 }
             }
         }
