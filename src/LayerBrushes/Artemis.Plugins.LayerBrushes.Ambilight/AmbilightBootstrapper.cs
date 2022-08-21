@@ -1,6 +1,7 @@
 ﻿using System;
 using Artemis.Core;
 using Artemis.Core.Services;
+using Artemis.Plugins.LayerBrushes.Ambilight.Nodes;
 using Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture;
 using Microsoft.Win32;
 using ScreenCapture.NET;
@@ -13,6 +14,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
         private ILogger? _logger;
         private IPluginManagementService? _managementService;
         private PluginFeatureInfo? _brushProvider;
+        private INodeService? _nodeService;
 
         #region Properties & Fields
 
@@ -27,9 +29,12 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             _logger = plugin.Get<ILogger>();
             _managementService = plugin.Get<IPluginManagementService>();
             _brushProvider = plugin.GetFeatureInfo<AmbilightLayerBrushProvider>();
+            _nodeService = plugin.Get<INodeService>();
 
             ScreenCaptureService ??= new AmbilightScreenCaptureService(new DX11ScreenCaptureService());
             SystemEvents.DisplaySettingsChanged += SystemEventsOnDisplaySettingsChanged;
+
+            _nodeService.RegisterNodeType(plugin, typeof(CaptureScreenNode));
         }
     
         public override void OnPluginDisabled(Plugin plugin)

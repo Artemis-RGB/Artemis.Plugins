@@ -51,6 +51,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Nodes\" />
+    <Compile Update="Nodes\Screens\CaptureScreenNodeConfigurationDialogView.axaml.cs">
+      <DependentUpon>CaptureScreenNodeConfigurationDialogView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
