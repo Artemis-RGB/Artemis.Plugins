@@ -1,5 +1,6 @@
 ﻿{
   "Guid": "ec86de32-1010-4bf7-97d7-1dcc46659ab6",
+  "Api": "1.0",
   "Name": "WS281X Devices",
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",

@@ -1,5 +1,6 @@
 {
   "Guid": "dd35f1b7-3d3f-4f90-a60f-40354783049b",
+  "Api": "1.0",
   "Name": "JavaScript Scripting Provider",
   "Icon": "LanguageJavascript",
   "Description": "A scripting provider that provides JavaScript scripting",

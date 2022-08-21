@@ -1,5 +1,6 @@
 {
   "Guid": "b16b8abe-44c6-4422-a8c7-d05631229d0f",
+  "Api": "1.0",
   "Name": "LED reveal effect",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

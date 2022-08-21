@@ -1,5 +1,6 @@
 {
   "Guid": "ab41d601-35e0-4a73-bf0b-94509b006ab0",
+  "Api": "1.0",
   "Name": "Test module",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

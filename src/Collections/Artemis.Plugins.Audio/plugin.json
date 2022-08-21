@@ -1,5 +1,6 @@
 ﻿{
   "Guid": "c9af6416-03ae-477f-bbc2-42f0a51009e1",
+  "Api": "1.0",
   "Name": "Audio",
   "Author": "DarthAffe",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",

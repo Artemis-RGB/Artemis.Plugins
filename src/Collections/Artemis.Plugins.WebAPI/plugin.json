@@ -1,5 +1,6 @@
 {
   "Guid": "1e46d22e-6299-4af3-b826-2d64a655f366",
+  "Api": "1.0",
   "Name": "Artemis Web API",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

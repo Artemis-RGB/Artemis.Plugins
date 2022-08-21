@@ -1,5 +1,6 @@
 {
   "Guid": "184ce933-b8ff-465f-b3d2-a23a17b35f65",
+  "Api": "1.0",
   "Name": "Philips Hue",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",
