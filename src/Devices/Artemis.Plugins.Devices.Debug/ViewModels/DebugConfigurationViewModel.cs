@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Plugins.Devices.Debug.Settings;
 using Artemis.UI.Shared;
 using Artemis.UI.Shared.Services;
+using ReactiveUI;
 
 namespace Artemis.Plugins.Devices.Debug.ViewModels
 {
@@ -19,11 +21,19 @@ namespace Artemis.Plugins.Devices.Debug.ViewModels
             _windowService = windowService;
             _definitions = settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
             Definitions = new ObservableCollection<DeviceDefinition>(_definitions.Value);
+
+            SaveChanges = ReactiveCommand.Create(ExecuteSaveChanges);
+            AddDefinition = ReactiveCommand.Create(ExecuteAddDefinition);
+            Cancel = ReactiveCommand.CreateFromTask(ExecuteCancel);
         }
 
         public ObservableCollection<DeviceDefinition> Definitions { get; }
 
-        public void SaveChanges()
+        public ReactiveCommand<Unit, Unit> SaveChanges { get; }
+        public ReactiveCommand<Unit, Unit> AddDefinition { get; }
+        public ReactiveCommand<Unit, Unit> Cancel { get; }
+
+        private void ExecuteSaveChanges()
         {
             // Ignore empty definitions
             _definitions.Value.Clear();
@@ -34,12 +44,12 @@ namespace Artemis.Plugins.Devices.Debug.ViewModels
             Close();
         }
 
-        public void AddDefinition()
+        private void ExecuteAddDefinition()
         {
             Definitions.Add(new DeviceDefinition());
         }
 
-        public async Task Cancel()
+        private async Task ExecuteCancel()
         {
             if (!await _windowService.ShowConfirmContentDialog("Discard changes", "Do you want to discard any changes you made?"))
                 return;

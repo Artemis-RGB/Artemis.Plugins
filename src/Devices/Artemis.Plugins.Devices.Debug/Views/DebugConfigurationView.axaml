@@ -2,8 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.Devices.Debug.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Artemis.Plugins.Devices.Debug.Views.DebugConfigurationView">
+             x:Class="Artemis.Plugins.Devices.Debug.Views.DebugConfigurationView"
+             x:DataType="viewModels:DebugConfigurationViewModel">
     <Grid Margin="15" RowDefinitions="Auto,Auto,*,Auto">
         <StackPanel>
             <TextBlock TextWrapping="Wrap">
@@ -17,7 +19,7 @@
         <Separator Grid.Row="1" />
 
         <Border Classes="card" Grid.Row="2" Margin="0 10">
-            <DataGrid Items="{Binding Definitions}"
+            <DataGrid Items="{CompiledBinding Definitions}"
                       AutoGenerateColumns="False"
                       CanUserSortColumns="True"
                       HeadersVisibility="All">
@@ -33,15 +35,15 @@
         </Border>
 
         <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
-            <Button Command="{Binding AddDefinition}">
+            <Button Command="{CompiledBinding AddDefinition}">
                 Add definition
             </Button>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-				<Button Classes="accent" Margin="0 0 5 0" Command="{Binding SaveChanges}">
+				<Button Classes="accent" Margin="0 0 5 0" Command="{CompiledBinding SaveChanges}">
                     Save changes
                 </Button>
-                <Button Command="{Binding Cancel}">
+                <Button Command="{CompiledBinding Cancel}">
                     Cancel
                 </Button>
             </StackPanel>

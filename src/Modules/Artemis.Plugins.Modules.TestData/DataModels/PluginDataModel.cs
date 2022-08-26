@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using SkiaSharp;
@@ -44,6 +45,7 @@ public class PluginDataModel : DataModel
                                      " Maecenas lacus nunc, placerat vel mattis at, vulputate vel leo. Etiam sollicitudin, " +
                                      "leo quis ultrices pretium, nisi dui scelerisque ex, ac dictum augue lorem nec est.")]
     public Team Team { get; set; }
+    public MatchType MatchType { get; set; }
 
     public bool IsWinning { get; set; }
 
@@ -90,6 +92,14 @@ public enum Team
 {
     Blue,
     Orange
+}
+
+public enum MatchType
+{
+    [Description("Death Match")]
+    DeathMatch,
+    [Description("Capture The Flag")]
+    CaptureTheFlag
 }
 
 public class PluginSubDataModel
