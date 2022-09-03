@@ -11,6 +11,15 @@ namespace Artemis.Plugins.Input.DataModelExpansion
     {
         private readonly IInputService _inputService;
 
+        public override DataModelPropertyAttribute GetDataModelDescription()
+        {
+            return new DataModelPropertyAttribute
+            {
+                Name = "Input",
+                Description = "Contains user input information"
+            };
+        }
+
         public InputDataModelExpansion(ILogger logger, IInputService inputService)
         {
             _inputService = inputService;

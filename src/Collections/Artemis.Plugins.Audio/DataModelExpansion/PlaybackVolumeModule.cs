@@ -38,6 +38,15 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         #endregion
 
         #region Plugin Methods
+        
+        public override DataModelPropertyAttribute GetDataModelDescription()
+        {
+            return new DataModelPropertyAttribute
+            {
+                Name = "Playback Volume",
+                Description = "Contains information about audio playback"
+            };
+        }
 
         public override void Enable()
         {
