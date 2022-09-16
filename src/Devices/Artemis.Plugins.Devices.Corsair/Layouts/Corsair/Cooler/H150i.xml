@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Corsair H150i ELITE CAPELLIX</Name>
+  <Description>Physical layour of Corsairs H150i ELITE CAPELLIX Liquid CPU Cooler</Description>
+  <Author>J4C0B3Y</Author>
+  <Type>Cooler</Type>
+  <Vendor>Corsair</Vendor>
+  <Model>H150i ELITE CAPELLIX</Model>
+  <Width>56</Width>
+  <Height>56</Height>
+  <LedUnitWidth>1</LedUnitWidth>
+  <LedUnitHeight>1</LedUnitHeight>
+  <Leds>
+    <Led Id="Custom1">
+      <Shape> M0.768,0.7 L0.775,0.69 L0.786,0.67 L0.796,0.646 L0.8,0.619 L0.8,0.594 L0.793,0.573 L0.775,0.549 L0.753,0.521 L0.72,0.488 L0.692,0.463 L0.677,0.45 L0.703,0.445 L0.71,0.435 L0.714,0.417 L0.712,0.394 L0.704,0.365 L0.688,0.339 L0.665,0.31 L0.642,0.285 L0.622,0.267 L0.598,0.249 L0.572,0.229 L0.543,0.21 L0.523,0.198 L0.531,0.216 L0.542,0.24 L0.55,0.261 L0.557,0.286 L0.563,0.306 L0.564,0.327 L0.563,0.337 L0.561,0.357 L0.489,0.306 L0.501,0.331 L0.508,0.348 L0.516,0.368 L0.468,0.337 L0.393,0.288 L0.406,0.311 L0.415,0.331 L0.424,0.353 L0.43,0.374 L0.43,0.4 L0.429,0.419 L0.369,0.381 L0.378,0.403 L0.384,0.423 L0.351,0.411 L0.273,0.369 L0.289,0.393 L0.299,0.414 L0.306,0.434 L0.307,0.446 L0.307,0.465 L0.306,0.482 L0.247,0.451 L0.257,0.473 L0.272,0.526 L0.276,0.574 L0.273,0.608 L0.27,0.644 L0.259,0.679 L0.242,0.716 L0.222,0.749 L0.194,0.782 L0.221,0.772 L0.27,0.751 L0.327,0.73 L0.401,0.703 L0.47,0.682 L0.537,0.666 L0.602,0.655 L0.647,0.652 L0.685,0.652 L0.72,0.659 L0.747,0.672 L0.757,0.681z</Shape>
+      <X>13</X>
+      <Y>12.8</Y>
+      <Width>30</Width>
+      <Height>30.2</Height>
+    </Led>
+    <Led Id="Custom2">
+      <X>8</X>
+      <Y>20.5</Y>
+      <Width>5</Width>
+      <Height>15</Height>
+    </Led>
+    <Led Id="Custom3">
+      <Shape> M0,0 L0,0.600 L0.4,1 L1,1 L1,0.6 L0.4,0z</Shape>
+      <X>8</X>
+      <Y>35.5</Y>
+      <Width>12.5</Width>
+      <Height>12.5</Height>
+    </Led>
+    <Led Id="Custom4">
+      <X>20.5</X>
+      <Y>43</Y>
+      <Width>15</Width>
+      <Height>5</Height>
+    </Led>
+    <Led Id="Custom5">
+      <Shape> M1,0 L1,0.6 L0.6,1 L0,1 L0,0.6 L0.6,0z</Shape>
+      <X>35.5</X>
+      <Y>35.5</Y>
+      <Width>12.5</Width>
+      <Height>12.5</Height>
+    </Led>
+    <Led Id="Custom6">
+      <X>43</X>
+      <Y>20.5</Y>
+      <Width>5</Width>
+      <Height>15</Height>
+    </Led>
+    <Led Id="Custom7">
+      <Shape> M0,0 L0.6,0 L1,0.4 L1,1 L0.6,1 L0,0.4z</Shape>
+      <X>35.5</X>
+      <Y>8</Y>
+      <Width>12.5</Width>
+      <Height>12.5</Height>
+    </Led>
+    <Led Id="Custom8">
+      <X>20.5</X>
+      <Y>8</Y>
+      <Width>15</Width>
+      <Height>5</Height>
+    </Led>
+    <Led Id="Custom9">
+      <Shape> M-0,1 L0,0.4 L0.4,0 L1,0 L1,0.4 L0.4,1z</Shape>
+      <X>8</X>
+      <Y>8</Y>
+      <Width>12.5</Width>
+      <Height>12.5</Height>
+    </Led>
+    <Led Id="Custom10">
+      <X>0</X>
+      <Y>13</Y>
+      <Width>6</Width>
+      <Height>15</Height>
+    </Led>
+    <Led Id="Custom11">
+      <X>0</X>
+      <Y>28</Y>
+      <Width>6</Width>
+      <Height>15</Height>
+    </Led>
+    <Led Id="Custom12">
+      <Shape> M0,0 L0,0.25 L0.75,1 L1,0.998 L1,0.54 L0.46,0z</Shape>
+      <X>0</X>
+      <Y>43</Y>
+      <Width>13</Width>
+      <Height>13</Height>
+    </Led>
+    <Led Id="Custom13">
+      <X>13</X>
+      <Y>50</Y>
+      <Width>15</Width>
+      <Height>6</Height>
+    </Led>
+    <Led Id="Custom14">
+      <X>28</X>
+      <Y>50</Y>
+      <Width>15</Width>
+      <Height>6</Height>
+    </Led>
+    <Led Id="Custom15">
+      <Shape> M0,0.54 L0,1 L0.25,1 L1,0.25 L1,0 L0.54,0z</Shape>
+      <X>43</X>
+      <Y>43</Y>
+      <Width>13</Width>
+      <Height>13</Height>
+    </Led>
+    <Led Id="Custom16">
+      <X>50</X>
+      <Y>28</Y>
+      <Width>6</Width>
+      <Height>15</Height>
+    </Led>
+    <Led Id="Custom17">
+      <X>50</X>
+      <Y>13</Y>
+      <Width>6</Width>
+      <Height>15</Height>
+    </Led>
+    <Led Id="Custom18">
+      <Shape> M1,1 L1,0.75 L0.25,0 L0,0 L0,0.46 L0.54,1z</Shape>
+      <X>43</X>
+      <Y>0</Y>
+      <Width>13</Width>
+      <Height>13</Height>
+    </Led>
+    <Led Id="Custom19">
+      <X>28</X>
+      <Y>0</Y>
+      <Width>15</Width>
+      <Height>6</Height>
+    </Led>
+    <Led Id="Custom20">
+      <X>13</X>
+      <Y>0</Y>
+      <Width>15</Width>
+      <Height>6</Height>
+    </Led>
+    <Led Id="Custom21">
+      <Shape> M1,0 L1,0.46 L0.46,1 L0,1 L0,0.8 L0.8,0z</Shape>
+      <X>0</X>
+      <Y>0</Y>
+      <Width>13</Width>
+      <Height>13</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>H150i.png</DeviceImage>
+  </CustomData>
+</Device>

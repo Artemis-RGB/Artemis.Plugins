@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Artemis.Core;
 using Artemis.Core.Modules;
@@ -28,6 +29,8 @@ public class PluginDataModel : DataModel
     public SKColor TestColorA { get; set; }
     public SKColor TestColorB { get; set; }
     public SKColor TestColorC { get; set; } = new(255, 0, 0);
+
+    public Guid UnsupportedType { get; set; } = Guid.NewGuid();
 
     // You can even have classes in your datamodel, just don't forget to instantiate them ;)
     [DataModelProperty(Name = "A class within the datamodel")]
