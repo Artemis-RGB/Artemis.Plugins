@@ -5,7 +5,7 @@ namespace Artemis.Plugins.Modules.Processes.DataModels;
 
 public class ProcessesDataModel : DataModel
 {
-    public WindowDataModel ActiveWindow { get; set; }
+    public WindowDataModel ActiveWindow { get; set; } = new();
 
     [DataModelProperty(ListItemName = "Process name")]
     public List<string> RunningProcesses { get; set; }

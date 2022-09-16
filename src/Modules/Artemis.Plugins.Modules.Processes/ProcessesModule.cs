@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Processes.DataModels;
 using Artemis.Plugins.Modules.Processes.Services.Windows.WindowServices;
+using Serilog;
+using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.Processes;
 
@@ -15,40 +19,32 @@ public class ProcessesModule : Module<ProcessesDataModel>
 {
     #region Constructors
 
-    public ProcessesModule(IColorQuantizerService quantizerService, PluginSettings settings, IProcessMonitorService processMonitorService, IWindowService windowService)
+    public ProcessesModule(IColorQuantizerService quantizerService,
+        PluginSettings settings,
+        IProcessMonitorService processMonitorService,
+        IWindowService windowService,
+        ILogger logger)
     {
         _quantizerService = quantizerService;
         _processMonitorService = processMonitorService;
         _windowService = windowService;
+        _logger = logger;
         _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
-    }
-
-    #endregion
-
-    #region Open windows
-
-    public void UpdateCurrentWindow()
-    {
-        if (!_enableActiveWindow.Value)
-            return;
-
-        int processId = _windowService.GetActiveProcessId();
-        if (DataModel.ActiveWindow == null || DataModel.ActiveWindow.Process.Id != processId)
-            DataModel.ActiveWindow = new WindowDataModel(Process.GetProcessById(processId), _quantizerService, _windowService);
-
-        DataModel.ActiveWindow?.UpdateWindowTitle();
+        _cache = new();
     }
 
     #endregion
 
     #region Variables and properties
 
+    private readonly Dictionary<string, ColorSwatch> _cache;
     private readonly PluginSetting<bool> _enableActiveWindow;
     private readonly IColorQuantizerService _quantizerService;
     private readonly IProcessMonitorService _processMonitorService;
     private readonly IWindowService _windowService;
+    private readonly ILogger _logger;
 
-    public override List<IModuleActivationRequirement> ActivationRequirements => null;
+    public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
 
     #endregion
 
@@ -58,8 +54,8 @@ public class ProcessesModule : Module<ProcessesDataModel>
     {
         _enableActiveWindow.SettingChanged += EnableActiveWindowOnSettingChanged;
 
-        AddTimedUpdate(TimeSpan.FromMilliseconds(250), _ => UpdateCurrentWindow(), "UpdateCurrentWindow");
-        AddTimedUpdate(TimeSpan.FromSeconds(1), _ => UpdateRunningProcesses(), "UpdateRunningProcesses");
+        AddTimedUpdate(TimeSpan.FromMilliseconds(250), UpdateCurrentWindow);
+        AddTimedUpdate(TimeSpan.FromSeconds(1), UpdateRunningProcesses);
         ApplyEnableActiveWindow();
     }
 
@@ -76,9 +72,32 @@ public class ProcessesModule : Module<ProcessesDataModel>
     {
     }
 
-    private void UpdateRunningProcesses()
+    private void UpdateRunningProcesses(double deltaTime)
     {
         DataModel.RunningProcesses = _processMonitorService.GetRunningProcesses().Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
+    }
+
+    private void UpdateCurrentWindow(double deltaTime)
+    {
+        if (!_enableActiveWindow.Value)
+            return;
+
+        int foregroundWindowPid = _windowService.GetActiveProcessId();
+        Process foregroundProcess = _processMonitorService.GetRunningProcesses().FirstOrDefault(p => p.Id == foregroundWindowPid);
+        if (foregroundProcess == null)
+            return;
+
+        DataModel.ActiveWindow.WindowTitle = _windowService.GetActiveWindowTitle();
+        DataModel.ActiveWindow.ProcessName = foregroundProcess.ProcessName;
+        DataModel.ActiveWindow.ProgramLocation = foregroundProcess.GetProcessFilename();
+        try
+        {
+            DataModel.ActiveWindow.Colors = GetOrComputeSwatch(DataModel.ActiveWindow.ProgramLocation) ?? default;
+        }
+        catch (Exception e)
+        {
+            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess.ProcessName);
+        }
     }
 
     private void EnableActiveWindowOnSettingChanged(object sender, EventArgs e)
@@ -94,5 +113,24 @@ public class ProcessesModule : Module<ProcessesDataModel>
             HideProperty(d => d.ActiveWindow);
     }
 
+    private ColorSwatch? GetOrComputeSwatch(string location)
+    {
+        if (!_cache.TryGetValue(location, out var swatch))
+        {
+            if (!File.Exists(location))
+                return null;
+
+            using MemoryStream stream = new();
+            Icon.ExtractAssociatedIcon(location)?.Save(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+            using SKBitmap bitmap = SKBitmap.FromImage(SKImage.FromEncodedData(stream));
+            stream.Close();
+            SKColor[] colors = _quantizerService.Quantize(bitmap.Pixels, 256);
+            swatch = _quantizerService.FindAllColorVariations(colors, true);
+            _cache[location] = swatch;
+        }
+
+        return swatch;
+    }
     #endregion
 }
