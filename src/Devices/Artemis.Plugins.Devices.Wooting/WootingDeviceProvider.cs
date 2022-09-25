@@ -19,6 +19,7 @@ namespace Artemis.Plugins.Devices.Wooting
         {
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "wooting-rgb-sdk64.dll"));
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "wooting-rgb-sdk.dll"));
+            RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX64NativePathsLinux.Add(Path.Combine(Plugin.Directory.FullName, "x64", "libwooting-rgb-sdk.so"));
             
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
