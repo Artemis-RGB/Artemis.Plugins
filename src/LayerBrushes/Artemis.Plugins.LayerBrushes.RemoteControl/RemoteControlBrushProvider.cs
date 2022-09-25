@@ -7,7 +7,7 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl
 {
     // This is your plugin feature, it provides Artemis with one or more layer effects via descriptors.
     // Your feature gets enabled once. Your layer effects get enabled multiple times, once for each profile element (folder/layer) it is applied to.
-    [PluginFeature(Icon = "Remote")]
+    [PluginFeature]
     public class RemoteControlBrushProvider : LayerBrushProvider
     {
         private readonly IWebServerService _webServerService;

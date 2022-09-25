@@ -4,7 +4,7 @@ using Artemis.Plugins.WebAPI.Controllers;
 
 namespace Artemis.Plugins.WebAPI.Features
 {
-    [PluginFeature(Name = "Data Model Web API", Description = "Offers a web API providing access to the data model", Icon = "DatabaseSearch")]
+    [PluginFeature(Name = "Data Model Web API", Description = "Offers a web API providing access to the data model")]
     public class DataModelWebApi : PluginFeature
     {
         private readonly IWebServerService _webServerService;

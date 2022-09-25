@@ -4,7 +4,7 @@ using Artemis.Plugins.WebAPI.Controllers;
 
 namespace Artemis.Plugins.WebAPI.Features
 {
-    [PluginFeature(Name = "Plugins Web API", Description = "Offers a web API providing access to enabled plugins", Icon = "Connection")]
+    [PluginFeature(Name = "Plugins Web API", Description = "Offers a web API providing access to enabled plugins")]
     public class PluginsWebApi : PluginFeature
     {
         private readonly IWebServerService _webServerService;

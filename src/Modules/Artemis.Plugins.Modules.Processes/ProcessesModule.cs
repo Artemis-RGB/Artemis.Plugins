@@ -14,7 +14,7 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.Modules.Processes;
 
-[PluginFeature(Name = "Processes", Icon = "Application", AlwaysEnabled = true)]
+[PluginFeature(Name = "Processes", AlwaysEnabled = true)]
 public class ProcessesModule : Module<ProcessesDataModel>
 {
     #region Constructors
@@ -115,7 +115,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private ColorSwatch? GetOrComputeSwatch(string location)
     {
-        if (!_cache.TryGetValue(location, out var swatch))
+        if (!_cache.TryGetValue(location, out ColorSwatch swatch))
         {
             if (!File.Exists(location))
                 return null;

@@ -3,7 +3,7 @@ using JetBrains.Profiler.SelfApi;
 
 namespace Artemis.Plugins.Profiling
 {
-    [PluginFeature(Icon = "Ruler", Name = "CPU Profiler")]
+    [PluginFeature(Name = "CPU Profiler")]
     public class CpuProfiler : PluginFeature
     {
         public static string ProfilerDirectory = "JetBrains";

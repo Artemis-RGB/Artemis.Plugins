@@ -9,7 +9,7 @@ using Serilog;
 
 namespace Artemis.Plugins.Audio.DataModelExpansion
 {
-    [PluginFeature(Icon = "VolumeHigh")]
+    [PluginFeature]
     public class PlaybackVolumeModule : Module<PlaybackVolumeDataModel>
     {
         public override List<IModuleActivationRequirement> ActivationRequirements => null;

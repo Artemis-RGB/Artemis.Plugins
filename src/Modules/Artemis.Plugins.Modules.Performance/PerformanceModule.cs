@@ -7,7 +7,7 @@ using Artemis.Plugins.Modules.Performance.Services;
 
 namespace Artemis.Plugins.Modules.Performance;
 
-[PluginFeature(Name = "Performance", Icon = "Speedometer", AlwaysEnabled = true)]
+[PluginFeature(Name = "Performance", AlwaysEnabled = true)]
 public class PerformanceModule : Module<PerformanceDataModel>
 {
     private readonly IPerformanceService _performanceService;

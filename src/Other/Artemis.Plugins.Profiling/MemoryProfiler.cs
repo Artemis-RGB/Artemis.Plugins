@@ -3,7 +3,7 @@ using JetBrains.Profiler.SelfApi;
 
 namespace Artemis.Plugins.Profiling
 {
-    [PluginFeature(Icon = "Ruler")]
+    [PluginFeature]
     public class MemoryProfiler : PluginFeature
     {
         public static string ProfilerDirectory = "JetBrains";

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
@@ -18,13 +17,14 @@ namespace Artemis.Plugins.Devices.Logitech
     {
         private const int VENDOR_ID = 0x046D;
         private readonly ILogger _logger;
+        private readonly IPluginManagementService _pluginManagementService;
         private readonly IRgbService _rgbService;
-        private bool _suspended;
 
-        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
+        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger, IPluginManagementService pluginManagementService) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
         {
             _rgbService = rgbService;
             _logger = logger;
+            _pluginManagementService = pluginManagementService;
         }
 
         public override void Enable()
@@ -37,12 +37,12 @@ namespace Artemis.Plugins.Devices.Logitech
             if (_logger.IsEnabled(LogEventLevel.Debug))
                 LogDeviceIds();
 
-            SystemEvents.PowerModeChanged += SystemEventsPowerModeChanged;
-            SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch;
+            Subscribe();
         }
 
         public override void Disable()
         {
+            Unsubscribe();
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
         }
@@ -66,33 +66,34 @@ namespace Artemis.Plugins.Devices.Logitech
 
         #region Event handlers
 
-        private void SystemEventsOnSessionSwitch(object sender, SessionSwitchEventArgs e)
+        private void Subscribe()
         {
-            if (!IsEnabled)
-                return;
-
-            if (e.Reason == SessionSwitchReason.SessionUnlock && _suspended)
-                Task.Run(() =>
-                {
-                    // Give LGS a moment to think about its sins
-                    Thread.Sleep(5000);
-                    _logger.Debug("Detected PC unlock and we're suspended, calling Enable");
-                    _suspended = false;
-                    Enable();
-                });
+            Thread thread = new(() => SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
-        private void SystemEventsPowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        private void Unsubscribe()
         {
-            if (!IsEnabled)
+            Thread thread = new(() => SystemEvents.SessionSwitch -= SystemEventsOnSessionSwitch);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
+
+        private void SystemEventsOnSessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            if (!IsEnabled || e.Reason != SessionSwitchReason.SessionUnlock)
                 return;
 
-            if (e.Mode == PowerModes.Suspend && !_suspended)
+            Task.Run(async () =>
             {
-                _logger.Debug("Detected power state change to Suspend, calling Disable");
-                _suspended = true;
+                // Disable the plugin
                 Disable();
-            }
+
+                // Enable the plugin with the management service, allowing retries 
+                await Task.Delay(5000);
+                _pluginManagementService.EnablePluginFeature(this, false, true);
+            });
         }
 
         #endregion

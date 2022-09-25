@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
+using Microsoft.Win32;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
 using Serilog;
@@ -18,11 +20,13 @@ namespace Artemis.Plugins.Devices.Corsair
     {
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
+        private readonly IPluginManagementService _pluginManagementService;
 
-        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService) : base(RGBDeviceProvider.Instance)
+        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService) : base(RGBDeviceProvider.Instance)
         {
             _logger = logger;
             _rgbService = rgbService;
+            _pluginManagementService = pluginManagementService;
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
         }
@@ -41,6 +45,8 @@ namespace Artemis.Plugins.Devices.Corsair
                 _logger.Debug(" - SDK protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkProtocolVersion);
                 _logger.Debug(" - Server version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerVersion);
                 _logger.Debug(" - Server protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerProtocolVersion);
+
+                Subscribe();
             }
             catch (CUEException e)
             {
@@ -50,6 +56,7 @@ namespace Artemis.Plugins.Devices.Corsair
 
         public override void Disable()
         {
+            Unsubscribe();
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
         }
@@ -66,7 +73,7 @@ namespace Artemis.Plugins.Devices.Corsair
 
             return null;
         }
-        
+
         public override string GetDeviceLayoutName(ArtemisDevice device)
         {
             // Pumps can have different amounts of LEDs but share the model name "PUMP", by including the LED count in the layout name
@@ -76,5 +83,50 @@ namespace Artemis.Plugins.Devices.Corsair
 
             return base.GetDeviceLayoutName(device);
         }
+
+        #region Event handlers
+
+        private void Subscribe()
+        {
+            Thread thread = new(() => SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
+
+        private void Unsubscribe()
+        {
+            Thread thread = new(() => SystemEvents.SessionSwitch -= SystemEventsOnSessionSwitch);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
+
+        private void SystemEventsOnSessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            if (!IsEnabled || e.Reason != SessionSwitchReason.SessionUnlock)
+                return;
+
+            Task.Run(async () =>
+            {
+                Process icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
+                string path = icue?.MainModule?.FileName;
+                if (path == null)
+                    return;
+                
+                // Disable the plugin
+                Disable();
+
+                // Kill iCUE
+                icue.Kill();
+                
+                // Restart iCUE
+                Process.Start(path, "--autorun");
+                
+                // Enable the plugin with the management service, allowing retries 
+                await Task.Delay(5000);
+                _pluginManagementService.EnablePluginFeature(this, false, true);
+            });
+        }
+
+        #endregion
     }
 }

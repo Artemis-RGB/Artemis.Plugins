@@ -7,7 +7,7 @@ using Serilog;
 
 namespace Artemis.Plugins.Modules.DefaultProfile;
 
-[PluginFeature(Name = "Default profile", Icon = "ToyBrickPlus", AlwaysEnabled = true)]
+[PluginFeature(Name = "Default profile", AlwaysEnabled = true)]
 public class DefaultProfileModule : Module
 {
     private readonly string[] _defaultProfileFilepaths =

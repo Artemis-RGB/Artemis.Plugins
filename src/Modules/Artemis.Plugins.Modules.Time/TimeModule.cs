@@ -7,7 +7,7 @@ using Artemis.Plugins.Modules.Time.DataModels;
 
 namespace Artemis.Plugins.Modules.Time;
 
-[PluginFeature(Name = "Time", Icon = "ClockTimeThree", AlwaysEnabled = true)]
+[PluginFeature(Name = "Time", AlwaysEnabled = true)]
 public class TimeModule : Module<TimeDataModel>
 {
     #region Constructors
