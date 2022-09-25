@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Wooting Two - ANSI</Name>
-  <Description>Physical ANSI layout of the Wooting Two</Description>
-  <Author>SpoinkyNL</Author>
+  <Name>Wooting Two LE - ANSI</Name>
+  <Description>Physical ANSI layout of the Wooting Two LE</Description>
+  <Author>BigBrainAFK</Author>
   <Type>Keyboard</Type>
   <Vendor>Wooting</Vendor>
-  <Model>Wooting Two</Model>
+  <Model>Wooting Two Lekker Edition</Model>
   <Width>450</Width>
   <Height>150</Height>
   <Leds>
     <Led Id="Keyboard_Escape">
       <X>8</X>
-      <Y>8</Y>
+      <Y>9</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="US" Image="Regular_Keys/Escape.png" />
@@ -815,6 +815,6 @@
     </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>Wooting Two.png</DeviceImage>
+    <DeviceImage>Wooting Two LE.png</DeviceImage>
   </CustomData>
 </Device>

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Wooting Two - ANSI</Name>
-  <Description>Physical ANSI layout of the Wooting Two</Description>
+  <Name>Wooting Two HE - ANSI</Name>
+  <Description>Physical ANSI layout of the Wooting Two HE</Description>
   <Author>SpoinkyNL</Author>
   <Type>Keyboard</Type>
   <Vendor>Wooting</Vendor>
-  <Model>Wooting Two</Model>
-  <Width>450</Width>
+  <Model>Wooting Two HE</Model>
+  <Width>445</Width>
   <Height>150</Height>
   <Leds>
     <Led Id="Keyboard_Escape">

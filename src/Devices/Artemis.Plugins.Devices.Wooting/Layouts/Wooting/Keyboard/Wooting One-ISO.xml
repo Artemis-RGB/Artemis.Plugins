@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Wooting One - Physical ISO</Name>
-  <Description>Physical EU (ISO) layout of the Wooting One</Description>
+  <Name>Wooting One - ISO</Name>
+  <Description>Physical ISO layout of the Wooting One</Description>
   <Author>SpoinkyNL</Author>
   <Type>Keyboard</Type>
   <Vendor>Wooting</Vendor>
@@ -195,7 +195,7 @@
     <Led Id="Keyboard_9">
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="US" Image="Regular_Keys/9_BracketRight.png" />
+          <LogicalLayout Name="US" Image="Regular_Keys/9_BracketLeft.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -463,7 +463,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_NonUsTilde">
+    <Led Id="Keyboard_Backslash">
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Image="Regular_Keys/NonUsBackslash.png" />
@@ -576,7 +576,7 @@
     <Led Id="Keyboard_LeftCtrl">
       <X>8</X>
       <Y>+</Y>
-      <Width>1.2</Width>
+      <Width>1.25</Width>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="US" Image="Regular_Keys/Ctrl.png" />
@@ -600,7 +600,7 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_Space">
-      <Width>6.35</Width>
+      <Width>6.25</Width>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="US" Image="Regular_Keys/Space.png" />
@@ -623,7 +623,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Application">
+    <Led Id="Keyboard_Function">
       <Width>1.25</Width>
       <CustomData>
         <LogicalLayouts>
@@ -632,7 +632,7 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_RightCtrl">
-      <Width>1.2</Width>
+      <Width>1.25</Width>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="US" Image="Regular_Keys/Ctrl.png" />
