@@ -12,8 +12,8 @@ internal static class WootingSdk
     public static int GetProfile(bool newInterface)
     {
         uint responseSize = (uint)(newInterface ? 256 : 128);
-        var buffer = new byte[responseSize];
-        var result = SendFeature(buffer, responseSize, GetCurrentKeyboardProfileIndex, 0, 0, 0, 0);
+        byte[] buffer = new byte[responseSize];
+        int result = SendFeature(buffer, responseSize, GetCurrentKeyboardProfileIndex, 0, 0, 0, 0);
 
         if (result != responseSize)
             throw new Exception("wrong response size");

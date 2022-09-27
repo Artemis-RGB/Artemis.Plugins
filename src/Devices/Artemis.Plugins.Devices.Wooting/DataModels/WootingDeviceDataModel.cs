@@ -1,6 +1,6 @@
 ﻿using Artemis.Core.Modules;
 
-namespace Artemis.Plugins.Devices.Wooting;
+namespace Artemis.Plugins.Devices.Wooting.DataModels;
 
 public class WootingDeviceDataModel : DataModel
 {

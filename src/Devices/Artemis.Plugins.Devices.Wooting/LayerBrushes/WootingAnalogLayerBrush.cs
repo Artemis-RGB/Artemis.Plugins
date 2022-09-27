@@ -1,5 +1,6 @@
 ﻿using Artemis.Core;
 using Artemis.Core.LayerBrushes;
+using Artemis.Plugins.Devices.Wooting.Services;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -30,15 +31,13 @@ internal class WootingAnalogLayerBrush : PerLedLayerBrush<WootingAnalogPropertyG
 
     public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
     {
-        var artemisDevice = led.Device;
-        var analogDevice = _analogService.Devices.FirstOrDefault(ad => ad.Info.device_name == artemisDevice.RgbDevice.DeviceInfo.Model.Replace(" ", ""));
+        ArtemisDevice artemisDevice = led.Device;
+        WootingAnalogDevice analogDevice = _analogService.Devices.FirstOrDefault(ad => ad.Info.device_name == artemisDevice.RgbDevice.DeviceInfo.Model.Replace(" ", ""));
         if (analogDevice == null)
             return SKColor.Empty;
 
         if (analogDevice.AnalogValues.TryGetValue(led.RgbLed.Id, out float percent))
-        {
             return Properties.Color.CurrentValue.GetColor(percent);
-        }
 
         return SKColors.Empty;
     }

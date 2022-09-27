@@ -128,19 +128,19 @@ internal static class LedMapping
         [LedId.Keyboard_RightAlt] = 230,
         [LedId.Keyboard_RightGui] = 231,
 
-        /**
-         * Thanks Simon for handing me this list
-         * RgbBrightnessUp = 0x401
-         * RgbBrightnessDown = 0x402
-         * SelectAnalogProfile1 = 0x403
-         * SelectAnalogProfile2 = 0x404
-         * SelectAnalogProfile3 = 0x405
-         * ModeKey = 0x408
-         * FnKey = 0x409
-         * DisableKey = 0x40A
-         * FnLayerLock = 0x40B
-         * FnKey2 = 0x40C= 
-         */
+        /*
+         Thanks Simon for handing me this list
+         RgbBrightnessUp = 0x401
+         RgbBrightnessDown = 0x402
+         SelectAnalogProfile1 = 0x403
+         SelectAnalogProfile2 = 0x404
+         SelectAnalogProfile3 = 0x405
+         ModeKey = 0x408
+         FnKey = 0x409
+         DisableKey = 0x40A
+         FnLayerLock = 0x40B
+         FnKey2 = 0x40C= 
+        */
         [LedId.Keyboard_Custom1] = 1027,
         [LedId.Keyboard_Custom2] = 1028,
         [LedId.Keyboard_Custom3] = 1029,

@@ -12,7 +12,7 @@ using System.Collections.Concurrent;
 using Artemis.Plugins.Devices.Wooting.Services;
 using Serilog;
 
-namespace Artemis.Plugins.Devices.Wooting;
+namespace Artemis.Plugins.Devices.Wooting.Services;
 
 public class WootingAnalogService : IPluginService, IDisposable
 {
@@ -23,20 +23,18 @@ public class WootingAnalogService : IPluginService, IDisposable
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
-        var (count, result) = WootingAnalogSDK.Initialise();
+        (int count, WootingAnalogResult result) = WootingAnalogSDK.Initialise();
 
         if (count < 1 || result != WootingAnalogResult.Ok)
             throw new Exception();
 
-        var (infos, result2) = WootingAnalogSDK.GetConnectedDevicesInfo();
+        (List<DeviceInfo> infos, WootingAnalogResult result2) = WootingAnalogSDK.GetConnectedDevicesInfo();
         if (result2 != WootingAnalogResult.Ok)
             throw new Exception();
 
         _devices = new(infos.Count);
         for (int i = 0; i < infos.Count; i++)
-        {
             _devices.Add(new WootingAnalogDevice(infos[i]));
-        }
 
         WootingAnalogSDK.SetKeycodeMode(KeycodeType.HID);
 
@@ -49,21 +47,17 @@ public class WootingAnalogService : IPluginService, IDisposable
     {
         for (int i = 0; i < _devices.Count; i++)
         {
-            var device = _devices[i];
-            var (data, res) = WootingAnalogSDK.ReadFullBuffer(deviceID: device.Info.device_id);
+            WootingAnalogDevice device = _devices[i];
+            (List<(short, float)> data, WootingAnalogResult res) = WootingAnalogSDK.ReadFullBuffer(deviceID: device.Info.device_id);
             if (res != WootingAnalogResult.Ok)
                 continue;
 
-            foreach (var item in data)
+            foreach ((short key, float value) in data)
             {
-                if (LedMapping.HidCodesReversed.TryGetValue(item.Item1, out var ledId))
-                {
-                    device.AnalogValues[ledId] = item.Item2;
-                }
+                if (LedMapping.HidCodesReversed.TryGetValue(key, out RGB.NET.Core.LedId ledId))
+                    device.AnalogValues[ledId] = value;
                 else
-                {
-                    _logger.Verbose("Failed to find mapping for hid code {hidCode}", item.Item1);
-                }
+                    _logger.Verbose("Failed to find mapping for hid code {hidCode}", key);
             }
         }
     }
@@ -77,10 +71,10 @@ public class WootingAnalogService : IPluginService, IDisposable
     {
         for (int i = 0; i < _devices.Count; i++)
         {
-            var device = _devices[i];
-            foreach ((var ledId, var virtualShortCode) in LedMapping.HidCodes)
+            WootingAnalogDevice device = _devices[i];
+            foreach ((RGB.NET.Core.LedId ledId, ushort virtualShortCode) in LedMapping.HidCodes)
             {
-                var (analogValue, analogReadResult) = WootingAnalogSDK.ReadAnalog(virtualShortCode, deviceID: device.Info.device_id);
+                (float analogValue, WootingAnalogResult analogReadResult) = WootingAnalogSDK.ReadAnalog(virtualShortCode, deviceID: device.Info.device_id);
 
                 if (analogReadResult == WootingAnalogResult.NoMapping)
                     continue;
@@ -94,20 +88,18 @@ public class WootingAnalogService : IPluginService, IDisposable
     }
 
     #region IDisposable
-    private bool disposedValue;
+    private bool _disposedValue;
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (!_disposedValue)
         {
             if (disposing)
             {
                 WootingAnalogSDK.UnInitialise();
             }
 
-            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-            // TODO: set large fields to null
-            disposedValue = true;
+            _disposedValue = true;
         }
     }
 

@@ -18,7 +18,7 @@ public class WootingProfileService : IPluginService
     public WootingProfileService(ILogger logger)
     {
         _logger = logger;
-        _devices = new();
+        _devices = new List<WootingProfileDevice>();
 
         if (!WootingSdk.IsConnected())
         {
@@ -26,11 +26,11 @@ public class WootingProfileService : IPluginService
             return;
         }
 
-        var keyboardCount = WootingSdk.GetKeyboardCount();
+        byte keyboardCount = WootingSdk.GetKeyboardCount();
         for (byte i = 0; i < keyboardCount; i++)
         {
             WootingSdk.SelectDevice(i);
-            var info = WootingSdk.GetDeviceInfo();
+            WootingUsbMeta info = WootingSdk.GetDeviceInfo();
             //HACK: the model names do not match up for each sdk. this makes them match
             info.Model = info.Model.Replace(" ", "");
             _devices.Add(new WootingProfileDevice(info));
@@ -43,7 +43,7 @@ public class WootingProfileService : IPluginService
     {
         for (byte i = 0; i < _devices.Count; i++)
         {
-            var device = _devices[i];
+            WootingProfileDevice device = _devices[i];
             WootingSdk.SelectDevice(i);
             device.Profile = WootingSdk.GetProfile(device.Info.V2Interface);
         }

@@ -2,7 +2,7 @@
 using WootingAnalogSDKNET;
 using RGB.NET.Core;
 
-namespace Artemis.Plugins.Devices.Wooting;
+namespace Artemis.Plugins.Devices.Wooting.Services;
 
 public class WootingAnalogDevice
 {
@@ -12,6 +12,6 @@ public class WootingAnalogDevice
     public WootingAnalogDevice(DeviceInfo info)
     {
         Info = info;
-        AnalogValues = new();
+        AnalogValues = new Dictionary<LedId, float>();
     }
 }
