@@ -10,5 +10,5 @@
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.Wooting.dll",
   "AutoEnableFeatures": false,
-  "Platforms":"Windows"
+  "Platforms":"Windows,Linux"
 }
