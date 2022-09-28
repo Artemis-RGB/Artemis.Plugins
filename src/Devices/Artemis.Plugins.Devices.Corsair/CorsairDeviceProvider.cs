@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
+using Artemis.Plugins.Devices.Corsair.Extensions;
 using Microsoft.Win32;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
@@ -27,6 +28,7 @@ namespace Artemis.Plugins.Devices.Corsair
             _logger = logger;
             _rgbService = rgbService;
             _pluginManagementService = pluginManagementService;
+
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
         }
@@ -81,6 +83,10 @@ namespace Artemis.Plugins.Devices.Corsair
             if (device.RgbDevice.DeviceInfo.Model.Equals("pump", StringComparison.InvariantCultureIgnoreCase))
                 return $"PUMP-{device.RgbDevice.Count()}-ZONE.xml";
 
+            // Early K95 Platinum XT models used the first key of columns of 3, use alternative layout
+            if (device.IsEarlyK95PlatinumXT())
+                return $"K95-RGB-PLATINUM-XT-ALT-{device.PhysicalLayout.ToString().ToUpper()}.xml";
+
             return base.GetDeviceLayoutName(device);
         }
 
@@ -88,7 +94,17 @@ namespace Artemis.Plugins.Devices.Corsair
 
         private void Subscribe()
         {
-            Thread thread = new(() => SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch);
+            Thread thread = new(() =>
+            {
+                try
+                {
+                    SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch;
+                }
+                catch (Exception e)
+                {
+                    _logger.Warning(e, "Could not subscribe to SessionSwitch");
+                }
+            });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
         }
@@ -111,16 +127,16 @@ namespace Artemis.Plugins.Devices.Corsair
                 string path = icue?.MainModule?.FileName;
                 if (path == null)
                     return;
-                
+
                 // Disable the plugin
                 Disable();
 
                 // Kill iCUE
                 icue.Kill();
-                
+
                 // Restart iCUE
                 Process.Start(path, "--autorun");
-                
+
                 // Enable the plugin with the management service, allowing retries 
                 await Task.Delay(5000);
                 _pluginManagementService.EnablePluginFeature(this, false, true);

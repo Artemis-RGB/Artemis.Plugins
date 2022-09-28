@@ -68,7 +68,17 @@ namespace Artemis.Plugins.Devices.Logitech
 
         private void Subscribe()
         {
-            Thread thread = new(() => SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch);
+            Thread thread = new(() =>
+            {
+                try
+                {
+                    SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch;
+                }
+                catch (Exception e)
+                {
+                    _logger.Warning(e, "Could not subscribe to SessionSwitch");
+                }
+            });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
         }
