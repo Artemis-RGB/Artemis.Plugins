@@ -83,9 +83,9 @@ namespace Artemis.Plugins.Devices.Corsair
             if (device.RgbDevice.DeviceInfo.Model.Equals("pump", StringComparison.InvariantCultureIgnoreCase))
                 return $"PUMP-{device.RgbDevice.Count()}-ZONE.xml";
 
-            // Early K95 Platinum XT models used the first key of columns of 3, use alternative layout
-            if (device.IsEarlyK95PlatinumXT())
-                return $"K95-RGB-PLATINUM-XT-ALT-{device.PhysicalLayout.ToString().ToUpper()}.xml";
+            // Early K95 Platinum models used the first key of columns of 3, use alternative layout
+            if (device.IsEarlyK95Platinum())
+                return $"K95 RGB PLATINUM-ALT-{device.PhysicalLayout.ToString().ToUpper()}.xml";
 
             return base.GetDeviceLayoutName(device);
         }

@@ -1073,7 +1073,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Programmable3">
+    <Led Id="Keyboard_Programmable1">
       <X>7</X>
       <Y>32</Y>
       <CustomData>
@@ -1084,7 +1084,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Programmable6">
+    <Led Id="Keyboard_Programmable2">
       <X>7</X>
       <Y>+</Y>
       <CustomData>
@@ -1095,7 +1095,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Programmable1">
+    <Led Id="Keyboard_Programmable3">
       <X>7</X>
       <Y>+1</Y>
       <CustomData>
@@ -1106,7 +1106,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Programmable2">
+    <Led Id="Keyboard_Programmable4">
       <X>7</X>
       <Y>+</Y>
       <CustomData>
@@ -1117,7 +1117,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Programmable4">
+    <Led Id="Keyboard_Programmable5">
       <X>7</X>
       <Y>+1</Y>
       <CustomData>
@@ -1128,7 +1128,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Programmable5">
+    <Led Id="Keyboard_Programmable6">
       <X>7</X>
       <Y>+</Y>
       <CustomData>
