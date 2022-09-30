@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
@@ -18,13 +19,15 @@ namespace Artemis.Plugins.Devices.Logitech
         private const int VENDOR_ID = 0x046D;
         private readonly ILogger _logger;
         private readonly IPluginManagementService _pluginManagementService;
+        private readonly Plugin _plugin;
         private readonly IRgbService _rgbService;
 
-        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger, IPluginManagementService pluginManagementService) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
+        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger, IPluginManagementService pluginManagementService, Plugin plugin) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
         {
             _rgbService = rgbService;
             _logger = logger;
             _pluginManagementService = pluginManagementService;
+            _plugin = plugin;
         }
 
         public override void Enable()
@@ -98,11 +101,12 @@ namespace Artemis.Plugins.Devices.Logitech
             Task.Run(async () =>
             {
                 // Disable the plugin
-                Disable();
+                _logger.Debug("Detected PC unlock, reloading Logitech plugin");
+                _pluginManagementService.DisablePlugin(_plugin, false);
 
                 // Enable the plugin with the management service, allowing retries 
                 await Task.Delay(5000);
-                _pluginManagementService.EnablePluginFeature(this, false, true);
+                _pluginManagementService.EnablePlugin(_plugin, false);
             });
         }
 

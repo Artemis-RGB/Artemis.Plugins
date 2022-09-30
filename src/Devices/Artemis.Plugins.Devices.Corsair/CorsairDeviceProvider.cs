@@ -22,12 +22,14 @@ namespace Artemis.Plugins.Devices.Corsair
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
         private readonly IPluginManagementService _pluginManagementService;
+        private readonly Plugin _plugin;
 
-        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService) : base(RGBDeviceProvider.Instance)
+        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin) : base(RGBDeviceProvider.Instance)
         {
             _logger = logger;
             _rgbService = rgbService;
             _pluginManagementService = pluginManagementService;
+            _plugin = plugin;
 
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
@@ -129,7 +131,8 @@ namespace Artemis.Plugins.Devices.Corsair
                     return;
 
                 // Disable the plugin
-                Disable();
+                _logger.Debug("Detected PC unlock, restarting iCUE and reloading Corsair plugin");
+                _pluginManagementService.DisablePlugin(_plugin, false);
 
                 // Kill iCUE
                 icue.Kill();
@@ -137,9 +140,10 @@ namespace Artemis.Plugins.Devices.Corsair
                 // Restart iCUE
                 Process.Start(path, "--autorun");
 
-                // Enable the plugin with the management service, allowing retries 
-                await Task.Delay(5000);
-                _pluginManagementService.EnablePluginFeature(this, false, true);
+                // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
+                await Task.Delay(8000);
+                _logger.Debug("Re-enabling Corsair device provider");
+                _pluginManagementService.EnablePlugin(_plugin, false);
             });
         }
 
