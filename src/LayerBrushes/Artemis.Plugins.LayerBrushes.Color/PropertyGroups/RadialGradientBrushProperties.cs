@@ -1,4 +1,5 @@
 ﻿using Artemis.Core;
+using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 {
@@ -9,9 +10,9 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
 
         [PropertyDescription(Name = "Colors multiplier", Description = "How many times to repeat the colors in the selected gradient", DisableKeyframes = true, MinInputValue = 0, MaxInputValue = 10)]
         public IntLayerProperty ColorsMultiplier { get; set; }
-
-        [PropertyDescription(Name = "Center offset", Description = "Change the position of the gradient by offsetting it from the center of the layer", InputAffix = "%")]
-        public SKPointLayerProperty CenterOffset { get; set; }
+        
+        [PropertyDescription(Description = "The position of the gradient", InputStepSize = 0.001f)]
+        public SKPointLayerProperty Position { get; set; }
 
         [PropertyDescription(Name = "Resize mode", Description = "How to make the gradient adjust to scale changes")]
         public EnumLayerProperty<RadialGradientResizeMode> ResizeMode { get; set; }
@@ -22,6 +23,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         protected override void PopulateDefaults()
         {
             Colors.DefaultValue = ColorGradient.GetUnicornBarf();
+            Position.DefaultValue = new SKPoint(0.5f, 0.5f);
             ResizeMode.DefaultValue = RadialGradientResizeMode.Fit;
         }
 

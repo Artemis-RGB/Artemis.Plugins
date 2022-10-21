@@ -34,7 +34,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 positions = stops.Select(s => s.Position).ToArray();
             }
 
-            SKPoint position = new(bounds.MidX + bounds.MidX * (Properties.CenterOffset.CurrentValue.X / 100f), bounds.MidY + bounds.MidY * (Properties.CenterOffset.CurrentValue.Y / 100f));
+            SKPoint position = new(bounds.Width * Properties.Position.CurrentValue.X, bounds.Height * Properties.Position.CurrentValue.Y);
             paint.Shader = Properties.ResizeMode.CurrentValue switch
             {
                 RadialGradientResizeMode.Fit => SKShader.CreateRadialGradient(
