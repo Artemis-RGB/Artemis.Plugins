@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using SkiaSharp;
@@ -10,55 +11,36 @@ namespace Artemis.Plugins.LayerBrushes.Noise
 {
     public class NoiseBrush : PerLedLayerBrush<NoiseBrushProperties>
     {
-        private static readonly Random Rand = new();
+        private static readonly Random RAND = new();
         private readonly FastNoiseLite _noise;
-        private ColorGradient? _gradient;
-        private SKColor[] _colorMap;
+        private readonly SKColor[] _colorMap;
         private float _x;
         private float _y;
         private float _z;
 
         public NoiseBrush()
         {
-            _x = Rand.Next(0, 4096);
-            _y = Rand.Next(0, 4096);
-            _z = Rand.Next(0, 4096);
-            _noise = new FastNoiseLite(Rand.Next(0, 4096));
+            _x = RAND.Next(0, 4096);
+            _y = RAND.Next(0, 4096);
+            _z = RAND.Next(0, 4096);
+            _noise = new FastNoiseLite(RAND.Next(0, 4096));
+            _colorMap = new SKColor[100];
         }
 
         public override void EnableLayerBrush()
         {
             Properties.LayerPropertyOnCurrentValueSet += (_, _) => Update(0);
-            Properties.Colors.GradientColor.PropertyChanged += (_, _) => UpdateGradient();
-            
-            UpdateGradient();
-        }
-
-        private void UpdateGradient()
-        {
-            if (_gradient != null)
-            {
-                _gradient.CollectionChanged -= GradientOnCollectionChanged;
-                _gradient.StopChanged -= GradientOnStopChanged;
-            }
-
-            _gradient = Properties.Colors.GradientColor.BaseValue;
-            _gradient.CollectionChanged += GradientOnCollectionChanged;
-            _gradient.StopChanged += GradientOnStopChanged;
-            CreateColorMap(_gradient);
         }
 
         public override void DisableLayerBrush()
         {
-            if (_gradient != null)
-            {
-                _gradient.CollectionChanged -= GradientOnCollectionChanged;
-                _gradient.StopChanged -= GradientOnStopChanged;
-            }
         }
 
         public override void Update(double deltaTime)
         {
+            if (Properties.Colors.GradientColor.CurrentValue == null)
+                return;
+
             _x += Properties.ScrollSpeed.CurrentValue.X * 10 * (float) deltaTime;
             _y += Properties.ScrollSpeed.CurrentValue.Y * 10 * (float) deltaTime;
             _z += Properties.AnimationSpeed.CurrentValue * 2 * (float) deltaTime;
@@ -93,10 +75,20 @@ namespace Artemis.Plugins.LayerBrushes.Noise
                 _y = 0;
             if (float.IsPositiveInfinity(_z) || float.IsNegativeInfinity(_z) || float.IsNaN(_z))
                 _z = 0;
+
+            // If assigned to a small amount of LEDs updating the color map is not worth it
+            if (Layer.Leds.Count <= 99)
+                return;
+            
+            for (int i = 0; i < 100; i++)
+                _colorMap[i] = Properties.Colors.GradientColor.CurrentValue.GetColor(i / 99f);
         }
 
         public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
         {
+            if (Properties.Colors.GradientColor.CurrentValue == null)
+                return SKColor.Empty;
+
             float scrolledX = renderPoint.X + _x;
             if (float.IsNaN(scrolledX) || float.IsInfinity(scrolledX))
                 scrolledX = 0;
@@ -119,34 +111,11 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             int segments = Properties.Colors.Segments.CurrentValue - 1;
             if (Properties.Colors.SegmentColors && segments > 0)
                 amount = MathF.Round(amount * segments, MidpointRounding.ToEven) / segments;
-            if (Properties.Colors.GradientColor.CurrentValue != null && _colorMap.Length == 100)
+
+            // If assigned to a small amount of LEDs the color map is not updated
+            if (Layer.Leds.Count > 99)
                 return _colorMap[Math.Clamp((int) (amount * 100), 0, 99)];
-            return SKColor.Empty;
+            return Properties.Colors.GradientColor.CurrentValue.GetColor(amount);
         }
-        
-        private void GradientOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            CreateColorMap(Properties.Colors.GradientColor.CurrentValue);
-        }
-
-        private void GradientOnStopChanged(object sender, EventArgs e)
-        {
-            CreateColorMap(Properties.Colors.GradientColor.CurrentValue);
-        }
-
-        private void CreateColorMap(ColorGradient gradient)
-        {
-            SKColor[] colorMap = new SKColor[100];
-            for (int i = 0; i < 100; i++)
-                colorMap[i] = gradient.GetColor(i / 99f);
-
-            _colorMap = colorMap;
-        }
-    }
-
-    public enum ColorMappingType
-    {
-        Simple,
-        Gradient
     }
 }
