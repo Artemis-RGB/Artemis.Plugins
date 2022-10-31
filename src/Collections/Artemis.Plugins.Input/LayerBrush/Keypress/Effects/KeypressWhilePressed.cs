@@ -42,8 +42,8 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                     Shader = SKShader.CreateRadialGradient(
                         Position,
                         Size,
-                        _brush.Properties.Colors.BaseValue.GetColorsArray(),
-                        _brush.Properties.Colors.BaseValue.GetPositionsArray(),
+                        _brush.Properties.Colors.CurrentValue.GetColorsArray(),
+                        _brush.Properties.Colors.CurrentValue.GetPositionsArray(),
                         SKShaderTileMode.Clamp
                     )
                 };

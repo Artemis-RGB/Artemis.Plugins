@@ -79,7 +79,6 @@ namespace Artemis.Plugins.LayerBrushes.Noise
             // If assigned to a small amount of LEDs updating the color map is not worth it
             if (Layer.Leds.Count <= 99)
                 return;
-            
             for (int i = 0; i < 100; i++)
                 _colorMap[i] = Properties.Colors.GradientColor.CurrentValue.GetColor(i / 99f);
         }

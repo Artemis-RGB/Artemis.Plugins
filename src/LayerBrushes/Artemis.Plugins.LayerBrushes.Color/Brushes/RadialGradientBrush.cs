@@ -23,8 +23,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
             // Get the stops directly if zooming is not used in any way
             if (Properties.ZoomSpeed == 0 && _progress == 0)
             {
-                colors = Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier);
-                positions = Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier);
+                colors = Properties.Colors.CurrentValue.GetColorsArray(Properties.ColorsMultiplier);
+                positions = Properties.Colors.CurrentValue.GetPositionsArray(Properties.ColorsMultiplier);
             }
             // Get the animated stops and split them up into usable arrays
             else
@@ -90,8 +90,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
         private List<ColorGradientStop> GetAnimatedStops(float animationProgress)
         {
             // Never use the stops directly as their positions are modified below
-            float[] positions = Properties.Colors.BaseValue.GetPositionsArray(Properties.ColorsMultiplier);
-            SKColor[] colors = Properties.Colors.BaseValue.GetColorsArray(Properties.ColorsMultiplier);
+            float[] positions = Properties.Colors.CurrentValue.GetPositionsArray(Properties.ColorsMultiplier);
+            SKColor[] colors = Properties.Colors.CurrentValue.GetColorsArray(Properties.ColorsMultiplier);
             List<ColorGradientStop> stops = positions.Select((p, i) => new ColorGradientStop(colors[i], p)).ToList();
 
             // Move position 0 forwards to avoid it X-fighting with 1 after applying progress
@@ -104,8 +104,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
             stops = stops.OrderBy(s => s.Position).ToList();
 
             // Add current start of the gradient to 0.0 and the end of the gradient to 1.0
-            stops.Insert(0, new ColorGradientStop(Properties.Colors.BaseValue.GetColor(1f - _progress, Properties.ColorsMultiplier), 0));
-            stops.Add(new ColorGradientStop(Properties.Colors.BaseValue.GetColor(1f - _progress, Properties.ColorsMultiplier), 1));
+            stops.Insert(0, new ColorGradientStop(Properties.Colors.CurrentValue.GetColor(1f - _progress, Properties.ColorsMultiplier), 0));
+            stops.Add(new ColorGradientStop(Properties.Colors.CurrentValue.GetColor(1f - _progress, Properties.ColorsMultiplier), 1));
 
             return stops;
         }
