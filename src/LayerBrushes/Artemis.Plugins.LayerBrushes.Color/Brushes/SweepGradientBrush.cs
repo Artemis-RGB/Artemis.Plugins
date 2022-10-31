@@ -16,7 +16,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
         {
             // TODO: Investigate performance
             paint.Shader = SKShader.CreateSweepGradient(
-                new SKPoint(bounds.Width * Properties.Position.CurrentValue.X, bounds.Height * Properties.Position.CurrentValue.Y),
+                new SKPoint(bounds.MidX, bounds.MidY),
                 Properties.Colors.CurrentValue.GetColorsArray(Properties.ColorsMultiplier),
                 Properties.Colors.CurrentValue.GetPositionsArray(Properties.ColorsMultiplier),
                 SKShaderTileMode.Clamp,
