@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Color.PropertyGroups;
 using SkiaSharp;
@@ -14,11 +15,11 @@ namespace Artemis.Plugins.LayerBrushes.Color
         /// <inheritdoc />
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            // TODO: Investigate performance
+            SKPoint position = new(bounds.Left + bounds.Width * Properties.Position.CurrentValue.X, bounds.Top + bounds.Height * Properties.Position.CurrentValue.Y);
             paint.Shader = SKShader.CreateSweepGradient(
-                new SKPoint(bounds.MidX, bounds.MidY),
-                Properties.Colors.CurrentValue.GetColorsArray(Properties.ColorsMultiplier),
-                Properties.Colors.CurrentValue.GetPositionsArray(Properties.ColorsMultiplier),
+                position,
+                Properties.Colors.CurrentValue.Colors,
+                Properties.Colors.CurrentValue.Positions,
                 SKShaderTileMode.Clamp,
                 Properties.StartAngle,
                 Properties.EndAngle,

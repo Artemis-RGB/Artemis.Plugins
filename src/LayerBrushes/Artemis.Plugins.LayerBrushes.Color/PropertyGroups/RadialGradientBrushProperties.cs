@@ -7,10 +7,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
     {
         [PropertyDescription(Description = "The gradient of the brush")]
         public ColorGradientLayerProperty Colors { get; set; }
-
-        [PropertyDescription(Name = "Colors multiplier", Description = "How many times to repeat the colors in the selected gradient", DisableKeyframes = true, MinInputValue = 0, MaxInputValue = 10)]
-        public IntLayerProperty ColorsMultiplier { get; set; }
-        
+       
         [PropertyDescription(Description = "The position of the gradient", InputStepSize = 0.001f)]
         public SKPointLayerProperty Position { get; set; }
 

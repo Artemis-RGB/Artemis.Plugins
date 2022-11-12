@@ -15,7 +15,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
         public EnumLayerProperty<LinearGradientOrientationMode> Orientation { get; set; }
 
         [PropertyDescription(Description = "Change how the gradient will be handled when it is painted outside shape bounds")]
-        public EnumLayerProperty<LinearGradientRepeatMode> RepeatMode { get; set; }
+        public EnumLayerProperty<SKShaderTileMode> TileMode { get; set; }
 
         [PropertyDescription(Description = "Change the rotation of the gradient without affecting the rotation of the shape", InputAffix = "°")]
         public FloatLayerProperty Rotation { get; set; }
@@ -30,7 +30,7 @@ namespace Artemis.Plugins.LayerBrushes.Color.PropertyGroups
             Colors.DefaultValue = ColorGradient.GetUnicornBarf();
             WaveSize.DefaultValue = 100;
             Orientation.DefaultValue = LinearGradientOrientationMode.Horizontal;
-            RepeatMode.DefaultValue = LinearGradientRepeatMode.Repeat;
+            TileMode.DefaultValue = SKShaderTileMode.Repeat;
         }
 
         protected override void EnableProperties()

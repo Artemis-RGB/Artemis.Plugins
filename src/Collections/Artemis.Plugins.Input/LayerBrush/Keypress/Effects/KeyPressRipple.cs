@@ -55,8 +55,8 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                     Shader = SKShader.CreateRadialGradient(
                         Position,
                         _brush.Properties.RippleWidth,
-                        _brush.Properties.Colors.CurrentValue.GetColorsArray(),
-                        _brush.Properties.Colors.CurrentValue.GetPositionsArray(),
+                        _brush.Properties.Colors.CurrentValue.Colors,
+                        _brush.Properties.Colors.CurrentValue.Positions,
                         // Changed from Clamp to repeat. It just looks a lot better this way.
                         // Repeat will need a color position calculation by the way to get the inner ripple color ir order to paint the Trail.
                         SKShaderTileMode.Repeat

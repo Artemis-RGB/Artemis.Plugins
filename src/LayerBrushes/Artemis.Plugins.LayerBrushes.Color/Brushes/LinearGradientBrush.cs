@@ -1,4 +1,5 @@
-﻿using Artemis.Core;
+﻿using System.Linq;
+using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Color.PropertyGroups;
 using SkiaSharp;
@@ -23,12 +24,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 matrix,
                 SKMatrix.CreateTranslation(_scrollX * bounds.Width, _scrollY * bounds.Height)
             );
-
-            // LinearGradientRepeatMode.Mirror is currently the only setting that requires a different tile mode
-            SKShaderTileMode tileMode = Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.Mirror
-                ? SKShaderTileMode.Mirror
-                : SKShaderTileMode.Repeat;
-
+            
             // Render gradient
             ColorGradient gradient = Properties.Colors;
             paint.Shader = SKShader.CreateLinearGradient(
@@ -37,9 +33,9 @@ namespace Artemis.Plugins.LayerBrushes.Color
                     Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Right : bounds.Left,
                     Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Top : bounds.Bottom
                 ),
-                gradient.GetColorsArray(0, Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.RepeatSeamless),
-                gradient.GetPositionsArray(0, Properties.RepeatMode.CurrentValue == LinearGradientRepeatMode.RepeatSeamless),
-                tileMode,
+                gradient.Colors,
+                gradient.Positions,
+                Properties.TileMode.CurrentValue,
                 matrix
             );
 

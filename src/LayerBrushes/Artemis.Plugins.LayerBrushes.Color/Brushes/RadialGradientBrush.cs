@@ -23,8 +23,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
             // Get the stops directly if zooming is not used in any way
             if (Properties.ZoomSpeed == 0 && _progress == 0)
             {
-                colors = Properties.Colors.CurrentValue.GetColorsArray(Properties.ColorsMultiplier);
-                positions = Properties.Colors.CurrentValue.GetPositionsArray(Properties.ColorsMultiplier);
+                colors = Properties.Colors.CurrentValue.Colors;
+                positions = Properties.Colors.CurrentValue.Positions;
             }
             // Get the animated stops and split them up into usable arrays
             else
@@ -34,28 +34,16 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 positions = stops.Select(s => s.Position).ToArray();
             }
 
-            SKPoint position = new(bounds.MidX, bounds.MidY);
+            SKPoint position = new(bounds.Left + bounds.Width * Properties.Position.CurrentValue.X, bounds.Top + bounds.Height * Properties.Position.CurrentValue.Y);
             paint.Shader = Properties.ResizeMode.CurrentValue switch
             {
-                RadialGradientResizeMode.Fit => SKShader.CreateRadialGradient(
-                    position,
-                    Math.Min(bounds.Width, bounds.Height) / 2f,
-                    colors.ToArray(),
-                    positions.ToArray(),
-                    SKShaderTileMode.Clamp
-                ),
-                RadialGradientResizeMode.Fill => SKShader.CreateRadialGradient(
-                    position,
-                    Math.Max(bounds.Width, bounds.Height) / 2f,
-                    colors.ToArray(),
-                    positions.ToArray(),
-                    SKShaderTileMode.Clamp
-                ),
+                RadialGradientResizeMode.Fit => SKShader.CreateRadialGradient(position, Math.Min(bounds.Width, bounds.Height) / 2f, colors, positions, SKShaderTileMode.Clamp),
+                RadialGradientResizeMode.Fill => SKShader.CreateRadialGradient(position, Math.Max(bounds.Width, bounds.Height) / 2f, colors, positions, SKShaderTileMode.Clamp),
                 RadialGradientResizeMode.Stretch => SKShader.CreateRadialGradient(
                     new SKPoint(0, 0),
                     0.5f,
-                    colors.ToArray(),
-                    positions.ToArray(),
+                    colors,
+                    positions,
                     SKShaderTileMode.Clamp,
                     SKMatrix.CreateScale(bounds.Width, bounds.Height, 0, 0).PostConcat(SKMatrix.CreateTranslation(position.X, position.Y))
                 ),
@@ -90,8 +78,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
         private List<ColorGradientStop> GetAnimatedStops(float animationProgress)
         {
             // Never use the stops directly as their positions are modified below
-            float[] positions = Properties.Colors.CurrentValue.GetPositionsArray(Properties.ColorsMultiplier);
-            SKColor[] colors = Properties.Colors.CurrentValue.GetColorsArray(Properties.ColorsMultiplier);
+            float[] positions = Properties.Colors.CurrentValue.Positions;
+            SKColor[] colors = Properties.Colors.CurrentValue.Colors;
             List<ColorGradientStop> stops = positions.Select((p, i) => new ColorGradientStop(colors[i], p)).ToList();
 
             // Move position 0 forwards to avoid it X-fighting with 1 after applying progress
@@ -104,8 +92,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
             stops = stops.OrderBy(s => s.Position).ToList();
 
             // Add current start of the gradient to 0.0 and the end of the gradient to 1.0
-            stops.Insert(0, new ColorGradientStop(Properties.Colors.CurrentValue.GetColor(1f - _progress, Properties.ColorsMultiplier), 0));
-            stops.Add(new ColorGradientStop(Properties.Colors.CurrentValue.GetColor(1f - _progress, Properties.ColorsMultiplier), 1));
+            stops.Insert(0, new ColorGradientStop(Properties.Colors.CurrentValue.GetColor(1f - _progress), 0));
+            stops.Add(new ColorGradientStop(Properties.Colors.CurrentValue.GetColor(1f - _progress), 1));
 
             return stops;
         }

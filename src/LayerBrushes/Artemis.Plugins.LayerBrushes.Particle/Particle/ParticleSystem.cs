@@ -106,7 +106,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.Particle
                 Configurations == null || Configurations.Count == 0)
                 return;
 
-            SKColor[] colors = Colors.GetColorsArray();
+            SKColor[] colors = Colors.Colors;
             for (int i = 0; i < count; i++)
             {
                 SKColor c = colors[_random.Next(Colors.Count)];
