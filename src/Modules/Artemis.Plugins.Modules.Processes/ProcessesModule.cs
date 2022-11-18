@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Artemis.Core;
+using Artemis.Core.ColorScience;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Processes.DataModels;
@@ -19,13 +20,12 @@ public class ProcessesModule : Module<ProcessesDataModel>
 {
     #region Constructors
 
-    public ProcessesModule(IColorQuantizerService quantizerService,
+    public ProcessesModule(
         PluginSettings settings,
         IProcessMonitorService processMonitorService,
         IWindowService windowService,
         ILogger logger)
     {
-        _quantizerService = quantizerService;
         _processMonitorService = processMonitorService;
         _windowService = windowService;
         _logger = logger;
@@ -39,7 +39,6 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private readonly Dictionary<string, ColorSwatch> _cache;
     private readonly PluginSetting<bool> _enableActiveWindow;
-    private readonly IColorQuantizerService _quantizerService;
     private readonly IProcessMonitorService _processMonitorService;
     private readonly IWindowService _windowService;
     private readonly ILogger _logger;
@@ -125,8 +124,8 @@ public class ProcessesModule : Module<ProcessesDataModel>
             stream.Seek(0, SeekOrigin.Begin);
             using SKBitmap bitmap = SKBitmap.FromImage(SKImage.FromEncodedData(stream));
             stream.Close();
-            SKColor[] colors = _quantizerService.Quantize(bitmap.Pixels, 256);
-            swatch = _quantizerService.FindAllColorVariations(colors, true);
+            SKColor[] colors = ColorQuantizer.Quantize(bitmap.Pixels, 256);
+            swatch = ColorQuantizer.FindAllColorVariations(colors, true);
             _cache[location] = swatch;
         }
 

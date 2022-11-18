@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using Artemis.Core;
+using Artemis.Core.ColorScience;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Processes.Services.Windows.WindowServices;
