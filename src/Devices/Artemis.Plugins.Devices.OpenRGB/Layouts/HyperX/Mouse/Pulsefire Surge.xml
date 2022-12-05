@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>HyperX Pulsefire Surge</Name>
+  <Description>HyperX Pulsefire Surge Mouse</Description>
+  <Author>martirsadota</Author>
+  <Type>Mouse</Type>
+  <Vendor>HyperX</Vendor>
+  <Model>Pulsefire Surge</Model>
+  <Scale>.8</Scale>
+  <Width>78</Width>
+  <Height>150</Height>
+  <Leds>
+    <Led Id="Mouse1">
+      <X>34</X>
+      <Y>0</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse2">
+      <X>20.5</X>
+      <Y>5</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse3">
+      <X>0</X>
+      <Y>10</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse4">
+      <X>0</X>
+      <Y>20</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse5">
+      <X>0</X>
+      <Y>30</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse6">
+      <X>0</X>
+      <Y>40</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse7">
+      <X>0</X>
+      <Y>50</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse8">
+      <X>0</X>
+      <Y>60</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse9">
+      <X>0</X>
+      <Y>70</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse10">
+      <X>5</X>
+      <Y>80</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse11">
+      <X>5</X>
+      <Y>90</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse12">
+      <X>5</X>
+      <Y>100</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse13">
+      <X>5</X>
+      <Y>110</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse14">
+      <X>10</X>
+      <Y>120</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse15">
+      <X>10</X>
+      <Y>130</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse16">
+      <X>20.5</X>
+      <Y>135</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse17">
+      <X>34</X>
+      <Y>140</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse18">
+      <X>48</X>
+      <Y>135</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse19">
+      <X>58.5</X>
+      <Y>130</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse20">
+      <X>58.5</X>
+      <Y>120</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse21">
+      <X>63.5</X>
+      <Y>110</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse22">
+      <X>63.5</X>
+      <Y>100</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse23">
+      <X>63.5</X>
+      <Y>90</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse24">
+      <X>63.5</X>
+      <Y>80</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse25">
+      <X>68.5</X>
+      <Y>70</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse26">
+      <X>68.5</X>
+      <Y>60</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse27">
+      <X>68.5</X>
+      <Y>50</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse28">
+      <X>68.5</X>
+      <Y>40</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse29">
+      <X>68.5</X>
+      <Y>30</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse30">
+      <X>68.5</X>
+      <Y>20</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse31">
+      <X>68.5</X>
+      <Y>10</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse32">
+      <X>48</X>
+      <Y>5</Y>      <Width>0.5</Width>       <Height>0.5</Height>
+    </Led>
+    <Led Id="Mouse33">
+      <X>25</X>
+      <Y>105</Y> 
+      <Width>1.5</Width>
+      <Height>1.5</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Pulsefire Surge.png</DeviceImage>
+  </CustomData>
+</Device>
