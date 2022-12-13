@@ -17,13 +17,11 @@ They are also included in the pre-release builds of Artemis found over at [the m
 
 **If you run into any issues please let us know on Discord.**
 
-
 ## Plugin development
-While Artemis 2 is still in development, the plugin API is pretty far along.  
-To get started, you can download the Visual Studio extension in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=SpoinkyNL.ArtemisTemplates).
-
-This extension provides you with interactive template projects for each type of Artemis 2 plugin.
-To use the templates you must have Artemis 2 extracted somewhere on your drive. The plugin wizard will ask you to locate the exectuable in order to setup all the required project references for you.
+While Artemis 2 is still in development, the plugin API is pretty far along.
+To get started developing your plugin, you can use the following resources:
+* [Plugin Templates](https://github.com/Artemis-RGB/Artemis.Plugins.Templates)
+* [Plugin API Documentation](https://artemis-rgb.com/docs/)
 
 Due to the volatine nature of the project right now, there is no documentation yet. The templates provide some commentary to get you going and feel free to ask for more help in Discord.
 
