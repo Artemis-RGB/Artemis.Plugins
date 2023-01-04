@@ -463,7 +463,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Backslash">
+    <Led Id="Keyboard_NonUsTilde">
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Image="Regular_Keys/NonUsBackslash.png" />

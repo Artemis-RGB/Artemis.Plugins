@@ -567,7 +567,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Backslash">
+    <Led Id="Keyboard_NonUsTilde">
       <Width>1</Width>
       <CustomData>
         <LogicalLayouts>
