@@ -19,6 +19,7 @@ public class WootingProfileService : IPluginService
     {
         _logger = logger;
         _devices = new List<WootingProfileDevice>();
+        Devices = new ReadOnlyCollection<WootingProfileDevice>(_devices);
 
         if (!WootingSdk.IsConnected())
         {
@@ -26,7 +27,7 @@ public class WootingProfileService : IPluginService
             return;
         }
 
-        byte keyboardCount = WootingSdk.GetKeyboardCount();
+        byte keyboardCount = WootingSdk.GetDeviceCount();
         for (byte i = 0; i < keyboardCount; i++)
         {
             WootingSdk.SelectDevice(i);
@@ -35,8 +36,6 @@ public class WootingProfileService : IPluginService
             info.Model = info.Model.Replace(" ", "");
             _devices.Add(new WootingProfileDevice(info));
         }
-
-        Devices = new ReadOnlyCollection<WootingProfileDevice>(_devices);
     }
 
     public void Update()
