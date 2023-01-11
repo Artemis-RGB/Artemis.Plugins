@@ -1,4 +1,5 @@
-﻿using Artemis.Core;
+﻿using System;
+using Artemis.Core;
 using JetBrains.Profiler.SelfApi;
 
 namespace Artemis.Plugins.Profiling
@@ -37,7 +38,8 @@ namespace Artemis.Plugins.Profiling
                 DotTrace.EnsurePrerequisite(null, NuGetApi.V3, _plugin.ResolveRelativePath(ProfilerDirectory));
 
                 DotTrace.Config config = new();
-                config.UseTimelineProfilingType();
+                if (OperatingSystem.IsWindows())
+                    config.UseTimelineProfilingType();
                 config.SaveToDir(dirPath);
 
                 DotTrace.Attach(config);
