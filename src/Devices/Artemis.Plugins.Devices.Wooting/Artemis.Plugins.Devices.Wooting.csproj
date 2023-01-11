@@ -7,16 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Core" Version="1.0.0-prerelease.54" />
+    <PackageReference Include="RGB.NET.Core" Version="1.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.1-preview.108" />
     <PackageReference Include="Serilog" Version="2.11.0" />
 
-      <!--All packages Artemis already references are compile-only dependencies-->
+    <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0-prerelease.54" />
+    <PackageReference Include="RGB.NET.Devices.Wooting" Version="1.0.0" />
     <PackageReference Include="WootingAnalogSDK.NET" Version="0.5.0" />
   </ItemGroup>
 

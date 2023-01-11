@@ -40,8 +40,8 @@ internal static class WootingSdk
     [DllImport(DLL, EntryPoint = "wooting_rgb_kbd_connected", CallingConvention = CallingConvention.Cdecl)]
     public static extern bool IsConnected();
 
-    [DllImport(DLL, EntryPoint = "wooting_usb_keyboard_count", CallingConvention = CallingConvention.Cdecl)]
-    public static extern byte GetKeyboardCount();
+    [DllImport(DLL, EntryPoint = "wooting_usb_device_count", CallingConvention = CallingConvention.Cdecl)]
+    public static extern byte GetDeviceCount();
 
     [DllImport(DLL, EntryPoint = "wooting_usb_select_device", CallingConvention = CallingConvention.Cdecl)]
     public static extern bool SelectDevice(byte index);
