@@ -23,14 +23,14 @@ public class WootingAnalogService : IPluginService, IDisposable
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
-        (_, WootingAnalogResult result) = WootingAnalogSDK.Initialise();
+        (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
 
-        if (result < 0)
-            throw new ArtemisPluginException($"Failed to initialise WootingAnalog SDK: {result}");
+        if (initResult < 0)
+            throw new ArtemisPluginException($"Failed to initialise WootingAnalog SDK: {initResult}");
 
-        (List<DeviceInfo> infos, WootingAnalogResult result2) = WootingAnalogSDK.GetConnectedDevicesInfo();
-        if (result2 < 0)//any value 0 and above means success.
-            throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {result2}");
+        (List<DeviceInfo> infos, WootingAnalogResult deviceInfoResult) = WootingAnalogSDK.GetConnectedDevicesInfo();
+        if (deviceInfoResult < 0)//any value 0 and above means success.
+            throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {deviceInfoResult}");
 
         _devices = new(infos.Count);
         for (int i = 0; i < infos.Count; i++)
