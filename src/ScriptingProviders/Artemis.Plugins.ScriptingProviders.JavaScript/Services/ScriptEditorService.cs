@@ -31,7 +31,7 @@ public class ScriptEditorService
         // Serve the static files of the editor web application
         _webServerService.AddModule(pluginFeature, () =>
         {
-            FileSystemProvider provider = new(_plugin.ResolveRelativePath("WebApplication\\dist"), true);
+            FileSystemProvider provider = new(_plugin.ResolveRelativePath("Resources\\Editor"), true);
             return new FileModule($"/{EDITOR_URL}", provider);
         });
 

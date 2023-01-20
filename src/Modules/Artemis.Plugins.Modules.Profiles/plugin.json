@@ -1,0 +1,12 @@
+{
+  "Guid": "b79d14b5-45f3-48e8-a781-5525dc9b6f89",
+  "Api": "1.0",
+  "Name": "Artemis Profiles",
+  "Author": "Robert",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "ContentSave",
+  "Description": "A module that exposes the current profiles and its contents on the data model",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Modules.Profiles.dll"
+}

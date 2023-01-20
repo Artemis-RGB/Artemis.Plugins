@@ -63,8 +63,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\bass.zip" />
     <Content Include="Resources\bass.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Editor\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
