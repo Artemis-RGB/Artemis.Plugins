@@ -9,7 +9,7 @@ public class Bootstrapper : PluginBootstrapper
     public override void OnPluginEnabled(Plugin plugin)
     {
         if (OperatingSystem.IsWindows())
-            plugin.Kernel!.Bind<IWindowService>().To<WindowsWindowService>().InSingletonScope();
+            plugin.Register<IWindowService, WindowsWindowService>();
         else
             throw new NotImplementedException("Platform support not implemented yet");
     }

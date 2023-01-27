@@ -10,7 +10,7 @@ public class Bootstrapper : PluginBootstrapper
     public override void OnPluginEnabled(Plugin plugin)
     {
         if (OperatingSystem.IsWindows())
-            plugin.Kernel!.Bind<IPerformanceService>().To<WindowsPerformanceService>().InSingletonScope();
+            plugin.Register<IPerformanceService, WindowsPerformanceService>();
         else
             throw new NotImplementedException("Platform support not implemented yet");
     }
