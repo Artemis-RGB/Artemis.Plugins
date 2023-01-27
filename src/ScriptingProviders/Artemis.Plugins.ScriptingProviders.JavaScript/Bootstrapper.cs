@@ -1,5 +1,6 @@
 ﻿using Artemis.Core;
-using Artemis.Plugins.ScriptingProviders.JavaScript.Ninject;
+using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings;
+using DryIoc;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript
 {
@@ -18,7 +19,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript
         {
             if (!_loadedModule)
             {
-                plugin.Kernel!.Load(new[] {new ScriptingModule()});
+                plugin.Container.RegisterMany(new []{plugin.Assembly}, type => type.IsAssignableTo<IScriptBinding>());
                 _loadedModule = true;
             }
         }

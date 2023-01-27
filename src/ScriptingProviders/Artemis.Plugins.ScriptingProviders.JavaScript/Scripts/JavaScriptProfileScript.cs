@@ -1,11 +1,8 @@
 ﻿using System;
-using System.IO;
 using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
-using Ninject;
-using Ninject.Parameters;
 using SkiaSharp;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
@@ -14,11 +11,11 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
     {
         private readonly ProfileBinding _profileBinding;
 
-        public JavaScriptProfileScript(Profile profile, Plugin plugin, ScriptConfiguration configuration) : base(profile, configuration)
+        public JavaScriptProfileScript(Profile profile, Plugin plugin, ScriptConfiguration configuration, Func<Script, EngineManager> createEngineManager) : base(profile, configuration)
         {
             _profileBinding = new ProfileBinding(profile, plugin);
 
-            EngineManager = plugin.Kernel!.Get<EngineManager>(new ConstructorArgument("script", this));
+            EngineManager = createEngineManager(this);
             EngineManager.ContextBindings.Add(_profileBinding);
             EngineManager.ExecuteScript();
 

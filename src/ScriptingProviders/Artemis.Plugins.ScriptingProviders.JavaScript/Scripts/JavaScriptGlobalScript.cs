@@ -1,19 +1,16 @@
 ﻿using System;
-using Artemis.Core;
 using Artemis.Core.ScriptingProviders;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Jint;
-using Ninject;
-using Ninject.Parameters;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Scripts
 {
     public class JavaScriptGlobalScript : GlobalScript, IJavaScriptScript
     {
-        public JavaScriptGlobalScript(Plugin plugin, ScriptConfiguration configuration) : base(configuration)
+        public JavaScriptGlobalScript(ScriptConfiguration configuration, Func<Script, EngineManager> createEngineManager) : base(configuration)
         {
             ScriptConfiguration.ScriptContentChanged += ConfigurationOnScriptContentChanged;
 
-            EngineManager = plugin.Kernel!.Get<EngineManager>(new ConstructorArgument("script", this));
+            EngineManager = createEngineManager(this);
             EngineManager.ExecuteScript();
         }
 
