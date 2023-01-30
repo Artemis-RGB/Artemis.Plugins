@@ -24,8 +24,8 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
         public override void OnPluginEnabled(Plugin plugin)
         {
-            _logger = plugin.Get<ILogger>();
-            _managementService = plugin.Get<IPluginManagementService>();
+            _logger = plugin.Resolve<ILogger>();
+            _managementService = plugin.Resolve<IPluginManagementService>();
             _brushProvider = plugin.GetFeatureInfo<AmbilightLayerBrushProvider>();
 
             ScreenCaptureService ??= new AmbilightScreenCaptureService(new DX11ScreenCaptureService());

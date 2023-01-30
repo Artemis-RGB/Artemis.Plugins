@@ -9,7 +9,7 @@ using EmbedIO.Files;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.Services;
 
-public class ScriptEditorService
+public class ScriptEditorService : IPluginService
 {
     private const string EDITOR_URL = "dd35f1b7-3d3f-4f90-a60f-40354783049b/editor";
     private readonly Plugin _plugin;
