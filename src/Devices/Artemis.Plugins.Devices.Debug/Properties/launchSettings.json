@@ -1,9 +1,12 @@
 {
   "profiles": {
-    "Artemis.Plugins.Devices.Debug": {
+    "Windows": {
       "commandName": "Executable",
-      "executablePath": ".\\Artemis.UI.Avalonia.exe",
-      "workingDirectory": "..\\..\\..\\..\\Artemis\\src\\Artemis.UI.Avalonia\\bin\\net6.0"
+      "executablePath": "C:\\Program Files\\Artemis\\Artemis.UI.Windows.exe"
+    },
+    "Windows Dev": {
+      "commandName": "Executable",
+      "executablePath": "$(SolutionDir)\\..\\..\\Artemis\\src\\Artemis.UI.Windows\\bin\\Artemis.UI.Windows.exe"
     }
   }
 }
