@@ -37,18 +37,16 @@ namespace Artemis.Plugins.Devices.Corsair
 
         public override void Enable()
         {
-            RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2017.dll"));
-            RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2017.dll"));
+            RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "iCUESDK.x64_2019.dll"));
+            RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
             try
             {
                 _rgbService.AddDeviceProvider(RgbDeviceProvider);
-
-                if (RGBDeviceProvider.Instance.ProtocolDetails == null) return;
+                
                 _logger.Debug("Corsair SDK details");
-                _logger.Debug(" - SDK version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkVersion);
-                _logger.Debug(" - SDK protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkProtocolVersion);
-                _logger.Debug(" - Server version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerVersion);
-                _logger.Debug(" - Server protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerProtocolVersion);
+                _logger.Debug(" - Client version: {detail}", RGBDeviceProvider.Instance.SessionDetails.ClientVersion);
+                _logger.Debug(" - Server version: {detail}", RGBDeviceProvider.Instance.SessionDetails.ServerVersion);
+                _logger.Debug(" - Server-Host version: {detail}", RGBDeviceProvider.Instance.SessionDetails.ServerHostVersion);
 
                 Subscribe();
             }
