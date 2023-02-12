@@ -13,9 +13,9 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         private int _zoneCount = 0;
 
-        private Task _updateTask;
-        private CancellationTokenSource _cancellationTokenSource;
-        private CancellationToken _cancellationToken;
+        private Task? _updateTask;
+        private CancellationTokenSource? _cancellationTokenSource;
+        private CancellationToken _cancellationToken = CancellationToken.None;
 
         public Display Display => _screenCapture.Display;
 
@@ -23,7 +23,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         #region Events
 
-        public event EventHandler<ScreenCaptureUpdatedEventArgs> Updated;
+        public event EventHandler<ScreenCaptureUpdatedEventArgs>? Updated;
 
         #endregion
 
@@ -79,12 +79,18 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
                 if ((_zoneCount == 0) && (_updateTask != null))
                 {
-                    _cancellationTokenSource.Cancel();
+                    _cancellationTokenSource?.Cancel();
                     _updateTask = null;
                 }
 
                 return result;
             }
+        }
+
+        public void UpdateCaptureZone(CaptureZone captureZone, int? x = null, int? y = null, int? width = null, int? height = null, int? downscaleLevel = null)
+        {
+            lock (_screenCapture)
+                _screenCapture.UpdateCaptureZone(captureZone, x, y, width, height, downscaleLevel);
         }
 
         public bool CaptureScreen() => false;
@@ -93,7 +99,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         public void Dispose()
         {
-            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource?.Cancel();
             _updateTask = null;
 
             _screenCapture.Dispose();
