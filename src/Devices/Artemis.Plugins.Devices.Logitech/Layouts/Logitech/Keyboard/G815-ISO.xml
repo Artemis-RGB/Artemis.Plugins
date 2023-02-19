@@ -143,6 +143,31 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_MediaPreviousTrack">
+      <Shape>Circle</Shape>
+      <X>+8</X>
+      <Y>30</Y>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Keyboard_MediaPlay">
+      <Shape>Circle</Shape>
+      <X>+2.5</X>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Keyboard_MediaNextTrack">
+      <Shape>Circle</Shape>
+      <X>+2.5</X>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Keyboard_MediaMute">
+      <Shape>Circle</Shape>
+      <X>+2.5</X>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
     <Led Id="Keyboard_GraveAccentAndTilde">
       <X>34</X>
       <Y>52</Y>
@@ -943,8 +968,15 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_Brightness">
+      <Shape>Circle</Shape>
+      <X>173.4</X>
+      <Y>6</Y>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>G815_ISO.png</DeviceImage>
+    <DeviceImage>G815-ISO.png</DeviceImage>
   </CustomData>
 </Device>

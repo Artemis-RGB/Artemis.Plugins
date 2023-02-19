@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>G Pro Wireless</Name>
-  <Description>Layout of the G Pro Wireless mouse</Description>
+  <Name>G Pro HERO</Name>
+  <Description>Layout of the G Pro HERO mouse</Description>
   <Author>DrMeteor</Author>
   <Type>Mouse</Type>
   <Vendor>Logitech</Vendor>
-  <Model>G Pro Wireless</Model>
+  <Model>G Pro HERO</Model>
   <Width>65</Width>
   <Height>125</Height>
   <Leds>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>G203 LIGHTSYNC</Name>
-  <Description>Logitech G203/G103/G102 LIGHTSYNC Mouse</Description>
+  <Description>Logitech G203 LIGHTSYNC Mouse</Description>
   <Author>martirsadota</Author>
   <Type>Mouse</Type>
   <Vendor>Logitech</Vendor>
@@ -32,6 +32,6 @@
     </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>G203 LIGHTSYNC.png</DeviceImage>
+    <DeviceImage>G203.png</DeviceImage>
   </CustomData>
 </Device>

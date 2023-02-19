@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Logitech G915 - Physical ISO</Name>
-  <Description>Physical ISO - Layout of Logitech G915</Description>
-  <Author>Skygamer</Author>
+  <Name>Logitech G915 TKL</Name>
+  <Description>Physical ISO - Layout of Logitech G915 TKL</Description>
+  <Author>motabass</Author>
   <Type>Keyboard</Type>
   <Vendor>Logitech</Vendor>
-  <Model>G915</Model>
-  <Width>470</Width>
+  <Model>G915 TKL</Model>
+  <Width>362</Width>
   <Height>152</Height>
   <Leds>
     <Led Id="Keyboard_Escape">
-      <X>34</X>
-      <Y>28</Y>
+      <X>7.1</X>
+      <Y>27.7</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Escape.png" />
@@ -86,7 +86,8 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_F9">
-      <X>+11</X>
+      <X>217.9</X>
+      <Y>27.3</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="F9.png" />
@@ -119,7 +120,8 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_PrintScreen">
-      <X>+6.75</X>
+      <X>300.4</X>
+      <Y>27.3</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="PrintScreen.png" />
@@ -143,9 +145,34 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_MediaPreviousTrack">
+      <Shape>Circle</Shape>
+      <X>220.3</X>
+      <Y>6.9</Y>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Keyboard_MediaPlay">
+      <Shape>Circle</Shape>
+      <X>+2.5</X>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Keyboard_MediaNextTrack">
+      <Shape>Circle</Shape>
+      <X>+2.5</X>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
+    <Led Id="Keyboard_MediaMute">
+      <Shape>Circle</Shape>
+      <X>+2.5</X>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
     <Led Id="Keyboard_GraveAccentAndTilde">
-      <X>34</X>
-      <Y>52</Y>
+      <X>7.4</X>
+      <Y>52.1</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Grave_Tilde.png" />
@@ -259,7 +286,8 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_Insert">
-      <X>+4</X>
+      <X>300.4</X>
+      <Y>71.3</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Insert.png" />
@@ -283,42 +311,9 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_NumLock">
-      <X>+6.75</X>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NumSlash">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Slash.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NumAsterisk">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Asterisk.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NumMinus">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Minus.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Keyboard_Tab">
-      <X>34</X>
-      <Y>+</Y>
+      <X>7.4</X>
+      <Y>71</Y>
       <Width>1.5</Width>
       <CustomData>
         <LogicalLayouts>
@@ -435,7 +430,8 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_Delete">
-      <X>+4</X>
+      <X>300.4</X>
+      <Y>51.7</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="Delete.png" />
@@ -459,43 +455,9 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Num7">
-      <X>+6.75</X>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num7_Home.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Num8">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num8_ArrowUp.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Num9">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num9_PageUp.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NumPlus">
-      <Height>2</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="NumPlus.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Keyboard_CapsLock">
-      <X>34</X>
-      <Y>~</Y>
+      <X>7.4</X>
+      <Y>89.9</Y>
       <Width>1.75</Width>
       <CustomData>
         <LogicalLayouts>
@@ -600,34 +562,9 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Num4">
-      <X>+91.5</X>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num4_ArrowLeft.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Num5">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num5.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Num6">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num6_ArrowRight.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Keyboard_LeftShift">
-      <X>34</X>
-      <Y>+</Y>
+      <X>7.4</X>
+      <Y>109.4</Y>
       <Width>1.25</Width>
       <CustomData>
         <LogicalLayouts>
@@ -720,7 +657,8 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_ArrowUp">
-      <X>+22.75</X>
+      <X>318.9</X>
+      <Y>109.8</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="CaretUp.png" />
@@ -728,43 +666,9 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Num1">
-      <X>+26</X>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num1_End.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Num2">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num2_ArrowDown.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Num3">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num3_PageDown.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NumEnter">
-      <Height>2</Height>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="NumEnter.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Keyboard_LeftCtrl">
-      <X>34</X>
-      <Y>~</Y>
+      <X>7.4</X>
+      <Y>129</Y>
       <Width>1.5</Width>
       <CustomData>
         <LogicalLayouts>
@@ -837,7 +741,8 @@
       </CustomData>
     </Led>
     <Led Id="Keyboard_ArrowLeft">
-      <X>+4</X>
+      <X>299.9</X>
+      <Y>129.3</Y>
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="CaretLeft.png" />
@@ -861,74 +766,6 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Num0">
-      <X>+6.75</X>
-      <Width>2</Width>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="Num0_Insert.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_NumPeriodAndDelete">
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="NumPeriod_Delete.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Programmable1">
-      <X>10</X>
-      <Y>52</Y>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="G1.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Programmable2">
-      <X>10</X>
-      <Y>+</Y>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="G2.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Programmable3">
-      <X>10</X>
-      <Y>+</Y>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="G3.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Programmable4">
-      <X>10</X>
-      <Y>+</Y>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="G4.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
-    <Led Id="Keyboard_Programmable5">
-      <X>10</X>
-      <Y>+</Y>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="DE" Image="G5.png" />
-          <LogicalLayout Image="" Name="US" />
-        </LogicalLayouts>
-      </CustomData>
-    </Led>
     <Led Id="Logo">
       <Shape>M0.5236372947692871,-9.313225191043273E-10 L0.5236372947692871,0.10605636984109879 0.5236372947692871,0.21211275458335876 0.4982117712497711,0.2135082185268402 C0.42076629400253296,0.2179737687110901 0.339521586894989,0.25900083780288696 0.28896284103393555,0.31900641322135925 0.2652908265590668,0.3471950888633728 0.24044981598854065,0.39352497458457947 0.2308056652545929,0.4278537631034851 0.22496071457862854,0.44822773337364197 0.22408397495746613,0.45827516913414 0.22408397495746613,0.5004186630249023 0.22408397495746613,0.5593078136444092 0.22875992953777313,0.5796818137168884 0.2533086836338043,0.6274071931838989 0.29977598786354065,0.7183923721313477 0.3962175250053406,0.7814680337905884 0.4982117712497711,0.7873290181159973 L0.5236372947692871,0.7887245416641235 0.5236372947692871,0.8942226767539978 0.5236372947692871,0.9999999403953552 0.5011342763900757,0.9997208714485168 C0.48856762051582336,0.9994418025016785 0.46986380219459534,0.9983254075050354 0.459342896938324,0.996929943561554 0.2232072353363037,0.9679039716720581 0.03587684780359268,0.7909572720527649 0.00460641086101532,0.5676807165145874 -0.031632229685783386,0.30588892102241516 0.14956097304821014,0.06279654055833817 0.42076629400253296,0.010326547548174858 0.44063907861709595,0.006419200450181961 0.4719095230102539,0.002511860802769661 0.4903210997581482,0.0016745765460655093 L0.5236372947692871,-9.313225191043273E-10z M0.5294822454452515,0.4027351438999176 L0.7647411227226257,0.4027351438999176 1.0000001192092896,0.4027351438999176 1.0000001192092896,0.6288026571273804 1.0000001192092896,0.8548702001571655 0.8895306587219238,0.8548702001571655 C0.8287432789802551,0.8548702001571655 0.7778922915458679,0.8540329337120056 0.7770155072212219,0.8529165387153625 0.775846540927887,0.8520792722702026 0.7749698162078857,0.7984928488731384 0.7749698162078857,0.7343008518218994 L0.7749698162078857,0.6176388263702393 0.6522260308265686,0.6176388263702393 0.5294822454452515,0.6176388263702393 0.5294822454452515,0.5101869702339172 0.5294822454452515,0.4027351438999176z</Shape>
       <X>10.6</X>
@@ -943,8 +780,15 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_Brightness">
+      <Shape>Circle</Shape>
+      <X>96.5</X>
+      <Y>6.5</Y>
+      <Width>0.8</Width>
+      <Height>0.8</Height>
+    </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>g915_ISO.png</DeviceImage>
+    <DeviceImage>G915 TKL-ISO.png</DeviceImage>
   </CustomData>
 </Device>
