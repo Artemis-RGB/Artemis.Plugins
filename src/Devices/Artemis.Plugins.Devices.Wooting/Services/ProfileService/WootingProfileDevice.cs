@@ -1,4 +1,4 @@
-﻿namespace Artemis.Plugins.Devices.Wooting.Services;
+﻿namespace Artemis.Plugins.Devices.Wooting.Services.ProfileService;
 
 public class WootingProfileDevice
 {

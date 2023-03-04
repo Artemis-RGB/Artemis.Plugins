@@ -1,17 +1,18 @@
-﻿using Artemis.Core.Modules;
-using Artemis.Plugins.Devices.Wooting.DataModels;
-using Artemis.Plugins.Devices.Wooting.Services;
-using RGB.NET.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Artemis.Core.Modules;
+using Artemis.Plugins.Devices.Wooting.DataModels;
+using Artemis.Plugins.Devices.Wooting.Services.AnalogService;
+using Artemis.Plugins.Devices.Wooting.Services.ProfileService;
+using RGB.NET.Core;
 
-namespace Artemis.Plugins.Devices.Wooting;
+namespace Artemis.Plugins.Devices.Wooting.Modules;
 
 public class WootingModule : Module<WootingDataModel>
 {
     private readonly WootingAnalogService _analogService;
     private readonly WootingProfileService _profileService;
+    private double _timeSinceLastUpdate;
 
     public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
 
@@ -25,12 +26,17 @@ public class WootingModule : Module<WootingDataModel>
     {
         foreach (WootingAnalogDevice item in _analogService.Devices)
             DataModel.AddDynamicChild(item.Info.device_name, new WootingDeviceDataModel());
-
-        AddTimedUpdate(TimeSpan.FromMilliseconds(250), UpdateKeyboardProfiles);
     }
 
     public override void Update(double deltaTime)
     {
+        _timeSinceLastUpdate += deltaTime;
+        if (_timeSinceLastUpdate > 0.3d)
+        {
+            _timeSinceLastUpdate = 0;
+            UpdateKeyboardProfiles(deltaTime);
+        }
+        
         UpdateAnalogValues();
     }
 
@@ -61,7 +67,10 @@ public class WootingModule : Module<WootingDataModel>
         _profileService.Update();
         foreach (WootingProfileDevice device in _profileService.Devices)
         {
-            if (!DataModel.TryGetDynamicChild<WootingDeviceDataModel>(device.Info.Model, out DynamicChild<WootingDeviceDataModel> deviceDataModel))
+            if (!WootingModelNameDictionary.WootingModelNames.TryGetValue(device.Info.Model, out string modelName))
+                continue;
+            
+            if (!DataModel.TryGetDynamicChild(modelName, out DynamicChild<WootingDeviceDataModel> deviceDataModel))
                 continue;
 
             deviceDataModel.Value.Profile = device.Profile;

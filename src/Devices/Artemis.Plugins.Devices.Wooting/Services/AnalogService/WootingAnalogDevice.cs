@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using WootingAnalogSDKNET;
 using RGB.NET.Core;
+using WootingAnalogSDKNET;
 
-namespace Artemis.Plugins.Devices.Wooting.Services;
+namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 
 public class WootingAnalogDevice
 {

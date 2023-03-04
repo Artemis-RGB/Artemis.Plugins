@@ -1,15 +1,12 @@
-﻿using RGB.NET.Core;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RGB.NET.Core;
 
-namespace Artemis.Plugins.Devices.Wooting.Services;
+namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 
-internal static class LedMapping
+internal static class WootingAnalogLedMapping
 {
-    internal static readonly Dictionary<LedId, ushort> HidCodes = new()
+    internal static Dictionary<LedId, ushort> HidCodes { get; } = new()
     {
         [LedId.Keyboard_A] = 4,
         [LedId.Keyboard_B] = 5,
@@ -148,5 +145,5 @@ internal static class LedMapping
         [LedId.Keyboard_Function] = 1033
     };
 
-    internal static Dictionary<short, LedId> HidCodesReversed = HidCodes.ToDictionary(x => (short)x.Value, x => x.Key);
+    internal static Dictionary<short, LedId> HidCodesReversed { get; } = HidCodes.ToDictionary(x => (short)x.Value, x => x.Key);
 }
