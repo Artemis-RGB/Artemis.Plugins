@@ -1,11 +1,9 @@
-﻿using Artemis.Core.Modules;
+using Artemis.Core.Modules;
 
 namespace Artemis.Plugins.Devices.Wooting.DataModels;
 
-public class WootingDeviceDataModel : DataModel
+public class WootingProfileDataModel : DataModel
 {
-    public WootingAnalogDataModel Analog { get; set; } = new();
-
     public int Profile { get; set; }
 
     public bool IsInAnalogProfile => Profile != 0;

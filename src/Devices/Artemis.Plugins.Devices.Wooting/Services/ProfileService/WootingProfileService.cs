@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Artemis.Core.Services;
 using RGB.NET.Devices.Wooting.Enum;
@@ -10,6 +11,7 @@ public sealed class WootingProfileService : IPluginService
 {
     private readonly ILogger _logger;
     private readonly List<WootingProfileDevice> _devices;
+    private DateTime lastUpdate;
     public IReadOnlyCollection<WootingProfileDevice> Devices { get; }
 
     public WootingProfileService(ILogger logger)
@@ -35,6 +37,10 @@ public sealed class WootingProfileService : IPluginService
 
     public void Update()
     {
+        DateTime now = DateTime.Now;
+        if (now - lastUpdate < TimeSpan.FromSeconds(1d / 5d))
+            return;
+        
         if (!WootingSdk.IsConnected())
         {
             _logger.Error("Wooting SDK is not connected");
@@ -47,5 +53,6 @@ public sealed class WootingProfileService : IPluginService
             if (WootingSdk.TryGetProfile(i, device.Info.V2Interface, out int p))
                 device.Profile = p;
         }
+        lastUpdate = now;
     }
 }

@@ -11,14 +11,22 @@ namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 public sealed class WootingAnalogService : IPluginService, IDisposable
 {
     private DateTime lastUpdate;
-    private TimeSpan timeBetweenUpdates = TimeSpan.FromSeconds(1.0 / 30.0);
+    private bool initialized;
     private readonly ILogger _logger;
-    private readonly List<WootingAnalogDevice> _devices;
-    public IReadOnlyCollection<WootingAnalogDevice> Devices { get; }
+    private List<WootingAnalogDevice> _devices;
+    public IReadOnlyCollection<WootingAnalogDevice> Devices { get; private set; }
 
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
+        initialized = false;
+    }
+    
+    public void Initialize()
+    {
+        if (initialized)
+            return;
+        
         (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
 
         if (initResult < 0)
@@ -37,12 +45,13 @@ public sealed class WootingAnalogService : IPluginService, IDisposable
         Devices = new ReadOnlyCollection<WootingAnalogDevice>(_devices);
 
         ReadAllValues();
+        initialized = true;
     }
 
     public void Update()
     {
         DateTime now = DateTime.Now;
-        if (now - lastUpdate < timeBetweenUpdates)
+        if (now - lastUpdate < TimeSpan.FromSeconds(1.0 / 30.0))
             return;
         
         for (int i = 0; i < _devices.Count; i++)
