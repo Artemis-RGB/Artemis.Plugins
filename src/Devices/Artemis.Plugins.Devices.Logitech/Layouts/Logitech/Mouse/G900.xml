@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Logitech G900</Name>
-  <Description>Layout of the G900 mouse</Description>
+  <Name>Logitech G900 Chaos Spectrum</Name>
+  <Description>Layout of the G900 Chaos Spectrum mouse</Description>
   <Author>diogotr7</Author>
   <Type>Mouse</Type>
-  <Lighting>Key</Lighting>
   <Vendor>Logitech</Vendor>
   <Model>G900</Model>
   <Width>65</Width>

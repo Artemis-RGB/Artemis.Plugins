@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
@@ -29,6 +29,10 @@ public class WS281XConfigurationViewModel : PluginConfigurationViewModel
         _pluginManagementService = pluginManagementService;
         _definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
 
+        //DeviceDefinitions setting may be loaded with a null list
+        if (_definitions.Value == null)
+            _definitions.Value = new List<DeviceDefinition>();
+            
         Definitions = new ObservableCollection<DeviceDefinition>(_definitions.Value);
         TurnOffLedsOnShutdown = _settings.GetSetting("TurnOffLedsOnShutdown", false);
 

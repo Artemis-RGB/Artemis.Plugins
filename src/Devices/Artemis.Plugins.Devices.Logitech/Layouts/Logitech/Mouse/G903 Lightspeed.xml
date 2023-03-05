@@ -1,12 +1,10 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Logitech G900</Name>
-  <Description>Layout of the G900 mouse</Description>
-  <Author>diogotr7</Author>
+  <Name>Logitech G903</Name>
+  <Description>Layout of the Logitech G903 mouse</Description>
   <Type>Mouse</Type>
-  <Lighting>Key</Lighting>
   <Vendor>Logitech</Vendor>
-  <Model>G900</Model>
+  <Model>G903</Model>
   <Width>65</Width>
   <Height>130</Height>
   <LedUnitWidth>15</LedUnitWidth>
@@ -24,8 +22,8 @@
     </Led>
   </Leds>
   <CustomData>
-    <DeviceImage>G903 Lightspeed.png</DeviceImage>
+    <DeviceImage>G900.png</DeviceImage>
   </CustomData>
-  <Author>piechade</Author>
+  <Author>motabass</Author>
 </Device>
 
