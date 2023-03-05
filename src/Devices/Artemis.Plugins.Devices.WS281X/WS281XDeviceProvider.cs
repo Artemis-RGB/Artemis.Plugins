@@ -25,7 +25,7 @@ namespace Artemis.Plugins.Devices.WS281X
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
 
-        public WS281XDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings) 
+        public WS281XDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings)
             : base(RGBDeviceProvider.Instance)
         {
             _logger = logger;
@@ -36,6 +36,8 @@ namespace Artemis.Plugins.Devices.WS281X
         public override void Enable()
         {
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
+
+            RGBDeviceProvider.Instance.Exception += Provider_OnException;
 
             RGBDeviceProvider.Instance.DeviceDefinitions.Clear();
             string[] ports = SerialPort.GetPortNames();
@@ -88,7 +90,11 @@ namespace Artemis.Plugins.Devices.WS281X
 
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+
+            RGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "WS281X Exception: {message}", args.Exception.Message);
 
         private void TurnOffLeds()
         {
@@ -106,7 +112,7 @@ namespace Artemis.Plugins.Devices.WS281X
             _rgbService.Surface.Update(true);
             // Give the update queues time to process
             Thread.Sleep(200);
-            
+
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
         }
     }

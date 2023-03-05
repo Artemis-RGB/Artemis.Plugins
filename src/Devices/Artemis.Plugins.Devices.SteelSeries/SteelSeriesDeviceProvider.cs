@@ -6,7 +6,6 @@ using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
 using RGB.NET.Core;
-using RGB.NET.Devices.SteelSeries;
 using Serilog;
 using Serilog.Events;
 
@@ -28,6 +27,8 @@ namespace Artemis.Plugins.Devices.SteelSeries
 
         public override void Enable()
         {
+            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance.Exception += Provider_OnException;
+
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
             if (_logger.IsEnabled(LogEventLevel.Debug))
@@ -38,7 +39,11 @@ namespace Artemis.Plugins.Devices.SteelSeries
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+
+            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance.Exception -= Provider_OnException;
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Steel Series Exception: {message}", args.Exception.Message);
 
         private void LogDeviceIds()
         {
