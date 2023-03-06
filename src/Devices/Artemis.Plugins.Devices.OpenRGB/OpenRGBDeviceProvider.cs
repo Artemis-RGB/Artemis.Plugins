@@ -1,6 +1,7 @@
 ﻿using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
+using RGB.NET.Core;
 using RGB.NET.Devices.OpenRGB;
 using Serilog;
 using System.Collections.Generic;
@@ -44,6 +45,8 @@ namespace Artemis.Plugins.Devices.OpenRGB
 
         public override void Enable()
         {
+            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Exception += Provider_OnException;
+
             foreach (OpenRGBServerDefinition def in _deviceDefinitionsSettings.Value)
             {
                 RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.Add(def);
@@ -75,7 +78,11 @@ namespace Artemis.Plugins.Devices.OpenRGB
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+
+            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "OpenRGB Exception: {message}", args.Exception.Message);
 
         private async void OnReconnectTimerElapsed(object sender, ElapsedEventArgs e)
         {

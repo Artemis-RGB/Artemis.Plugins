@@ -9,6 +9,7 @@ using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
 using Microsoft.Win32;
+using RGB.NET.Core;
 using Serilog;
 using Serilog.Events;
 
@@ -35,6 +36,8 @@ namespace Artemis.Plugins.Devices.Logitech
             RGB.NET.Devices.Logitech.LogitechDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "LogitechLedEnginesWrapper.dll"));
             RGB.NET.Devices.Logitech.LogitechDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "LogitechLedEnginesWrapper.dll"));
 
+            RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance.Exception += Provider_OnException;
+
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
             if (_logger.IsEnabled(LogEventLevel.Debug))
@@ -48,7 +51,11 @@ namespace Artemis.Plugins.Devices.Logitech
             Unsubscribe();
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+
+            RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance.Exception-= Provider_OnException;
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Logitech Exception: {message}", args.Exception.Message);
 
         private void LogDeviceIds()
         {

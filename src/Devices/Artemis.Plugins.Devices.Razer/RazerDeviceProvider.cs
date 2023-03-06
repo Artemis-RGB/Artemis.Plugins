@@ -35,6 +35,7 @@ namespace Artemis.Plugins.Devices.Razer
 
         public override void Enable()
         {
+            RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.Exception += Provider_OnException;
             RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.LoadEmulatorDevices = _loadEmulatorDevices.Value;
 
             try
@@ -54,7 +55,11 @@ namespace Artemis.Plugins.Devices.Razer
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+
+            RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.Exception -= Provider_OnException;
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Razer Exception: {message}", args.Exception.Message);
 
         private void LoadEmulatorDevicesOnSettingChanged(object sender, EventArgs e)
         {

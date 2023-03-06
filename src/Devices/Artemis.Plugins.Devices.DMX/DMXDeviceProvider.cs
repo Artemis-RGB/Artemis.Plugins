@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
@@ -17,17 +15,21 @@ namespace Artemis.Plugins.Devices.DMX
     [PluginFeature(Name = "DMX Device Provider")]
     public class DMXDeviceProvider : DeviceProvider
     {
+        private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
 
-        public DMXDeviceProvider(IRgbService rgbService, PluginSettings settings) : base(RGBDeviceProvider.Instance)
+        public DMXDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings) : base(RGBDeviceProvider.Instance)
         {
+            _logger = logger;
             _rgbService = rgbService;
             _settings = settings;
         }
 
         public override void Enable()
         {
+            RGBDeviceProvider.Instance.Exception += Provider_OnException;
+
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
             RGBDeviceProvider.Instance.DeviceDefinitions.Clear();
             foreach (DeviceDefinition deviceDefinition in definitions.Value)
@@ -39,7 +41,7 @@ namespace Artemis.Plugins.Devices.DMX
                     Model = deviceDefinition.Model ?? "DMX Device",
                     Universe = deviceDefinition.Universe
                 };
-                
+
                 for (int i = 0; i < deviceDefinition.LedDefinitions.Count; i++)
                 {
                     LedDefinition ledDefinition = deviceDefinition.LedDefinitions[i];
@@ -63,7 +65,11 @@ namespace Artemis.Plugins.Devices.DMX
 
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Dispose();
+
+            RGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "DMX Exception: {message}", args.Exception.Message);
 
         private void TurnOffLeds()
         {
