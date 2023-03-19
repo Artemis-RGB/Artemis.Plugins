@@ -11,7 +11,7 @@ public sealed class WootingProfileService : IPluginService
 {
     private readonly ILogger _logger;
     private readonly List<WootingProfileDevice> _devices;
-    private DateTime lastUpdate;
+    private DateTime _lastUpdate;
     public IReadOnlyCollection<WootingProfileDevice> Devices { get; }
 
     public WootingProfileService(ILogger logger)
@@ -19,7 +19,6 @@ public sealed class WootingProfileService : IPluginService
         _logger = logger;
         _devices = new List<WootingProfileDevice>();
         Devices = new ReadOnlyCollection<WootingProfileDevice>(_devices);
-        WootingSdk._logger = logger;
 
         if (!WootingSdk.IsConnected())
         {
@@ -38,7 +37,7 @@ public sealed class WootingProfileService : IPluginService
     public void Update()
     {
         DateTime now = DateTime.Now;
-        if (now - lastUpdate < TimeSpan.FromSeconds(1d / 5d))
+        if (now - _lastUpdate < TimeSpan.FromSeconds(1d / 5d))
             return;
         
         if (!WootingSdk.IsConnected())
@@ -53,6 +52,6 @@ public sealed class WootingProfileService : IPluginService
             if (WootingSdk.TryGetProfile(i, device.Info.V2Interface, out int p))
                 device.Profile = p;
         }
-        lastUpdate = now;
+        _lastUpdate = now;
     }
 }

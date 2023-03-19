@@ -10,23 +10,15 @@ namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 
 public sealed class WootingAnalogService : IPluginService, IDisposable
 {
-    private DateTime lastUpdate;
-    private bool initialized;
     private readonly ILogger _logger;
-    private List<WootingAnalogDevice> _devices;
-    public IReadOnlyCollection<WootingAnalogDevice> Devices { get; private set; }
+    private readonly List<WootingAnalogDevice> _devices;
+    private DateTime _lastUpdate;
+    public IReadOnlyCollection<WootingAnalogDevice> Devices { get; }
 
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
-        initialized = false;
-    }
-    
-    public void Initialize()
-    {
-        if (initialized)
-            return;
-        
+                
         (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
 
         if (initResult < 0)
@@ -37,26 +29,24 @@ public sealed class WootingAnalogService : IPluginService, IDisposable
             throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {deviceInfoResult}");
 
         _devices = new(infos.Count);
-        for (int i = 0; i < infos.Count; i++)
-            _devices.Add(new WootingAnalogDevice(infos[i]));
+        foreach (DeviceInfo t in infos)
+            _devices.Add(new WootingAnalogDevice(t));
 
         WootingAnalogSDK.SetKeycodeMode(KeycodeType.HID);
 
         Devices = new ReadOnlyCollection<WootingAnalogDevice>(_devices);
 
         ReadAllValues();
-        initialized = true;
     }
 
     public void Update()
     {
         DateTime now = DateTime.Now;
-        if (now - lastUpdate < TimeSpan.FromSeconds(1.0 / 30.0))
+        if (now - _lastUpdate < TimeSpan.FromSeconds(1.0 / 30.0))
             return;
         
-        for (int i = 0; i < _devices.Count; i++)
+        foreach (WootingAnalogDevice device in _devices)
         {
-            WootingAnalogDevice device = _devices[i];
             (List<(short, float)> data, WootingAnalogResult res) = WootingAnalogSDK.ReadFullBuffer(deviceID: device.Info.device_id);
             if (res != WootingAnalogResult.Ok)
                 continue;
@@ -70,7 +60,7 @@ public sealed class WootingAnalogService : IPluginService, IDisposable
             }
         }
         
-        lastUpdate = now;
+        _lastUpdate = now;
     }
 
     /// <summary>
@@ -80,9 +70,8 @@ public sealed class WootingAnalogService : IPluginService, IDisposable
     /// </summary>
     private void ReadAllValues()
     {
-        for (int i = 0; i < _devices.Count; i++)
+        foreach (WootingAnalogDevice device in _devices)
         {
-            WootingAnalogDevice device = _devices[i];
             foreach ((RGB.NET.Core.LedId ledId, ushort virtualShortCode) in WootingAnalogLedMapping.HidCodes)
             {
                 (float analogValue, WootingAnalogResult analogReadResult) = WootingAnalogSDK.ReadAnalog(virtualShortCode, deviceID: device.Info.device_id);

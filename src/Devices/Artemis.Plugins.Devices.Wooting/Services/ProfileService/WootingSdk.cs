@@ -10,10 +10,9 @@ internal static class WootingSdk
 {
     public const byte GetCurrentKeyboardProfileIndex = 11;
     private const string Dll = "x64/wooting-rgb-sdk64.dll";
-    private static readonly byte[] buffer = new byte[256];
-    public static readonly object _lock;
+    private static readonly byte[] _buffer = new byte[256];
+    private static readonly object _lock;
 
-    public static ILogger _logger;
     static WootingSdk()
     {
         Type cs = typeof(RGB.NET.Devices.Wooting.WootingDeviceProvider).Assembly.GetType("RGB.NET.Devices.Wooting.Native._WootingSDK");
@@ -22,25 +21,19 @@ internal static class WootingSdk
 
     public static bool TryGetProfile(byte deviceIndex, bool newInterface, out int profile)
     {
-        Stopwatch sw = new();
         int result = 0;
         lock (_lock)
         {
             wooting_usb_select_device(deviceIndex);
-            sw.Start();
-            result = wooting_usb_send_feature_with_response(buffer, 256, GetCurrentKeyboardProfileIndex, 0, 0, 0, 0);
-            sw.Stop();
+            result = wooting_usb_send_feature_with_response(_buffer, 256, GetCurrentKeyboardProfileIndex, 0, 0, 0, 0);
         }
         if (result != 256)
         {
             profile = -1;
             return false;
         }
-        profile = newInterface ? buffer[5] : buffer[4];
-
-        if (sw.ElapsedMilliseconds > 500)
-            _logger.Information($"wooting_usb_send_feature_with_response() took {sw.ElapsedMilliseconds} for device {deviceIndex} with result {result} and profile {profile}");
-
+        
+        profile = newInterface ? _buffer[5] : _buffer[4];
         return true;
     }
 

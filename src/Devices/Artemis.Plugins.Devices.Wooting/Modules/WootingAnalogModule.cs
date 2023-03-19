@@ -20,7 +20,6 @@ public class WootingAnalogModule : Module<WootingDataModel>
 
     public override void Enable()
     {
-        _analogService.Initialize();
         foreach (WootingAnalogDevice item in _analogService.Devices)
             DataModel.AddDynamicChild(item.Info.device_name, new WootingAnalogDataModel());
     }

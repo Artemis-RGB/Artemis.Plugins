@@ -27,7 +27,6 @@ internal class WootingAnalogLayerBrush : PerLedLayerBrush<WootingAnalogPropertyG
 
     public override void EnableLayerBrush()
     {
-        _analogService.Initialize();
     }
 
     public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
