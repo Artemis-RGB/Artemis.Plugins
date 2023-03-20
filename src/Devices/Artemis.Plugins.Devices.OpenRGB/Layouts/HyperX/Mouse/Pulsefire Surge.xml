@@ -2,7 +2,10 @@
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>HyperX Pulsefire Surge</Name>
   <Description>HyperX Pulsefire Surge Mouse</Description>
-  <Author>martirsadota</Author>
+  <Author>ArthurVSouza</Author>
+  
+  <!-- Based on martirsadota design for G203 LIGHTSYNC -->
+  
   <Type>Mouse</Type>
   <Vendor>HyperX</Vendor>
   <Model>Pulsefire Surge</Model>
