@@ -38,7 +38,7 @@ public class PerformanceModule : Module<PerformanceDataModel>
         // Performance counters are slow, only update them if necessary
         if (IsPropertyInUse("CpuUsage", false))
             DataModel.CpuUsage = _performanceService.GetCpuUsage();
-        if (IsPropertyInUse("AvailableRam", false))
+        if (IsPropertyInUse("AvailableRam", false) || IsPropertyInUse("RamUsage", false))
             DataModel.AvailableRam = _performanceService.GetPhysicalAvailableMemoryInMiB();
         if (IsPropertyInUse("TotalRam", false))
             DataModel.TotalRam = _performanceService.GetTotalMemoryInMiB();
