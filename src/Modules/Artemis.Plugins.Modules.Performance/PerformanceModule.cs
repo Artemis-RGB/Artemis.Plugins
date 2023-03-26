@@ -40,7 +40,7 @@ public class PerformanceModule : Module<PerformanceDataModel>
             DataModel.CpuUsage = _performanceService.GetCpuUsage();
         if (IsPropertyInUse("AvailableRam", false) || IsPropertyInUse("RamUsage", false))
             DataModel.AvailableRam = _performanceService.GetPhysicalAvailableMemoryInMiB();
-        if (IsPropertyInUse("TotalRam", false))
+        if (IsPropertyInUse("TotalRam", false) || IsPropertyInUse("RamUsage", false))
             DataModel.TotalRam = _performanceService.GetTotalMemoryInMiB();
     }
 }
