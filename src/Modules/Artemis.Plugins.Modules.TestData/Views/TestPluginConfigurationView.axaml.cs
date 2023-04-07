@@ -5,15 +5,10 @@ using Avalonia.ReactiveUI;
 
 namespace Artemis.Plugins.Modules.TestData.Views;
 
-public class TestPluginConfigurationView : ReactiveUserControl<PluginConfigurationViewModel>
+public partial class TestPluginConfigurationView : ReactiveUserControl<PluginConfigurationViewModel>
 {
     public TestPluginConfigurationView()
     {
         InitializeComponent();
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

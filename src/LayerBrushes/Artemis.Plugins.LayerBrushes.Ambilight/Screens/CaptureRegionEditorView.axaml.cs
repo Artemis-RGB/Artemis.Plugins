@@ -11,10 +11,8 @@ using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorViewModel>
+public partial class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorViewModel>
 {
-    private readonly Image _displayPreviewImage;
-    private readonly Rectangle _regionRectangle;
     private Point _moveOffset;
     private bool _moving;
     private Point _resizeOffset;
@@ -23,15 +21,11 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
     public CaptureRegionEditorView()
     {
         InitializeComponent();
-
-        _displayPreviewImage = this.Get<Image>("DisplayPreviewImage");
-        _regionRectangle = this.Get<Rectangle>("RegionRectangle");
-
-        _displayPreviewImage.LayoutUpdated += DisplayPreviewImageOnLayoutUpdated;
+        DisplayPreviewImage.LayoutUpdated += DisplayPreviewImageOnLayoutUpdated;
         this.WhenActivated(d =>
         {
             ViewModel.WhenAnyValue(vm => vm.CaptureRegion).Subscribe(UpdateDisplay).DisposeWith(d);
-            ViewModel!.PreviewImage = _displayPreviewImage;
+            ViewModel!.PreviewImage = DisplayPreviewImage;
         });
     }
 
@@ -41,27 +35,22 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
             UpdateDisplay(ViewModel.CaptureRegion);
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
-
     private void UpdateDisplay(Rect rect)
     {
         if (ViewModel == null)
             return;
 
         // Determine the scale of the preview
-        double scaleX = _displayPreviewImage.Bounds.Width / ViewModel.Display.Width;
-        double scaleY = _displayPreviewImage.Bounds.Height / ViewModel.Display.Height;
+        double scaleX = DisplayPreviewImage.Bounds.Width / ViewModel.Display.Width;
+        double scaleY = DisplayPreviewImage.Bounds.Height / ViewModel.Display.Height;
 
         // Scale down the capture region and apply to the rect 
-        _regionRectangle.Width = rect.Width * scaleX;
-        _regionRectangle.Height = rect.Height * scaleY;
-        Canvas.SetLeft(_regionRectangle, rect.X * scaleX);
-        Canvas.SetTop(_regionRectangle, rect.Y * scaleY);
+        RegionRectangle.Width = rect.Width * scaleX;
+        RegionRectangle.Height = rect.Height * scaleY;
+        Canvas.SetLeft(RegionRectangle, rect.X * scaleX);
+        Canvas.SetTop(RegionRectangle, rect.Y * scaleY);
 
-        _displayPreviewImage.InvalidateVisual();
+        DisplayPreviewImage.InvalidateVisual();
     }
 
     private void UpdateRegion(SKRectI rect)
@@ -78,10 +67,10 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
     private Point GetScaledPosition(PointerEventArgs e)
     {
         if (ViewModel == null)
-            return e.GetPosition(_displayPreviewImage);
+            return e.GetPosition(DisplayPreviewImage);
 
-        Point position = e.GetPosition(_displayPreviewImage);
-        Point normalizedPosition = new(position.X / _displayPreviewImage.Bounds.Width, position.Y / _displayPreviewImage.Bounds.Height);
+        Point position = e.GetPosition(DisplayPreviewImage);
+        Point normalizedPosition = new(position.X / DisplayPreviewImage.Bounds.Width, position.Y / DisplayPreviewImage.Bounds.Height);
         return new Point(normalizedPosition.X * ViewModel.Display.Width, normalizedPosition.Y * ViewModel.Display.Height);
     }
 
@@ -107,7 +96,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
 
     #region Resizing
 
-    private void ResizeTopLeft(object? sender, PointerEventArgs e)
+    private void OnResizeTopLeft(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -126,7 +115,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeTop(object? sender, PointerEventArgs e)
+    private void OnResizeTop(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -143,7 +132,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeTopRight(object? sender, PointerEventArgs e)
+    private void OnResizeTopRight(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -161,7 +150,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeRight(object? sender, PointerEventArgs e)
+    private void OnResizeRight(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -178,7 +167,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeBottomRight(object? sender, PointerEventArgs e)
+    private void OnResizeBottomRight(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -196,7 +185,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeBottom(object? sender, PointerEventArgs e)
+    private void OnResizeBottom(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -213,7 +202,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeBottomLeft(object? sender, PointerEventArgs e)
+    private void OnResizeBottomLeft(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;
@@ -231,7 +220,7 @@ public class CaptureRegionEditorView : ReactiveUserControl<CaptureRegionEditorVi
         UpdateRegion(rect);
     }
 
-    private void ResizeLeft(object? sender, PointerEventArgs e)
+    private void OnResizeLeft(object? sender, PointerEventArgs e)
     {
         if (ViewModel == null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             return;

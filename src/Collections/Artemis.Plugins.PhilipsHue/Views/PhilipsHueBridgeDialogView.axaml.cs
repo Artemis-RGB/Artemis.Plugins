@@ -1,16 +1,14 @@
 using System.Threading.Tasks;
 using Artemis.Plugins.PhilipsHue.ViewModels;
 using Artemis.UI.Shared.Extensions;
-using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Threading;
 using ReactiveUI;
 
 namespace Artemis.Plugins.PhilipsHue.Views;
 
-public class PhilipsHueBridgeDialogView : ReactiveUserControl<PhilipsHueBridgeDialogViewModel>
+public partial class PhilipsHueBridgeDialogView : ReactiveUserControl<PhilipsHueBridgeDialogViewModel>
 {
     public PhilipsHueBridgeDialogView()
     {
@@ -26,13 +24,9 @@ public class PhilipsHueBridgeDialogView : ReactiveUserControl<PhilipsHueBridgeDi
     {
         // Don't ask
         await Task.Delay(200);
-        this.Get<TextBox>("IpInputTextBox").Focus();
+        IpInputTextBox.Focus();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 
     private void IpInput_OnKeyUp(object sender, KeyEventArgs e)
     {

@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.18" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
-    <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
-    <PackageReference Include="ReactiveUI" Version="17.1.50" />
+    <PackageReference Include="Avalonia" Version="11.0.0-preview6" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview6" />
+    <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview3" />
+    <PackageReference Include="ReactiveUI" Version="18.4.26" />
     <PackageReference Include="ReactiveUI.Validation" Version="2.2.1" />
     <PackageReference Include="Serilog" Version="2.11.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.1-preview.108" />
+    <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="RGB.NET.Core" Version="1.0.0" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
@@ -22,17 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.18" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview6" />
     <PackageReference Include="RGB.NET.Devices.OpenRGB" Version="2.0.0-prerelease.17" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net6.0\Artemis.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net7.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Artemis.UI.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI.Shared\bin\net6.0\Artemis.UI.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.UI.Shared\bin\net7.0\Artemis.UI.Shared.dll</HintPath>
     </Reference>
   </ItemGroup>
 

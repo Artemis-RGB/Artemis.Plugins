@@ -11,7 +11,7 @@ using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public class CapturePropertiesView : ReactiveUserControl<CapturePropertiesViewModel>
+public partial class CapturePropertiesView : ReactiveUserControl<CapturePropertiesViewModel>
 {
     public CapturePropertiesView()
     {
@@ -23,11 +23,6 @@ public class CapturePropertiesView : ReactiveUserControl<CapturePropertiesViewMo
     {
         foreach (NumberBox numberBox in this.GetVisualChildrenOfType<NumberBox>())
             numberBox.ValidationMode = enable ? NumberBoxValidationMode.InvalidInputOverwritten : NumberBoxValidationMode.Disabled;
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 
     private void InputElement_OnPointerReleased(object? sender, PointerReleasedEventArgs e)

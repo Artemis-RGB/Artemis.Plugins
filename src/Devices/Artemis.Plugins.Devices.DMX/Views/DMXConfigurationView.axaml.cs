@@ -11,8 +11,4 @@ public partial class DMXConfigurationView : ReactiveUserControl<DMXConfiguration
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

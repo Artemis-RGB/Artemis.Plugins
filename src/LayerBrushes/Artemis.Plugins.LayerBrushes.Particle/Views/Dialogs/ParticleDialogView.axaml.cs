@@ -28,8 +28,4 @@ public partial class ParticleDialogView : ReactiveUserControl<ParticleDialogView
         });
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

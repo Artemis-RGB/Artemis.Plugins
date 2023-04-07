@@ -13,8 +13,4 @@ public partial class AddLedsDialogView : ReactiveUserControl<AddLedsDialogViewMo
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }
