@@ -29,6 +29,7 @@ namespace Artemis.Plugins.Devices.Corsair
 
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
+            CreateMissingLedsSupported = false;
         }
 
         public override void Enable()
