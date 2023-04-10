@@ -11,8 +11,4 @@ public partial class CustomView : ReactiveUserControl<CustomViewModel>
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

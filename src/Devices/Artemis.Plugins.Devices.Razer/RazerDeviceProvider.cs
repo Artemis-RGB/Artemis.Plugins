@@ -31,6 +31,9 @@ namespace Artemis.Plugins.Devices.Razer
 
             _loadEmulatorDevices = _pluginSettings.GetSetting("LoadEmulatorDevices", false);
             _loadEmulatorDevices.SettingChanged += LoadEmulatorDevicesOnSettingChanged;
+            
+            // Razer layouts are based on a key map that cannot add LEDs not present in the map
+            CreateMissingLedsSupported = false;
         }
 
         public override void Enable()

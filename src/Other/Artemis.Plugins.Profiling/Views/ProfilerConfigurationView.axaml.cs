@@ -13,8 +13,4 @@ public partial class ProfilerConfigurationView : ReactiveUserControl<ProfilerCon
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

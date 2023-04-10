@@ -13,8 +13,4 @@ public partial class WS281XConfigurationView : ReactiveUserControl<WS281XConfigu
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

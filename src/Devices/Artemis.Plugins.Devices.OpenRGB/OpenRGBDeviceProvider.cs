@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using OpenRGBClient = OpenRGB.NET.OpenRGBClient;
+using OpenRGB.NET;
 
 namespace Artemis.Plugins.Devices.OpenRGB
 {
@@ -100,7 +100,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
             {
                 try
                 {
-                    OpenRGBClient dummyClient = new OpenRGBClient(item.Ip, item.Port, "Artemis server test", true);
+                    OpenRgbClient dummyClient = new(item.Ip, item.Port, "Artemis server test");
                     restart |= true;
                     dummyClient.Dispose();
                 }

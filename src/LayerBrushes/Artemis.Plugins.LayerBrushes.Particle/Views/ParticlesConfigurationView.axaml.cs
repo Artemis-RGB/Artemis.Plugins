@@ -13,8 +13,4 @@ public partial class ParticlesConfigurationView : ReactiveUserControl<ParticlesC
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

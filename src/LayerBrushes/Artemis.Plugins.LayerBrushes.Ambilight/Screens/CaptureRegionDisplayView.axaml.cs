@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public class CaptureRegionDisplayView : ReactiveUserControl<CaptureRegionDisplayViewModel>
+public partial class CaptureRegionDisplayView : ReactiveUserControl<CaptureRegionDisplayViewModel>
 {
     private readonly Image _displayPreviewImage;
 
@@ -14,10 +14,5 @@ public class CaptureRegionDisplayView : ReactiveUserControl<CaptureRegionDisplay
         InitializeComponent();
         _displayPreviewImage = this.Get<Image>("DisplayPreviewImage");
         this.WhenActivated(d => { ViewModel!.PreviewImage = _displayPreviewImage; });
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

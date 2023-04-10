@@ -13,8 +13,4 @@ public partial class ColorMatrixConfigurationView : ReactiveUserControl<ColorMat
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

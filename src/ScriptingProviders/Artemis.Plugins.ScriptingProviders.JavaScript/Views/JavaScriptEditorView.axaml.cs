@@ -11,8 +11,4 @@ public partial class JavaScriptEditorView : ReactiveUserControl<JavaScriptEditor
         InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 }

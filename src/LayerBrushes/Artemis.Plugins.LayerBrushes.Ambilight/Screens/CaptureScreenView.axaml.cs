@@ -5,24 +5,16 @@ using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 
-public class CaptureScreenView : ReactiveUserControl<CaptureScreenViewModel>
+public partial class CaptureScreenView : ReactiveUserControl<CaptureScreenViewModel>
 {
-    private readonly Image _displayPreviewImage;
-
     public CaptureScreenView()
     {
         InitializeComponent();
-        _displayPreviewImage = this.Get<Image>("DisplayPreviewImage");
 
         this.WhenActivated(_ =>
         {
             if (ViewModel != null)
-                ViewModel.PreviewImage = _displayPreviewImage;
+                ViewModel.PreviewImage = DisplayPreviewImage;
         });
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

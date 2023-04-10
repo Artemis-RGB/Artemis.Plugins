@@ -65,56 +65,56 @@
                     <Panel VerticalAlignment="Top" HorizontalAlignment="Left" Name="ResizeTopLeft">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeTopLeft"
+                                 PointerMoved="OnResizeTopLeft"
                                  PointerReleased="FinishResize"
                                  Cursor="TopLeftCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Top" HorizontalAlignment="Center" Name="ResizeTopCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeTop"
+                                 PointerMoved="OnResizeTop"
                                  PointerReleased="FinishResize"
                                  Cursor="TopSide" />
                     </Panel>
                     <Panel VerticalAlignment="Top" HorizontalAlignment="Right" Name="ResizeTopRight">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeTopRight"
+                                 PointerMoved="OnResizeTopRight"
                                  PointerReleased="FinishResize"
                                  Cursor="TopRightCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Center" HorizontalAlignment="Right" Name="ResizeRightCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeRight"
+                                 PointerMoved="OnResizeRight"
                                  PointerReleased="FinishResize"
                                  Cursor="RightSide" />
                     </Panel>
                     <Panel VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="ResizeBottomRight">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeBottomRight"
+                                 PointerMoved="OnResizeBottomRight"
                                  PointerReleased="FinishResize"
                                  Cursor="BottomRightCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Bottom" HorizontalAlignment="Center" Name="ResizeBottomCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeBottom"
+                                 PointerMoved="OnResizeBottom"
                                  PointerReleased="FinishResize"
                                  Cursor="BottomSide" />
                     </Panel>
                     <Panel VerticalAlignment="Bottom" HorizontalAlignment="Left" Name="ResizeBottomLeft">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeBottomLeft"
+                                 PointerMoved="OnResizeBottomLeft"
                                  PointerReleased="FinishResize"
                                  Cursor="BottomLeftCorner" />
                     </Panel>
                     <Panel VerticalAlignment="Center" HorizontalAlignment="Left" Name="ResizeLeftCenter">
                         <Rectangle Classes="transform-resize-visual" />
                         <Ellipse Classes="transform-resize-handle"
-                                 PointerMoved="ResizeLeft"
+                                 PointerMoved="OnResizeLeft"
                                  PointerReleased="FinishResize"
                                  Cursor="LeftSide" />
                     </Panel>
