@@ -14,11 +14,11 @@
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="2.0.0-prerelease.17" />    
+    <PackageReference Update="RGB.NET.Core" Version="2.0.0-prerelease.29" />    
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Logitech" Version="2.0.0-prerelease.17" />
+    <PackageReference Include="RGB.NET.Devices.Logitech" Version="2.0.0-prerelease.29" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="Microsoft.Win32.SystemEvents" Version="7.0.0" />
   </ItemGroup>
