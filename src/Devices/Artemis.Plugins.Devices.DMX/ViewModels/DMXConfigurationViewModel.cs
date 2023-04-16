@@ -55,7 +55,7 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
                 Port = 5568,
                 Universe = 1
             };
-            if (await _windowService.ShowDialogAsync<DeviceConfigurationDialogViewModel, DeviceDialogResult>(("device", device)) != DeviceDialogResult.Save)
+            if (await _windowService.ShowDialogAsync<DeviceConfigurationDialogViewModel, DeviceDialogResult>(device) != DeviceDialogResult.Save)
                 return;
 
             _definitions.Value.Add(device);
@@ -64,7 +64,7 @@ namespace Artemis.Plugins.Devices.DMX.ViewModels
 
         private async Task ExecuteEditDevice(DeviceDefinition device)
         {
-            if (await _windowService.ShowDialogAsync<DeviceConfigurationDialogViewModel, DeviceDialogResult>(("device", device)) == DeviceDialogResult.Remove)
+            if (await _windowService.ShowDialogAsync<DeviceConfigurationDialogViewModel, DeviceDialogResult>(device) == DeviceDialogResult.Remove)
                 Definitions.Remove(device);
         }
 

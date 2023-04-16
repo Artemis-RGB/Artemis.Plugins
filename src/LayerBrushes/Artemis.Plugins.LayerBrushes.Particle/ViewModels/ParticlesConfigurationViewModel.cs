@@ -72,7 +72,7 @@ namespace Artemis.Plugins.LayerBrushes.Particle.ViewModels
         {
             ContentDialogResult result = await _windowService.CreateContentDialog()
                 .WithTitle(title)
-                .WithViewModel(out ParticleDialogViewModel vm, ("particleViewModel", particleViewModel))
+                .WithViewModel(out ParticleDialogViewModel vm, particleViewModel)
                 .WithCloseButtonText("Cancel")
                 .WithDefaultButton(ContentDialogButton.Primary)
                 .HavingPrimaryButton(c => c.WithText("Save changes").WithCommand(vm.Save))

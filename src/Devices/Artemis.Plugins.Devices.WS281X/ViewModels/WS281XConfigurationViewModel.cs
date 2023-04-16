@@ -57,7 +57,7 @@ public class WS281XConfigurationViewModel : PluginConfigurationViewModel
         DeviceDefinition device = new() {Name = $"Device {_definitions.Value.Count + 1}"};
         ContentDialogResult result = await _windowService.CreateContentDialog()
             .WithTitle("Add device")
-            .WithViewModel(out DeviceConfigurationDialogViewModel vm, ("device", device))
+            .WithViewModel(out DeviceConfigurationDialogViewModel vm, device)
             .HavingPrimaryButton(b => b.WithText("Accept").WithCommand(vm.Accept))
             .WithDefaultButton(ContentDialogButton.Primary)
             .ShowAsync();
@@ -73,7 +73,7 @@ public class WS281XConfigurationViewModel : PluginConfigurationViewModel
     {
         await _windowService.CreateContentDialog()
             .WithTitle("Edit device")
-            .WithViewModel(out DeviceConfigurationDialogViewModel vm, ("device", device))
+            .WithViewModel(out DeviceConfigurationDialogViewModel vm, device)
             .HavingPrimaryButton(b => b.WithText("Accept").WithCommand(vm.Accept))
             .HavingSecondaryButton(b => b.WithText("Delete").WithAction(() => ExecuteRemoveDevice(device)))
             .WithDefaultButton(ContentDialogButton.Primary)
