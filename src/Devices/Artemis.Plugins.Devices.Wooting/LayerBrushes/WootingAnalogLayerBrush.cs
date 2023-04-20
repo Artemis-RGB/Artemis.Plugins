@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 
 namespace Artemis.Plugins.Devices.Wooting.LayerBrushes;
 
@@ -26,24 +27,26 @@ internal class WootingAnalogLayerBrush : PerLedLayerBrush<WootingAnalogPropertyG
 
     public override void EnableLayerBrush()
     {
-        
     }
 
     public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
     {
-        ArtemisDevice artemisDevice = led.Device;
-        WootingAnalogDevice analogDevice = _analogService.Devices.FirstOrDefault(ad => ad.Info.device_name == artemisDevice.RgbDevice.DeviceInfo.Model.Replace(" ", ""));
+        string deviceName = led.Device.RgbDevice.DeviceInfo.Model;
+        if (!WootingModelNameDictionary.WootingModelNames.TryGetValue(deviceName, out string wootingDeviceName))
+            return SKColors.Empty;
+        
+        WootingAnalogDevice analogDevice = _analogService.Devices.FirstOrDefault(d => d.Info.device_name == wootingDeviceName);
         if (analogDevice == null)
             return SKColor.Empty;
 
-        if (analogDevice.AnalogValues.TryGetValue(led.RgbLed.Id, out float percent))
-            return Properties.Color.CurrentValue.GetColor(percent);
-
-        return SKColors.Empty;
+        if (!analogDevice.AnalogValues.TryGetValue(led.RgbLed.Id, out float percent)) 
+            return SKColors.Empty;
+        
+        return Properties.Color.CurrentValue.GetColor(percent);
     }
 
     public override void Update(double deltaTime)
     {
-
+        _analogService.Update();
     }
 }
