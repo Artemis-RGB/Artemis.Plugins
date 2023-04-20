@@ -34,7 +34,7 @@
                                                 AcceptsExpression="True" />
                         </StackPanel>
                     </Grid>
-                    <Separator Classes="card-separator" />
+                    <Border Classes="card-separator" />
 
                     <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -49,7 +49,7 @@
                             <Button Command="{CompiledBinding AddHueBridge}" Width="150" Content="Add Hue Bridge" />
                         </StackPanel>
                     </Grid>
-                    <Separator Classes="card-separator" />
+                    <Border Classes="card-separator" />
 
                     <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -64,7 +64,7 @@
                             <Button Command="{CompiledBinding ReloadDeviceProvider}" Width="150" Content="Reload devices" />
                         </StackPanel>
                     </Grid>
-                    <Separator Classes="card-separator" />
+                    <Border Classes="card-separator" />
 
                     <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">

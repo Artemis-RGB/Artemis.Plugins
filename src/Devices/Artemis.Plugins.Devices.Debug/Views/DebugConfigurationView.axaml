@@ -16,7 +16,7 @@
             </TextBlock>
         </StackPanel>
 
-        <Separator Grid.Row="1" />
+        <Border Grid.Row="1" Classes="card-separator"/>
 
         <Border Classes="card" Grid.Row="2" Margin="0 10">
             <DataGrid Items="{CompiledBinding Definitions}"

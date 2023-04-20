@@ -25,7 +25,7 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <Separator Classes="card-separator" />
+                    <Border Classes="card-separator" />
 
                     <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -45,7 +45,7 @@
                         </StackPanel>
                     </Grid>
                     
-                    <Separator Classes="card-separator" />
+                    <Border Classes="card-separator" />
 
                     <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">

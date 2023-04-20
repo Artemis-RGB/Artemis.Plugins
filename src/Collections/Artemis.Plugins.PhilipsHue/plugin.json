@@ -5,6 +5,7 @@
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "HelpPage": "https://wiki.artemis-rgb.com/guides/user/devices/philips",
   "Icon": "Resources/hue.svg",
   "Description": "Provides info on rooms, zones and individual lights/accessories",
   "Version": "1.0.0.0",

@@ -5,6 +5,7 @@
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "HelpPage": "https://wiki.artemis-rgb.com/en/guides/user/devices/novation",
   "Icon": "DotsGrid",
   "Description": "Allows Artemis to control the lighting on Novation launchpads.",
   "Version": "1.0.0.0",

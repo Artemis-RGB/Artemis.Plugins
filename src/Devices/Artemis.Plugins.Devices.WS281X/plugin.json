@@ -5,6 +5,7 @@
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "HelpPage": "https://wiki.artemis-rgb.com/guides/user/devices/ws281x",
   "Icon": "Memory",
   "Description": "Allows Artemis to control WS281X lighting strips via an Arduino or BitWizard.",
   "Version": "1.0.0.0",

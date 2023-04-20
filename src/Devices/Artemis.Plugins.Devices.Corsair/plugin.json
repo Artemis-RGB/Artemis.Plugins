@@ -5,10 +5,11 @@
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "HelpPage": "https://wiki.artemis-rgb.com/en/guides/user/devices/corsair",
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control lighting on all iCUE enabled Corsair products",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Devices.Corsair.dll",
   "AutoEnableFeatures": false,
-  "Platforms":"Windows"
+  "Platforms": "Windows"
 }
