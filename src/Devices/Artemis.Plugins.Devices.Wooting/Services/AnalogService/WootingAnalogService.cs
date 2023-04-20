@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WootingAnalogSDKNET;
 using System.Collections.ObjectModel;
 using Artemis.Core;
 using Artemis.Core.Services;
-using System.Collections.Concurrent;
-using Artemis.Plugins.Devices.Wooting.Services;
 using Serilog;
+using WootingAnalogSDKNET;
 
-namespace Artemis.Plugins.Devices.Wooting.Services;
+namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 
-public class WootingAnalogService : IPluginService, IDisposable
+public sealed class WootingAnalogService : IPluginService, IDisposable
 {
     private readonly ILogger _logger;
     private readonly List<WootingAnalogDevice> _devices;
+    private DateTime _lastUpdate;
     public IReadOnlyCollection<WootingAnalogDevice> Devices { get; }
 
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
+                
         (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
 
         if (initResult < 0)
@@ -33,8 +29,8 @@ public class WootingAnalogService : IPluginService, IDisposable
             throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {deviceInfoResult}");
 
         _devices = new(infos.Count);
-        for (int i = 0; i < infos.Count; i++)
-            _devices.Add(new WootingAnalogDevice(infos[i]));
+        foreach (DeviceInfo t in infos)
+            _devices.Add(new WootingAnalogDevice(t));
 
         WootingAnalogSDK.SetKeycodeMode(KeycodeType.HID);
 
@@ -45,21 +41,26 @@ public class WootingAnalogService : IPluginService, IDisposable
 
     public void Update()
     {
-        for (int i = 0; i < _devices.Count; i++)
+        DateTime now = DateTime.Now;
+        if (now - _lastUpdate < TimeSpan.FromSeconds(1.0 / 30.0))
+            return;
+        
+        foreach (WootingAnalogDevice device in _devices)
         {
-            WootingAnalogDevice device = _devices[i];
             (List<(short, float)> data, WootingAnalogResult res) = WootingAnalogSDK.ReadFullBuffer(deviceID: device.Info.device_id);
             if (res != WootingAnalogResult.Ok)
                 continue;
 
             foreach ((short key, float value) in data)
             {
-                if (LedMapping.HidCodesReversed.TryGetValue(key, out RGB.NET.Core.LedId ledId))
+                if (WootingAnalogLedMapping.HidCodesReversed.TryGetValue(key, out RGB.NET.Core.LedId ledId))
                     device.AnalogValues[ledId] = value;
                 else
                     _logger.Verbose("Failed to find mapping for hid code {hidCode}", key);
             }
         }
+        
+        _lastUpdate = now;
     }
 
     /// <summary>
@@ -69,10 +70,9 @@ public class WootingAnalogService : IPluginService, IDisposable
     /// </summary>
     private void ReadAllValues()
     {
-        for (int i = 0; i < _devices.Count; i++)
+        foreach (WootingAnalogDevice device in _devices)
         {
-            WootingAnalogDevice device = _devices[i];
-            foreach ((RGB.NET.Core.LedId ledId, ushort virtualShortCode) in LedMapping.HidCodes)
+            foreach ((RGB.NET.Core.LedId ledId, ushort virtualShortCode) in WootingAnalogLedMapping.HidCodes)
             {
                 (float analogValue, WootingAnalogResult analogReadResult) = WootingAnalogSDK.ReadAnalog(virtualShortCode, deviceID: device.Info.device_id);
 
@@ -88,26 +88,9 @@ public class WootingAnalogService : IPluginService, IDisposable
     }
 
     #region IDisposable
-    private bool _disposedValue;
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposedValue)
-        {
-            if (disposing)
-            {
-                WootingAnalogSDK.UnInitialise();
-            }
-
-            _disposedValue = true;
-        }
-    }
-
     public void Dispose()
     {
-        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        WootingAnalogSDK.UnInitialise();
     }
     #endregion
 }
