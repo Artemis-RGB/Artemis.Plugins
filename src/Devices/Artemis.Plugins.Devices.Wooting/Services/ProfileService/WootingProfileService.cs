@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Artemis.Core;
 using Artemis.Core.Services;
 using RGB.NET.Devices.Wooting.Enum;
 using Serilog;
@@ -22,8 +23,7 @@ public sealed class WootingProfileService : IPluginService
 
         if (!WootingSdk.IsConnected())
         {
-            _logger.Error("Wooting SDK is not connected");
-            return;
+            throw new ArtemisPluginException("Wooting SDK is not connected");
         }
 
         byte keyboardCount = WootingSdk.GetDeviceCount();
