@@ -6,7 +6,7 @@
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
   "Icon": "Music",
   "Description": "Some super awesome audio-visualization effect and data models.",
-  "Version": "1.0.0.0",
+  "Version": "1.1.0.0",
   "Main": "Artemis.Plugins.Audio.dll",
   "AutoEnableFeatures": true,
   "Platforms":"Windows"

@@ -9,7 +9,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Generators
         public TypeScriptDataModel(DataModel dataModel, int index)
         {
             DataModel = dataModel;
-            Name = $"DM{index}";
+            //Name = $"DM{index}";
+            Name = dataModel?.DataModelDescription?.Name ?? "empty";
             TypeScriptClasses = new List<TypeScriptClass>();
             TypeScriptEnums = new List<TypeScriptEnum>();
 

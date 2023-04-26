@@ -41,7 +41,7 @@ namespace Artemis.Plugins.Audio.LayerEffects.AudioCapture
 
         public void Initialize()
         {
-            _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            _endpoint = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint();
             
             // Don't initialize if there is no available device.
             if (_endpoint == null)

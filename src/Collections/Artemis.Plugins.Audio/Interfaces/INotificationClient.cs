@@ -5,19 +5,13 @@ namespace Artemis.Plugins.Audio.Interfaces
 {
     public class NotificationClient : IMMNotificationClient
     {
-        public delegate void DefaultDeviceChangedHandler();
-        public delegate void DeviceStateChangedHandler();
-        public delegate void DevicePropertyChangedHandler();
-        public event DefaultDeviceChangedHandler DefaultDeviceChanged;
-        public event DeviceStateChangedHandler DeviceStateChanged;
-        public event DevicePropertyChangedHandler DevicePropertyChanged;
+        public event EventHandler DefaultDeviceChanged;
+        public event EventHandler DeviceStateChanged;
+        public event EventHandler DevicePropertyChanged;
 
         public void OnDefaultDeviceChanged(DataFlow dataFlow, Role deviceRole, string defaultDeviceId)
         {
-            if (DefaultDeviceChanged != null)
-            {
-                DefaultDeviceChanged();
-            }
+            DefaultDeviceChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void OnDeviceAdded(string deviceId)
@@ -30,10 +24,7 @@ namespace Artemis.Plugins.Audio.Interfaces
 
         public void OnDeviceStateChanged(string deviceId, DeviceState newState)
         {
-            if (DeviceStateChanged != null)
-            {
-                DeviceStateChanged();
-            }
+            DeviceStateChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public NotificationClient()
@@ -46,10 +37,7 @@ namespace Artemis.Plugins.Audio.Interfaces
 
         public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)
         {
-            if (DevicePropertyChanged != null)
-            {
-                DevicePropertyChanged();
-            }
+            DevicePropertyChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
