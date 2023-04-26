@@ -9,5 +9,5 @@
   "Version": "1.1.0.0",
   "Main": "Artemis.Plugins.Audio.dll",
   "AutoEnableFeatures": true,
-  "Platforms":"Windows"
+  "Platforms":"Windows,Linux"
 }

@@ -9,18 +9,17 @@ using Serilog;
 
 namespace Artemis.Plugins.Audio.Modules;
 
-[PluginFeature]
-public class PlaybackVolumeModule : Module<PlaybackVolumeDataModel>
+internal class PlaybackVolumeModule : Module<PlaybackVolumeDataModel>
 {
     public override List<IModuleActivationRequirement> ActivationRequirements => null;
 
     #region Constructor
 
-    public PlaybackVolumeModule(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService)
-    {
-        _logger = logger;
-        _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
-    }
+    // public PlaybackVolumeModule(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService)
+    // {
+    //     _logger = logger;
+    //     _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
+    // }
 
     #endregion
 
@@ -50,6 +49,7 @@ public class PlaybackVolumeModule : Module<PlaybackVolumeDataModel>
 
     public override void Enable()
     {
+        throw new ArtemisPluginException("");
         _naudioDeviceEnumerationService.DefaultDeviceChanged += NotificationClient_DefaultDeviceChanged;
         UpdatePlaybackDevice(true);
 

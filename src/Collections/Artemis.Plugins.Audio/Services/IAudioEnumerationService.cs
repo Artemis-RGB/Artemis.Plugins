@@ -4,7 +4,7 @@ using Artemis.Plugins.Audio.LayerEffects.AudioCapture;
 
 namespace Artemis.Plugins.Audio.Services;
 
-public interface IAudioEnumerationService : IPluginService, IDisposable
+public interface IAudioEnumerationService :  IDisposable
 {
     public event EventHandler DefaultDeviceChanged;
 
