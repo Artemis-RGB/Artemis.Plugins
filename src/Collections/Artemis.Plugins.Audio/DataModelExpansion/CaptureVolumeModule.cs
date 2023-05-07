@@ -205,7 +205,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         private bool SetCaptureDevice()
         {
-            _captureDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
+            _captureDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Communications);
 
             if (_captureDevice == null)
             {
