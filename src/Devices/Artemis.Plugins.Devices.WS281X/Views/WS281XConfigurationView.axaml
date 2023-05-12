@@ -22,7 +22,7 @@
             </controls:HyperlinkButton>
         </StackPanel>
         <Border Grid.Row="2" Classes="card" Margin="0 10" ClipToBounds="True">
-            <DataGrid Items="{CompiledBinding Definitions}"
+            <DataGrid ItemsSource="{CompiledBinding Definitions}"
                       AutoGenerateColumns="False"
                       CanUserSortColumns="False"
                       SelectionMode="Single"

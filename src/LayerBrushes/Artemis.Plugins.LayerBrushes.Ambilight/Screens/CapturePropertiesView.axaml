@@ -133,7 +133,7 @@
         </Border>
 
         <ScrollViewer Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" Padding="0 0 0 15" Margin="0 0 0 15">
-            <ItemsControl Items="{CompiledBinding CaptureScreens}">
+            <ItemsControl ItemsSource="{CompiledBinding CaptureScreens}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Rows="1" Margin="-5 0" />

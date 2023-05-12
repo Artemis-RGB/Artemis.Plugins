@@ -21,7 +21,7 @@
 
         <StackPanel IsVisible="{CompiledBinding !IsUdpBased}" HorizontalAlignment="Stretch">
             <Label>COM port:</Label>
-            <ComboBox HorizontalAlignment="Stretch" SelectedItem="{CompiledBinding Port}" Items="{CompiledBinding Ports}"/>
+            <ComboBox HorizontalAlignment="Stretch" SelectedItem="{CompiledBinding Port}" ItemsSource="{CompiledBinding Ports}"/>
         </StackPanel>
 
         <StackPanel IsVisible="{CompiledBinding IsUdpBased}" HorizontalAlignment="Stretch">

@@ -24,7 +24,7 @@
     </UserControl.Styles>
     <Border Classes="card" Margin="25" Padding="80">
         <Border.Styles>
-            <styling:FluentAvaloniaTheme RequestedTheme="Dark" />
+            <styling:FluentAvaloniaTheme />
             <Style Selector="TextBlock">
                 <Setter Property="Foreground" Value="White"/>
             </Style>

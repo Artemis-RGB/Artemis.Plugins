@@ -15,7 +15,7 @@
         </TextBlock>
 
         <Border Grid.Row="2" Classes="card" Margin="0 10" ClipToBounds="True">
-            <DataGrid Items="{CompiledBinding ParticleViewModels}"
+            <DataGrid ItemsSource="{CompiledBinding ParticleViewModels}"
                       AutoGenerateColumns="False"
                       CanUserSortColumns="False"
                       SelectionMode="Single"
