@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ROG Strix G15 (2021)</Name>
+  <Description>On-board laptop keyboard</Description>
+  <Author>DRS</Author>
+  <Type>Keyboard</Type>
+  <Vendor>ASUS</Vendor>
+  <Model>ROG Strix G15 (2021)</Model>
+  <Width>428</Width>
+  <Height>356</Height>
+  <Leds>
+    <Led Id="Keyboard_MediaVolumeDown">
+      <X>101.5</X>
+      <Y>133.5</Y>
+      <Height>0.57</Height>
+    </Led>
+    <Led Id="Keyboard_MediaVolumeUp">
+      <Height>0.57</Height>
+    </Led>
+    <Led Id="Keyboard_Custom71">
+      <Height>0.57</Height>
+    </Led>
+    <Led Id="Keyboard_Custom72">
+      <Height>0.57</Height>
+    </Led>
+    <Led Id="Keyboard_Custom73">
+      <Height>0.57</Height>
+    </Led>
+    <Led Id="Keyboard_Escape">
+      <X>63</X>
+      <Y>+5</Y>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <X>+19</X>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F2">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F3">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F4">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F5">
+      <X>+6.75</X>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F6">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F7">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F8">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F9">
+      <X>+6.75</X>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F10">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F11">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_F12">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_Delete">
+      <X>+3.5</X>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>63</X>
+      <Y>+</Y>
+    </Led>
+    <Led Id="Keyboard_1" />
+    <Led Id="Keyboard_2" />
+    <Led Id="Keyboard_3" />
+    <Led Id="Keyboard_4" />
+    <Led Id="Keyboard_5" />
+    <Led Id="Keyboard_6" />
+    <Led Id="Keyboard_7" />
+    <Led Id="Keyboard_8" />
+    <Led Id="Keyboard_9" />
+    <Led Id="Keyboard_0" />
+    <Led Id="Keyboard_MinusAndUnderscore" />
+    <Led Id="Keyboard_EqualsAndPlus" />
+    <Led Id="Keyboard_Custom52">
+      <Width>0.57</Width>
+    </Led>
+    <Led Id="Keyboard_Backspace">
+      <Width>0.57</Width>
+    </Led>
+    <Led Id="Keyboard_Custom53">
+      <Width>0.57</Width>
+    </Led>
+    <Led Id="Keyboard_MediaPlay">
+      <X>+3.5</X>
+    </Led>
+    <Led Id="Keyboard_Tab">
+      <X>63</X>
+      <Y>+</Y>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_Q" />
+    <Led Id="Keyboard_W" />
+    <Led Id="Keyboard_E" />
+    <Led Id="Keyboard_R" />
+    <Led Id="Keyboard_T" />
+    <Led Id="Keyboard_Y" />
+    <Led Id="Keyboard_U" />
+    <Led Id="Keyboard_O" />
+    <Led Id="Keyboard_P" />
+    <Led Id="Keyboard_BracketLeft" />
+    <Led Id="Keyboard_BracketRight" />
+    <Led Id="Keyboard_Backslash" />
+    <Led Id="Keyboard_I">
+      <Width>1.21</Width>
+    </Led>
+    <Led Id="Keyboard_MediaStop">
+      <X>+3.5</X>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X>63</X>
+      <Y>+</Y>
+      <Width>1.75</Width>
+    </Led>
+    <Led Id="Keyboard_A" />
+    <Led Id="Keyboard_S" />
+    <Led Id="Keyboard_D" />
+    <Led Id="Keyboard_F" />
+    <Led Id="Keyboard_G" />
+    <Led Id="Keyboard_H" />
+    <Led Id="Keyboard_J" />
+    <Led Id="Keyboard_K" />
+    <Led Id="Keyboard_L" />
+    <Led Id="Keyboard_SemicolonAndColon" />
+    <Led Id="Keyboard_ApostropheAndDoubleQuote" />
+    <Led Id="Keyboard_Custom54">
+      <Width>0.653</Width>
+    </Led>
+    <Led Id="Keyboard_Enter">
+      <Width>0.653</Width>
+    </Led>
+    <Led Id="Keyboard_Custom55">
+      <Width>0.653</Width>
+    </Led>
+    <Led Id="Keyboard_MediaPreviousTrack">
+      <X>+3.5</X>
+    </Led>
+    <Led Id="Keyboard_LeftShift">
+      <X>63</X>
+      <Y>+</Y>
+      <Width>2.25</Width>
+    </Led>
+    <Led Id="Keyboard_Z" />
+    <Led Id="Keyboard_X" />
+    <Led Id="Keyboard_C" />
+    <Led Id="Keyboard_V" />
+    <Led Id="Keyboard_B" />
+    <Led Id="Keyboard_N" />
+    <Led Id="Keyboard_M" />
+    <Led Id="Keyboard_CommaAndLessThan" />
+    <Led Id="Keyboard_PeriodAndBiggerThan" />
+    <Led Id="Keyboard_SlashAndQuestionMark" />
+    <Led Id="Keyboard_Custom56">
+      <Width>0.82</Width>
+    </Led>
+    <Led Id="Keyboard_RightShift">
+      <Width>0.82</Width>
+    </Led>
+    <Led Id="Keyboard_Custom57">
+      <Width>0.82</Width>
+    </Led>
+    <Led Id="Keyboard_MediaNextTrack">
+      <X>+3.5</X>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>63</X>
+      <Y>+</Y>
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Custom36" />
+    <Led Id="Keyboard_LeftGui" />
+    <Led Id="Keyboard_LeftAlt" />
+    <Led Id="Keyboard_Custom58">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Custom59">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Custom60">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_RightAlt" />
+    <Led Id="Keyboard_RightCtrl">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_PrintScreen">
+      <X>+64.5</X>
+    </Led>
+    <Led Id="Keyboard_ArrowUp">
+      <X>~41.5</X>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <X>-</X>
+      <Y>+</Y>
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowDown">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowRight">
+      <Height>0.68</Height>
+    </Led>
+    <Led Id="LedStripe1">
+      <X>40</X>
+      <Y>+</Y>
+      <Width>0.2</Width>
+      <Height>3</Height>
+    </Led>
+    <Led Id="LedStripe6">
+      <X>385</X>
+      <Width>0.2</Width>
+      <Height>3</Height>
+    </Led>
+    <Led Id="LedStripe2">
+      <Shape>M0,0 L0.13,0 L0.13,0.82 L0.18,0.87 L1,0.87 L1,1 L0.1,1 L0,0.9z</Shape>
+      <X>40</X>
+      <Y>+3</Y>
+      <Width>1.5</Width>
+      <Height>1.5</Height>
+    </Led>
+    <Led Id="LedStripe3">
+      <X>+3</X>
+      <Y>~</Y>
+      <Width>3</Width>
+      <Height>0.2</Height>
+    </Led>
+    <Led Id="LedStripe4">
+      <X>+171.5</X>
+      <Width>3</Width>
+      <Height>0.2</Height>
+    </Led>
+    <Led Id="LedStripe5">
+      <Shape>M1,0 L1,0.9 L0.9,1 L0,1 L0,0.87 L0.82,0.87 L0.87,0.82 L0.87,0z</Shape>
+      <X>+3</X>
+      <Y>~</Y>
+      <Width>1.5</Width>
+      <Height>1.5</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>rog_strix_g15_2021.png</DeviceImage>
+  </CustomData>
+</Device>
