@@ -22,7 +22,7 @@
             </Style.Animations>
         </Style>
     </UserControl.Styles>
-    <Border Classes="card" Margin="25" Padding="80">
+    <Border Classes="card" Margin="10 35 10 10" Padding="80">
         <Border.Styles>
             <styling:FluentAvaloniaTheme />
             <Style Selector="TextBlock">
@@ -43,10 +43,10 @@
                 Tap the sync button on the bridge to continue
             </TextBlock>
 
-            <Viewbox Margin="0 75 0 0" MaxWidth="300">
-                <Canvas Width="300" Height="288" HorizontalAlignment="Center">
-                    <Image Source="/Resources/pushlink_bridge_v2.png" Width="300" Height="288" />
-                    <Rectangle Canvas.Left="58" Canvas.Top="60" Width="140" Height="140" Classes="bridge-led-ring">
+            <Viewbox Margin="0 75 0 0" MaxWidth="250">
+                <Canvas Width="250" Height="250" HorizontalAlignment="Center">
+                    <Image Source="/Resources/pushlink_bridge_v2.png" Width="250" Height="250" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                    <Rectangle Canvas.Left="50" Canvas.Top="55" Width="115" Height="115" Classes="bridge-led-ring">
                         <Rectangle.Fill>
                             <RadialGradientBrush>
                                 <GradientStop Color="Transparent" Offset="0.48" />

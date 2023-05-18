@@ -40,7 +40,10 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Resources\pushlink_bridge_v2.png" />
-    <Content Include="Resources\hue.svg" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\hue.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
