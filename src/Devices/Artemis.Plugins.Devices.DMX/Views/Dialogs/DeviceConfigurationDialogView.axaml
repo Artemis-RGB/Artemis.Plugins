@@ -58,7 +58,7 @@
                 </StackPanel>
 
                 <DataGrid Grid.Row="1"
-                          Items="{CompiledBinding LedDefinitions}"
+                          ItemsSource="{CompiledBinding LedDefinitions}"
                           AutoGenerateColumns="False"
                           CanUserSortColumns="True"
                           HeadersVisibility="Column"

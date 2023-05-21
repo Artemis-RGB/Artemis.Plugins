@@ -9,5 +9,7 @@
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Audio.dll",
   "AutoEnableFeatures": true,
-  "Platforms":"Windows"
+  "Platforms":"Windows",
+  "License": "https://github.com/Artemis-RGB/Artemis.Plugins/blob/master/LICENSE",
+  "LicenseName": "PolyForm Noncommercial License 1.0.0"
 }

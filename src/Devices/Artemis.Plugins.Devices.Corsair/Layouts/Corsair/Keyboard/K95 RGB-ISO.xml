@@ -346,7 +346,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="K_Keys/9_BracketRight_SquareBracketRight.png" />
-          <LogicalLayout Name="EU" Image="K_Keys/9_BracketRight.png" />
+          <LogicalLayout Name="EU" Image="K_Keys/9_BracketLeft.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -723,7 +723,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="K_Keys/Hash_Apostrophe.png" />
-          <LogicalLayout Name="EU" Image="K_Keys/Blackslash_Pipe.png" />
+          <LogicalLayout Name="EU" Image="K_Keys/Backslash_Pipe.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -768,7 +768,7 @@
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="DE" Image="K_Keys/LessThan_GreaterThan_Pipe.png" />
-          <LogicalLayout Name="EU" Image="K_Keys/Blackslash_Pipe.png" />
+          <LogicalLayout Name="EU" Image="K_Keys/Backslash_Pipe.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>

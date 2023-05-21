@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-preview6" />    
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview6" />    
-    <PackageReference Include="DryIoc.dll" Version="5.3.4" />    
+    <PackageReference Include="Avalonia" Version="11.0.0-preview8" />    
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview8" />    
+    <PackageReference Include="DryIoc.dll" Version="5.4.0" />    
     <PackageReference Include="EmbedIO" Version="3.5.2" />    
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Unosquare.Swan.Lite" Version="3.1.0" />
-    <PackageReference Include="FluentAvaloniaUI" Version="2.0.0-preview6" />
+    <PackageReference Include="FluentAvaloniaUI" Version="2.0.0-preview8" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview3" />
     <PackageReference Include="ReactiveUI" Version="18.4.26" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
@@ -59,7 +59,10 @@
 
   <ItemGroup>
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
-    <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
+    <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="2.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

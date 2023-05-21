@@ -8,22 +8,21 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.Devices.DMX.Views.DMXConfigurationView"
              x:DataType="viewModels1:DMXConfigurationViewModel">
-    <Grid Margin="15" RowDefinitions="Auto,Auto,300,Auto,Auto,*">
-        <TextBlock Grid.Row="0" Classes="h4">Manage devices</TextBlock>
-        <StackPanel Grid.Row="1">
-            <TextBlock Classes="h5">Introduction</TextBlock>
-            <TextBlock TextWrapping="Wrap">
+    <Grid RowDefinitions="Auto,Auto,300,Auto,Auto,*">
+        <Grid Grid.Row="0" Classes="plugin-introduction" ColumnDefinitions="*,Auto">
+            <TextBlock Grid.Column="0" TextWrapping="Wrap">
                 This plugin supports connecting to E1.31-enabled devices.
-            </TextBlock>
-            <TextBlock TextWrapping="Wrap">
+                <LineBreak />
                 To get started add one or more devices by its hostname.
             </TextBlock>
-            <controls:HyperlinkButton NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/dmx" HorizontalAlignment="Right">
+            <controls:HyperlinkButton Grid.Column="1" NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/dmx" VerticalAlignment="Top">
                 Learn more
             </controls:HyperlinkButton>
-        </StackPanel>
-        <Border Grid.Row="2" Classes="card" Margin="0 10" ClipToBounds="True">
-            <DataGrid Items="{CompiledBinding Definitions}"
+        </Grid>
+
+        <TextBlock Grid.Row="1" Classes="card-title">Devices</TextBlock>
+        <Border Grid.Row="2" Classes="card" Margin="0 0 0 10" ClipToBounds="True">
+            <DataGrid ItemsSource="{CompiledBinding Definitions}"
                       AutoGenerateColumns="False"
                       CanUserSortColumns="False"
                       SelectionMode="Single"
@@ -73,7 +72,7 @@
             </DataGrid>
         </Border>
 
-        <TextBlock Grid.Row="3" Classes="h4">General</TextBlock>
+        <TextBlock Grid.Row="3" Classes="card-title">Advanced</TextBlock>
         <Border Grid.Row="4" Classes="card">
             <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
                 <StackPanel Grid.Column="0">

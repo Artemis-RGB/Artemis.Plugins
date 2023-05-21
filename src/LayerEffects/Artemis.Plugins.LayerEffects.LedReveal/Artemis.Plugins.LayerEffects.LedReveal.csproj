@@ -12,7 +12,7 @@
 
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="2.0.0-prerelease.45" />
+    <PackageReference Update="RGB.NET.Core" Version="2.0.0-prerelease.53" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +28,9 @@
 
   <ItemGroup>
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
-    <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="1.1.0" />
+    <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="2.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
