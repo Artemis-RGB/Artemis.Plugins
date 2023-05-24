@@ -27,16 +27,16 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         #region Properties & Fields
 
-        internal readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
+        private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         internal readonly ILogger _logger;
-        internal readonly object _audioEventLock = new();
-        internal readonly List<DynamicChild<AudioChannelDataModel>> _channelsDataModels = new();
+        private readonly object _audioEventLock = new();
+        private readonly List<DynamicChild<AudioChannelDataModel>> _channelsDataModels = new();
         internal readonly NAudio.CoreAudioApi.DataFlow _flow;
         internal readonly NAudio.CoreAudioApi.Role _role;
         internal bool _audioDeviceChanged;
-        internal float _lastMasterPeakVolumeNormalized;
+        private float _lastMasterPeakVolumeNormalized;
         internal MMDevice _audioDevice;
-        internal AudioEndpointVolume _audioEndpointVolume;
+        private AudioEndpointVolume _audioEndpointVolume;
 
         #endregion
 

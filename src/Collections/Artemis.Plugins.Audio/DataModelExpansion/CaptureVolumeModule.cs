@@ -14,8 +14,18 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
     {
         #region Constructor
 
-        public CaptureVolumeModule(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService, NAudio.CoreAudioApi.Role role = Role.Communications) : base(logger, naudioDeviceEnumerationService, role, NAudio.CoreAudioApi.DataFlow.Capture)
-        {}
+        public CaptureVolumeModule(ILogger logger, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, NAudio.CoreAudioApi.Role role = Role.Communications) : base(logger, naudioDeviceEnumerationService, role, NAudio.CoreAudioApi.DataFlow.Capture)
+        {
+            _enableCaptureDeviceAccess  = pluginSettings.GetSetting("EnableCaptureDeviceAccess", true);
+            _enableCaptureDeviceAccess.SettingChanged += _enableCaptureDeviceAccess_SettingChanged;
+        }
+
+        #endregion
+
+        #region Properties and Fields
+
+        internal readonly PluginSetting<bool> _enableCaptureDeviceAccess;
+        internal NAudio.CoreAudioApi.WasapiCapture _wasapiCapture;
 
         #endregion
 
@@ -30,6 +40,40 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             };
         }
 
+        private void _enableCaptureDeviceAccess_SettingChanged(object sender, EventArgs e)
+        {
+            _logger.Verbose($"EnableCaptureDeviceAccess setting change detected. Restarting data model connection.");
+            _wasapiCapture?.StopRecording();
+            _wasapiCapture?.Dispose();
+            _wasapiCapture = null;
+            _audioDeviceChanged = true;
+            UpdateAudioEndpointDevice();
+            if (_enableCaptureDeviceAccess.Value == true) {
+                _wasapiCapture = new WasapiCapture(_audioDevice);
+                //required to request access to the audio capture device
+                _wasapiCapture.StartRecording();
+            }
+            _logger.Verbose($"EnableCaptureDeviceAccess setting change detected. Data model connection restarted.");
+        }
+
         #endregion
+
+        public override void Enable()
+        {
+            base.Enable();
+            if (_enableCaptureDeviceAccess.Value == true) {
+                _wasapiCapture = new WasapiCapture(_audioDevice);
+                //required to request access to the audio capture device
+                _wasapiCapture.StartRecording();
+            }
+        }
+
+        public override void Disable()
+        {
+            _wasapiCapture?.StopRecording();
+            _wasapiCapture?.Dispose();
+            _wasapiCapture = null;
+            base.Disable();
+        }
     }
 }
