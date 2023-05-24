@@ -201,7 +201,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         private bool SetAudioEndpointDevice()
         {
-            _audioDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+            _audioDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(_flow, _role);
 
             if (_audioDevice == null)
             {
