@@ -71,7 +71,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         #region Update DataModel Methods
 
-        internal void UpdatePeakVolume(double deltaTime)
+        private void UpdatePeakVolume(double deltaTime)
         {
             if (IsEnabled == false)
             {
@@ -94,15 +94,6 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             // Update Main volume Peak
             lock (_audioEventLock) // To avoid query an Device/EndPoint that is not the current device anymore or has more or less channels
             {
-                try {
-                // Absolute master peak volume 
-                float peakVolumeNormalizedTest = _audioDevice?.AudioMeterInformation.MasterPeakValue ?? 0f;
-                }
-                catch (Exception e) { 
-                    var bakAudioDevice = _audioDevice;
-                    _logger.Error("Exception on UpdatePeakVolume() " + e);
-                     }
-
                 // Absolute master peak volume 
                 float peakVolumeNormalized = _audioDevice?.AudioMeterInformation.MasterPeakValue ?? 0f;
 
@@ -136,7 +127,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             }
         }
 
-        internal void UpdateVolumeDataModel()
+        private void UpdateVolumeDataModel()
         {
             DataModel.VolumeChanged.Trigger();
             DataModel.VolumeNormalized = _audioEndpointVolume.MasterVolumeLevelScalar;
@@ -157,7 +148,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             }
         }
 
-        internal void PopulateChannels()
+        private void PopulateChannels()
         {
             DataModel.Channels.ClearDynamicChildren();
             _logger.Verbose($"AudioEndpoint device {_audioDevice.FriendlyName} channel list cleared");
@@ -176,19 +167,19 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
 
         #region Audio Management methods
 
-        internal void NotificationClient_DefaultDeviceChanged()
+        private void NotificationClient_DefaultDeviceChanged()
         {
             _audioDeviceChanged = true;
-            // Workaround. MMDevice won't dispose if Dispose() is called from 
+            // Workarround. MMDevice won't dispose if Dispose() is called from 
             // non parent thread and NaudioNotificationClient callbacks come from another thread.
-            // We will use Update() method to dispose MMDevice from creator thread because this (NotificationClient_DefaultDeviceChanged()) is called from another thread
+            // We will use Update() mrhod to dispose MMDevice from creator thread because this (NotificationClient_DefaultDeviceChanged()) is called from another thread
         }
 
         internal void UpdateAudioEndpointDevice(bool firstRun = false)
         {
             lock (_audioEventLock)
             {
-                if (_audioDevice != null) FreeAudioEndpointDevice();
+                if (!firstRun) FreeAudioEndpointDevice();
 
                 if (SetAudioEndpointDevice())
                 {
@@ -199,7 +190,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             }
         }
 
-        internal void FreeAudioEndpointDevice()
+        private void FreeAudioEndpointDevice()
         {
             string disposingAudioEndpointDeviceFriendlyName = _audioDevice?.FriendlyName ?? "Unknown";
             _audioDevice?.Dispose();
@@ -208,13 +199,13 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             DataModel.Reset();
         }
 
-        internal bool SetAudioEndpointDevice()
+        private bool SetAudioEndpointDevice()
         {
             _audioDevice = _naudioDeviceEnumerationService.GetDefaultAudioEndpoint(_flow, _role);
 
             if (_audioDevice == null)
             {
-                _logger.Verbose("No audio device found matching requested settings. Audio peak volume won't be updated.");
+                _logger.Verbose("No audio device found with Console role. Audio peak volume won't be updated.");
                 return false;
             }
 
@@ -223,11 +214,11 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             _audioEndpointVolume.OnVolumeNotification += _audioEndpointVolume_OnVolumeNotification;
             DataModel.DefaultDeviceName = _audioDevice.FriendlyName;
 
-            _logger.Verbose($"AudioEndpoint device {_audioDevice.FriendlyName} registered to fill AudioEndpoint volume data model");
+            _logger.Verbose($"AudioEndpoint device {_audioDevice.FriendlyName} registered to to fill AudioEndpoint volume data model");
             return true;
         }
 
-        internal void _audioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)
+        private void _audioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)
         {
             UpdateVolumeDataModel();
         }
