@@ -43,24 +43,34 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
         private void _enableCaptureDeviceAccess_SettingChanged(object sender, EventArgs e)
         {
             _logger.Verbose($"EnableCaptureDeviceAccess setting change detected. Restarting data model connection.");
-            _wasapiCapture?.StopRecording();
-            _wasapiCapture?.Dispose();
-            _wasapiCapture = null;
+            stopCapture();
             _audioDeviceChanged = true;
             UpdateAudioEndpointDevice();
-            if (_enableCaptureDeviceAccess.Value == true) {
-                _wasapiCapture = new WasapiCapture(_audioDevice);
-                //required to request access to the audio capture device
-                _wasapiCapture.StartRecording();
-            }
+            startCaptureIfEnabled();
             _logger.Verbose($"EnableCaptureDeviceAccess setting change detected. Data model connection restarted.");
         }
 
         #endregion
 
+        #region Operational Overrides
+
         public override void Enable()
         {
             base.Enable();
+            startCaptureIfEnabled();
+        }
+
+        public override void Disable()
+        {
+            stopCapture();
+            base.Disable();
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private void startCaptureIfEnabled() {
             if (_enableCaptureDeviceAccess.Value == true) {
                 _wasapiCapture = new WasapiCapture(_audioDevice);
                 //required to request access to the audio capture device
@@ -68,12 +78,12 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             }
         }
 
-        public override void Disable()
-        {
+        private void stopCapture() {
             _wasapiCapture?.StopRecording();
             _wasapiCapture?.Dispose();
             _wasapiCapture = null;
-            base.Disable();
         }
+
+        #endregion
     }
 }
