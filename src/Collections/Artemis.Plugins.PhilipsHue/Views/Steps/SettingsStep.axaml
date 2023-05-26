@@ -8,99 +8,97 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.PhilipsHue.Views.Steps.SettingsStep"
              x:DataType="viewModels:PhilipsHueConfigurationViewModel">
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="15" MaxWidth="1000">
-            <!-- General settings -->
-            <TextBlock Classes="h4" Margin="0 15">
-                General
-            </TextBlock>
-            <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
-                <StackPanel>
-                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
-                        <StackPanel Grid.Column="0">
-                            <TextBlock>Polling rate</TextBlock>
-                            <TextBlock Classes="subtitle" TextWrapping="Wrap">
-                                Configures how often the plugin should ask the Hue system for a status update on lights, sensors etc.
-                            </TextBlock>
-                            <TextBlock Classes="subtitle" TextWrapping="Wrap">
-                                A lower polling rate results in faster data model updates but might slow the Hue network down.
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
-                            <controls:NumberBox Value="{CompiledBinding PollingRate}"
-                                                attachedProperties:NumberBoxAssist.SuffixText="ms"
-                                                Width="150"
-                                                Minimum="100"
-                                                AcceptsExpression="True" />
-                        </StackPanel>
-                    </Grid>
-                    <Border Classes="card-separator" />
-
-                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
-                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock>
-                                Add another Hue Bridge
-                            </TextBlock>
-                            <TextBlock Classes="subtitle">
-                                Start the setup wizard again to add another Hue Bridge.
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                            <Button Command="{CompiledBinding AddHueBridge}" Width="150" Content="Add Hue Bridge" />
-                        </StackPanel>
-                    </Grid>
-                    <Border Classes="card-separator" />
-
-                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
-                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock>
-                                Reload devices
-                            </TextBlock>
-                            <TextBlock Classes="subtitle">
-                                Reload the device provider, applying updates made to the entertainment setup.
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                            <Button Command="{CompiledBinding ReloadDeviceProvider}" Width="150" Content="Reload devices" />
-                        </StackPanel>
-                    </Grid>
-                    <Border Classes="card-separator" />
-
-                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
-                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock>
-                                Reset plugin
-                            </TextBlock>
-                            <TextBlock Classes="subtitle">
-                                Forget all Hue Bridges and reset the plugin.
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                            <Button Command="{CompiledBinding ResetPlugin}" Width="150" Content="Reset plugin" />
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-            </Border>
-
-            <!-- Profile editor settings -->
-            <TextBlock Classes="h4" Margin="0 15">
-                Device provider
-            </TextBlock>
-            <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
-                <StackPanel>
-                    <StackPanel>
-                        <TextBlock>
-                            Behaviour when synchronization stops
+    <StackPanel>
+        <!-- General settings -->
+        <TextBlock Classes="card-title">
+            General
+        </TextBlock>
+        <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
+            <StackPanel>
+                <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0">
+                        <TextBlock>Polling rate</TextBlock>
+                        <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                            Configures how often the plugin should ask the Hue system for a status update on lights, sensors etc.
                         </TextBlock>
                         <TextBlock Classes="subtitle" TextWrapping="Wrap">
-                            To change what colors your lights will be when Artemis releases control, open your Hue app head into:
-                        </TextBlock>
-                        <TextBlock Classes="subtitle" TextWrapping="Wrap">
-                            Settings &gt; Entertainment rooms &gt; Select your room &gt; Behaviour when synchronization stops &gt; Pick an option.
+                            A lower polling rate results in faster data model updates but might slow the Hue network down.
                         </TextBlock>
                     </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                        <controls:NumberBox Value="{CompiledBinding PollingRate}"
+                                            attachedProperties:NumberBoxAssist.SuffixText="ms"
+                                            Width="150"
+                                            Minimum="100"
+                                            AcceptsExpression="True" />
+                    </StackPanel>
+                </Grid>
+                <Border Classes="card-separator" />
+
+                <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock>
+                            Add another Hue Bridge
+                        </TextBlock>
+                        <TextBlock Classes="subtitle">
+                            Start the setup wizard again to add another Hue Bridge.
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                        <Button Command="{CompiledBinding AddHueBridge}" Width="150" Content="Add Hue Bridge" />
+                    </StackPanel>
+                </Grid>
+                <Border Classes="card-separator" />
+
+                <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock>
+                            Reload devices
+                        </TextBlock>
+                        <TextBlock Classes="subtitle">
+                            Reload the device provider, applying updates made to the entertainment setup.
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                        <Button Command="{CompiledBinding ReloadDeviceProvider}" Width="150" Content="Reload devices" />
+                    </StackPanel>
+                </Grid>
+                <Border Classes="card-separator" />
+
+                <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock>
+                            Reset plugin
+                        </TextBlock>
+                        <TextBlock Classes="subtitle">
+                            Forget all Hue Bridges and reset the plugin.
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                        <Button Command="{CompiledBinding ResetPlugin}" Width="150" Content="Reset plugin" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Profile editor settings -->
+        <TextBlock Classes="card-title">
+            Device provider
+        </TextBlock>
+        <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock>
+                        Behaviour when synchronization stops
+                    </TextBlock>
+                    <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                        To change what colors your lights will be when Artemis releases control, open your Hue app head into:
+                    </TextBlock>
+                    <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                        Settings &gt; Entertainment rooms &gt; Select your room &gt; Behaviour when synchronization stops &gt; Pick an option.
+                    </TextBlock>
                 </StackPanel>
-            </Border>
-        </StackPanel>
-    </ScrollViewer>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </UserControl>

@@ -1,10 +1,10 @@
-using Avalonia;
-using Avalonia.Controls;
+using Artemis.Plugins.Audio.ViewModels;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 
 namespace Artemis.Plugins.Audio.Views
 {
-    public partial class AudioConfigurationView : UserControl
+    public partial class AudioConfigurationView : ReactiveUserControl<AudioConfigurationViewModel>
     {
         public AudioConfigurationView()
         {

@@ -22,7 +22,7 @@ namespace Artemis.Plugins.Devices.Wooting
         public override void Enable()
         {
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX64NativePathsWindows.Add(Path.Combine(Plugin.Directory.FullName, "x64", "wooting-rgb-sdk64.dll"));
-            RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX64NativePathsWindows.Add(Path.Combine(Plugin.Directory.FullName, "x86", "wooting-rgb-sdk.dll"));
+            RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX86NativePathsWindows.Add(Path.Combine(Plugin.Directory.FullName, "x86", "wooting-rgb-sdk.dll"));
             RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleNativePathsLinux.Add(Path.Combine(Plugin.Directory.FullName, "x64", "libwooting-rgb-sdk.so"));
 
             RGB.NET.Devices.Wooting.WootingDeviceProvider.Instance.Exception += Provider_OnException;

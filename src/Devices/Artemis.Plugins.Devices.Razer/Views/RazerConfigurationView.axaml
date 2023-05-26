@@ -6,33 +6,34 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.Devices.Razer.Views.RazerConfigurationView"
              x:DataType="viewModels:RazerConfigurationViewModel">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
-        <StackPanel Margin="15" MaxWidth="800">
-          <!--General settings-->
-          <TextBlock Classes="h4" Margin="0 15">
-            General
-          </TextBlock>
-          <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
-            <StackPanel Margin="15">
-              <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
-                <StackPanel Grid.Column="0">
-                  <TextBlock>Enable emulator devices</TextBlock>
-                  <TextBlock TextWrapping="Wrap">
-                    Enables the loading of debug devices. </TextBlock>
-                  <TextBlock>
-                    If enabled, this ensures a device of each supported type is loaded so you can view them using the Chroma Emulator
-                  </TextBlock>
-                  <!--TODO: regular text hyperlink?-->
-                  <!--<controls:HyperlinkButton NavigateUri="https://github.com/razerofficial/ChromaEmulator/releases">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+            <!--General settings-->
+            <TextBlock Classes="card-title">
+                Advanced
+            </TextBlock>
+            <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
+                <StackPanel Margin="15">
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0">
+                            <TextBlock>Enable emulator devices</TextBlock>
+                            <TextBlock TextWrapping="Wrap">
+                                Enables the loading of debug devices.
+                            </TextBlock>
+                            <TextBlock>
+                                If enabled, this ensures a device of each supported type is loaded so you can view them using the Chroma Emulator
+                            </TextBlock>
+                            <!--TODO: regular text hyperlink?-->
+                            <!--<controls:HyperlinkButton NavigateUri="https://github.com/razerofficial/ChromaEmulator/releases">
                     Chroma Emulator
                   </controls:HyperlinkButton>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                            <ToggleSwitch IsChecked="{CompiledBinding LoadEmulatorDevices.Value}" VerticalAlignment="Center" Margin="5 0" />
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                  <ToggleSwitch IsChecked="{CompiledBinding LoadEmulatorDevices.Value}" VerticalAlignment="Center" Margin="5 0" />
-                </StackPanel>
-              </Grid>
-            </StackPanel>
-          </Border>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
