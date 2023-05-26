@@ -25,16 +25,16 @@ namespace Artemis.Plugins.LayerEffects.Filter
             switch (Properties.Type.CurrentValue)
             {
                 case ColorAdjustmentType.Hue:
-                    filter = ColorFilterGenerator.GetHueColorMatrix(Properties.Amount);
+                    filter = ColorFilterGenerator.GetHueColorMatrix(Properties.HueRotation);
                     break;
                 case ColorAdjustmentType.Brightness:
-                    filter = ColorFilterGenerator.GetBrightnessColorMatrix(Properties.Amount);
+                    filter = ColorFilterGenerator.GetBrightnessColorMatrix(Properties.Strength);
                     break;
                 case ColorAdjustmentType.Contrast:
-                    filter = ColorFilterGenerator.GetContrastColorMatrix((int) Properties.Amount);
+                    filter = ColorFilterGenerator.GetContrastColorMatrix(Properties.Strength);
                     break;
                 case ColorAdjustmentType.Saturation:
-                    filter = ColorFilterGenerator.GetSaturationSaturationMatrix(Properties.Amount);
+                    filter = ColorFilterGenerator.GetSaturationSaturationMatrix(Properties.Strength);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

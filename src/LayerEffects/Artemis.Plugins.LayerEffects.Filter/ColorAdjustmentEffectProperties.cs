@@ -7,8 +7,11 @@ namespace Artemis.Plugins.LayerEffects.Filter
         [PropertyDescription]
         public EnumLayerProperty<ColorAdjustmentType> Type { get; set; }
 
-        [PropertyDescription]
-        public FloatLayerProperty Amount { get; set; }
+        [PropertyDescription(Name = "Hue rotation", Description = "The rotation of the hue in degrees", InputAffix = "°")]
+        public FloatLayerProperty HueRotation { get; set; }
+        
+        [PropertyDescription(Description = "The strength of the effect", MinInputValue = -100, MaxInputValue = 100, InputAffix = "%")]
+        public FloatLayerProperty Strength { get; set; }
 
         protected override void PopulateDefaults()
         {
@@ -16,6 +19,8 @@ namespace Artemis.Plugins.LayerEffects.Filter
 
         protected override void EnableProperties()
         {
+            HueRotation.IsVisibleWhen(Type, t => t.CurrentValue == ColorAdjustmentType.Hue);
+            Strength.IsVisibleWhen(Type, t => t.CurrentValue != ColorAdjustmentType.Hue);
         }
 
         protected override void DisableProperties()
