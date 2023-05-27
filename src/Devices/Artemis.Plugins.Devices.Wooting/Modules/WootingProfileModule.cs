@@ -9,6 +9,7 @@ public class WootingProfileModule : Module<WootingDataModel>
 {
     private readonly WootingProfileService _profileService;
     public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
+    private int _useToken;
 
     public WootingProfileModule(WootingProfileService service)
     {
@@ -17,6 +18,7 @@ public class WootingProfileModule : Module<WootingDataModel>
 
     public override void Enable()
     {
+        _useToken = _profileService.RegisterUse();
         foreach (WootingProfileDevice item in _profileService.Devices)
             DataModel.AddDynamicChild(item.Info.Model, new WootingProfileDataModel());
     }
@@ -28,6 +30,7 @@ public class WootingProfileModule : Module<WootingDataModel>
 
     public override void Disable()
     {
+        _profileService.UnregisterUse(_useToken);
     }
 
     private void UpdateProfiles()

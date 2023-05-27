@@ -12,6 +12,7 @@ public class WootingAnalogModule : Module<WootingDataModel>
 {
     private readonly WootingAnalogService _analogService;
     public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
+    private int _useToken;
 
     public WootingAnalogModule(WootingAnalogService service)
     {
@@ -20,6 +21,7 @@ public class WootingAnalogModule : Module<WootingDataModel>
 
     public override void Enable()
     {
+        _useToken = _analogService.RegisterUse();
         foreach (WootingAnalogDevice item in _analogService.Devices)
             DataModel.AddDynamicChild(item.Info.device_name, new WootingAnalogDataModel());
     }
@@ -31,6 +33,8 @@ public class WootingAnalogModule : Module<WootingDataModel>
 
     public override void Disable()
     {
+        _analogService.UnregisterUse(_useToken);
+        DataModel.ClearDynamicChildren();
     }
 
     private void UpdateAnalogValues()
@@ -50,4 +54,5 @@ public class WootingAnalogModule : Module<WootingDataModel>
             deviceDataModel.Value.HighestAnalogValue = highest;
         }
     }
+
 }

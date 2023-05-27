@@ -8,6 +8,7 @@ public static class WootingModelNameDictionary
     {
         ["Wooting One"] = "WootingOne",
         ["Wooting Two HE"] = "WootingTwoHE",
+        ["Wooting Two HE (ARM)"] = "",
         ["Wooting 60HE (ARM)"] = "Wooting 60HE (ARM)"
     };
 }
