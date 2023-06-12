@@ -14,19 +14,21 @@ namespace Artemis.Plugins.Devices.Wooting.LayerBrushes;
 internal class WootingAnalogLayerBrush : PerLedLayerBrush<WootingAnalogPropertyGroup>
 {
     private readonly WootingAnalogService _analogService;
+    private int _useToken;
 
     public WootingAnalogLayerBrush(WootingAnalogService service)
     {
         _analogService = service;
     }
+    
+    public override void EnableLayerBrush()
+    { 
+        _useToken = _analogService.RegisterUse();
+    }
 
     public override void DisableLayerBrush()
     {
-        
-    }
-
-    public override void EnableLayerBrush()
-    {
+        _analogService.UnregisterUse(_useToken);
     }
 
     public override SKColor GetColor(ArtemisLed led, SKPoint renderPoint)
