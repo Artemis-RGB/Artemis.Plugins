@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Serilog;
@@ -8,39 +9,23 @@ using WootingAnalogSDKNET;
 
 namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
 
-public sealed class WootingAnalogService : IPluginService, IDisposable
+public sealed class WootingAnalogService : ReusableService
 {
     private readonly ILogger _logger;
-    private readonly List<WootingAnalogDevice> _devices;
+    private List<WootingAnalogDevice> _devices;
     private DateTime _lastUpdate;
-    public IReadOnlyCollection<WootingAnalogDevice> Devices { get; }
+    public IEnumerable<WootingAnalogDevice> Devices => IsActivated ? _devices : Enumerable.Empty<WootingAnalogDevice>();
 
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
-                
-        (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
-
-        if (initResult < 0)
-            throw new ArtemisPluginException($"Failed to initialise WootingAnalog SDK: {initResult}");
-
-        (List<DeviceInfo> infos, WootingAnalogResult deviceInfoResult) = WootingAnalogSDK.GetConnectedDevicesInfo();
-        if (deviceInfoResult < 0)//any value 0 and above means success.
-            throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {deviceInfoResult}");
-
-        _devices = new(infos.Count);
-        foreach (DeviceInfo t in infos)
-            _devices.Add(new WootingAnalogDevice(t));
-
-        WootingAnalogSDK.SetKeycodeMode(KeycodeType.HID);
-
-        Devices = new ReadOnlyCollection<WootingAnalogDevice>(_devices);
-
-        ReadAllValues();
     }
 
     public void Update()
     {
+        if (!IsActivated)
+            return;
+        
         DateTime now = DateTime.Now;
         if (now - _lastUpdate < TimeSpan.FromSeconds(1.0 / 30.0))
             return;
@@ -86,11 +71,30 @@ public sealed class WootingAnalogService : IPluginService, IDisposable
             }
         }
     }
+    
+    protected override void Activate()
+    {
+        (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
 
-    #region IDisposable
-    public void Dispose()
+        if (initResult < 0)
+            throw new ArtemisPluginException($"Failed to initialise WootingAnalog SDK: {initResult}");
+
+        (List<DeviceInfo> infos, WootingAnalogResult deviceInfoResult) = WootingAnalogSDK.GetConnectedDevicesInfo();
+        if (deviceInfoResult < 0)//any value 0 and above means success.
+            throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {deviceInfoResult}");
+
+        _devices = new(infos.Count);
+        foreach (DeviceInfo t in infos)
+            _devices.Add(new WootingAnalogDevice(t));
+
+        WootingAnalogSDK.SetKeycodeMode(KeycodeType.HID);
+
+        ReadAllValues();
+    }
+
+    protected override void Deactivate()
     {
         WootingAnalogSDK.UnInitialise();
+        _devices = null;
     }
-    #endregion
 }
