@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using RGB.NET.Devices.Wooting.Enum;
-using Serilog;
 
 namespace Artemis.Plugins.Devices.Wooting.Services.ProfileService;
 
 internal static class WootingSdk
 {
     public const byte GetCurrentKeyboardProfileIndex = 11;
-    private const string Dll = "x64/wooting-rgb-sdk64.dll";
+    internal const string Dll = "wooting-rgb-sdk";
     private static readonly byte[] _buffer = new byte[256];
     private static readonly object _lock;
 
