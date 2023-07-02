@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Type>Keyboard</Type>
+  <Vendor>SteelSeries</Vendor>
+  <Model>Apex 7</Model>
+  <Width>436</Width>
+  <Height>139</Height>
+  <Leds>
+    <Led Id="Keyboard_Escape">
+      <X>0.8</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <X>38.1</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F2">
+      <X>58.5</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F3">
+      <X>78.5</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F4">
+      <X>98.9</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F5">
+      <X>128.1</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F6">
+      <X>148.5</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F7" />
+    <Led Id="Keyboard_F8" />
+    <Led Id="Keyboard_F9">
+      <X>214.7</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F10">
+      <X>235</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_F11" />
+    <Led Id="Keyboard_F12" />
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>1.2</X>
+      <Y>31.1</Y>
+    </Led>
+    <Led Id="Keyboard_1" />
+    <Led Id="Keyboard_2" />
+    <Led Id="Keyboard_3" />
+    <Led Id="Keyboard_4" />
+    <Led Id="Keyboard_5">
+      <X>99.3</X>
+      <Y>31.1</Y>
+    </Led>
+    <Led Id="Keyboard_6" />
+    <Led Id="Keyboard_7" />
+    <Led Id="Keyboard_8" />
+    <Led Id="Keyboard_9" />
+    <Led Id="Keyboard_0" />
+    <Led Id="Keyboard_MinusAndUnderscore" />
+    <Led Id="Keyboard_EqualsAndPlus" />
+    <Led Id="Keyboard_Backspace">
+      <X>253.6</X>
+      <Width>2</Width>
+    </Led>
+    <Led Id="Keyboard_Tab">
+      <X>2</X>
+      <Y>49.9</Y>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_Q" />
+    <Led Id="Keyboard_W" />
+    <Led Id="Keyboard_E" />
+    <Led Id="Keyboard_R" />
+    <Led Id="Keyboard_T" />
+    <Led Id="Keyboard_Y">
+      <X>128.1</X>
+    </Led>
+    <Led Id="Keyboard_U">
+      <X>147.7</X>
+    </Led>
+    <Led Id="Keyboard_I">
+      <X>167.3</X>
+    </Led>
+    <Led Id="Keyboard_O" />
+    <Led Id="Keyboard_P" />
+    <Led Id="Keyboard_BracketLeft" />
+    <Led Id="Keyboard_BracketRight" />
+    <Led Id="Keyboard_Backslash">
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X>3.1</X>
+      <Y>70.3</Y>
+      <Width>1.75</Width>
+    </Led>
+    <Led Id="Keyboard_A" />
+    <Led Id="Keyboard_S" />
+    <Led Id="Keyboard_D" />
+    <Led Id="Keyboard_F" />
+    <Led Id="Keyboard_G">
+      <X>114</X>
+    </Led>
+    <Led Id="Keyboard_H" />
+    <Led Id="Keyboard_J" />
+    <Led Id="Keyboard_K" />
+    <Led Id="Keyboard_L" />
+    <Led Id="Keyboard_SemicolonAndColon" />
+    <Led Id="Keyboard_ApostropheAndDoubleQuote" />
+    <Led Id="Keyboard_Enter">
+      <Width>2.25</Width>
+    </Led>
+    <Led Id="Keyboard_LeftShift">
+      <X>2</X>
+      <Y>89.5</Y>
+      <Width>2.25</Width>
+    </Led>
+    <Led Id="Keyboard_Z">
+      <X>45.8</X>
+    </Led>
+    <Led Id="Keyboard_X" />
+    <Led Id="Keyboard_C">
+      <X>85</X>
+    </Led>
+    <Led Id="Keyboard_V" />
+    <Led Id="Keyboard_B" />
+    <Led Id="Keyboard_N" />
+    <Led Id="Keyboard_M" />
+    <Led Id="Keyboard_CommaAndLessThan" />
+    <Led Id="Keyboard_PeriodAndBiggerThan" />
+    <Led Id="Keyboard_SlashAndQuestionMark" />
+    <Led Id="Keyboard_RightShift">
+      <Width>2.75</Width>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>3.5</X>
+      <Y>109.2</Y>
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_LeftGui">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_LeftAlt">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <X>75.8</X>
+      <Width>6.25</Width>
+    </Led>
+    <Led Id="Keyboard_RightAlt">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_RightGui">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Application">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_RightCtrl">
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_PrintScreen">
+      <X>297.4</X>
+      <Y>6.1</Y>
+    </Led>
+    <Led Id="Keyboard_ScrollLock" />
+    <Led Id="Keyboard_PauseBreak" />
+    <Led Id="Keyboard_Insert">
+      <X>296.4</X>
+      <Y>31.1</Y>
+    </Led>
+    <Led Id="Keyboard_Home">
+      <X>317.1</X>
+    </Led>
+    <Led Id="Keyboard_PageUp">
+      <X>336.7</X>
+    </Led>
+    <Led Id="Keyboard_Delete">
+      <X>296.4</X>
+      <Y>51</Y>
+    </Led>
+    <Led Id="Keyboard_End" />
+    <Led Id="Keyboard_PageDown">
+      <X>336</X>
+    </Led>
+    <Led Id="Keyboard_ArrowUp">
+      <X>314.2</X>
+      <Y>89.2</Y>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <X>294.6</X>
+      <Y>109.9</Y>
+    </Led>
+    <Led Id="Keyboard_ArrowDown" />
+    <Led Id="Keyboard_ArrowRight" />
+    <Led Id="Keyboard_NumLock">
+      <X>361</X>
+      <Y>31.3</Y>
+    </Led>
+    <Led Id="Keyboard_NumSlash" />
+    <Led Id="Keyboard_NumAsterisk" />
+    <Led Id="Keyboard_NumMinus" />
+    <Led Id="Keyboard_Num7">
+      <X>359.9</X>
+      <Y>50.6</Y>
+    </Led>
+    <Led Id="Keyboard_Num8" />
+    <Led Id="Keyboard_Num9" />
+    <Led Id="Keyboard_NumPlus">
+      <Height>2</Height>
+    </Led>
+    <Led Id="Keyboard_Num4">
+      <X>358.5</X>
+      <Y>69.6</Y>
+    </Led>
+    <Led Id="Keyboard_Num5" />
+    <Led Id="Keyboard_Num6" />
+    <Led Id="Keyboard_Num1">
+      <X>358.5</X>
+      <Y>89.6</Y>
+    </Led>
+    <Led Id="Keyboard_Num2">
+      <X>378.5</X>
+    </Led>
+    <Led Id="Keyboard_Num3" />
+    <Led Id="Keyboard_NumEnter">
+      <Height>2.0</Height>
+    </Led>
+    <Led Id="Keyboard_Num0">
+      <X>357.8</X>
+      <Y>109.2</Y>
+      <Width>2.0</Width>
+    </Led>
+    <Led Id="Keyboard_NumPeriodAndDelete" />
+  </Leds>
+  <CustomData>
+    <DeviceImage>Apex-7-ANSI.png</DeviceImage>
+  </CustomData>
+</Device>
