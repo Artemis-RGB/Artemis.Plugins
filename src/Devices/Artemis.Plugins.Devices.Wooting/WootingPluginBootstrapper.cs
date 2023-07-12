@@ -35,7 +35,7 @@ public class WootingPluginBootstrapper : PluginBootstrapper
             return Path.Combine(plugin.Directory.FullName, "x64", "wooting-rgb-sdk64.dll");
         
         if (OperatingSystem.IsLinux())
-            return Path.Combine(plugin.Directory.FullName, "x64", "x64/libwooting-rgb-sdk.so");
+            return Path.Combine(plugin.Directory.FullName, "x64", "libwooting-rgb-sdk.so");
         
         if (OperatingSystem.IsMacOS())
             return Path.Combine(plugin.Directory.FullName, "x64", "libwooting-rgb-sdk.dylib");
