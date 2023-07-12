@@ -13,16 +13,15 @@ public class WootingPluginBootstrapper : PluginBootstrapper
 {
     public override void OnPluginLoaded(Plugin plugin)
     {
+        string dllPath = GetLibraryPath(plugin);
+        
         NativeLibrary.SetDllImportResolver(typeof(WootingPluginBootstrapper).Assembly, (libraryName, assembly, searchPath) =>
         {
             if (libraryName != WootingSdk.Dll)
                 return IntPtr.Zero;
-            
-            //replicate rgb.net's library loading for cross-platform compatibility
-            string? dllPath = GetPossibleLibraryPaths().FirstOrDefault(File.Exists); 
-            if (dllPath == null) 
-                throw new RGBDeviceException($"Can't find the Wooting-SDK at one of the expected locations:\r\n '{string.Join("\r\n", GetPossibleLibraryPaths().Select(Path.GetFullPath))}'");
-            if (!NativeLibrary.TryLoad(dllPath,assembly, searchPath, out IntPtr ret))
+            if (!File.Exists(dllPath)) 
+                throw new RGBDeviceException($"Can't find the Wooting-SDK");
+            if (!NativeLibrary.TryLoad(dllPath, assembly, searchPath, out IntPtr ret))
                 throw new RGBDeviceException($"Wooting LoadLibrary failed with error code {Marshal.GetLastPInvokeError()}");
 
             return ret;
@@ -30,20 +29,17 @@ public class WootingPluginBootstrapper : PluginBootstrapper
         base.OnPluginLoaded(plugin);
     }
     
-    private static IEnumerable<string> GetPossibleLibraryPaths()
+    private static string GetLibraryPath(Plugin plugin)
     {
-        IEnumerable<string> possibleLibraryPaths;
-
         if (OperatingSystem.IsWindows())
-            possibleLibraryPaths = Environment.Is64BitProcess ? RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX64NativePathsWindows 
-                : RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleX86NativePathsWindows;
-        else if (OperatingSystem.IsLinux())
-            possibleLibraryPaths = RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleNativePathsLinux;
-        else if (OperatingSystem.IsMacOS())
-            possibleLibraryPaths = RGB.NET.Devices.Wooting.WootingDeviceProvider.PossibleNativePathsMacOS;
-        else
-            possibleLibraryPaths = Enumerable.Empty<string>();
+            return Path.Combine(plugin.Directory.FullName, "x64", "wooting-rgb-sdk64.dll");
+        
+        if (OperatingSystem.IsLinux())
+            return Path.Combine(plugin.Directory.FullName, "x64", "x64/libwooting-rgb-sdk.so");
+        
+        if (OperatingSystem.IsMacOS())
+            return Path.Combine(plugin.Directory.FullName, "x64", "libwooting-rgb-sdk.dylib");
 
-        return possibleLibraryPaths.Select(Environment.ExpandEnvironmentVariables);
+        throw new PlatformNotSupportedException();
     }
 }
