@@ -1,4 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Artemis.Plugins.props" />
+  
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Platforms>x64</Platforms>
@@ -7,19 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-rc1.1" />
-    <PackageReference Include="FluentAvaloniaUI" Version="2.0.0-rc1" />
+    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="FluentAvaloniaUI" Version="$(FluentAvaloniaVersion)" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
     <PackageReference Include="ReactiveUI" Version="18.4.26" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
-    <PackageReference Include="RGB.NET.Core" Version="1.0.0" />
     <PackageReference Include="Serilog" Version="2.12.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.3" />
-
+    <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <PackageReference Include="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
+    
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="2.0.0-prerelease.83" />
+    <PackageReference Update="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
   </ItemGroup>
 
   <ItemGroup>
