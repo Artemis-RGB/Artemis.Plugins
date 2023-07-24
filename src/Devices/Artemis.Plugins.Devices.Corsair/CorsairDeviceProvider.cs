@@ -34,6 +34,9 @@ namespace Artemis.Plugins.Devices.Corsair
 
         public override void Enable()
         {
+            if (_plugin.GetFeature<CorsairLegacyDeviceProvider>()!.IsEnabled)
+                throw new ArtemisPluginException("The new Corsair device provider cannot be enabled while the legacy Corsair device provider is enabled");
+            
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "iCUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
             try
