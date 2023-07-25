@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
@@ -9,6 +10,7 @@ using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
 using Serilog;
 using RGBDeviceProvider = RGB.NET.Devices.Corsair.CorsairDeviceProvider;
+using System.Timers;
 
 namespace Artemis.Plugins.Devices.Corsair
 {
@@ -19,6 +21,7 @@ namespace Artemis.Plugins.Devices.Corsair
         private readonly IRgbService _rgbService;
         private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
+        private readonly Timer _restartTimer;
 
         public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin) : base(RGBDeviceProvider.Instance)
         {
@@ -30,13 +33,32 @@ namespace Artemis.Plugins.Devices.Corsair
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
             CreateMissingLedsSupported = false;
+
+            _restartTimer = new Timer(TimeSpan.FromHours(2));
+            _restartTimer.Elapsed += RestartTimerOnElapsed;
+            _restartTimer.Start();
+        }
+
+        private void RestartTimerOnElapsed(object sender, ElapsedEventArgs e)
+        {
+            if (!IsEnabled)
+                return;
+
+            Task.Run(async () =>
+            {
+                Disable();
+
+                await Task.Delay(1000);
+
+                Enable();
+            });
         }
 
         public override void Enable()
         {
             if (_plugin.GetFeature<CorsairLegacyDeviceProvider>()!.IsEnabled)
                 throw new ArtemisPluginException("The new Corsair device provider cannot be enabled while the legacy Corsair device provider is enabled");
-            
+
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "iCUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
             try
