@@ -2,7 +2,7 @@
     <PropertyGroup>
         <AvaloniaVersion>11.0.0</AvaloniaVersion>
         <FluentAvaloniaVersion>2.0.0</FluentAvaloniaVersion>
-        <RGBDotNetVersion>2.0.0-prerelease.90</RGBDotNetVersion>
+        <RGBDotNetVersion>2.0.0-prerelease.92</RGBDotNetVersion>
         <SkiaSharpVersion>2.88.3</SkiaSharpVersion>
     </PropertyGroup>
 </Project>
