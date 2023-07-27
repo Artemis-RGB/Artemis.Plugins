@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\Artemis.Plugins.props" />
   
   <PropertyGroup>
@@ -21,11 +21,12 @@
     
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="RGB.NET.Devices.Corsair" Version="$(RGBDotNetVersion)" />
+    <PackageReference Include="RGB.NET.Devices.CorsairLegacy" Version="$(RGBDotNetVersion)" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +41,7 @@
 
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="x64\iCUESDK.x64_2019.dll" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="x64\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />
