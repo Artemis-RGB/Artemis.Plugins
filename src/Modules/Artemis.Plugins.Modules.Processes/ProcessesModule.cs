@@ -9,6 +9,7 @@ using Artemis.Core.ColorScience;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Processes.DataModels;
+using Artemis.Plugins.Modules.Processes.Platform.Windows;
 using Artemis.Plugins.Modules.Processes.Services.Windows.WindowServices;
 using Serilog;
 using SkiaSharp;
@@ -89,6 +90,11 @@ public class ProcessesModule : Module<ProcessesDataModel>
         DataModel.ActiveWindow.WindowTitle = _windowService.GetActiveWindowTitle();
         DataModel.ActiveWindow.ProcessName = foregroundProcess.ProcessName;
         DataModel.ActiveWindow.ProgramLocation = foregroundProcess.GetProcessFilename();
+        DataModel.ActiveWindow.IsFullscreen = WindowUtilities.GetUserNotificationState()
+            is WindowUtilities.UserNotificationState.QUNS_BUSY
+            or WindowUtilities.UserNotificationState.QUNS_RUNNING_D3D_FULL_SCREEN
+            or WindowUtilities.UserNotificationState.QUNS_PRESENTATION_MODE;
+
         try
         {
             DataModel.ActiveWindow.Colors = GetOrComputeSwatch(DataModel.ActiveWindow.ProgramLocation) ?? default;
@@ -131,5 +137,6 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
         return swatch;
     }
+
     #endregion
 }
