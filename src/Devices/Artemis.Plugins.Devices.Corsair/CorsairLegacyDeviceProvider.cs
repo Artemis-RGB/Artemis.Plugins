@@ -24,7 +24,7 @@ namespace Artemis.Plugins.Devices.Corsair
         private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
 
-        public CorsairLegacyDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin) : base(RGBDeviceProvider.Instance)
+        public CorsairLegacyDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin)
         {
             _logger = logger;
             _rgbService = rgbService;
@@ -35,6 +35,8 @@ namespace Artemis.Plugins.Devices.Corsair
             CanDetectPhysicalLayout = true;
             CreateMissingLedsSupported = false;
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
@@ -47,7 +49,7 @@ namespace Artemis.Plugins.Devices.Corsair
             {
                 RGBDeviceProvider.Instance.Exception += Provider_OnException;
 
-                _rgbService.AddDeviceProvider(RgbDeviceProvider);
+                _rgbService.AddDeviceProvider(RGBDeviceProvider.Instance);
                 
                 if (RGBDeviceProvider.Instance.ProtocolDetails == null) return;
                 _logger.Debug("Corsair SDK details");
@@ -69,10 +71,10 @@ namespace Artemis.Plugins.Devices.Corsair
         public override void Disable()
         {
             Unsubscribe();
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RgbDeviceProvider.Dispose();
+            _rgbService.RemoveDeviceProvider(RGBDeviceProvider.Instance);
 
             RGBDeviceProvider.Instance.Exception -= Provider_OnException;
+            RGBDeviceProvider.Instance.Dispose();
         }
 
         public override string GetLogicalLayout(IKeyboard keyboard)

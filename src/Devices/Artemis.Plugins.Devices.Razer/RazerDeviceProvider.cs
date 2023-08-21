@@ -10,6 +10,7 @@ using RGB.NET.Core;
 using RGB.NET.Devices.Razer;
 using Serilog;
 using Serilog.Events;
+using RGBDeviceProvider = RGB.NET.Devices.Razer.RazerDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Razer
 {
@@ -23,7 +24,7 @@ namespace Artemis.Plugins.Devices.Razer
         private readonly IRgbService _rgbService;
         private readonly PluginSetting<bool> _loadEmulatorDevices;
 
-        public RazerDeviceProvider(IRgbService rgbService, PluginSettings pluginSettings, ILogger logger) : base(RGB.NET.Devices.Razer.RazerDeviceProvider.Instance)
+        public RazerDeviceProvider(IRgbService rgbService, PluginSettings pluginSettings, ILogger logger)
         {
             _rgbService = rgbService;
             _pluginSettings = pluginSettings;
@@ -35,11 +36,13 @@ namespace Artemis.Plugins.Devices.Razer
             // Razer layouts are based on a key map that cannot add LEDs not present in the map
             CreateMissingLedsSupported = false;
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
-            RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.Exception += Provider_OnException;
-            RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.LoadEmulatorDevices = _loadEmulatorDevices.Value;
+            RgbDeviceProvider.Exception += Provider_OnException;
+            RgbDeviceProvider.LoadEmulatorDevices = _loadEmulatorDevices.Value;
 
             try
             {
@@ -57,9 +60,8 @@ namespace Artemis.Plugins.Devices.Razer
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
-
-            RGB.NET.Devices.Razer.RazerDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Razer Exception: {message}", args.Exception.Message);

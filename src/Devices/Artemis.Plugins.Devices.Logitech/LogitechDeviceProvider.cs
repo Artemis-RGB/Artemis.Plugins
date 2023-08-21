@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using RGB.NET.Core;
 using Serilog;
 using Serilog.Events;
+using RGBDeviceProvider = RGB.NET.Devices.Logitech.LogitechDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Logitech
 {
@@ -23,7 +24,7 @@ namespace Artemis.Plugins.Devices.Logitech
         private readonly Plugin _plugin;
         private readonly IRgbService _rgbService;
 
-        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger, IPluginManagementService pluginManagementService, Plugin plugin) : base(RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance)
+        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger, IPluginManagementService pluginManagementService, Plugin plugin)
         {
             _rgbService = rgbService;
             _logger = logger;
@@ -31,13 +32,14 @@ namespace Artemis.Plugins.Devices.Logitech
             _plugin = plugin;
         }
 
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
+
         public override void Enable()
         {
-            RGB.NET.Devices.Logitech.LogitechDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "LogitechLedEnginesWrapper.dll"));
-            RGB.NET.Devices.Logitech.LogitechDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "LogitechLedEnginesWrapper.dll"));
+            RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "LogitechLedEnginesWrapper.dll"));
+            RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "LogitechLedEnginesWrapper.dll"));
 
-            RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance.Exception += Provider_OnException;
-
+            RgbDeviceProvider.Exception += Provider_OnException;
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
             if (_logger.IsEnabled(LogEventLevel.Debug))
@@ -49,10 +51,10 @@ namespace Artemis.Plugins.Devices.Logitech
         public override void Disable()
         {
             Unsubscribe();
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RgbDeviceProvider.Dispose();
 
-            RGB.NET.Devices.Logitech.LogitechDeviceProvider.Instance.Exception-= Provider_OnException;
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
+            RgbDeviceProvider.Dispose();
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Logitech Exception: {message}", args.Exception.Message);

@@ -8,8 +8,8 @@ using Artemis.Core.Services;
 using Artemis.Plugins.Devices.Debug.Settings;
 using RGB.NET.Core;
 using RGB.NET.Devices.Debug;
-using RGB.NET.Layout;
 using Serilog;
+using RGBDeviceProvider = RGB.NET.Devices.Debug.DebugDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Debug
 {
@@ -21,12 +21,14 @@ namespace Artemis.Plugins.Devices.Debug
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
 
-        public DebugDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger) : base(RGB.NET.Devices.Debug.DebugDeviceProvider.Instance)
+        public DebugDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger)
         {
             _settings = settings;
             _logger = logger;
             _rgbService = rgbService;
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
@@ -63,19 +65,17 @@ namespace Artemis.Plugins.Devices.Debug
 
         public void PopulateDevices()
         {
-            RGB.NET.Devices.Debug.DebugDeviceProvider debugDeviceProvider = (RGB.NET.Devices.Debug.DebugDeviceProvider) RgbDeviceProvider;
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
             if (definitions.Value == null)
                 definitions.Value = new List<DeviceDefinition>();
 
             _deviceLayouts.Clear();
-            debugDeviceProvider.ClearFakeDeviceDefinitions();
+            RgbDeviceProvider.ClearFakeDeviceDefinitions();
             foreach (DeviceDefinition definition in definitions.Value)
             {
                 ArtemisLayout layout = new(definition.Layout, LayoutSource.Plugin);
                 _deviceLayouts.Add(layout);
-                // imageLayout is not used
-                debugDeviceProvider.AddFakeDeviceDefinition(layout.RgbLayout, null!);
+                RgbDeviceProvider.AddFakeDeviceDefinition(layout.RgbLayout);
             }
 
             try

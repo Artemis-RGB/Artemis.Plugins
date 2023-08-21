@@ -9,8 +9,8 @@ using Artemis.Plugins.Devices.Corsair.Extensions;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
 using Serilog;
-using RGBDeviceProvider = RGB.NET.Devices.Corsair.CorsairDeviceProvider;
 using System.Timers;
+using RGBDeviceProvider = RGB.NET.Devices.Corsair.CorsairDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Corsair
 {
@@ -23,7 +23,7 @@ namespace Artemis.Plugins.Devices.Corsair
         private readonly Plugin _plugin;
         private readonly Timer _restartTimer;
 
-        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin) : base(RGBDeviceProvider.Instance)
+        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin)
         {
             _logger = logger;
             _rgbService = rgbService;
@@ -38,6 +38,8 @@ namespace Artemis.Plugins.Devices.Corsair
             _restartTimer.Elapsed += RestartTimerOnElapsed;
             _restartTimer.Start();
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         private void RestartTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
@@ -63,15 +65,15 @@ namespace Artemis.Plugins.Devices.Corsair
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
             try
             {
-                RGBDeviceProvider.Instance.SessionStateChanged += SessionStateChanged;
-                RGBDeviceProvider.Instance.Exception += Provider_OnException;
+                RgbDeviceProvider.SessionStateChanged += SessionStateChanged;
+                RgbDeviceProvider.Exception += Provider_OnException;
 
                 _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
                 _logger.Debug("Corsair SDK details");
-                _logger.Debug(" - Client version: {detail}", RGBDeviceProvider.Instance.SessionDetails.ClientVersion);
-                _logger.Debug(" - Server version: {detail}", RGBDeviceProvider.Instance.SessionDetails.ServerVersion);
-                _logger.Debug(" - Server-Host version: {detail}", RGBDeviceProvider.Instance.SessionDetails.ServerHostVersion);
+                _logger.Debug(" - Client version: {detail}", RgbDeviceProvider.SessionDetails.ClientVersion);
+                _logger.Debug(" - Server version: {detail}", RgbDeviceProvider.SessionDetails.ServerVersion);
+                _logger.Debug(" - Server-Host version: {detail}", RgbDeviceProvider.SessionDetails.ServerHostVersion);
             }
             catch (CUEException e)
             {
@@ -86,10 +88,10 @@ namespace Artemis.Plugins.Devices.Corsair
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            
+            RgbDeviceProvider.SessionStateChanged -= SessionStateChanged;
+            RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
-
-            RGBDeviceProvider.Instance.SessionStateChanged -= SessionStateChanged;
-            RGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         public override string GetLogicalLayout(IKeyboard keyboard)

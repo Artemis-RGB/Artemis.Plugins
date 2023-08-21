@@ -19,19 +19,31 @@ namespace Artemis.Plugins.Devices.DMX
         private readonly IRgbService _rgbService;
         private readonly PluginSettings _settings;
 
-        public DMXDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings) : base(RGBDeviceProvider.Instance)
+        public DMXDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings)
         {
             _logger = logger;
             _rgbService = rgbService;
             _settings = settings;
         }
 
+        public override void Disable()
+        {
+            if (_settings.GetSetting("TurnOffLedsOnShutdown", false).Value)
+                TurnOffLeds();
+
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
+            RgbDeviceProvider.Dispose();
+        }
+
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
+
         public override void Enable()
         {
-            RGBDeviceProvider.Instance.Exception += Provider_OnException;
+            RgbDeviceProvider.Exception += Provider_OnException;
 
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
-            RGBDeviceProvider.Instance.DeviceDefinitions.Clear();
+            RgbDeviceProvider.DeviceDefinitions.Clear();
             foreach (DeviceDefinition deviceDefinition in definitions.Value)
             {
                 E131DMXDeviceDefinition definition = new(deviceDefinition.Hostname)
@@ -52,21 +64,10 @@ namespace Artemis.Plugins.Devices.DMX
                     definition.AddLed(ledId, (rChannel, c => c.GetR()), (gChannel, c => c.GetG()), (bChannel, c => c.GetB()));
                 }
 
-                RGBDeviceProvider.Instance.AddDeviceDefinition(definition);
+                RgbDeviceProvider.AddDeviceDefinition(definition);
             }
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
-        }
-
-        public override void Disable()
-        {
-            if (_settings.GetSetting("TurnOffLedsOnShutdown", false).Value)
-                TurnOffLeds();
-
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
-            RgbDeviceProvider.Dispose();
-
-            RGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "DMX Exception: {message}", args.Exception.Message);

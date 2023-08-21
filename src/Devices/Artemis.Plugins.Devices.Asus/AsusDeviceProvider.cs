@@ -3,6 +3,7 @@ using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;
 using Serilog;
+using RGBDeviceProvider = RGB.NET.Devices.Asus.AsusDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Asus
 {
@@ -13,7 +14,7 @@ namespace Artemis.Plugins.Devices.Asus
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
 
-        public AsusDeviceProvider(ILogger logger, IRgbService rgbService) : base(RGB.NET.Devices.Asus.AsusDeviceProvider.Instance)
+        public AsusDeviceProvider(ILogger logger, IRgbService rgbService)
         {
             _logger = logger;
             _rgbService = rgbService;
@@ -22,17 +23,19 @@ namespace Artemis.Plugins.Devices.Asus
             CreateMissingLedsSupported = false;
         }
 
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
+        
         public override void Enable()
         {
-            RGB.NET.Devices.Asus.AsusDeviceProvider.Instance.Exception += Provider_OnException;
+            RgbDeviceProvider.Exception += Provider_OnException;
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception += Provider_OnException;
             RgbDeviceProvider.Dispose();
-            RGB.NET.Devices.Asus.AsusDeviceProvider.Instance.Exception += Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Asus Exception: {message}", args.Exception.Message);

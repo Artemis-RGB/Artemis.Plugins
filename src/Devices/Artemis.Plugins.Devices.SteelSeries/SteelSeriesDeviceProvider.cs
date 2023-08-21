@@ -8,6 +8,7 @@ using HidSharp;
 using RGB.NET.Core;
 using Serilog;
 using Serilog.Events;
+using RGBDeviceProvider = RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider;
 
 namespace Artemis.Plugins.Devices.SteelSeries
 {
@@ -19,15 +20,17 @@ namespace Artemis.Plugins.Devices.SteelSeries
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
 
-        public SteelSeriesDeviceProvider(IRgbService rgbService, ILogger logger) : base(RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance)
+        public SteelSeriesDeviceProvider(IRgbService rgbService, ILogger logger)
         {
             _rgbService = rgbService;
             _logger = logger;
         }
 
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
+        
         public override void Enable()
         {
-            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance.Exception += Provider_OnException;
+            RgbDeviceProvider.Exception += Provider_OnException;
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
@@ -38,9 +41,8 @@ namespace Artemis.Plugins.Devices.SteelSeries
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
-
-            RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Steel Series Exception: {message}", args.Exception.Message);
