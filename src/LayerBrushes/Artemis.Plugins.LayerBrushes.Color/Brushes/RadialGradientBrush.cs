@@ -35,7 +35,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
             }
 
             SKPoint position = new(bounds.Left + bounds.Width * Properties.Position.CurrentValue.X, bounds.Top + bounds.Height * Properties.Position.CurrentValue.Y);
-            paint.Shader = Properties.ResizeMode.CurrentValue switch
+            using SKShader shader =  Properties.ResizeMode.CurrentValue switch
             {
                 RadialGradientResizeMode.Fit => SKShader.CreateRadialGradient(position, Math.Min(bounds.Width, bounds.Height) / 2f, colors, positions, SKShaderTileMode.Clamp),
                 RadialGradientResizeMode.Fill => SKShader.CreateRadialGradient(position, Math.Max(bounds.Width, bounds.Height) / 2f, colors, positions, SKShaderTileMode.Clamp),
@@ -50,8 +50,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 _ => throw new ArgumentOutOfRangeException()
             };
 
+            paint.Shader = shader;
             canvas.DrawRect(bounds, paint);
-            paint.Shader?.Dispose();
             paint.Shader = null;
         }
 

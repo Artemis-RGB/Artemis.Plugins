@@ -16,7 +16,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
             SKPoint position = new(bounds.Left + bounds.Width * Properties.Position.CurrentValue.X, bounds.Top + bounds.Height * Properties.Position.CurrentValue.Y);
-            paint.Shader = SKShader.CreateSweepGradient(
+            using SKShader shader = SKShader.CreateSweepGradient(
                 position,
                 Properties.Colors.CurrentValue.Colors,
                 Properties.Colors.CurrentValue.Positions,
@@ -26,8 +26,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 SKMatrix.CreateRotationDegrees(_rotation, bounds.MidX, bounds.MidY)
             );
 
+            paint.Shader = shader;
             canvas.DrawRect(bounds, paint);
-            paint.Shader?.Dispose();
             paint.Shader = null;
         }
 
