@@ -31,14 +31,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Profiles\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Profiles\Noise.json">
+      <None Update="Profiles\Noise.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="Profiles\Rainbow.json">
+      <None Update="Profiles\Rainbow.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
