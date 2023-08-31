@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -23,11 +22,9 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     public ProcessesModule(
         PluginSettings settings,
-        IProcessMonitorService processMonitorService,
         IWindowService windowService,
         ILogger logger)
     {
-        _processMonitorService = processMonitorService;
         _windowService = windowService;
         _logger = logger;
         _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
@@ -40,7 +37,6 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private readonly Dictionary<string, ColorSwatch> _cache;
     private readonly PluginSetting<bool> _enableActiveWindow;
-    private readonly IProcessMonitorService _processMonitorService;
     private readonly IWindowService _windowService;
     private readonly ILogger _logger;
 
@@ -74,7 +70,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private void UpdateRunningProcesses(double deltaTime)
     {
-        DataModel.RunningProcesses = _processMonitorService.GetRunningProcesses().Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
+        DataModel.RunningProcesses = ProcessMonitor.Processes.Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
     }
 
     private void UpdateCurrentWindow(double deltaTime)
@@ -83,13 +79,13 @@ public class ProcessesModule : Module<ProcessesDataModel>
             return;
 
         int foregroundWindowPid = _windowService.GetActiveProcessId();
-        Process foregroundProcess = _processMonitorService.GetRunningProcesses().FirstOrDefault(p => p.Id == foregroundWindowPid);
+        ProcessInfo? foregroundProcess = ProcessMonitor.Processes.Cast<ProcessInfo?>().FirstOrDefault(p => p!.Value.ProcessId == foregroundWindowPid, null);
         if (foregroundProcess == null)
             return;
 
         DataModel.ActiveWindow.WindowTitle = _windowService.GetActiveWindowTitle();
-        DataModel.ActiveWindow.ProcessName = foregroundProcess.ProcessName;
-        DataModel.ActiveWindow.ProgramLocation = foregroundProcess.GetProcessFilename();
+        DataModel.ActiveWindow.ProcessName = foregroundProcess.Value.ProcessName;
+        DataModel.ActiveWindow.ProgramLocation = foregroundProcess.Value.Executable;
         DataModel.ActiveWindow.IsFullscreen = WindowUtilities.GetUserNotificationState()
             is WindowUtilities.UserNotificationState.QUNS_BUSY
             or WindowUtilities.UserNotificationState.QUNS_RUNNING_D3D_FULL_SCREEN
@@ -101,7 +97,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
         }
         catch (Exception e)
         {
-            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess.ProcessName);
+            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess?.ProcessName);
         }
     }
 
