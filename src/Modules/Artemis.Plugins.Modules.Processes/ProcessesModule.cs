@@ -39,6 +39,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
     private readonly PluginSetting<bool> _enableActiveWindow;
     private readonly IWindowService _windowService;
     private readonly ILogger _logger;
+    private int _lastForegroundWindowPid;
 
     public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
 
@@ -79,6 +80,13 @@ public class ProcessesModule : Module<ProcessesDataModel>
             return;
 
         int foregroundWindowPid = _windowService.GetActiveProcessId();
+        bool hasChanged = foregroundWindowPid != _lastForegroundWindowPid;
+        _lastForegroundWindowPid = foregroundWindowPid;
+
+        DataModel.ActiveWindow.IsFullscreen = _windowService.GetActiveWindowFullscreen();
+        if (!hasChanged)
+            return;
+
         ProcessInfo? foregroundProcess = ProcessMonitor.Processes.Cast<ProcessInfo?>().FirstOrDefault(p => p!.Value.ProcessId == foregroundWindowPid, null);
         if (foregroundProcess == null)
             return;
@@ -86,10 +94,6 @@ public class ProcessesModule : Module<ProcessesDataModel>
         DataModel.ActiveWindow.WindowTitle = _windowService.GetActiveWindowTitle();
         DataModel.ActiveWindow.ProcessName = foregroundProcess.Value.ProcessName;
         DataModel.ActiveWindow.ProgramLocation = foregroundProcess.Value.Executable;
-        DataModel.ActiveWindow.IsFullscreen = WindowUtilities.GetUserNotificationState()
-            is WindowUtilities.UserNotificationState.QUNS_BUSY
-            or WindowUtilities.UserNotificationState.QUNS_RUNNING_D3D_FULL_SCREEN
-            or WindowUtilities.UserNotificationState.QUNS_PRESENTATION_MODE;
 
         try
         {
@@ -97,7 +101,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
         }
         catch (Exception e)
         {
-            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess?.ProcessName);
+            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess.Value.ProcessName);
         }
     }
 

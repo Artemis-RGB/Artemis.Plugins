@@ -15,4 +15,12 @@ public class WindowsWindowService : IWindowService
     {
         return WindowUtilities.GetActiveWindowTitle();
     }
+
+    public bool GetActiveWindowFullscreen()
+    {
+        return WindowUtilities.GetUserNotificationState()
+            is WindowUtilities.UserNotificationState.QUNS_BUSY
+            or WindowUtilities.UserNotificationState.QUNS_RUNNING_D3D_FULL_SCREEN
+            or WindowUtilities.UserNotificationState.QUNS_PRESENTATION_MODE;
+    }
 }
