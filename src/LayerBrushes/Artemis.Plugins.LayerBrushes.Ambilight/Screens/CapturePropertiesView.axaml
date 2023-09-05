@@ -16,7 +16,7 @@
                 Margin="0 0 15 0"
                 Width="300"
                 Classes="card"
-                VerticalAlignment="Stretch"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Left">
             <StackPanel>
                 <Grid VerticalAlignment="Stretch" Margin="-5 0" RowDefinitions="*,*" ColumnDefinitions="*,*">
@@ -89,20 +89,34 @@
                 <CheckBox Content="Flip vertically" IsChecked="{CompiledBinding FlipVertical}" PointerCaptureLost="PointerInputFinished" />
 
                 <Label Content="Downscale level" Margin="-5 10 0 0" />
-                <Grid ColumnDefinitions="Auto,*">
-                    <controls:NumberBox Grid.Column="0" Value="{CompiledBinding DownscaleLevel}" Margin="0 0 5 0" VerticalAlignment="Center" Minimum="2" />
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <controls:NumberBox Grid.Column="0"
+                                        Grid.Row="0"
+                                        Value="{CompiledBinding DownscaleLevel}"
+                                        Margin="0 0 5 0"
+                                        VerticalAlignment="Center"
+                                        Minimum="0" 
+                                        Maximum="10"/>
                     <Slider Grid.Column="1"
-                            Minimum="2" Maximum="10"
+                            Grid.Row="0"
+                            Minimum="0" Maximum="10"
                             TickFrequency="1"
                             TickPlacement="BottomRight"
                             Value="{CompiledBinding DownscaleLevel}"
                             ToolTip.Tip="Downscale level"
                             PointerCaptureLost="PointerInputFinished" />
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               IsVisible="{CompiledBinding ShowDownscaleWarning}"
+                               Classes="warning" 
+                               TextWrapping="Wrap">
+                        Low value will have performance impact on large capture zones
+                    </TextBlock>
                 </Grid>
 
-
-                <Grid ColumnDefinitions="*,Auto">
-                    <Label Grid.Column="0" Content="Black-bar detection" Margin="-5 10 0 0" />
+                <Grid ColumnDefinitions="*,Auto" Margin="0 10 0 0">
+                    <Label Grid.Column="0" Content="Black-bar detection" Margin="-5 0 0 0" />
                     <avalonia:MaterialIcon Grid.Column="1"
                                            VerticalAlignment="Center"
                                            Kind="HelpCircle"
