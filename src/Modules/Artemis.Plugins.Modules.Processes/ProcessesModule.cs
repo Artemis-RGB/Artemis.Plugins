@@ -71,26 +71,23 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private void UpdateRunningProcesses(double deltaTime)
     {
-        DataModel.RunningProcesses = ProcessMonitor.Processes.Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
+        if (IsPropertyInUse(p => p.RunningProcesses, false))
+            DataModel.RunningProcesses = ProcessMonitor.Processes.Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
     }
 
     private void UpdateCurrentWindow(double deltaTime)
     {
-        if (!_enableActiveWindow.Value)
+        if (!_enableActiveWindow.Value || !IsPropertyInUse(p => p.ActiveWindow, true))
             return;
-
+        
         int foregroundWindowPid = _windowService.GetActiveProcessId();
-        bool hasChanged = foregroundWindowPid != _lastForegroundWindowPid;
         _lastForegroundWindowPid = foregroundWindowPid;
-
-        DataModel.ActiveWindow.IsFullscreen = _windowService.GetActiveWindowFullscreen();
-        if (!hasChanged)
-            return;
 
         ProcessInfo? foregroundProcess = ProcessMonitor.Processes.Cast<ProcessInfo?>().FirstOrDefault(p => p!.Value.ProcessId == foregroundWindowPid, null);
         if (foregroundProcess == null)
             return;
 
+        DataModel.ActiveWindow.IsFullscreen = _windowService.GetActiveWindowFullscreen();
         DataModel.ActiveWindow.WindowTitle = _windowService.GetActiveWindowTitle();
         DataModel.ActiveWindow.ProcessName = foregroundProcess.Value.ProcessName;
         DataModel.ActiveWindow.ProgramLocation = foregroundProcess.Value.Executable;
