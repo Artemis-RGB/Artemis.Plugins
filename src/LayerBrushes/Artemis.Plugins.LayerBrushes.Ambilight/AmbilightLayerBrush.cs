@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Artemis.Core;
 using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Ambilight.Screens;
@@ -18,7 +17,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
         public bool PropertiesOpen { get; set; }
 
         private Display? _display;
-        private CaptureZone? _captureZone;
+        private ICaptureZone? _captureZone;
         private bool _creatingCaptureZone;
 
         #endregion
@@ -35,29 +34,19 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             if (_captureZone == null) return;
 
             AmbilightCaptureProperties properties = Properties.Capture;
-            lock (_captureZone.Buffer)
+            using (_captureZone.Lock())
             {
-                ReadOnlySpan<byte> capture = _captureZone.Buffer;
-                if (capture.IsEmpty) return;
+                // DarthAffe 11.09.2023: Accessing the low-level images is a source of potential errors in the future since we assume the pixel-format. Currently both used providers are BGRA, but if there are every issues with shifter colors this is the place to start investigating.
+                RefImage<ColorBGRA> image = _captureZone.GetRefImage<ColorBGRA>();
+                if (properties.BlackBarDetectionTop || properties.BlackBarDetectionBottom || properties.BlackBarDetectionLeft || properties.BlackBarDetectionRight)
+                    image = image.RemoveBlackBars(properties.BlackBarDetectionThreshold,
+                                                  properties.BlackBarDetectionTop, properties.BlackBarDetectionBottom,
+                                                  properties.BlackBarDetectionLeft, properties.BlackBarDetectionRight);
 
-                fixed (byte* ptr = capture)
+                fixed (ColorBGRA* img = image)
                 {
-                    using SKImage image = SKImage.FromPixels(
-                        new SKImageInfo(_captureZone.Width, _captureZone.Height, SKColorType.Bgra8888, SKAlphaType.Opaque),
-                        new IntPtr(ptr),
-                        _captureZone.Stride
-                    );
-
-                    if (properties.BlackBarDetectionTop || properties.BlackBarDetectionBottom || properties.BlackBarDetectionLeft || properties.BlackBarDetectionRight)
-                    {
-                        canvas.DrawImage(image, new SKRect(properties.BlackBarDetectionLeft ? _captureZone.BlackBars.Left : 0,
-                                properties.BlackBarDetectionTop ? _captureZone.BlackBars.Top : 0,
-                                _captureZone.Width - (properties.BlackBarDetectionRight ? _captureZone.BlackBars.Right : 0),
-                                _captureZone.Height - (properties.BlackBarDetectionBottom ? _captureZone.BlackBars.Bottom : 0)),
-                            bounds, paint);
-                    }
-                    else
-                        canvas.DrawImage(image, bounds, paint);
+                    using SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, image.RawStride * ColorBGRA.ColorFormat.BytesPerPixel);
+                    canvas.DrawImage(skImage, bounds, paint);
                 }
             }
         }
@@ -105,7 +94,6 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
                 int y = Math.Min(_display.Value.Height - height, props.Y);
                 _captureZone = _screenCaptureService.GetScreenCapture(_display.Value).RegisterCaptureZone(x, y, width, height, props.DownscaleLevel);
                 _captureZone.AutoUpdate = false; //TODO DarthAffe 09.04.2021: config?
-                _captureZone.BlackBars.Threshold = props.BlackBarDetectionThreshold;
             }
             finally
             {

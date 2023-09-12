@@ -28,10 +28,11 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             _managementService = plugin.Resolve<IPluginManagementService>();
             _brushProvider = plugin.GetFeatureInfo<AmbilightLayerBrushProvider>();
 
-            ScreenCaptureService ??= new AmbilightScreenCaptureService(new DX11ScreenCaptureService());
+            IScreenCaptureService screenCaptureService = OperatingSystem.IsWindows() ? new DX11ScreenCaptureService() : new X11ScreenCaptureService();
+            ScreenCaptureService ??= new AmbilightScreenCaptureService(screenCaptureService);
             SystemEvents.DisplaySettingsChanged += SystemEventsOnDisplaySettingsChanged;
         }
-    
+
         public override void OnPluginDisabled(Plugin plugin)
         {
             ScreenCaptureService?.Dispose();
@@ -46,10 +47,11 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             else
             {
                 _logger?.Debug("Display settings changed, restarting ambilight feature");
-                
+
                 _managementService?.DisablePluginFeature(_brushProvider.Instance, false);
                 ScreenCaptureService?.Dispose();
-                ScreenCaptureService = new AmbilightScreenCaptureService(new DX11ScreenCaptureService());
+                IScreenCaptureService screenCaptureService = OperatingSystem.IsWindows() ? new DX11ScreenCaptureService() : new X11ScreenCaptureService();
+                ScreenCaptureService = new AmbilightScreenCaptureService(screenCaptureService);
                 _managementService?.EnablePluginFeature(_brushProvider.Instance, false);
             }
         }
