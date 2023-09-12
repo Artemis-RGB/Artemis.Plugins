@@ -76,7 +76,7 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
     {
         if (_isDisposed) return;
 
-        // DarthAffe 11.09.2023: Accessing the low-level images is a source of potential errors in the future since we assume the pixel-format. Currently both used providers are BGRA, but if there are every issues with shifter colors this is the place to start investigating.
+        // DarthAffe 11.09.2023: Accessing the low-level images is a source of potential errors in the future since we assume the pixel-format. Currently both used providers are BGRA, but if there are ever issues with shifted colors, this is the place to start investigating.
 
         using (_captureZone.Lock())
             WritePixels(Preview, _captureZone.GetRefImage<ColorBGRA>());

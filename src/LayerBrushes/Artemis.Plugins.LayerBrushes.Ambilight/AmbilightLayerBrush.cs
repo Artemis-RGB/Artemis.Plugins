@@ -36,7 +36,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
             AmbilightCaptureProperties properties = Properties.Capture;
             using (_captureZone.Lock())
             {
-                // DarthAffe 11.09.2023: Accessing the low-level images is a source of potential errors in the future since we assume the pixel-format. Currently both used providers are BGRA, but if there are every issues with shifter colors this is the place to start investigating.
+                // DarthAffe 11.09.2023: Accessing the low-level images is a source of potential errors in the future since we assume the pixel-format. Currently both used providers are BGRA, but if there are ever issues with shifted colors, this is the place to start investigating.
                 RefImage<ColorBGRA> image = _captureZone.GetRefImage<ColorBGRA>();
                 if (properties.BlackBarDetectionTop || properties.BlackBarDetectionBottom || properties.BlackBarDetectionLeft || properties.BlackBarDetectionRight)
                     image = image.RemoveBlackBars(properties.BlackBarDetectionThreshold,
