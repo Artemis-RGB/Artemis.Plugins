@@ -51,25 +51,25 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
             }
         }
 
-        public CaptureZone RegisterCaptureZone(int x, int y, int width, int height, int downscaleLevel = 0)
+        ICaptureZone IScreenCapture.RegisterCaptureZone(int x, int y, int width, int height, int downscaleLevel)
         {
             lock (_screenCapture)
             {
-                CaptureZone captureZone = _screenCapture.RegisterCaptureZone(x, y, width, height, downscaleLevel);
+                ICaptureZone captureZone = _screenCapture.RegisterCaptureZone(x, y, width, height, downscaleLevel);
                 _zoneCount++;
 
                 if (_updateTask == null)
                 {
                     _cancellationTokenSource = new CancellationTokenSource();
                     _cancellationToken = _cancellationTokenSource.Token;
-                    _updateTask = Task.Run(UpdateLoop, _cancellationToken);
+                    _updateTask = Task.Factory.StartNew(UpdateLoop, _cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
                 }
 
                 return captureZone;
             }
         }
 
-        public bool UnregisterCaptureZone(CaptureZone captureZone)
+        public bool UnregisterCaptureZone(ICaptureZone captureZone)
         {
             lock (_screenCapture)
             {
@@ -87,7 +87,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
             }
         }
 
-        public void UpdateCaptureZone(CaptureZone captureZone, int? x = null, int? y = null, int? width = null, int? height = null, int? downscaleLevel = null)
+        public void UpdateCaptureZone(ICaptureZone captureZone, int? x = null, int? y = null, int? width = null, int? height = null, int? downscaleLevel = null)
         {
             lock (_screenCapture)
                 _screenCapture.UpdateCaptureZone(captureZone, x, y, width, height, downscaleLevel);
