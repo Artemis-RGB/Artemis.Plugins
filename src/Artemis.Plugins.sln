@@ -90,6 +90,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Artemis.Plugins.props = Artemis.Plugins.props
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nodes", "Nodes", "{8EA98133-64C3-42FE-828A-F6B0D706E56F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.Nodes.Memory", "Artemis.Plugins.Nodes.Memory\Artemis.Plugins.Nodes.Memory.csproj", "{CD52157C-ED2A-4845-8319-F3AFE281E412}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -232,6 +236,10 @@ Global
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}.Debug|x64.Build.0 = Debug|Any CPU
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}.Release|x64.ActiveCfg = Release|Any CPU
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}.Release|x64.Build.0 = Release|Any CPU
+		{CD52157C-ED2A-4845-8319-F3AFE281E412}.Debug|x64.ActiveCfg = Debug|x64
+		{CD52157C-ED2A-4845-8319-F3AFE281E412}.Debug|x64.Build.0 = Debug|x64
+		{CD52157C-ED2A-4845-8319-F3AFE281E412}.Release|x64.ActiveCfg = Release|x64
+		{CD52157C-ED2A-4845-8319-F3AFE281E412}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -271,6 +279,7 @@ Global
 		{A658B81A-67B6-4C3F-8719-4343B751CF0A} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{BFA0D759-EF8B-4B4B-8879-CB0DEB27A193} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
+		{CD52157C-ED2A-4845-8319-F3AFE281E412} = {8EA98133-64C3-42FE-828A-F6B0D706E56F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}
