@@ -12,15 +12,15 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />    
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />    
-    <PackageReference Include="DryIoc.dll" Version="5.4.0" />    
+    <PackageReference Include="DryIoc.dll" Version="5.4.1" />    
     <PackageReference Include="EmbedIO" Version="3.5.2" />    
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Unosquare.Swan.Lite" Version="3.1.0" />
     <PackageReference Include="FluentAvaloniaUI" Version="$(FluentAvaloniaVersion)" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
-    <PackageReference Include="ReactiveUI" Version="18.4.26" />
+    <PackageReference Include="ReactiveUI" Version="19.4.1" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
-    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
     <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
 
     <!--All packages Artemis already references are compile-only dependencies-->
