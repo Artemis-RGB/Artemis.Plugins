@@ -21,12 +21,12 @@ namespace Artemis.Plugins.Devices.Razer
         private readonly ILogger _logger;
         private readonly PluginSettings _pluginSettings;
 
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
         private readonly PluginSetting<bool> _loadEmulatorDevices;
 
-        public RazerDeviceProvider(IRgbService rgbService, PluginSettings pluginSettings, ILogger logger)
+        public RazerDeviceProvider(IDeviceService deviceService, PluginSettings pluginSettings, ILogger logger)
         {
-            _rgbService = rgbService;
+            _deviceService = deviceService;
             _pluginSettings = pluginSettings;
             _logger = logger;
 
@@ -46,7 +46,7 @@ namespace Artemis.Plugins.Devices.Razer
 
             try
             {
-                _rgbService.AddDeviceProvider(RgbDeviceProvider);
+                _deviceService.AddDeviceProvider(this);
             }
             catch (RazerException e)
             {
@@ -59,7 +59,7 @@ namespace Artemis.Plugins.Devices.Razer
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }
