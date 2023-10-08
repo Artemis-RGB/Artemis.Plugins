@@ -12,12 +12,12 @@ namespace Artemis.Plugins.Devices.PicoPi
     public class PicoPiDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
 
-        public PicoPiDeviceProvider(ILogger logger, IRgbService rgbService)
+        public PicoPiDeviceProvider(ILogger logger, IDeviceService deviceService)
         {
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
         }
         
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
@@ -25,12 +25,12 @@ namespace Artemis.Plugins.Devices.PicoPi
         public override void Enable()
         {
             RgbDeviceProvider.Exception += Provider_OnException;
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
         }
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

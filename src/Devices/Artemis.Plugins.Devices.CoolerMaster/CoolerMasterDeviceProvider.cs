@@ -13,12 +13,12 @@ namespace Artemis.Plugins.Devices.CoolerMaster
     public class CoolerMasterDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
 
-        public CoolerMasterDeviceProvider(ILogger logger, IRgbService rgbService)
+        public CoolerMasterDeviceProvider(ILogger logger, IDeviceService deviceService)
         {
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
         }
         
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
@@ -28,12 +28,12 @@ namespace Artemis.Plugins.Devices.CoolerMaster
             RgbDeviceProvider.Exception += Provider_OnException;
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CMSDK.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CMSDK.dll"));
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
         }
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

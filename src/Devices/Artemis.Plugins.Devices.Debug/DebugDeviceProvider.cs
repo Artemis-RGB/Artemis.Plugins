@@ -18,14 +18,16 @@ namespace Artemis.Plugins.Devices.Debug
     {
         private readonly List<ArtemisLayout> _deviceLayouts = new();
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
+        private readonly IRenderService _renderService;
         private readonly PluginSettings _settings;
 
-        public DebugDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger)
+        public DebugDeviceProvider(IDeviceService deviceService, IRenderService renderService, PluginSettings settings, ILogger logger)
         {
             _settings = settings;
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
+            _renderService = renderService;
         }
         
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
@@ -42,14 +44,14 @@ namespace Artemis.Plugins.Devices.Debug
             {
                 foreach (IRGBDevice rgbDevice in RgbDeviceProvider.Devices)
                 {
-                    ListLedGroup _ = new(_rgbService.Surface, rgbDevice)
+                    ListLedGroup _ = new(_renderService.Surface, rgbDevice)
                     {
                         Brush = new SolidColorBrush(new Color(0, 0, 0)),
                         ZIndex = 999
                     };
                 }
                 // Don't wait for the next update, force one now and flush all LEDs for good measure
-                _rgbService.Surface.Update(true);
+                _renderService.Surface.Update(true);
 
                 // TODO: Remove this when device providers flush on dispose
                 Thread.Sleep(200);
@@ -59,7 +61,7 @@ namespace Artemis.Plugins.Devices.Debug
                     rgbDevice.Update(true);
             }
 
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Dispose();
         }
 
@@ -80,7 +82,7 @@ namespace Artemis.Plugins.Devices.Debug
 
             try
             {
-                _rgbService.AddDeviceProvider(RgbDeviceProvider);
+                _deviceService.AddDeviceProvider(this);
             }
             catch (Exception e)
             {

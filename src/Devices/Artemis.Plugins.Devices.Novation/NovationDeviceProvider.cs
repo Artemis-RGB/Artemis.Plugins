@@ -10,12 +10,12 @@ namespace Artemis.Plugins.Devices.Novation
     public class NovationDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
 
-        public NovationDeviceProvider(ILogger logger, IRgbService rgbService)
+        public NovationDeviceProvider(ILogger logger, IDeviceService deviceService)
         {
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
         }
         
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
@@ -23,12 +23,12 @@ namespace Artemis.Plugins.Devices.Novation
         public override void Enable()
         {
             RgbDeviceProvider.Exception += Provider_OnException;
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
         }
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

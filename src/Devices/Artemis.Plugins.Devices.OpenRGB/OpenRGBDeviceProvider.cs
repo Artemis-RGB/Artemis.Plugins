@@ -17,16 +17,16 @@ namespace Artemis.Plugins.Devices.OpenRGB
     public class OpenRGBDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
 
         private readonly PluginSetting<List<OpenRGBServerDefinition>> _deviceDefinitionsSettings;
         private readonly PluginSetting<bool> _forceAddAllDevicesSetting;
         private readonly Timer _reconnectTimer;
 
-        public OpenRGBDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger)
+        public OpenRGBDeviceProvider(IDeviceService deviceService, PluginSettings settings, ILogger logger)
         {
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
             _forceAddAllDevicesSetting = settings.GetSetting("ForceAddAllDevices", false);
             _deviceDefinitionsSettings = settings.GetSetting("DeviceDefinitions", new List<OpenRGBServerDefinition>
             {
@@ -54,7 +54,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
                 RgbDeviceProvider.DeviceDefinitions.Add(def);
             RgbDeviceProvider.ForceAddAllDevices = _forceAddAllDevicesSetting.Value;
 
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
 
             bool anyFailedToConnect = false;
             foreach (OpenRGBServerDefinition deviceDefinition in RgbDeviceProvider.DeviceDefinitions.Where(dd => !dd.Connected))
@@ -76,7 +76,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }
