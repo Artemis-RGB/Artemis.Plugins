@@ -13,12 +13,12 @@ public class HueDeviceProvider : DeviceProvider
 {
     private readonly IHueService _hueService;
     private readonly ILogger _logger;
-    private readonly IDeviceService _deviceService;
+    private readonly IRgbService _rgbService;
 
-    public HueDeviceProvider(ILogger logger, IDeviceService deviceService, IHueService hueService)
+    public HueDeviceProvider(ILogger logger, IRgbService rgbService, IHueService hueService)
     {
         _logger = logger;
-        _deviceService = deviceService;
+        _rgbService = rgbService;
         _hueService = hueService;
     }
 
@@ -31,12 +31,12 @@ public class HueDeviceProvider : DeviceProvider
         foreach (PhilipsHueBridge bridge in _hueService.Bridges)
             RgbDeviceProvider.ClientDefinitions.Add(new HueClientDefinition(bridge.IpAddress, bridge.AppKey, bridge.StreamingClientKey));
 
-        _deviceService.AddDeviceProvider(this);
+        _rgbService.AddDeviceProvider(RgbDeviceProvider);
     }
 
     public override void Disable()
     {
-        _deviceService.RemoveDeviceProvider(this);
+        _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
         
         RgbDeviceProvider.Exception -= Provider_OnException;
         RgbDeviceProvider.Dispose();

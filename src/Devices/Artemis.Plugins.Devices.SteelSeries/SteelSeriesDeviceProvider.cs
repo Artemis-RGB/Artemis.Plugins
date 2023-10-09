@@ -18,11 +18,11 @@ namespace Artemis.Plugins.Devices.SteelSeries
     {
         private const int VENDOR_ID = 0x1038;
         private readonly ILogger _logger;
-        private readonly IDeviceService _deviceService;
+        private readonly IRgbService _rgbService;
 
-        public SteelSeriesDeviceProvider(IDeviceService deviceService, ILogger logger)
+        public SteelSeriesDeviceProvider(IRgbService rgbService, ILogger logger)
         {
-            _deviceService = deviceService;
+            _rgbService = rgbService;
             _logger = logger;
         }
 
@@ -32,7 +32,7 @@ namespace Artemis.Plugins.Devices.SteelSeries
         {
             RgbDeviceProvider.Exception += Provider_OnException;
 
-            _deviceService.AddDeviceProvider(this);
+            _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
             if (_logger.IsEnabled(LogEventLevel.Debug))
                 LogDeviceIds();
@@ -40,7 +40,7 @@ namespace Artemis.Plugins.Devices.SteelSeries
 
         public override void Disable()
         {
-            _deviceService.RemoveDeviceProvider(this);
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

@@ -11,12 +11,12 @@ namespace Artemis.Plugins.Devices.Wooting
     public class WootingDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IDeviceService _deviceService;
+        private readonly IRgbService _rgbService;
 
-        public WootingDeviceProvider(ILogger logger, IDeviceService deviceService)
+        public WootingDeviceProvider(ILogger logger, IRgbService rgbService)
         {
             _logger = logger;
-            _deviceService = deviceService;
+            _rgbService = rgbService;
             CanDetectPhysicalLayout = true;
         }
         
@@ -29,12 +29,12 @@ namespace Artemis.Plugins.Devices.Wooting
             RGBDeviceProvider.PossibleNativePathsLinux.Add(Path.Combine(Plugin.Directory.FullName, "x64", "libwooting-rgb-sdk.so"));
 
             RgbDeviceProvider.Exception += Provider_OnException;
-            _deviceService.AddDeviceProvider(this);
+            _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
         public override void Disable()
         {
-            _deviceService.RemoveDeviceProvider(this);
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

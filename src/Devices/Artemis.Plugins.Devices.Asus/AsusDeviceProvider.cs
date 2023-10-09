@@ -12,12 +12,12 @@ namespace Artemis.Plugins.Devices.Asus
     public class AsusDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IDeviceService _deviceService;
+        private readonly IRgbService _rgbService;
 
-        public AsusDeviceProvider(ILogger logger, IDeviceService deviceService)
+        public AsusDeviceProvider(ILogger logger, IRgbService rgbService)
         {
             _logger = logger;
-            _deviceService = deviceService;
+            _rgbService = rgbService;
 
             // The ASUS SDK does not handle extra LEDs very well at all (stack corruption and all that!)
             CreateMissingLedsSupported = false;
@@ -28,12 +28,12 @@ namespace Artemis.Plugins.Devices.Asus
         public override void Enable()
         {
             RgbDeviceProvider.Exception += Provider_OnException;
-            _deviceService.AddDeviceProvider(this);
+            _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
         public override void Disable()
         {
-            _deviceService.RemoveDeviceProvider(this);
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             RgbDeviceProvider.Exception += Provider_OnException;
             RgbDeviceProvider.Dispose();
         }
