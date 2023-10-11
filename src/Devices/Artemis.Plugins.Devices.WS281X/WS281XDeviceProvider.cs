@@ -26,20 +26,20 @@ namespace Artemis.Plugins.Devices.WS281X
         private readonly PluginSettings _settings;
 
         public WS281XDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings)
-            : base(RGBDeviceProvider.Instance)
         {
             _logger = logger;
             _rgbService = rgbService;
             _settings = settings;
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
             PluginSetting<List<DeviceDefinition>> definitions = _settings.GetSetting("DeviceDefinitions", new List<DeviceDefinition>());
 
-            RGBDeviceProvider.Instance.Exception += Provider_OnException;
-
-            RGBDeviceProvider.Instance.DeviceDefinitions.Clear();
+            RgbDeviceProvider.Exception += Provider_OnException;
+            RgbDeviceProvider.DeviceDefinitions.Clear();
             string[] ports = SerialPort.GetPortNames();
 
             foreach (DeviceDefinition deviceDefinition in definitions.Value)
@@ -67,13 +67,13 @@ namespace Artemis.Plugins.Devices.WS281X
                 switch (deviceDefinition.Type)
                 {
                     case DeviceDefinitionType.Arduino:
-                        RGBDeviceProvider.Instance.AddDeviceDefinition(new ArduinoWS281XDeviceDefinition(deviceDefinition.Port));
+                        RgbDeviceProvider.AddDeviceDefinition(new ArduinoWS281XDeviceDefinition(deviceDefinition.Port));
                         break;
                     case DeviceDefinitionType.Bitwizard:
-                        RGBDeviceProvider.Instance.AddDeviceDefinition(new BitwizardWS281XDeviceDefinition(deviceDefinition.Port));
+                        RgbDeviceProvider.AddDeviceDefinition(new BitwizardWS281XDeviceDefinition(deviceDefinition.Port));
                         break;
                     case DeviceDefinitionType.ESP8266:
-                        RGBDeviceProvider.Instance.AddDeviceDefinition(new NodeMCUWS281XDeviceDefinition(deviceDefinition.Hostname));
+                        RgbDeviceProvider.AddDeviceDefinition(new NodeMCUWS281XDeviceDefinition(deviceDefinition.Hostname));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -89,9 +89,8 @@ namespace Artemis.Plugins.Devices.WS281X
                 TurnOffLeds();
 
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
-
-            RGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "WS281X Exception: {message}", args.Exception.Message);

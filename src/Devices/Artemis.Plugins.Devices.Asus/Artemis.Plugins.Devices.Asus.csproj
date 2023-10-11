@@ -1,4 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Artemis.Plugins.props" />
+  
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
@@ -7,17 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog" Version="2.12.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.3" />
-    <PackageReference Include="RGB.NET.Core" Version="1.0.0" />
-
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <PackageReference Include="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
+    
     <!--All packages Artemis already references are compile-only dependencies-->
     <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="2.0.0-prerelease.83" />
+    <PackageReference Update="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Asus" Version="2.0.0-prerelease.83" />
+    <PackageReference Include="RGB.NET.Devices.Asus" Version="$(RGBDotNetVersion)" />
   </ItemGroup>
 
   <ItemGroup>

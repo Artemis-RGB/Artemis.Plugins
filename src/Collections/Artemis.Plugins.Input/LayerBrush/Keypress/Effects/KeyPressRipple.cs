@@ -41,15 +41,15 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             if (_brush.Properties.ColorMode.CurrentValue == ColorType.Random && Paint == null)
             {
                 Paint = new SKPaint {Color = SKColor.FromHsv(_brush.Rand.Next(0, 360), 100, 100)};
-            }
+            } 
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Solid)
             {
-                Paint?.Dispose();
+                Paint?.DisposeSelfAndProperties();
                 Paint = new SKPaint {Color = _brush.Properties.Color.CurrentValue};
             }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.Gradient)
             {
-                Paint?.Dispose();
+                Paint?.DisposeSelfAndProperties();
                 Paint = new SKPaint
                 {
                     Shader = SKShader.CreateRadialGradient(
@@ -65,7 +65,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
             }
             else if (_brush.Properties.ColorMode.CurrentValue == ColorType.ColorChange)
             {
-                Paint?.Dispose();
+                Paint?.DisposeSelfAndProperties();
                 Paint = new SKPaint {Color = _brush.Properties.Colors.CurrentValue.GetColor(_progress)};
             }
 
@@ -87,7 +87,7 @@ namespace Artemis.Plugins.Input.LayerBrush.Keypress.Effects
                 };
 
                 // Dispose before to create a new one. Thanks for the lesson.
-                _trailPaint?.Dispose();
+                _trailPaint?.DisposeSelfAndProperties();
                 _trailPaint = new SKPaint
                 {
                     Shader = SKShader.CreateRadialGradient(

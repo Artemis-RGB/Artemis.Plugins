@@ -2,6 +2,7 @@ using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;
 using Serilog;
+using RGBDeviceProvider = RGB.NET.Devices.Novation.NovationDeviceProvider;
 
 namespace Artemis.Plugins.Devices.Novation
 {
@@ -11,25 +12,25 @@ namespace Artemis.Plugins.Devices.Novation
         private readonly ILogger _logger;
         private readonly IRgbService _rgbService;
 
-        public NovationDeviceProvider(ILogger logger, IRgbService rgbService) : base(RGB.NET.Devices.Novation.NovationDeviceProvider.Instance)
+        public NovationDeviceProvider(ILogger logger, IRgbService rgbService)
         {
             _logger = logger;
             _rgbService = rgbService;
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
-            RGB.NET.Devices.Novation.NovationDeviceProvider.Instance.Exception += Provider_OnException;
-
+            RgbDeviceProvider.Exception += Provider_OnException;
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
         }
 
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
-
-            RGB.NET.Devices.Novation.NovationDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Novation Exception: {message}", args.Exception.Message);

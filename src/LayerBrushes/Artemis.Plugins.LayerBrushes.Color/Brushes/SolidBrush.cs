@@ -14,7 +14,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
         /// <inheritdoc />
         public override void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
         {
-            paint.Shader = Properties.ColorMode.CurrentValue switch
+            using SKShader shader = Properties.ColorMode.CurrentValue switch
             {
                 SolidBrushColorMode.Static => SKShader.CreateColor(Properties.Color),
                 SolidBrushColorMode.GradientPosition => SKShader.CreateColor(Properties.Colors.CurrentValue.GetColor(Properties.GradientPosition / 100f)),
@@ -22,8 +22,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 _ => SKShader.CreateColor(Properties.Color)
             };
 
+            paint.Shader = shader;
             canvas.DrawRect(bounds, paint);
-            paint.Shader?.Dispose();
             paint.Shader = null;
         }
 

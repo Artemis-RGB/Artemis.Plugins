@@ -2,6 +2,7 @@
 
 public interface IWindowService
 {
-    public string GetActiveWindowTitle();
-    public int GetActiveProcessId();
+    string GetActiveWindowTitle();
+    int GetActiveProcessId();
+    bool GetActiveWindowFullscreen();
 }

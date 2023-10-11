@@ -114,12 +114,12 @@
     <Led Id="Keyboard_T" />
     <Led Id="Keyboard_Y" />
     <Led Id="Keyboard_U" />
+    <Led Id="Keyboard_I" />
     <Led Id="Keyboard_O" />
     <Led Id="Keyboard_P" />
     <Led Id="Keyboard_BracketLeft" />
     <Led Id="Keyboard_BracketRight" />
-    <Led Id="Keyboard_Backslash" />
-    <Led Id="Keyboard_I">
+    <Led Id="Keyboard_Backslash">    
       <Width>1.21</Width>
     </Led>
     <Led Id="Keyboard_MediaStop">

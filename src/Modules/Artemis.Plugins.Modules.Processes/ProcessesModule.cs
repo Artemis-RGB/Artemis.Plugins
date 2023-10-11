@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,6 +8,7 @@ using Artemis.Core.ColorScience;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
 using Artemis.Plugins.Modules.Processes.DataModels;
+using Artemis.Plugins.Modules.Processes.Platform.Windows;
 using Artemis.Plugins.Modules.Processes.Services.Windows.WindowServices;
 using Serilog;
 using SkiaSharp;
@@ -22,11 +22,9 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     public ProcessesModule(
         PluginSettings settings,
-        IProcessMonitorService processMonitorService,
         IWindowService windowService,
         ILogger logger)
     {
-        _processMonitorService = processMonitorService;
         _windowService = windowService;
         _logger = logger;
         _enableActiveWindow = settings.GetSetting("EnableActiveWindow", true);
@@ -39,9 +37,9 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private readonly Dictionary<string, ColorSwatch> _cache;
     private readonly PluginSetting<bool> _enableActiveWindow;
-    private readonly IProcessMonitorService _processMonitorService;
     private readonly IWindowService _windowService;
     private readonly ILogger _logger;
+    private int _lastForegroundWindowPid;
 
     public override List<IModuleActivationRequirement> ActivationRequirements { get; } = new();
 
@@ -73,29 +71,34 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private void UpdateRunningProcesses(double deltaTime)
     {
-        DataModel.RunningProcesses = _processMonitorService.GetRunningProcesses().Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
+        if (IsPropertyInUse(p => p.RunningProcesses, false))
+            DataModel.RunningProcesses = ProcessMonitor.Processes.Select(p => p.ProcessName).Except(Constants.IgnoredWindowsProcessList).ToList();
     }
 
     private void UpdateCurrentWindow(double deltaTime)
     {
-        if (!_enableActiveWindow.Value)
+        if (!_enableActiveWindow.Value || !IsPropertyInUse(p => p.ActiveWindow, true))
             return;
-
+        
         int foregroundWindowPid = _windowService.GetActiveProcessId();
-        Process foregroundProcess = _processMonitorService.GetRunningProcesses().FirstOrDefault(p => p.Id == foregroundWindowPid);
+        _lastForegroundWindowPid = foregroundWindowPid;
+
+        ProcessInfo? foregroundProcess = ProcessMonitor.Processes.Cast<ProcessInfo?>().FirstOrDefault(p => p!.Value.ProcessId == foregroundWindowPid, null);
         if (foregroundProcess == null)
             return;
 
+        DataModel.ActiveWindow.IsFullscreen = _windowService.GetActiveWindowFullscreen();
         DataModel.ActiveWindow.WindowTitle = _windowService.GetActiveWindowTitle();
-        DataModel.ActiveWindow.ProcessName = foregroundProcess.ProcessName;
-        DataModel.ActiveWindow.ProgramLocation = foregroundProcess.GetProcessFilename();
+        DataModel.ActiveWindow.ProcessName = foregroundProcess.Value.ProcessName;
+        DataModel.ActiveWindow.ProgramLocation = foregroundProcess.Value.Executable;
+
         try
         {
             DataModel.ActiveWindow.Colors = GetOrComputeSwatch(DataModel.ActiveWindow.ProgramLocation) ?? default;
         }
         catch (Exception e)
         {
-            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess.ProcessName);
+            _logger.Error(e, "Failed to compute color swatch for {ProcessName}", foregroundProcess.Value.ProcessName);
         }
     }
 
@@ -131,5 +134,6 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
         return swatch;
     }
+
     #endregion
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using OpenRGB.NET;
+using RGBDeviceProvider = RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider;
 
 namespace Artemis.Plugins.Devices.OpenRGB
 {
@@ -22,7 +23,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
         private readonly PluginSetting<bool> _forceAddAllDevicesSetting;
         private readonly Timer _reconnectTimer;
 
-        public OpenRGBDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger) : base(RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance)
+        public OpenRGBDeviceProvider(IRgbService rgbService, PluginSettings settings, ILogger logger)
         {
             _logger = logger;
             _rgbService = rgbService;
@@ -42,22 +43,21 @@ namespace Artemis.Plugins.Devices.OpenRGB
             _reconnectTimer = new Timer(30 * 1000);
             _reconnectTimer.Elapsed += OnReconnectTimerElapsed;
         }
+        
+        public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
-            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Exception += Provider_OnException;
+            RgbDeviceProvider.Exception += Provider_OnException;
 
             foreach (OpenRGBServerDefinition def in _deviceDefinitionsSettings.Value)
-            {
-                RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.Add(def);
-            }
-
-            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.ForceAddAllDevices = _forceAddAllDevicesSetting.Value;
+                RgbDeviceProvider.DeviceDefinitions.Add(def);
+            RgbDeviceProvider.ForceAddAllDevices = _forceAddAllDevicesSetting.Value;
 
             _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
             bool anyFailedToConnect = false;
-            foreach (OpenRGBServerDefinition deviceDefinition in RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.Where(dd => !dd.Connected))
+            foreach (OpenRGBServerDefinition deviceDefinition in RgbDeviceProvider.DeviceDefinitions.Where(dd => !dd.Connected))
             {
                 _logger.Error("OpenRGB server {ip}:{port} failed to connect: {error}", deviceDefinition.Ip, deviceDefinition.Port, deviceDefinition.LastError);
                 anyFailedToConnect = true;
@@ -77,9 +77,8 @@ namespace Artemis.Plugins.Devices.OpenRGB
         public override void Disable()
         {
             _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
-
-            RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.Exception -= Provider_OnException;
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "OpenRGB Exception: {message}", args.Exception.Message);
@@ -87,7 +86,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
         private async void OnReconnectTimerElapsed(object sender, ElapsedEventArgs e)
         {
             //if all device definitions are connected, stop the timer and return.
-            if (RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.All(dd => dd.Connected))
+            if (RgbDeviceProvider.DeviceDefinitions.All(dd => dd.Connected))
             {
                 _logger.Verbose("OpenRGB reconnect timer elapsed, but all device definitions connected successfully. Stopping timer.");
                 _reconnectTimer.Stop();
@@ -96,7 +95,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
 
             //otherwise, check if we can connect to any of the not-yet-connected device definitions.
             bool restart = false;
-            foreach (OpenRGBServerDefinition item in RGB.NET.Devices.OpenRGB.OpenRGBDeviceProvider.Instance.DeviceDefinitions.Where(dd => !dd.Connected))
+            foreach (OpenRGBServerDefinition item in RgbDeviceProvider.DeviceDefinitions.Where(dd => !dd.Connected))
             {
                 try
                 {

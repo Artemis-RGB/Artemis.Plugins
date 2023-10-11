@@ -27,7 +27,7 @@ namespace Artemis.Plugins.LayerBrushes.Color
             
             // Render gradient
             ColorGradient gradient = Properties.Colors;
-            paint.Shader = SKShader.CreateLinearGradient(
+            using SKShader shader = SKShader.CreateLinearGradient(
                 new SKPoint(bounds.Left, bounds.Top),
                 new SKPoint(
                     Properties.Orientation == LinearGradientOrientationMode.Horizontal ? bounds.Right : bounds.Left,
@@ -39,8 +39,8 @@ namespace Artemis.Plugins.LayerBrushes.Color
                 matrix
             );
 
+            paint.Shader = shader;
             canvas.DrawRect(bounds, paint);
-            paint.Shader?.Dispose();
             paint.Shader = null;
         }
 

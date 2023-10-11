@@ -21,6 +21,8 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
     private readonly ObservableAsPropertyHelper<int> _maxWidth;
     private readonly ObservableAsPropertyHelper<int> _maxX;
     private readonly ObservableAsPropertyHelper<int> _maxY;
+    private readonly ObservableAsPropertyHelper<bool> _showDownscaleWarning;
+    
     private readonly AmbilightCaptureProperties _properties;
     private readonly DispatcherTimer _updateTimer;
     private readonly IWindowService _windowService;
@@ -56,6 +58,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         _maxY = this.WhenAnyValue(vm => vm.Height, vm => vm.SelectedCaptureScreen, (height, screen) => (screen?.Display.Height ?? 0) - height).ToProperty(this, vm => vm.MaxY);
         _maxWidth = this.WhenAnyValue(vm => vm.X, vm => vm.SelectedCaptureScreen, (x, screen) => (screen?.Display.Width ?? 0) - x).ToProperty(this, vm => vm.MaxWidth);
         _maxHeight = this.WhenAnyValue(vm => vm.Y, vm => vm.SelectedCaptureScreen, (y, screen) => (screen?.Display.Height ?? 0) - y).ToProperty(this, vm => vm.MaxHeight);
+        _showDownscaleWarning = this.WhenAnyValue(vm => vm.DownscaleLevel, s => s < 3).ToProperty(this, vm => vm.ShowDownscaleWarning);
         _updateTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Normal, (_, _) => Update());
         _updateTimer.Start();
 
@@ -67,7 +70,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
             _saveOnChange = true;
         });
     }
-
+    
     public AmbilightLayerBrush AmbilightLayerBrush { get; }
     public ObservableCollection<CaptureScreenViewModel> CaptureScreens { get; }
 
@@ -75,7 +78,8 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
     public int MaxY => _maxY.Value;
     public int MaxWidth => _maxWidth.Value;
     public int MaxHeight => _maxHeight.Value;
-
+    public bool ShowDownscaleWarning => _showDownscaleWarning.Value;
+    
     public CaptureRegionEditorViewModel? CaptureRegionEditor
     {
         get => _captureRegionEditor;

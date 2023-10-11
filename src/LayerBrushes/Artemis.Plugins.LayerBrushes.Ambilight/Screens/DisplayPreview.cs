@@ -15,23 +15,20 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
 
     private bool _isDisposed;
 
-    private readonly CaptureZone _captureZone;
-    private readonly CaptureZone? _processedCaptureZone;
+    private readonly ICaptureZone _captureZone;
+    private readonly ICaptureZone? _processedCaptureZone;
 
+    private readonly int _blackBarThreshold;
     private readonly bool _blackBarDetectionTop;
     private readonly bool _blackBarDetectionBottom;
     private readonly bool _blackBarDetectionLeft;
     private readonly bool _blackBarDetectionRight;
-
-    private readonly byte[] _previewBuffer;
-    private readonly byte[]? _processedPreviewBuffer;
 
     public Display Display { get; }
 
     public WriteableBitmap Preview { get; }
 
     private WriteableBitmap? _processedPreview;
-
     public WriteableBitmap? ProcessedPreview
     {
         get => _processedPreview;
@@ -47,7 +44,6 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
         Display = display;
 
         _captureZone = AmbilightBootstrapper.ScreenCaptureService!.GetScreenCapture(display).RegisterCaptureZone(0, 0, display.Width, display.Height, highQuality ? 0 : 2);
-        _previewBuffer = new byte[_captureZone.Buffer.Length];
         Preview = new WriteableBitmap(new PixelSize(_captureZone.Width, _captureZone.Height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
     }
 
@@ -60,18 +56,15 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
         _blackBarDetectionRight = properties.BlackBarDetectionRight;
 
         _captureZone = AmbilightBootstrapper.ScreenCaptureService!.GetScreenCapture(display).RegisterCaptureZone(0, 0, display.Width, display.Height);
-        _previewBuffer = new byte[_captureZone.Buffer.Length];
         Preview = new WriteableBitmap(new PixelSize(_captureZone.Width, _captureZone.Height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
 
-        if (properties.X + properties.Width <= display.Width && properties.Y + properties.Height <= display.Height)
+        if (((properties.X + properties.Width) <= display.Width) && ((properties.Y + properties.Height) <= display.Height))
         {
             _processedCaptureZone = AmbilightBootstrapper.ScreenCaptureService.GetScreenCapture(display)
-                .RegisterCaptureZone(properties.X, properties.Y, properties.Width, properties.Height, properties.DownscaleLevel);
-            _processedCaptureZone.BlackBars.Threshold = properties.BlackBarDetectionThreshold;
-            _processedPreviewBuffer = new byte[_processedCaptureZone.Buffer.Length];
-            ProcessedPreview = new WriteableBitmap(
-                new PixelSize(_processedCaptureZone.Width, _processedCaptureZone.Height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque
-            );
+                                                         .RegisterCaptureZone(properties.X, properties.Y, properties.Width, properties.Height, properties.DownscaleLevel);
+
+            _blackBarThreshold = properties.BlackBarDetectionThreshold;
+            ProcessedPreview = new WriteableBitmap(new PixelSize(_processedCaptureZone.Width, _processedCaptureZone.Height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
         }
     }
 
@@ -83,65 +76,40 @@ public sealed class DisplayPreview : ReactiveObject, IDisposable
     {
         if (_isDisposed) return;
 
-        lock (_captureZone.Buffer)
-        {
-            WritePixels(Preview, _captureZone);
-        }
+        // DarthAffe 11.09.2023: Accessing the low-level images is a source of potential errors in the future since we assume the pixel-format. Currently both used providers are BGRA, but if there are ever issues with shifted colors, this is the place to start investigating.
+
+        using (_captureZone.Lock())
+            WritePixels(Preview, _captureZone.GetRefImage<ColorBGRA>());
 
         if (_processedCaptureZone == null)
             return;
 
-        lock (_processedCaptureZone.Buffer)
+        using (_processedCaptureZone.Lock())
         {
-            if (_processedCaptureZone.Buffer.Length == 0)
+            if (_processedCaptureZone.RawBuffer.Length == 0)
                 return;
+
+            RefImage<ColorBGRA> processedImage = _processedCaptureZone.GetRefImage<ColorBGRA>();
             if (_blackBarDetectionTop || _blackBarDetectionBottom || _blackBarDetectionLeft || _blackBarDetectionRight)
             {
-                int x = _blackBarDetectionLeft ? _processedCaptureZone.BlackBars.Left : 0;
-                int y = _blackBarDetectionTop ? _processedCaptureZone.BlackBars.Top : 0;
-                int width = _processedCaptureZone.Width - (_blackBarDetectionRight ? _processedCaptureZone.BlackBars.Right : 0) - x;
-                int height = _processedCaptureZone.Height - (_blackBarDetectionBottom ? _processedCaptureZone.BlackBars.Bottom : 0) - y;
-                if (width <= 0 && height <= 0)
-                    return;
+                RefImage<ColorBGRA> croppedImage = processedImage.RemoveBlackBars(_blackBarThreshold, _blackBarDetectionTop, _blackBarDetectionBottom, _blackBarDetectionLeft, _blackBarDetectionRight);
 
-                if (ProcessedPreview == null || Math.Abs(ProcessedPreview.Size.Width - width) > 0.001 || Math.Abs(ProcessedPreview.Size.Height - height) > 0.001)
-                    ProcessedPreview = new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
-                WriteCroppedPixels(ProcessedPreview, _processedCaptureZone);
+                if ((ProcessedPreview == null) || (Math.Abs(ProcessedPreview.Size.Width - croppedImage.Width) > 0.001) || (Math.Abs(ProcessedPreview.Size.Height - croppedImage.Height) > 0.001))
+                    ProcessedPreview = new WriteableBitmap(new PixelSize(croppedImage.Width, croppedImage.Height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Opaque);
+
+                WritePixels(ProcessedPreview, croppedImage);
             }
             else if (ProcessedPreview != null)
             {
-                WritePixels(ProcessedPreview, _processedCaptureZone);
+                WritePixels(ProcessedPreview, processedImage);
             }
         }
     }
 
-    private void WritePixels(WriteableBitmap preview, CaptureZone captureZone)
+    private static unsafe void WritePixels(WriteableBitmap preview, RefImage<ColorBGRA> image)
     {
         using ILockedFramebuffer framebuffer = preview.Lock();
-        Marshal.Copy(captureZone.Buffer, 0, framebuffer.Address, captureZone.Buffer.Length);
-    }
-
-    private void WriteCroppedPixels(WriteableBitmap preview, CaptureZone captureZone)
-    {
-        using ILockedFramebuffer framebuffer = preview.Lock();
-        IntPtr framebufferPtr = framebuffer.Address;
-        
-        int left = _blackBarDetectionLeft ? captureZone.BlackBars.Left : 0;
-        int right = _blackBarDetectionRight ? captureZone.BlackBars.Right : 0;
-        int top = _blackBarDetectionTop ? captureZone.BlackBars.Top : 0;
-        int bottom = _blackBarDetectionBottom ? captureZone.BlackBars.Bottom : 0;
-        
-        int stride = captureZone.Stride;
-        int rowOffset = left * captureZone.BytesPerPixel;
-        int rowLength = (captureZone.Width - left - right) * captureZone.BytesPerPixel;
-        int height = captureZone.Height;
-        
-        for (int y = top; y < (height - bottom); y++)
-        {
-            int offset = (y * stride) + rowOffset;
-            Marshal.Copy(captureZone.Buffer, offset, framebufferPtr, rowLength);
-            framebufferPtr += rowLength;
-        }
+        image.CopyTo(new Span<ColorBGRA>((void*)framebuffer.Address, framebuffer.Size.Width * framebuffer.Size.Height));
     }
 
     public void Dispose()

@@ -1,4 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\Artemis.Plugins.props" />
+    
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Platforms>x64</Platforms>
@@ -7,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Serilog" Version="2.12.0" />
+        <PackageReference Include="Serilog" Version="3.0.1" />
 
         <!--All packages Artemis already references are compile-only dependencies-->
         <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
@@ -29,14 +31,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Profiles\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Profiles\Noise.json">
+      <None Update="Profiles\Noise.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="Profiles\Rainbow.json">
+      <None Update="Profiles\Rainbow.zip">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

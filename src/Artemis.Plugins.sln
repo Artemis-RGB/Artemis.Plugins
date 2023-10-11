@@ -85,6 +85,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Modules.Def
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.Modules.Profiles", "Modules\Artemis.Plugins.Modules.Profiles\Artemis.Plugins.Modules.Profiles.csproj", "{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{591844D9-3F22-4D4A-9687-54B05E9C3E2D}"
+	ProjectSection(SolutionItems) = preProject
+		Artemis.Plugins.props = Artemis.Plugins.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

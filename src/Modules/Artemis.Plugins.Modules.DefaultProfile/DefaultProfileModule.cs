@@ -12,8 +12,8 @@ public class DefaultProfileModule : Module
 {
     private readonly string[] _defaultProfileFilepaths =
     {
-        "./Profiles/Rainbow.json",
-        "./Profiles/Noise.json"
+        "./Profiles/Rainbow.zip",
+        "./Profiles/Noise.zip"
     };
 
     private readonly ILogger _logger;
