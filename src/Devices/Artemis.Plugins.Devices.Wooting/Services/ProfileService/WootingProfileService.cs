@@ -23,7 +23,7 @@ public sealed class WootingProfileService : ReusableService
 
     public void Update()
     {
-        if (!IsActivated)
+        if (!IsActivated || _devices.Count == 0)
             return;
         
         DateTime now = DateTime.Now;
@@ -51,7 +51,8 @@ public sealed class WootingProfileService : ReusableService
 
         if (!WootingSdk.IsConnected())
         {
-            throw new ArtemisPluginException("Wooting SDK is not connected");
+            _logger.Information("Wooting SDK is not connected");
+            return;
         }
 
         byte keyboardCount = WootingSdk.GetDeviceCount();
