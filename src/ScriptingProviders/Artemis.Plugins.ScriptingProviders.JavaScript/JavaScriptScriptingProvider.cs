@@ -12,19 +12,21 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript;
 public class JavaScriptScriptingProvider : ScriptingProvider<JavaScriptGlobalScript, JavaScriptProfileScript>
 {
     private readonly Func<ScriptType, JavaScriptEditorViewModel> _createEditor;
+    private readonly ScriptEditorService _scriptEditorService;
     private readonly Plugin _plugin;
 
     public JavaScriptScriptingProvider(Func<ScriptType, JavaScriptEditorViewModel> createEditor, ScriptEditorService scriptEditorService, Plugin plugin)
     {
         _createEditor = createEditor;
+        _scriptEditorService = scriptEditorService;
         _plugin = plugin;
-        scriptEditorService.Initialize(this);
     }
 
     public override string LanguageName => "JavaScript";
 
     public override void Enable()
     {
+        _scriptEditorService.Initialize(this);
     }
 
     public override void Disable()
