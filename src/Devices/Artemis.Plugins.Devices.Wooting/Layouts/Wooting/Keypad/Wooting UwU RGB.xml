@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Wooting UwU RGB</Name>
+  <Author>BigBrainAFK</Author>
+  <Type>Keypad</Type>
+  <Vendor>Wooting</Vendor>
+  <Model>Wooting UwU RGB</Model>
+  <Width>75</Width>
+  <Height>55</Height>
+  <Leds>
+    <Led Id="LedStripe1">
+      <X>0</X>
+      <Y>5</Y>
+      <Width>5mm</Width>
+      <Height>15mm</Height>
+    </Led>
+    <Led Id="LedStripe2">
+      <X>0</X>
+      <Y>20</Y>
+      <Width>5mm</Width>
+      <Height>15mm</Height>
+    </Led>
+    <Led Id="LedStripe3">
+      <X>0</X>
+      <Y>35</Y>
+      <Width>5mm</Width>
+      <Height>15mm</Height>
+    </Led>
+    <Led Id="LedStripe4">
+      <X>0</X>
+      <Y>50</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe5">
+      <X>19</X>
+      <Y>50</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe6">
+      <X>38</X>
+      <Y>50</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe7">
+      <X>57</X>
+      <Y>50</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe8">
+      <X>70</X>
+      <Y>35</Y>
+      <Width>5mm</Width>
+      <Height>15mm</Height>
+    </Led>
+    <Led Id="LedStripe9">
+      <X>70</X>
+      <Y>20</Y>
+      <Width>5mm</Width>
+      <Height>15mm</Height>
+    </Led>
+    <Led Id="LedStripe10">
+      <X>70</X>
+      <Y>5</Y>
+      <Width>5mm</Width>
+      <Height>15mm</Height>
+    </Led>
+    <Led Id="LedStripe11">
+      <X>57</X>
+      <Y>0</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe12">
+      <X>38</X>
+      <Y>0</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe13">
+      <X>19</X>
+      <Y>0</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="LedStripe14">
+      <X>0</X>
+      <Y>0</Y>
+      <Width>18mm</Width>
+      <Height>5mm</Height>
+    </Led>
+    <Led Id="Keypad1">
+      <X>13</X>
+      <Y>15</Y>
+      <Width>16mm</Width>
+      <Height>16mm</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Name="US" Image="Regular_Keys/UwU_Left.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keypad2">
+      <X>30</X>
+      <Y>15</Y>
+      <Width>16mm</Width>
+      <Height>16mm</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Name="US" Image="Regular_Keys/UwU_Middle.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+    <Led Id="Keypad3">
+      <X>47</X>
+      <Y>15</Y>
+      <Width>16mm</Width>
+      <Height>16mm</Height>
+      <CustomData>
+        <LogicalLayouts>
+          <LogicalLayout Name="US" Image="Regular_Keys/UwU_Right.png" />
+        </LogicalLayouts>
+      </CustomData>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Wooting UwU RGB.png</DeviceImage>
+  </CustomData>
+</Device>

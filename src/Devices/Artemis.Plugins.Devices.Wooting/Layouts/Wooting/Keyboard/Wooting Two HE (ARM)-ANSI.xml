@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Wooting Two HE (ARM) - ANSI</Name>
+  <Name>Wooting Two HE - ANSI</Name>
   <Description>Physical ANSI layout of the Wooting Two HE</Description>
   <Author>SpoinkyNL</Author>
   <Type>Keyboard</Type>

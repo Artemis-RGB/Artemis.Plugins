@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Wooting Two HE (ARM) - ISO</Name>
+  <Name>Wooting Two HE - ISO</Name>
   <Description>Physical ISO layout of the Wooting Two HE</Description>
   <Author>viCTheClick</Author>
   <Type>Keyboard</Type>
