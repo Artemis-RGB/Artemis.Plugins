@@ -30,14 +30,20 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
             IScreenCaptureService screenCaptureService = OperatingSystem.IsWindows() ? new DX11ScreenCaptureService() : new X11ScreenCaptureService();
             ScreenCaptureService ??= new AmbilightScreenCaptureService(screenCaptureService);
-            SystemEvents.DisplaySettingsChanged += SystemEventsOnDisplaySettingsChanged;
+            if (OperatingSystem.IsWindows())
+            {
+                SystemEvents.DisplaySettingsChanged += SystemEventsOnDisplaySettingsChanged;
+            }
         }
 
         public override void OnPluginDisabled(Plugin plugin)
         {
             ScreenCaptureService?.Dispose();
             ScreenCaptureService = null;
-            SystemEvents.DisplaySettingsChanged -= SystemEventsOnDisplaySettingsChanged;
+            if (OperatingSystem.IsWindows())
+            {
+                SystemEvents.DisplaySettingsChanged -= SystemEventsOnDisplaySettingsChanged;
+            }
         }
 
         private void SystemEventsOnDisplaySettingsChanged(object? sender, EventArgs e)

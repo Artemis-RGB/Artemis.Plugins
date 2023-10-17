@@ -15,7 +15,7 @@ namespace Artemis.Plugins.Audio.Services
         #region Properties & Fields
 
         // Services 
-        private readonly IRenderService _renderService;
+        private readonly ICoreService _coreService;
         private readonly NAudioDeviceEnumerationService _naudioDeviceEnumerationService;
         private readonly ILogger _logger;
 
@@ -36,10 +36,10 @@ namespace Artemis.Plugins.Audio.Services
 
         #region Constructors
 
-        public AudioVisualizationService(Plugin plugin, IRenderService renderService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, ILogger logger)
+        public AudioVisualizationService(Plugin plugin, ICoreService coreService, NAudioDeviceEnumerationService naudioDeviceEnumerationService, PluginSettings pluginSettings, ILogger logger)
         {
             _profiler = plugin.GetProfiler("AudioVisualizationService");
-            _renderService = renderService;
+            _coreService = coreService;
             _naudioDeviceEnumerationService = naudioDeviceEnumerationService;
             _logger = logger;
             _useCustomWasapiCapture = pluginSettings.GetSetting("UseCustomWasapiCapture", false);
@@ -131,7 +131,7 @@ namespace Artemis.Plugins.Audio.Services
                 foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                     spectrumProvider.Initialize();
 
-                _renderService.FrameRendering += Update;
+                _coreService.FrameRendering += Update;
 
                 _isActivated = true;
             }
@@ -141,7 +141,7 @@ namespace Artemis.Plugins.Audio.Services
         {
             if (!_isActivated) return;
 
-            _renderService.FrameRendering -= Update;
+            _coreService.FrameRendering -= Update;
 
             foreach (ISpectrumProvider spectrumProvider in _spectrumProviders.Values)
                 spectrumProvider.Dispose();

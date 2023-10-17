@@ -18,15 +18,15 @@ namespace Artemis.Plugins.Devices.Corsair
     public class CorsairDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IDeviceService _deviceService;
+        private readonly IRgbService _rgbService;
         private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
         private readonly Timer _restartTimer;
 
-        public CorsairDeviceProvider(ILogger logger, IDeviceService deviceService, IPluginManagementService pluginManagementService, Plugin plugin)
+        public CorsairDeviceProvider(ILogger logger, IRgbService rgbService, IPluginManagementService pluginManagementService, Plugin plugin)
         {
             _logger = logger;
-            _deviceService = deviceService;
+            _rgbService = rgbService;
             _pluginManagementService = pluginManagementService;
             _plugin = plugin;
 
@@ -68,7 +68,7 @@ namespace Artemis.Plugins.Devices.Corsair
                 RgbDeviceProvider.SessionStateChanged += SessionStateChanged;
                 RgbDeviceProvider.Exception += Provider_OnException;
 
-                _deviceService.AddDeviceProvider(this);
+                _rgbService.AddDeviceProvider(RgbDeviceProvider);
 
                 _logger.Debug("Corsair SDK details");
                 _logger.Debug(" - Client version: {detail}", RgbDeviceProvider.SessionDetails.ClientVersion);
@@ -87,7 +87,7 @@ namespace Artemis.Plugins.Devices.Corsair
 
         public override void Disable()
         {
-            _deviceService.RemoveDeviceProvider(this);
+            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
             
             RgbDeviceProvider.SessionStateChanged -= SessionStateChanged;
             RgbDeviceProvider.Exception -= Provider_OnException;
