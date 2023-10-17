@@ -13,12 +13,12 @@ namespace Artemis.Plugins.Devices.Msi
     public class MsiDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
 
-        public MsiDeviceProvider(ILogger logger, IRgbService rgbService)
+        public MsiDeviceProvider(ILogger logger, IDeviceService deviceService)
         {
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
         }
 
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
@@ -29,12 +29,12 @@ namespace Artemis.Plugins.Devices.Msi
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "MysticLight_SDK.dll"));
 
             RgbDeviceProvider.Exception += Provider_OnException;
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
         }
 
         public override void Disable()
         {
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

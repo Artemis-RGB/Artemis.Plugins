@@ -22,11 +22,11 @@ namespace Artemis.Plugins.Devices.Logitech
         private readonly ILogger _logger;
         private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
 
-        public LogitechDeviceProvider(IRgbService rgbService, ILogger logger, IPluginManagementService pluginManagementService, Plugin plugin)
+        public LogitechDeviceProvider(IDeviceService deviceService, ILogger logger, IPluginManagementService pluginManagementService, Plugin plugin)
         {
-            _rgbService = rgbService;
+            _deviceService = deviceService;
             _logger = logger;
             _pluginManagementService = pluginManagementService;
             _plugin = plugin;
@@ -40,7 +40,7 @@ namespace Artemis.Plugins.Devices.Logitech
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "LogitechLedEnginesWrapper.dll"));
 
             RgbDeviceProvider.Exception += Provider_OnException;
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
 
             if (_logger.IsEnabled(LogEventLevel.Debug))
                 LogDeviceIds();
@@ -52,7 +52,7 @@ namespace Artemis.Plugins.Devices.Logitech
         {
             Unsubscribe();
 
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }

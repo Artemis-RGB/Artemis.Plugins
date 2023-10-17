@@ -22,13 +22,15 @@ namespace Artemis.Plugins.Devices.WS281X
     public class WS281XDeviceProvider : DeviceProvider
     {
         private readonly ILogger _logger;
-        private readonly IRgbService _rgbService;
+        private readonly IDeviceService _deviceService;
+        private readonly IRenderService _renderService;
         private readonly PluginSettings _settings;
 
-        public WS281XDeviceProvider(ILogger logger, IRgbService rgbService, PluginSettings settings)
+        public WS281XDeviceProvider(ILogger logger, IDeviceService deviceService, IRenderService renderService, PluginSettings settings)
         {
             _logger = logger;
-            _rgbService = rgbService;
+            _deviceService = deviceService;
+            _renderService = renderService;
             _settings = settings;
         }
         
@@ -80,7 +82,7 @@ namespace Artemis.Plugins.Devices.WS281X
                 }
             }
 
-            _rgbService.AddDeviceProvider(RgbDeviceProvider);
+            _deviceService.AddDeviceProvider(this);
         }
 
         public override void Disable()
@@ -88,7 +90,7 @@ namespace Artemis.Plugins.Devices.WS281X
             if (_settings.GetSetting("TurnOffLedsOnShutdown", false).Value)
                 TurnOffLeds();
 
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }
@@ -100,7 +102,7 @@ namespace Artemis.Plugins.Devices.WS281X
             // Disable the LEDs on every device before we leave
             foreach (IRGBDevice rgbDevice in RgbDeviceProvider.Devices)
             {
-                ListLedGroup _ = new(_rgbService.Surface, rgbDevice)
+                ListLedGroup _ = new(_renderService.Surface, rgbDevice)
                 {
                     Brush = new SolidColorBrush(new Color(0, 0, 0)),
                     ZIndex = 999
@@ -108,11 +110,11 @@ namespace Artemis.Plugins.Devices.WS281X
             }
 
             // Don't wait for the next update, force one now and flush all LEDs for good measure
-            _rgbService.Surface.Update(true);
+            _renderService.Surface.Update(true);
             // Give the update queues time to process
             Thread.Sleep(200);
 
-            _rgbService.RemoveDeviceProvider(RgbDeviceProvider);
+            _deviceService.RemoveDeviceProvider(this);
         }
     }
 }
