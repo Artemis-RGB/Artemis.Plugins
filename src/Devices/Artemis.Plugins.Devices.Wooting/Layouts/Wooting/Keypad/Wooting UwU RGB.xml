@@ -93,35 +93,35 @@
       <Height>5mm</Height>
     </Led>
     <Led Id="Keypad1">
-      <X>13</X>
-      <Y>15</Y>
+      <X>11</X>
+      <Y>18</Y>
       <Width>16mm</Width>
       <Height>16mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="US" Image="Regular_Keys/UwU_Left.png" />
+          <LogicalLayout Image="Regular_Keys/UwU_Left.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keypad2">
-      <X>30</X>
-      <Y>15</Y>
+      <X>29.5</X>
+      <Y>18</Y>
       <Width>16mm</Width>
       <Height>16mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="US" Image="Regular_Keys/UwU_Middle.png" />
+          <LogicalLayout Image="Regular_Keys/UwU_Middle.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
     <Led Id="Keypad3">
-      <X>47</X>
-      <Y>15</Y>
+      <X>48</X>
+      <Y>18</Y>
       <Width>16mm</Width>
       <Height>16mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="US" Image="Regular_Keys/UwU_Right.png" />
+          <LogicalLayout Image="Regular_Keys/UwU_Right.png" />
         </LogicalLayouts>
       </CustomData>
     </Led>
