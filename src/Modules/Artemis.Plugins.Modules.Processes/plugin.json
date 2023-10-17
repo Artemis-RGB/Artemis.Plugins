@@ -9,5 +9,5 @@
   "Description": "This modules gives information about running processes like executable file path, icon colors and opened windows.",
   "Version": "1.0.0.0",
   "Main": "Artemis.Plugins.Modules.Processes.dll",
-  "Platforms": "Windows"
+  "Platforms": "Windows,Linux"
 }

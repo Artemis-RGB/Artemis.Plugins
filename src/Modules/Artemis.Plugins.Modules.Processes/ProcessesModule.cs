@@ -51,7 +51,10 @@ public class ProcessesModule : Module<ProcessesDataModel>
     {
         _enableActiveWindow.SettingChanged += EnableActiveWindowOnSettingChanged;
 
-        AddTimedUpdate(TimeSpan.FromMilliseconds(250), UpdateCurrentWindow);
+        if (!OperatingSystem.IsLinux())
+        {
+            AddTimedUpdate(TimeSpan.FromMilliseconds(250), UpdateCurrentWindow);
+        }
         AddTimedUpdate(TimeSpan.FromSeconds(1), UpdateRunningProcesses);
         ApplyEnableActiveWindow();
     }
@@ -117,20 +120,20 @@ public class ProcessesModule : Module<ProcessesDataModel>
 
     private ColorSwatch? GetOrComputeSwatch(string location)
     {
-        if (!_cache.TryGetValue(location, out ColorSwatch swatch))
-        {
-            if (!File.Exists(location))
-                return null;
+        if (_cache.TryGetValue(location, out ColorSwatch swatch)) 
+            return swatch;
+        
+        if (!File.Exists(location))
+            return null;
 
-            using MemoryStream stream = new();
-            Icon.ExtractAssociatedIcon(location)?.Save(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-            using SKBitmap bitmap = SKBitmap.FromImage(SKImage.FromEncodedData(stream));
-            stream.Close();
-            SKColor[] colors = ColorQuantizer.Quantize(bitmap.Pixels, 256);
-            swatch = ColorQuantizer.FindAllColorVariations(colors, true);
-            _cache[location] = swatch;
-        }
+        using MemoryStream stream = new();
+        Icon.ExtractAssociatedIcon(location)?.Save(stream);
+        stream.Seek(0, SeekOrigin.Begin);
+        using SKBitmap bitmap = SKBitmap.FromImage(SKImage.FromEncodedData(stream));
+        stream.Close();
+        SKColor[] colors = ColorQuantizer.Quantize(bitmap.Pixels, 256);
+        swatch = ColorQuantizer.FindAllColorVariations(colors, true);
+        _cache[location] = swatch;
 
         return swatch;
     }

@@ -10,7 +10,9 @@ public class Bootstrapper : PluginBootstrapper
     {
         if (OperatingSystem.IsWindows())
             plugin.Register<IWindowService, WindowsWindowService>();
+        else if (OperatingSystem.IsLinux())
+            plugin.Register<IWindowService, LinuxWindowService>();
         else
-            throw new NotImplementedException("Platform support not implemented yet");
+            throw new NotSupportedException("Unsupported operating system");
     }
 }
