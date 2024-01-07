@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>MasterFan MF140R</Name>
+  <Description>140mm ARBBFam</Description>
+  <Author>Duarte Farrajota Ramos</Author>
+  <Type>Fan</Type>
+  <Vendor>Cooler Master</Vendor>
+  <Model>MasterFan MF140R</Model>
+  <Width>140</Width>
+  <Height>140</Height>
+  <LedUnitWidth>8</LedUnitWidth>
+  <LedUnitHeight>8</LedUnitHeight>
+  <Leds>
+    <Led Id="Mainboard1">
+      <Shape>Circle</Shape>
+      <X>16.5</X>
+      <Y>16.2</Y>
+      <Width>14</Width>
+      <Height>14</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>CoolerMaster_MasterFan_MF140R.png</DeviceImage>
+  </CustomData>
+</Device>
