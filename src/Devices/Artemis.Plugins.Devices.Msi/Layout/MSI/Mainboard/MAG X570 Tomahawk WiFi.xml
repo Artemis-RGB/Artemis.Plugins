@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>MSI MAG X570 Tomahawk WiFi</Name>
+  <Description>Motherboard MSI MAG X570 Tomahawk WiFi</Description>
+  <Author>Duarte Farrajota Ramos</Author>
+  <Type>Mainboard</Type>
+  <Vendor>MSI</Vendor>
+  <Model>MAG X570 Tomahawk WiFi</Model>
+  <Width>244</Width>
+  <Height>305</Height>
+  <LedUnitWidth>20</LedUnitWidth>
+  <LedUnitHeight>20</LedUnitHeight>
+  <Leds>
+    <Led Id="Mainboard1">
+      <X>230</X>
+      <Y>20</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Mainboard2">
+      <X>=</X>
+      <Y>+1</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Mainboard3">
+      <X>=</X>
+      <Y>+1</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Mainboard4">
+      <X>=</X>
+      <Y>+1</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Mainboard5">
+      <X>=</X>
+      <Y>+1</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Mainboard6">
+      <X>=</X>
+      <Y>+1</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>MSI_MagTomahawn_X570.png</DeviceImage>
+  </CustomData>
+</Device>
