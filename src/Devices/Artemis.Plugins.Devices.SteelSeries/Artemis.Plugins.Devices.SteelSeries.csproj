@@ -1,34 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\Artemis.Plugins.props" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\Artemis.Plugins.props" />
   
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="HidSharp" Version="2.1.0" />    
-    <PackageReference Include="Serilog" Version="3.1.1" />
-    <PackageReference Include="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
-    
-    <!--All packages Artemis already references are compile-only dependencies-->
-    <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
-  </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="RGB.NET.HID" Version="$(RGBDotNetVersion)" />
-    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="$(RGBDotNetVersion)" />
+    <PackageReference Include="RGB.NET.HID" Version="2.0.4-prerelease.16" />
+    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="2.0.4-prerelease.16" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net8.0\Artemis.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
+  
   <ItemGroup>
     <Content Include="Layouts\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
