@@ -11,9 +11,9 @@
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
-        <PackageReference Include="ReactiveUI" Version="19.5.1" />
+        <PackageReference Include="ReactiveUI" Version="19.5.39" />
         <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
-        <PackageReference Include="Serilog" Version="3.0.1" />
+        <PackageReference Include="Serilog" Version="3.1.1" />
         <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
 
         <!--All packages Artemis already references are compile-only dependencies-->
