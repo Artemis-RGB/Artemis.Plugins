@@ -15,7 +15,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
     <PackageReference Include="FluentAvaloniaUI" Version="$(FluentAvaloniaVersion)" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />    
-    <PackageReference Include="ReactiveUI" Version="19.4.1" />
+    <PackageReference Include="ReactiveUI" Version="19.5.1" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
     <PackageReference Include="Serilog" Version="3.0.1" />
     <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ScreenCapture.NET" Version="2.0.1" />
-    <PackageReference Include="ScreenCapture.NET.DX11" Version="2.0.0" />
-    <PackageReference Include="ScreenCapture.NET.X11" Version="2.0.0" />
+    <PackageReference Include="ScreenCapture.NET" Version="2.0.2" />
+    <PackageReference Include="ScreenCapture.NET.DX11" Version="2.0.2" />
+    <PackageReference Include="ScreenCapture.NET.X11" Version="2.0.2" />
     <PackageReference Include="Microsoft.Win32.SystemEvents" Version="7.0.0" />
   </ItemGroup>
 
