@@ -903,7 +903,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -912,7 +912,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -921,7 +921,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -930,7 +930,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -939,7 +939,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -948,7 +948,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -957,7 +957,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -966,7 +966,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -976,7 +976,7 @@
       <Height>1</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -985,7 +985,7 @@
       <Height>1</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -995,7 +995,7 @@
       <Height>1</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1004,7 +1004,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1013,7 +1013,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1022,7 +1022,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1031,7 +1031,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1040,7 +1040,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1049,7 +1049,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1058,7 +1058,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
@@ -1067,7 +1067,7 @@
       <Height>4mm</Height>
       <CustomData>
         <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Strafe_Keys/Empty.png" />
+          <LogicalLayout Name="NA" />
         </LogicalLayouts>
       </CustomData>
     </Led>
