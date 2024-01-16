@@ -75,7 +75,7 @@ namespace Artemis.Plugins.Devices.Debug
             RgbDeviceProvider.ClearFakeDeviceDefinitions();
             foreach (DeviceDefinition definition in definitions.Value)
             {
-                ArtemisLayout layout = new(definition.Layout, LayoutSource.Plugin);
+                ArtemisLayout layout = new(definition.Layout);
                 _deviceLayouts.Add(layout);
                 RgbDeviceProvider.AddFakeDeviceDefinition(layout.RgbLayout);
             }
