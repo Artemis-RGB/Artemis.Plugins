@@ -1,0 +1,51 @@
+<windowing:AppWindow xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                     xmlns:windowing="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
+                     xmlns:dialogs="clr-namespace:Artemis.Plugins.Devices.Wled.ViewModels.Dialogs"
+                     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                     x:Class="Artemis.Plugins.Devices.Wled.Views.Dialogs.DeviceConfigurationDialogView"
+                     x:DataType="dialogs:DeviceConfigurationDialogViewModel"
+                     Title="WLED Device Settings | Artemis"
+                     WindowStartupLocation="CenterOwner"
+                     Width="700"
+                     Height="750">
+  <windowing:AppWindow.Styles>
+    <Style Selector="Label">
+      <Setter Property="Margin" Value="0 5 0 0" />
+    </Style>
+  </windowing:AppWindow.Styles>
+
+  <Grid Margin="15" RowDefinitions="*,Auto">
+    <Border Classes="card" Margin="0 0 8 0" Grid.Row="0"  VerticalAlignment="Top">
+      <StackPanel>
+        <Label>IP/Hostname*</Label>
+        <TextBox Text="{CompiledBinding Hostname}" />
+
+        <Label>Model</Label>
+        <TextBox Text="{CompiledBinding Model}" />
+
+        <Label>Manufacturer</Label>
+        <TextBox Text="{CompiledBinding Manufacturer}" />
+      </StackPanel>
+    </Border>
+
+    <DockPanel Grid.Row="1">
+      <Button DockPanel.Dock="Left" Command="{CompiledBinding RemoveDevice}">
+        Remove device
+      </Button>
+
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Right" Margin="0 15 0 0">
+        <Button Classes="accent" Command="{CompiledBinding Save}">
+          Save changes
+        </Button>
+        <Button Command="{CompiledBinding Cancel}">
+          Cancel
+        </Button>
+      </StackPanel>
+    </DockPanel>
+  </Grid>
+</windowing:AppWindow>

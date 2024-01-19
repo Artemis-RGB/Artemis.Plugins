@@ -83,12 +83,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Modules.Per
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Modules.DefaultProfile", "Modules\Artemis.Plugins.Modules.DefaultProfile\Artemis.Plugins.Modules.DefaultProfile.csproj", "{BFA0D759-EF8B-4B4B-8879-CB0DEB27A193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.Modules.Profiles", "Modules\Artemis.Plugins.Modules.Profiles\Artemis.Plugins.Modules.Profiles.csproj", "{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Modules.Profiles", "Modules\Artemis.Plugins.Modules.Profiles\Artemis.Plugins.Modules.Profiles.csproj", "{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{591844D9-3F22-4D4A-9687-54B05E9C3E2D}"
 	ProjectSection(SolutionItems) = preProject
 		Artemis.Plugins.props = Artemis.Plugins.props
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Plugins.Devices.Wled", "Devices\Artemis.Plugins.Devices.Wled\Artemis.Plugins.Devices.Wled.csproj", "{14DA40F9-4757-4DB7-9657-1811CFDAA23C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -232,6 +234,10 @@ Global
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}.Debug|x64.Build.0 = Debug|Any CPU
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}.Release|x64.ActiveCfg = Release|Any CPU
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0}.Release|x64.Build.0 = Release|Any CPU
+		{14DA40F9-4757-4DB7-9657-1811CFDAA23C}.Debug|x64.ActiveCfg = Debug|x64
+		{14DA40F9-4757-4DB7-9657-1811CFDAA23C}.Debug|x64.Build.0 = Debug|x64
+		{14DA40F9-4757-4DB7-9657-1811CFDAA23C}.Release|x64.ActiveCfg = Release|x64
+		{14DA40F9-4757-4DB7-9657-1811CFDAA23C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -271,6 +277,7 @@ Global
 		{A658B81A-67B6-4C3F-8719-4343B751CF0A} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{BFA0D759-EF8B-4B4B-8879-CB0DEB27A193} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
+		{14DA40F9-4757-4DB7-9657-1811CFDAA23C} = {4CB7B38C-1B36-4213-BE70-B7BF3B9E839A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}

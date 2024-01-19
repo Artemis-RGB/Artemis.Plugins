@@ -1,0 +1,123 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:Artemis.Plugins.Devices.Wled.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Devices.Wled.Views.WledConfigurationView"
+             x:DataType="viewModels:WledConfigurationViewModel">
+  <Grid RowDefinitions="Auto,Auto,300,Auto,Auto,*">
+    <Grid Grid.Row="0" Classes="plugin-introduction" ColumnDefinitions="*,Auto">
+      <TextBlock Grid.Column="0" TextWrapping="Wrap">
+        This plugin supports connecting to E1.31-enabled devices.
+        <LineBreak />
+        To get started add one or more devices by its hostname.
+      </TextBlock>
+      <controls:HyperlinkButton Grid.Column="1" NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/wled" VerticalAlignment="Top">
+        Learn more
+      </controls:HyperlinkButton>
+    </Grid>
+
+    <TextBlock Grid.Row="1" Classes="card-title">Devices</TextBlock>
+    <Border Grid.Row="2" Classes="card" Margin="0 0 0 10" ClipToBounds="True">
+      <DataGrid ItemsSource="{CompiledBinding DeviceDefinitions}"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                SelectionMode="Single"
+                IsReadOnly="True"
+                HeadersVisibility="Column"
+                MaxHeight="300">
+        <DataGrid.Columns>
+          <DataGridTextColumn Width="*"
+                              Binding="{Binding Hostname}"
+                              Header="Hostname"
+                              IsReadOnly="True" />
+          <DataGridTextColumn Width="*"
+                              Binding="{Binding Manufacturer, FallbackValue='-'}"
+                              Header="Manufacturer"
+                              IsReadOnly="True" />
+          <DataGridTextColumn Width="*"
+                              Binding="{Binding Model, FallbackValue='-'}"
+                              Header="Model"
+                              IsReadOnly="True" />
+
+          <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <Button Command="{Binding $parent[UserControl].DataContext.EditDevice}"
+                        CommandParameter="{Binding}"
+                        Classes="icon-button"
+                        ToolTip.Tip="Edit device"
+                        HorizontalAlignment="Center">
+                  <avalonia:MaterialIcon Kind="Edit" />
+                </Button>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </Border>
+
+    <Border Grid.Row="4" Classes="card">
+      <StackPanel Orientation="Vertical">
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+          <StackPanel Grid.Column="0">
+            <TextBlock>
+              Auto Discovery
+            </TextBlock>
+            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+              Searches on startup for available devices and adds them automatically
+            </TextBlock>
+          </StackPanel>
+          <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+            <ToggleSwitch IsChecked="{CompiledBinding EnableAutoDiscovery.Value}" MinWidth="0" />
+          </StackPanel>
+        </Grid>
+
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto" Margin="0,0,0,8" IsEnabled="{Binding EnableAutoDiscovery.Value}">
+          <StackPanel Grid.Column="0">
+            <TextBlock>
+                Discovery Time
+            </TextBlock>
+            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                The time in milliseconds the discovery will wait for responses
+            </TextBlock>
+          </StackPanel>
+          <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+              <controls:NumberBox Value="{CompiledBinding AutoDiscoveryTime.Value}" HorizontalAlignment="Stretch" Minimum="1" Maximum="65536" />
+          </StackPanel>
+        </Grid>
+
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto" IsEnabled="{Binding EnableAutoDiscovery.Value}">
+          <StackPanel Grid.Column="0">
+            <TextBlock>
+                Max Devices
+            </TextBlock>
+            <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                The discovery will exit early if this number of devices is found (0 = unlimited)
+            </TextBlock>
+          </StackPanel>
+          <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+              <controls:NumberBox Value="{CompiledBinding AutoDiscoveryMaxDevices.Value}" HorizontalAlignment="Stretch" Minimum="0" Maximum="65536" />
+          </StackPanel>
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <Grid Grid.Row="5" ColumnDefinitions="*,Auto" VerticalAlignment="Bottom">
+      <Button Command="{CompiledBinding AddDevice}">
+        Add device
+      </Button>
+      <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+        <Button Classes="accent" Command="{CompiledBinding Save}">
+          Save changes
+        </Button>
+        <Button Command="{CompiledBinding Cancel}">
+          Cancel
+        </Button>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</UserControl>
