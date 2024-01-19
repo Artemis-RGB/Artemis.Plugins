@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Windows": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Artemis\\Artemis.UI.Windows.exe"
+    },
+    "Windows Dev": {
+      "commandName": "Executable",
+      "executablePath": "$(SolutionDir)\\..\\..\\Artemis\\src\\Artemis.UI.Windows\\bin\\Artemis.UI.Windows.exe"
+    }
+  }
+}
