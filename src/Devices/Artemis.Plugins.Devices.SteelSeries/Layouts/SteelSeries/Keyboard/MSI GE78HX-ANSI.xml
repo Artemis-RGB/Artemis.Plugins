@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>MSI GE78HX</Name>
+  <Description>MSI Raider GE78HX laptop layout</Description>
+  <Author>Myp3a</Author>
+  <Type>Keyboard</Type>
+  <Vendor>SteelSeries</Vendor>
+  <Model>MSI GE78HX</Model>
+  <Width>320</Width>
+  <Height>105</Height>
+  <LedUnitWidth>18.6</LedUnitWidth>
+  <LedUnitHeight>18.6</LedUnitHeight>
+  <Leds>
+    <Led Id="Keyboard_Escape">
+      <X>2</X>
+      <Y>2</Y>
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F2">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F3">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F4">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F5">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F6">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F7">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F8">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F9">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F10">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F11">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_F12">
+      <Width>0.91</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_PrintScreen">
+      <Width>0.92</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_Insert">
+      <Width>0.92</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_Delete">
+      <Width>0.92</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_NumAsterisk">
+      <Width>0.82</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_NumSlash">
+      <Width>0.82</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Logo">
+      <Width>0.82</Width>
+      <Height>0.6</Height>
+    </Led>
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>2</X>
+      <Y>+</Y>
+      <Width>0.75</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_1">
+      <Width>1</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_2">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_3">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_4">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_5">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_6">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_7">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_8">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_9">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_0">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_MinusAndUnderscore">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_EqualsAndPlus">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_Backspace">
+      <Width>1.84</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_NumPlus">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_NumMinus">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_NumLock">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Tab">
+      <X>2</X>
+      <Y>+2</Y>
+      <Width>1.25</Width>
+    </Led>
+    <Led Id="Keyboard_Q">
+    </Led>
+    <Led Id="Keyboard_W">
+    </Led>
+    <Led Id="Keyboard_E">
+    </Led>
+    <Led Id="Keyboard_R">
+    </Led>
+    <Led Id="Keyboard_T">
+    </Led>
+    <Led Id="Keyboard_Y">
+    </Led>
+    <Led Id="Keyboard_U">
+    </Led>
+    <Led Id="Keyboard_I">
+    </Led>
+    <Led Id="Keyboard_O">
+    </Led>
+    <Led Id="Keyboard_P">
+    </Led>
+    <Led Id="Keyboard_BracketLeft">
+    </Led>
+    <Led Id="Keyboard_BracketRight">
+    </Led>
+    <Led Id="Keyboard_Backslash">
+      <Width>1.34</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Keyboard_Num7">
+      <Y>+-21</Y>
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Num8">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Num9">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X>2</X>
+      <Y>+5.5</Y>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_A">
+    </Led>
+    <Led Id="Keyboard_S">
+    </Led>
+    <Led Id="Keyboard_D">
+    </Led>
+    <Led Id="Keyboard_F">
+    </Led>
+    <Led Id="Keyboard_G">
+    </Led>
+    <Led Id="Keyboard_H">
+    </Led>
+    <Led Id="Keyboard_J">
+    </Led>
+    <Led Id="Keyboard_K">
+    </Led>
+    <Led Id="Keyboard_L">
+    </Led>
+    <Led Id="Keyboard_SemicolonAndColon">
+    </Led>
+    <Led Id="Keyboard_ApostropheAndDoubleQuote">
+    </Led>
+    <Led Id="Keyboard_Enter">
+      <Width>2.09</Width>
+    </Led>
+    <Led Id="Keyboard_Num4">
+      <Y>+-24</Y>
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Num5">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Num6">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_LeftShift">
+      <X>2</X>
+      <Y>+8</Y>
+      <Width>2</Width>
+    </Led>
+    <Led Id="Keyboard_Z">
+    </Led>
+    <Led Id="Keyboard_X">
+    </Led>
+    <Led Id="Keyboard_C">
+    </Led>
+    <Led Id="Keyboard_V">
+    </Led>
+    <Led Id="Keyboard_B">
+    </Led>
+    <Led Id="Keyboard_N">
+    </Led>
+    <Led Id="Keyboard_M">
+    </Led>
+    <Led Id="Keyboard_CommaAndLessThan">
+    </Led>
+    <Led Id="Keyboard_PeriodAndBiggerThan">
+    </Led>
+    <Led Id="Keyboard_SlashAndQuestionMark">
+    </Led>
+    <Led Id="Keyboard_RightShift">
+      <Width>1.59</Width>
+    </Led>
+    <Led Id="Keyboard_ArrowUp">
+      <X>+0.86</X>
+      <Y>+-14</Y>
+      <Width>0.85</Width>
+      <Height>0.85</Height>
+    </Led>
+    <Led Id="Keyboard_Num1">
+      <X>+2</X>
+      <Y>--2</Y>
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Num2">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_Num3">
+      <Width>0.82</Width>
+      <Height>0.82</Height>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>2</X>
+      <Y>+12</Y>
+      <Width>2</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_LeftGui">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_LeftAlt">
+      <Width>1</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <Width>5.05</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_RightAlt">
+      <Width>1</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_NonUsBackslash">
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_RightCtrl">
+      <Width>0.87</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_Function">
+      <Width>0.87</Width>
+      <Height>0.95</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <Y>+-15.8</Y>
+      <Width>0.85</Width>
+      <Height>0.85</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowDown">
+      <Width>0.85</Width>
+      <Height>0.85</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowRight">
+      <Width>0.85</Width>
+      <Height>0.85</Height>
+    </Led>
+    <Led Id="Keyboard_Num0">
+      <X>+-14</X>
+      <Y>-0</Y>
+      <Width>1.64</Width>
+      <Height>0.80</Height>
+    </Led>
+    <Led Id="Keyboard_NumPeriodAndDelete">
+      <Width>0.82</Width>
+      <Height>0.80</Height>
+    </Led>
+    <Led Id="Keyboard_NumEnter">
+      <X>+-32</X>
+      <Y>+0</Y>
+      <Width>1.72</Width>
+      <Height>0.85</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>MSI GE78HX-ANSI.png</DeviceImage>
+  </CustomData>
+</Device>
