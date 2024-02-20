@@ -16,10 +16,10 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
     {
         private readonly Plugin _plugin;
         private readonly Profile _profile;
-        private readonly List<FunctionInstance> _renderedCallbacks = new();
-        private readonly List<FunctionInstance> _renderingCallbacks = new();
-        private readonly List<FunctionInstance> _updatedCallbacks = new();
-        private readonly List<FunctionInstance> _updatingCallbacks = new();
+        private readonly List<Function> _renderedCallbacks = new();
+        private readonly List<Function> _renderingCallbacks = new();
+        private readonly List<Function> _updatedCallbacks = new();
+        private readonly List<Function> _updatingCallbacks = new();
         private Engine? _engine;
 
         public ProfileBinding(Profile profile, Plugin plugin)
@@ -30,7 +30,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
 
         internal void ProfileUpdating(double deltaTime)
         {
-            foreach (FunctionInstance callback in _updatingCallbacks.ToList())
+            foreach (Function callback in _updatingCallbacks.ToList())
             {
                 try
                 {
@@ -45,7 +45,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
 
         internal void ProfileUpdated(double deltaTime)
         {
-            foreach (FunctionInstance callback in _updatedCallbacks.ToList())
+            foreach (Function callback in _updatedCallbacks.ToList())
             {
                 try
                 {
@@ -68,7 +68,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
                 JsValue.FromObject(_engine, canvas),
                 JsValue.FromObject(_engine, bounds)
             };
-            foreach (FunctionInstance callback in _renderingCallbacks.ToList())
+            foreach (Function callback in _renderingCallbacks.ToList())
             {
                 try
                 {
@@ -91,7 +91,7 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
                 JsValue.FromObject(_engine, canvas),
                 JsValue.FromObject(_engine, bounds)
             };
-            foreach (FunctionInstance callback in _renderedCallbacks.ToList())
+            foreach (Function callback in _renderedCallbacks.ToList())
             {
                 try
                 {
@@ -119,36 +119,44 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ContextBindings
 
         #region JS functions
 
-        public Action OnUpdating(JsValue callback)
+        public Action? OnUpdating(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _updatingCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _updatingCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _updatingCallbacks.Add(function);
+            return () => _updatingCallbacks.Remove(function);
         }
 
-        public Action OnUpdated(JsValue callback)
+        public Action? OnUpdated(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _updatedCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _updatedCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _updatedCallbacks.Add(function);
+            return () => _updatedCallbacks.Remove(function);
         }
 
-        public Action OnRendering(JsValue callback)
+        public Action? OnRendering(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _renderingCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _renderingCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _renderingCallbacks.Add(function);
+            return () => _renderingCallbacks.Remove(function);
         }
 
-        public Action OnRendered(JsValue callback)
+        public Action? OnRendered(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _renderedCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _renderedCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _renderedCallbacks.Add(function);
+            return () => _renderedCallbacks.Remove(function);
         }
 
         public Profile GetProfile()

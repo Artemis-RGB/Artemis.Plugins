@@ -2,7 +2,7 @@
   <Import Project="..\..\Artemis.Plugins.props" />
   
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
@@ -12,7 +12,7 @@
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
     <PackageReference Include="FluentAvaloniaUI" Version="$(FluentAvaloniaVersion)" />
-    <PackageReference Include="ReactiveUI" Version="19.5.39" />
+    <PackageReference Include="ReactiveUI" Version="19.5.41" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
@@ -30,11 +30,11 @@
 
   <ItemGroup>
     <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net7.0\Artemis.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net8.0\Artemis.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Artemis.UI.Shared">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.UI.Shared\bin\net7.0\Artemis.UI.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\Artemis\src\Artemis.UI.Shared\bin\net8.0\Artemis.UI.Shared.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

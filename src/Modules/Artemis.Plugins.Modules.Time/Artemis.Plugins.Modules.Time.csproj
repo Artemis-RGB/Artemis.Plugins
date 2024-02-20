@@ -2,7 +2,7 @@
     <Import Project="..\..\Artemis.Plugins.props" />
     
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Platforms>x64</Platforms>
         <EnableDynamicLoading>true</EnableDynamicLoading>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
@@ -15,12 +15,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="7.0.0" />
+        <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="Artemis.Core">
-            <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net7.0\Artemis.Core.dll</HintPath>
+            <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net8.0\Artemis.Core.dll</HintPath>
             <Private>false</Private>
         </Reference>
     </ItemGroup>

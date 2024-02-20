@@ -16,10 +16,10 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
     public class InputBinding : IServiceBinding
     {
         private readonly IInputService _inputService;
-        private readonly List<FunctionInstance> _keyDownCallbacks = new();
-        private readonly List<FunctionInstance> _keyUpCallbacks = new();
-        private readonly List<FunctionInstance> _mouseDownCallbacks = new();
-        private readonly List<FunctionInstance> _mouseUpCallbacks = new();
+        private readonly List<Function> _keyDownCallbacks = new();
+        private readonly List<Function> _keyUpCallbacks = new();
+        private readonly List<Function> _mouseDownCallbacks = new();
+        private readonly List<Function> _mouseUpCallbacks = new();
         private readonly Plugin _plugin;
 
         public InputBinding(Plugin plugin, IInputService inputService)
@@ -40,36 +40,44 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
             return _inputService.IsButtonDown(button);
         }
 
-        public Action OnKeyDown(JsValue callback)
+        public Action? OnKeyDown(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _keyDownCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _keyDownCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _keyDownCallbacks.Add(function);
+            return () => _keyDownCallbacks.Remove(function);
         }
 
-        public Action OnKeyUp(JsValue callback)
+        public Action? OnKeyUp(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _keyUpCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _keyUpCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _keyUpCallbacks.Add(function);
+            return () => _keyUpCallbacks.Remove(function);
         }
 
-        public Action OnMouseDown(JsValue callback)
+        public Action? OnMouseDown(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _mouseDownCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _mouseDownCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _mouseDownCallbacks.Add(function);
+            return () => _mouseDownCallbacks.Remove(function);
         }
 
-        public Action OnMouseUp(JsValue callback)
+        public Action? OnMouseUp(JsValue callback)
         {
-            FunctionInstance functionInstance = callback.As<FunctionInstance>();
-            _mouseUpCallbacks.Add(callback.As<FunctionInstance>());
-
-            return () => _mouseUpCallbacks.Remove(functionInstance);
+            Function? function = callback.As<Function>();
+            if (function == null)
+                return null;
+            
+            _mouseUpCallbacks.Add(function);
+            return () => _mouseUpCallbacks.Remove(function);
         }
 
         private void DeclareEnums(Engine engine, Type type, string name)
@@ -91,8 +99,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
 
         private void InputServiceOnKeyboardKeyUpDown(object? sender, ArtemisKeyboardKeyUpDownEventArgs e)
         {
-            List<FunctionInstance> callbacks = e.IsDown ? _keyDownCallbacks : _keyUpCallbacks;
-            foreach (FunctionInstance callback in callbacks.ToList())
+            List<Function> callbacks = e.IsDown ? _keyDownCallbacks : _keyUpCallbacks;
+            foreach (Function callback in callbacks.ToList())
             {
                 try
                 {
@@ -107,8 +115,8 @@ namespace Artemis.Plugins.ScriptingProviders.JavaScript.Bindings.ServiceBindings
 
         private void InputServiceOnMouseButtonUpDown(object? sender, ArtemisMouseButtonUpDownEventArgs e)
         {
-            List<FunctionInstance> callbacks = e.IsDown ? _mouseDownCallbacks : _mouseUpCallbacks;
-            foreach (FunctionInstance callback in callbacks.ToList())
+            List<Function> callbacks = e.IsDown ? _mouseDownCallbacks : _mouseUpCallbacks;
+            foreach (Function callback in callbacks.ToList())
             {
                 try
                 {
