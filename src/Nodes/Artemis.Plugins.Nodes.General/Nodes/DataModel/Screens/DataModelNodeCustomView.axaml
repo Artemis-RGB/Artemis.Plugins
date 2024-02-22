@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dataModelPicker="clr-namespace:Artemis.UI.Shared.DataModelPicker;assembly=Artemis.UI.Shared"
+             xmlns:screens1="clr-namespace:Artemis.Plugins.Nodes.General.Nodes.DataModel.Screens"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Nodes.General.Nodes.DataModel.Screens.DataModelNodeCustomView"
+             x:DataType="screens1:DataModelNodeCustomViewModel">
+    <dataModelPicker:DataModelPickerButton Classes="condensed"
+                                           DataModelPath="{CompiledBinding DataModelPath}"
+                                           Modules="{CompiledBinding Modules}"
+                                           ShowDataModelValues="{CompiledBinding ShowDataModelValues.Value}"
+                                           ShowFullPath="{CompiledBinding ShowFullPaths.Value}"
+                                           FilterTypes="{CompiledBinding NodePinTypes}"
+                                           MaxWidth="300"/>
+</UserControl>
