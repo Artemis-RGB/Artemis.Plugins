@@ -4,7 +4,7 @@
     </PropertyGroup>
     
     <ItemGroup Condition="$(UseArtemisNugetPackages)">
-        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2023.1017.2" />
+        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2024.219.2" />
     </ItemGroup>
     
     <ItemGroup Condition="!$(UseArtemisNugetPackages)">
