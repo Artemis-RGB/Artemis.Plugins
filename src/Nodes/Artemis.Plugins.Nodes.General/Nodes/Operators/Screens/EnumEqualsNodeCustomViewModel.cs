@@ -49,7 +49,7 @@ public class EnumEqualsNodeCustomViewModel : CustomNodeViewModel
         get => EnumValues.FirstOrDefault(v => v.Value == _node.Storage);
         set
         {
-            if (!Equals(_node.Storage, value.Value))
+            if (!Equals(_node.Storage, value?.Value) && value != null)
                 _nodeEditorService.ExecuteCommand(Script, new UpdateStorage<long>(_node, value.Value));
         }
     }
