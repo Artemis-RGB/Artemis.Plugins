@@ -12,10 +12,5 @@ namespace Artemis.Plugins.Devices.Debug.Views
         {
             InitializeComponent();
         }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
     }
 }
