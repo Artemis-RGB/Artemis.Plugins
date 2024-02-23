@@ -45,6 +45,10 @@
             <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net8.0\Artemis.Core.dll</HintPath>
             <Private>false</Private>
         </Reference>
+        <Reference Include="Artemis.Storage">
+            <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net8.0\Artemis.Storage.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
         <Reference Include="Artemis.UI.Shared">
             <HintPath>..\..\..\..\Artemis\src\Artemis.UI.Shared\bin\net8.0\Artemis.UI.Shared.dll</HintPath>
             <Private>false</Private>

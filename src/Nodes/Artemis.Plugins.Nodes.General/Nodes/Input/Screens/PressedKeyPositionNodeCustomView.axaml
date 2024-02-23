@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:core="clr-namespace:Artemis.Core;assembly=Artemis.Core"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:shared="clr-namespace:Artemis.UI.Shared;assembly=Artemis.UI.Shared"
+             xmlns:screens1="clr-namespace:Artemis.Plugins.Nodes.General.Nodes.Input.Screens"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.Nodes.General.Nodes.Input.Screens.PressedKeyPositionNodeCustomView"
+             x:DataType="screens1:PressedKeyPositionNodeCustomViewModel">
+    <StackPanel>
+        <TextBlock FontSize="13" Margin="0 -2 0 5">Layer</TextBlock>
+        <ComboBox Classes="condensed" ItemsSource="{CompiledBinding Layers}" SelectedItem="{CompiledBinding SelectedLayer}" PlaceholderText="Select a layer">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="core:Layer">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <avalonia:MaterialIcon Kind="{CompiledBinding LayerBrush.Descriptor.Icon, FallbackValue=QuestionMark}" VerticalAlignment="Center" />
+                        <TextBlock Text="{CompiledBinding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
+        <TextBlock FontSize="13" Margin="0 5">Respond to</TextBlock>
+        <shared:EnumComboBox Classes="condensed" Value="{CompiledBinding RespondTo}"/>
+    </StackPanel>
+    
+</UserControl>
