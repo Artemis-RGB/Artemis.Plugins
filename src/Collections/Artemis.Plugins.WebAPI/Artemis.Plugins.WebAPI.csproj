@@ -1,29 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\Artemis.Plugins.props" />
+  <Import Project="$(SolutionDir)\Artemis.Plugins.props" />
   
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="EmbedIO" Version="3.5.2" />
-    <PackageReference Include="Unosquare.Swan.Lite" Version="3.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
-
-    <!--All packages Artemis already references are compile-only dependencies-->
-    <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net7.0\Artemis.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" />

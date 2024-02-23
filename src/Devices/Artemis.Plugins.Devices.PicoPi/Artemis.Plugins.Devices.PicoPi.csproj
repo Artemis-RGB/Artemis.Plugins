@@ -1,27 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\Artemis.Plugins.props" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\Artemis.Plugins.props" />
   
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="HidSharp" Version="2.1.0" />
-    <PackageReference Include="Serilog" />
-    <PackageReference Include="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
-    
-    <!--All packages Artemis already references are compile-only dependencies-->
-    <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
-    <PackageReference Update="RGB.NET.Core" Version="$(RGBDotNetVersion)" />
-    <PackageReference Update="Serilog" Version="3.1.1" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="LibUsbDotNet" Version="3.0.87-alpha" />
-    <PackageReference Include="RGB.NET.Devices.PicoPi" Version="$(RGBDotNetVersion)" />
+    <PackageReference Include="RGB.NET.Devices.PicoPi" Version="2.0.4-prerelease.16" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,11 +18,5 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Artemis.Core">
-      <HintPath>..\..\..\..\Artemis\src\Artemis.Core\bin\net7.0\Artemis.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

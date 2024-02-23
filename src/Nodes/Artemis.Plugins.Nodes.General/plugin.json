@@ -1,0 +1,12 @@
+﻿{
+  "Guid": "d9e1ee78-f004-4291-aa8b-0690bd8581b5",
+  "Api": "1.0",
+  "Name": "General Scripting Nodes",
+  "Author": "Robert",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "FileTree",
+  "Description": "Provides the general scripting nodes used when creating visual scripts",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Nodes.General.dll"
+}

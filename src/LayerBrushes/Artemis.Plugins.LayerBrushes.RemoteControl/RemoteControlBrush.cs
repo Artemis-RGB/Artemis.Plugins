@@ -72,7 +72,7 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl
         {
             Dictionary<ArtemisLed, RemoteControlColorModel> ledColors = new();
 
-            foreach (IGrouping<LedId, ArtemisLed> artemisLeds in Layer.Leds.OrderBy(l => l.RgbLed.Id).GroupBy(l => l.RgbLed.Id))
+            foreach (IGrouping<LedId, ArtemisLed> artemisLeds in Layer.Leds.Distinct().OrderBy(l => l.RgbLed.Id).GroupBy(l => l.RgbLed.Id))
                 if (artemisLeds.Count() == 1)
                 {
                     string ledId = artemisLeds.Key.ToString();
