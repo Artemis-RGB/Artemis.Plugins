@@ -14,11 +14,12 @@ public sealed class WootingAnalogService : ReusableService
     private readonly ILogger _logger;
     private List<WootingAnalogDevice> _devices;
     private DateTime _lastUpdate;
-    public IEnumerable<WootingAnalogDevice> Devices => IsActivated ? _devices : Enumerable.Empty<WootingAnalogDevice>();
+    public IEnumerable<WootingAnalogDevice> Devices => _devices;
 
     public WootingAnalogService(ILogger logger)
     {
         _logger = logger;
+        _devices = [];
     }
 
     public void Update()
@@ -76,6 +77,14 @@ public sealed class WootingAnalogService : ReusableService
     {
         (_, WootingAnalogResult initResult) = WootingAnalogSDK.Initialise();
 
+        if (initResult == WootingAnalogResult.DLLNotFound)
+        {
+            //expected when the user doesn't have the SDK installed.
+            //probably just log warning and fail gracefully.
+            _logger.Warning("Wooting Analog SDK not found. To use analog features, please install it.");
+            return;            
+        }
+
         if (initResult < 0)
             throw new ArtemisPluginException($"Failed to initialise WootingAnalog SDK: {initResult}");
 
@@ -83,7 +92,6 @@ public sealed class WootingAnalogService : ReusableService
         if (deviceInfoResult < 0)//any value 0 and above means success.
             throw new ArtemisPluginException($"Failed to Get device info from WootingAnalog SDK: {deviceInfoResult}");
 
-        _devices = new(infos.Count);
         foreach (DeviceInfo t in infos)
             _devices.Add(new WootingAnalogDevice(t));
 

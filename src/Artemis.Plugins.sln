@@ -87,7 +87,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.Modules.Pro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{591844D9-3F22-4D4A-9687-54B05E9C3E2D}"
 	ProjectSection(SolutionItems) = preProject
-		Artemis.Plugins.props = Artemis.Plugins.props
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nodes", "Nodes", "{7AE6F335-202C-45DD-8FE3-1BE3E0EF7F6F}"
