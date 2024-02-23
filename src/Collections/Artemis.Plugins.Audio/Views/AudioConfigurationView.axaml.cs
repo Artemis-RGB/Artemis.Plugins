@@ -10,10 +10,5 @@ namespace Artemis.Plugins.Audio.Views
         {
             InitializeComponent();
         }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
     }
 }
