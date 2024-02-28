@@ -39,7 +39,6 @@ public class TestModule : Module<PluginDataModel>
         });
     }
 
-
     public override void Disable()
     {
     }
