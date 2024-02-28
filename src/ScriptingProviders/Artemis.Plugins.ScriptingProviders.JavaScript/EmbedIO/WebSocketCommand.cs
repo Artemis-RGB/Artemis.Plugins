@@ -1,4 +1,5 @@
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.EmbedIO;
 
@@ -18,7 +19,7 @@ public class WebSocketCommand
 
     public string Serialize()
     {
-        return JsonConvert.SerializeObject(this);
+        return JsonSerializer.Serialize(this);
     }
 
     public string Command { get; }

@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Generators;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Scripts;
 using Artemis.Plugins.ScriptingProviders.JavaScript.Services;
 using EmbedIO.WebSockets;
-using Newtonsoft.Json;
 
 namespace Artemis.Plugins.ScriptingProviders.JavaScript.EmbedIO;
 
@@ -25,8 +25,9 @@ public class WebSocketsEditorServer : WebSocketModule
         string content = Encoding.GetString(buffer);
         try
         {
-            WebSocketCommand command = JsonConvert.DeserializeObject<WebSocketCommand>(content);
-            OnWebSocketCommandReceived(new WebSocketCommandEventArgs(command));
+            WebSocketCommand? command = JsonSerializer.Deserialize<WebSocketCommand>(content);
+            if (command != null)
+                OnWebSocketCommandReceived(new WebSocketCommandEventArgs(command));
         }
         catch (Exception)
         {

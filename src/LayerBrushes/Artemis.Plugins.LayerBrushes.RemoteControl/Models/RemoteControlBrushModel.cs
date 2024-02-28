@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Artemis.Core;
-using Newtonsoft.Json;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.RemoteControl.Models
@@ -24,7 +24,6 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl.Models
         public Guid LayerId { get; set; }
         public string LayerName { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<RemoteControlColorModel> LedColors { get; set; }
     }
 
