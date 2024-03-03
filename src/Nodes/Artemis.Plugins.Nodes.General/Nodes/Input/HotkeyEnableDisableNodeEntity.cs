@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Artemis.Core;
 using Artemis.Storage.Entities.Profile;
 
@@ -11,6 +12,11 @@ public class HotkeyEnableDisableNodeEntity
         EnableHotkey = enableHotkey?.Entity;
         disableHotkey?.Save();
         DisableHotkey = disableHotkey?.Entity;
+    }
+
+    [JsonConstructor]
+    public HotkeyEnableDisableNodeEntity()
+    {
     }
 
     public ProfileConfigurationHotkeyEntity? EnableHotkey { get; set; }
