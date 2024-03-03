@@ -58,7 +58,7 @@ public class DataModelEventNode : Node<DataModelPathEntity, DataModelEventNodeCu
         {
             if (_newValuePin.IsNumeric)
                 pathValue = new Numeric(pathValue);
-            
+
             if (Equals(_lastValue, pathValue))
             {
                 TimeSinceLastTrigger.Value = (DateTime.Now - _lastTrigger).TotalMilliseconds;
@@ -76,6 +76,11 @@ public class DataModelEventNode : Node<DataModelPathEntity, DataModelEventNodeCu
             TimeSinceLastTrigger.Value = 0;
             TriggerCount.Value = _valueChangeCount;
         }
+    }
+
+    public override IEnumerable<PluginFeature> GetFeatureDependencies()
+    {
+        return base.GetFeatureDependencies().Concat(_dataModelPath?.GetFeatureDependencies() ?? []);
     }
 
     private void UpdateDataModelPath()

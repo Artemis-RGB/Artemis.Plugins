@@ -56,6 +56,11 @@ public class DataModelEventCycleNode : Node<DataModelPathEntity, DataModelEventC
             Output.Value = Output.Type.GetDefault()!;
     }
 
+    public override IEnumerable<PluginFeature> GetFeatureDependencies()
+    {
+        return base.GetFeatureDependencies().Concat(_dataModelPath?.GetFeatureDependencies() ?? []);
+    }
+
     private bool EvaluateValue(object? pathValue)
     {
         if (Equals(pathValue, _lastPathValue))

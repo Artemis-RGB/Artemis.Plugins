@@ -63,6 +63,11 @@ public class ListOperatorPredicateNode : Node<ListOperatorEntity, ListOperatorPr
         }
     }
 
+    public override IEnumerable<PluginFeature> GetFeatureDependencies()
+    {
+        return [..base.GetFeatureDependencies(), ..Script?.GetFeatureDependencies() ?? []];
+    }
+
     private bool EvaluateItem(object item)
     {
         if (Script == null)

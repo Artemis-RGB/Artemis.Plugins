@@ -45,6 +45,11 @@ public class DataModelNode : Node<DataModelPathEntity, DataModelNodeCustomViewMo
         }
     }
 
+    public override IEnumerable<PluginFeature> GetFeatureDependencies()
+    {
+        return base.GetFeatureDependencies().Concat(_dataModelPath?.GetFeatureDependencies() ?? []);
+    }
+
     public void UpdateOutputPin()
     {
         Type? type = _dataModelPath?.GetPropertyType();
