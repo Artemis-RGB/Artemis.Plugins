@@ -6,6 +6,7 @@ using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
 using RGB.NET.Core;
+using RGB.NET.Devices.SteelSeries;
 using Serilog;
 using Serilog.Events;
 using RGBDeviceProvider = RGB.NET.Devices.SteelSeries.SteelSeriesDeviceProvider;
@@ -24,6 +25,10 @@ namespace Artemis.Plugins.Devices.SteelSeries
         {
             _deviceService = deviceService;
             _logger = logger;
+            
+            RGBDeviceProvider.DeviceDefinitions.Add(
+                0x161A, RGBDeviceType.Keyboard, "Apex 3", LedMappings.KeyboardEightZone, SteelSeriesDeviceType.EightZone
+            );
         }
 
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
