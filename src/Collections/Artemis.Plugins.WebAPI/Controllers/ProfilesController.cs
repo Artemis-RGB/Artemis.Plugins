@@ -28,13 +28,13 @@ namespace Artemis.Plugins.WebAPI.Controllers
         [Route(HttpVerbs.Get, "/profiles")]
         public IEnumerable<ProfileConfigurationModel> GetProfileConfigurations()
         {
-            return _profileService.ProfileConfigurations.Select(c => new ProfileConfigurationModel(c));
+            return _profileService.ProfileCategories.SelectMany(c => c.ProfileConfigurations).Select(c => new ProfileConfigurationModel(c));
         }
 
         [Route(HttpVerbs.Post, "/profiles/suspend/{profileId}")]
         public void GetProfileConfigurations(Guid profileId, [FormField] bool suspend)
         {
-            ProfileConfiguration profileConfiguration = _profileService.ProfileConfigurations.FirstOrDefault(p => p.ProfileId == profileId);
+            ProfileConfiguration profileConfiguration = _profileService.ProfileCategories.SelectMany(c => c.ProfileConfigurations).FirstOrDefault(p => p.ProfileId == profileId);
             if (profileConfiguration == null)
                 throw HttpException.NotFound("Profile configuration not found.");
 
