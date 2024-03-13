@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
@@ -36,7 +37,7 @@ public class DefaultProfileModule : Module
     public override void Enable()
     {
         // Validate if there are profiles
-        if (_profileService.ProfileConfigurations.Count == 0)
+        if (!_profileService.ProfileCategories.SelectMany(c => c.ProfileConfigurations).Any())
         {
             _logger.Information("There are no created profiles. Proceeding to create default profiles");
             foreach (string profileFilePath in _defaultProfileFilepaths)
