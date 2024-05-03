@@ -15,6 +15,7 @@ public class ListOperatorPredicateNodeCustomViewModel : CustomNodeViewModel
     private readonly IWindowService _windowService;
     private ListOperator _operator;
     private bool _canOpenEditor;
+    private bool _editorOpen;
 
     public ListOperatorPredicateNodeCustomViewModel(ListOperatorPredicateNode node, INodeScript script, IWindowService windowService) : base(node, script)
     {
@@ -23,7 +24,7 @@ public class ListOperatorPredicateNodeCustomViewModel : CustomNodeViewModel
 
         OpenEditor = ReactiveCommand.CreateFromTask(ExecuteOpenEditor, this.WhenAnyValue(vm => vm.CanOpenEditor));
         CanOpenEditor = node.InputList.ConnectedTo.Any();
-        
+
         this.WhenActivated(d =>
         {
             node.InputList.PinConnected += InputListOnPinConnected;
@@ -56,11 +57,20 @@ public class ListOperatorPredicateNodeCustomViewModel : CustomNodeViewModel
         if (_node.Script == null)
             return;
 
-        await _windowService.ShowDialogAsync<NodeScriptWindowViewModelBase, bool>(_node.Script);
-        _node.Script.Save();
+        _node.EditorOpen = true;
 
-        _node.Storage ??= new ListOperatorEntity();
-        _node.Storage.Script = _node.Script.Entity;
+        try
+        {
+            await _windowService.ShowDialogAsync<NodeScriptWindowViewModelBase, bool>(_node.Script);
+            _node.Script.Save();
+
+            _node.Storage ??= new ListOperatorEntity();
+            _node.Storage.Script = _node.Script.Entity;
+        }
+        finally
+        {
+            _node.EditorOpen = false;
+        }
     }
 
     private void InputListOnPinDisconnected(object? sender, SingleValueEventArgs<IPin> e)

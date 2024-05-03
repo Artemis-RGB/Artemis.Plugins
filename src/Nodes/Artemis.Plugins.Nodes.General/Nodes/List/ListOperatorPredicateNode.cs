@@ -24,6 +24,7 @@ public class ListOperatorPredicateNode : Node<ListOperatorEntity, ListOperatorPr
     public InputPin<IList> InputList { get; }
     public OutputPin<bool> Output { get; }
     public NodeScript<bool>? Script { get; private set; }
+    public bool EditorOpen { get; set; }
 
     public override void Initialize(INodeScript script)
     {
@@ -40,7 +41,7 @@ public class ListOperatorPredicateNode : Node<ListOperatorEntity, ListOperatorPr
     /// <inheritdoc />
     public override void Evaluate()
     {
-        if (Storage == null)
+        if (Storage == null || EditorOpen)
             return;
 
         if (InputList.Value == null)
