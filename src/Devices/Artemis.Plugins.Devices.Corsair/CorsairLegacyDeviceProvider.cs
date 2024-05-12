@@ -2,13 +2,11 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using Artemis.Plugins.Devices.Corsair.Extensions;
-using Microsoft.Win32;
 using RGB.NET.Core;
 using RGB.NET.Devices.Corsair;
 using Serilog;
@@ -21,19 +19,18 @@ namespace Artemis.Plugins.Devices.Corsair
     {
         private readonly ILogger _logger;
         private readonly IDeviceService _deviceService;
-        private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
 
-        public CorsairLegacyDeviceProvider(ILogger logger, IDeviceService deviceService, IPluginManagementService pluginManagementService, Plugin plugin)
+        public CorsairLegacyDeviceProvider(ILogger logger, IDeviceService deviceService, Plugin plugin)
         {
             _logger = logger;
             _deviceService = deviceService;
-            _pluginManagementService = pluginManagementService;
             _plugin = plugin;
 
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
             CreateMissingLedsSupported = false;
+            SuspendSupported = true;
         }
         
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
@@ -57,8 +54,6 @@ namespace Artemis.Plugins.Devices.Corsair
                 _logger.Debug(" - SDK protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkProtocolVersion);
                 _logger.Debug(" - Server version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerVersion);
                 _logger.Debug(" - Server protocol version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.ServerProtocolVersion);
-
-                Subscribe();
             }
             catch (CUEException e)
             {
@@ -70,7 +65,6 @@ namespace Artemis.Plugins.Devices.Corsair
 
         public override void Disable()
         {
-            Unsubscribe();
             _deviceService.RemoveDeviceProvider(this);
 
             RGBDeviceProvider.Instance.Exception -= Provider_OnException;
@@ -104,61 +98,27 @@ namespace Artemis.Plugins.Devices.Corsair
             return base.GetDeviceLayoutName(device);
         }
         
-        #region Event handlers
-
-        private void Subscribe()
+        public override Task Suspend()
         {
-            Thread thread = new(() =>
-            {
-                try
-                {
-                    SystemEvents.SessionSwitch += SystemEventsOnSessionSwitch;
-                }
-                catch (Exception e)
-                {
-                    _logger.Warning(e, "Could not subscribe to SessionSwitch");
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+            RGBDeviceProvider.Instance.Dispose();
+            return Task.CompletedTask;
         }
 
-        private void Unsubscribe()
+        public override async Task Resume()
         {
-            Thread thread = new(() => SystemEvents.SessionSwitch -= SystemEventsOnSessionSwitch);
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-        }
-
-        private void SystemEventsOnSessionSwitch(object sender, SessionSwitchEventArgs e)
-        {
-            if (!IsEnabled || e.Reason != SessionSwitchReason.SessionUnlock)
+            Process icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
+            string path = icue?.MainModule?.FileName;
+            if (path == null)
                 return;
 
-            Task.Run(async () =>
-            {
-                Process icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
-                string path = icue?.MainModule?.FileName;
-                if (path == null)
-                    return;
+            // Kill iCUE
+            icue.Kill();
 
-                // Disable the plugin
-                _logger.Debug("Detected PC unlock, restarting iCUE and reloading Corsair plugin");
-                _pluginManagementService.DisablePlugin(_plugin, false);
+            // Restart iCUE
+            Process.Start(path, "--autorun");
 
-                // Kill iCUE
-                icue.Kill();
-
-                // Restart iCUE
-                Process.Start(path, "--autorun");
-
-                // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
-                await Task.Delay(8000);
-                _logger.Debug("Re-enabling Corsair device provider");
-                _pluginManagementService.EnablePlugin(_plugin, false);
-            });
+            // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
+            await Task.Delay(8000);
         }
-
-        #endregion
     }
 }

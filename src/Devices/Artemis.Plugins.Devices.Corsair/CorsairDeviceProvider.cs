@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,26 +20,25 @@ namespace Artemis.Plugins.Devices.Corsair
     {
         private readonly ILogger _logger;
         private readonly IDeviceService _deviceService;
-        private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
         private readonly Timer _restartTimer;
 
-        public CorsairDeviceProvider(ILogger logger, IDeviceService deviceService, IPluginManagementService pluginManagementService, Plugin plugin)
+        public CorsairDeviceProvider(ILogger logger, IDeviceService deviceService, Plugin plugin)
         {
             _logger = logger;
             _deviceService = deviceService;
-            _pluginManagementService = pluginManagementService;
             _plugin = plugin;
 
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
             CreateMissingLedsSupported = false;
-
+            SuspendSupported = true;
+            
             _restartTimer = new Timer(TimeSpan.FromHours(2));
             _restartTimer.Elapsed += RestartTimerOnElapsed;
             _restartTimer.Start();
         }
-        
+
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         private void RestartTimerOnElapsed(object sender, ElapsedEventArgs e)
@@ -88,7 +88,7 @@ namespace Artemis.Plugins.Devices.Corsair
         public override void Disable()
         {
             _deviceService.RemoveDeviceProvider(this);
-            
+
             RgbDeviceProvider.SessionStateChanged -= SessionStateChanged;
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
@@ -119,6 +119,29 @@ namespace Artemis.Plugins.Devices.Corsair
                 return $"K95 RGB PLATINUM-ALT-{device.PhysicalLayout.ToString().ToUpper()}.xml";
 
             return base.GetDeviceLayoutName(device);
+        }
+
+        public override Task Suspend()
+        {
+            RGBDeviceProvider.Instance.Dispose();
+            return Task.CompletedTask;
+        }
+
+        public override async Task Resume()
+        {
+            Process icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
+            string path = icue?.MainModule?.FileName;
+            if (path == null)
+                return;
+
+            // Kill iCUE
+            icue.Kill();
+
+            // Restart iCUE
+            Process.Start(path, "--autorun");
+
+            // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
+            await Task.Delay(8000);
         }
     }
 }
