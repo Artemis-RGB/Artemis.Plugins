@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
@@ -17,6 +16,8 @@ namespace Artemis.Plugins.Devices.Logitech
     public class LogitechDeviceProvider : DeviceProvider
     {
         private const int VENDOR_ID = 0x046D;
+        private static readonly string[] LogitechProcesses = ["lghub_agent", "lghub_system_tray", "lghub", "LCore"];
+        
         private readonly ILogger _logger;
         private readonly IDeviceService _deviceService;
 
@@ -24,7 +25,7 @@ namespace Artemis.Plugins.Devices.Logitech
         {
             _deviceService = deviceService;
             _logger = logger;
-            
+
             SuspendSupported = true;
         }
 
@@ -32,6 +33,8 @@ namespace Artemis.Plugins.Devices.Logitech
 
         public override void Enable()
         {
+            SdkHelper.EnsureSdkAvailable(_logger);
+            
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "LogitechLedEnginesWrapper.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "LogitechLedEnginesWrapper.dll"));
 
@@ -49,16 +52,12 @@ namespace Artemis.Plugins.Devices.Logitech
             RgbDeviceProvider.Dispose();
         }
 
-        public override Task Suspend()
+        public override void Suspend()
         {
-            RgbDeviceProvider.Dispose();
-            return Task.CompletedTask;
-        }
-
-        public override async Task Resume()
-        {
-            await RestartProcessIfFound("ghub");
-            await RestartProcessIfFound("lgs");
+            // Kill all Logitech processes, during plugin Enable they will be restarted
+            List<Process> processes = Process.GetProcesses().Where(p => LogitechProcesses.Contains(p.ProcessName)).ToList();
+            foreach (Process process in processes)
+                process.Kill();
         }
 
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Logitech Exception: {message}", args.Exception.Message);
@@ -79,23 +78,5 @@ namespace Artemis.Plugins.Devices.Logitech
                 }
             }
         }
-        
-        private async Task RestartProcessIfFound(string processName)
-        {
-            Process process = Process.GetProcessesByName(processName).FirstOrDefault();
-            string path = process?.MainModule?.FileName;
-            if (path == null)
-                return;
-
-            // Kill process
-            process.Kill();
-
-            // Restart process
-            Process.Start(path, "--autorun");
-
-            // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
-            await Task.Delay(8000);
-        }
-
     }
 }

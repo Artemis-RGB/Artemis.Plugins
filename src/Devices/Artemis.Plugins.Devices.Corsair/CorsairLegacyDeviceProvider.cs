@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
@@ -39,6 +38,8 @@ namespace Artemis.Plugins.Devices.Corsair
         {
             if (_plugin.GetFeature<CorsairDeviceProvider>()!.IsEnabled)
                 throw new ArtemisPluginException("The legacy Corsair device provider cannot be enabled while the new Corsair device provider is enabled");
+            
+            SdkHelper.EnsureSdkAvailable(_logger);
             
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2019.dll"));
@@ -98,27 +99,11 @@ namespace Artemis.Plugins.Devices.Corsair
             return base.GetDeviceLayoutName(device);
         }
         
-        public override Task Suspend()
+        public override void Suspend()
         {
-            RGBDeviceProvider.Instance.Dispose();
-            return Task.CompletedTask;
-        }
-
-        public override async Task Resume()
-        {
-            Process icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
-            string path = icue?.MainModule?.FileName;
-            if (path == null)
-                return;
-
-            // Kill iCUE
-            icue.Kill();
-
-            // Restart iCUE
-            Process.Start(path, "--autorun");
-
-            // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
-            await Task.Delay(8000);
+            // Kill iCUE because it freezes after sleep
+            Process? icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
+            icue?.Kill();
         }
     }
 }

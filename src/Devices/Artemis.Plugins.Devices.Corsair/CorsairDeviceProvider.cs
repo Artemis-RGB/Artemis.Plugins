@@ -60,6 +60,8 @@ namespace Artemis.Plugins.Devices.Corsair
         {
             if (_plugin.GetFeature<CorsairLegacyDeviceProvider>()!.IsEnabled)
                 throw new ArtemisPluginException("The new Corsair device provider cannot be enabled while the legacy Corsair device provider is enabled");
+            
+            SdkHelper.EnsureSdkAvailable(_logger);
 
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "iCUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
@@ -81,9 +83,7 @@ namespace Artemis.Plugins.Devices.Corsair
             }
         }
 
-        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Corsair Exception: {message}", args.Exception.Message);
 
-        private void SessionStateChanged(object sender, CorsairSessionState state) => _logger.Debug("Corsair Session-State: {state}", state);
 
         public override void Disable()
         {
@@ -92,6 +92,13 @@ namespace Artemis.Plugins.Devices.Corsair
             RgbDeviceProvider.SessionStateChanged -= SessionStateChanged;
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
+        }
+
+        public override void Suspend()
+        {
+            // Kill iCUE because it freezes after sleep
+            Process? icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
+            icue?.Kill();
         }
 
         public override string GetLogicalLayout(IKeyboard keyboard)
@@ -120,28 +127,9 @@ namespace Artemis.Plugins.Devices.Corsair
 
             return base.GetDeviceLayoutName(device);
         }
+        
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Corsair Exception: {message}", args.Exception.Message);
 
-        public override Task Suspend()
-        {
-            RGBDeviceProvider.Instance.Dispose();
-            return Task.CompletedTask;
-        }
-
-        public override async Task Resume()
-        {
-            Process icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
-            string path = icue?.MainModule?.FileName;
-            if (path == null)
-                return;
-
-            // Kill iCUE
-            icue.Kill();
-
-            // Restart iCUE
-            Process.Start(path, "--autorun");
-
-            // It takes about 8 seconds on my system but enable the plugin with the management service, allowing retries 
-            await Task.Delay(8000);
-        }
+        private void SessionStateChanged(object sender, CorsairSessionState state) => _logger.Debug("Corsair Session-State: {state}", state);
     }
 }
