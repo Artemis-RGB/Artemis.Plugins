@@ -4,12 +4,12 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="RGB.NET.Devices.Corsair" Version="2.0.4-prerelease.16" />
     <PackageReference Include="RGB.NET.Devices.CorsairLegacy" Version="2.0.4-prerelease.16" />
-    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

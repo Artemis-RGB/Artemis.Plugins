@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
@@ -11,6 +13,7 @@ using RGB.NET.Devices.Corsair;
 using Serilog;
 using System.Timers;
 using RGBDeviceProvider = RGB.NET.Devices.Corsair.CorsairDeviceProvider;
+using Timer = System.Timers.Timer;
 
 namespace Artemis.Plugins.Devices.Corsair
 {
@@ -19,26 +22,25 @@ namespace Artemis.Plugins.Devices.Corsair
     {
         private readonly ILogger _logger;
         private readonly IDeviceService _deviceService;
-        private readonly IPluginManagementService _pluginManagementService;
         private readonly Plugin _plugin;
         private readonly Timer _restartTimer;
 
-        public CorsairDeviceProvider(ILogger logger, IDeviceService deviceService, IPluginManagementService pluginManagementService, Plugin plugin)
+        public CorsairDeviceProvider(ILogger logger, IDeviceService deviceService, Plugin plugin)
         {
             _logger = logger;
             _deviceService = deviceService;
-            _pluginManagementService = pluginManagementService;
             _plugin = plugin;
 
             CanDetectLogicalLayout = true;
             CanDetectPhysicalLayout = true;
             CreateMissingLedsSupported = false;
+            SuspendSupported = true;
 
             _restartTimer = new Timer(TimeSpan.FromHours(2));
             _restartTimer.Elapsed += RestartTimerOnElapsed;
             _restartTimer.Start();
         }
-        
+
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         private void RestartTimerOnElapsed(object sender, ElapsedEventArgs e)
@@ -60,6 +62,13 @@ namespace Artemis.Plugins.Devices.Corsair
         {
             if (_plugin.GetFeature<CorsairLegacyDeviceProvider>()!.IsEnabled)
                 throw new ArtemisPluginException("The new Corsair device provider cannot be enabled while the legacy Corsair device provider is enabled");
+            
+            if (_deviceService.SuspendedDeviceProviders.Contains(this))
+            {
+                _logger.Information("Suspended, causing one timeout before enabling to allow some time iCUE to wake");
+                Thread.Sleep(16000);
+                return;
+            }
 
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "iCUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
@@ -81,19 +90,16 @@ namespace Artemis.Plugins.Devices.Corsair
             }
         }
 
-        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Corsair Exception: {message}", args.Exception.Message);
-
-        private void SessionStateChanged(object sender, CorsairSessionState state) => _logger.Debug("Corsair Session-State: {state}", state);
 
         public override void Disable()
         {
             _deviceService.RemoveDeviceProvider(this);
-            
+
             RgbDeviceProvider.SessionStateChanged -= SessionStateChanged;
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }
-
+        
         public override string GetLogicalLayout(IKeyboard keyboard)
         {
             if (keyboard.DeviceInfo is CorsairKeyboardRGBDeviceInfo keyboardInfo)
@@ -120,5 +126,9 @@ namespace Artemis.Plugins.Devices.Corsair
 
             return base.GetDeviceLayoutName(device);
         }
+
+        private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Corsair Exception: {message}", args.Exception.Message);
+
+        private void SessionStateChanged(object sender, CorsairSessionState state) => _logger.Debug("Corsair Session-State: {state}", state);
     }
 }
