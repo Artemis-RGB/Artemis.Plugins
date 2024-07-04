@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
@@ -12,6 +13,7 @@ using RGB.NET.Devices.Corsair;
 using Serilog;
 using System.Timers;
 using RGBDeviceProvider = RGB.NET.Devices.Corsair.CorsairDeviceProvider;
+using Timer = System.Timers.Timer;
 
 namespace Artemis.Plugins.Devices.Corsair
 {
@@ -33,7 +35,7 @@ namespace Artemis.Plugins.Devices.Corsair
             CanDetectPhysicalLayout = true;
             CreateMissingLedsSupported = false;
             SuspendSupported = true;
-            
+
             _restartTimer = new Timer(TimeSpan.FromHours(2));
             _restartTimer.Elapsed += RestartTimerOnElapsed;
             _restartTimer.Start();
@@ -61,7 +63,12 @@ namespace Artemis.Plugins.Devices.Corsair
             if (_plugin.GetFeature<CorsairLegacyDeviceProvider>()!.IsEnabled)
                 throw new ArtemisPluginException("The new Corsair device provider cannot be enabled while the legacy Corsair device provider is enabled");
             
-            SdkHelper.EnsureSdkAvailable(_logger);
+            if (_deviceService.SuspendedDeviceProviders.Contains(this))
+            {
+                _logger.Information("Suspended, causing one timeout before enabling to allow some time iCUE to wake");
+                Thread.Sleep(16000);
+                return;
+            }
 
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "iCUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "iCUESDK_2019.dll"));
@@ -84,7 +91,6 @@ namespace Artemis.Plugins.Devices.Corsair
         }
 
 
-
         public override void Disable()
         {
             _deviceService.RemoveDeviceProvider(this);
@@ -93,14 +99,7 @@ namespace Artemis.Plugins.Devices.Corsair
             RgbDeviceProvider.Exception -= Provider_OnException;
             RgbDeviceProvider.Dispose();
         }
-
-        public override void Suspend()
-        {
-            // Kill iCUE because it freezes after sleep
-            Process? icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
-            icue?.Kill();
-        }
-
+        
         public override string GetLogicalLayout(IKeyboard keyboard)
         {
             if (keyboard.DeviceInfo is CorsairKeyboardRGBDeviceInfo keyboardInfo)
@@ -127,7 +126,7 @@ namespace Artemis.Plugins.Devices.Corsair
 
             return base.GetDeviceLayoutName(device);
         }
-        
+
         private void Provider_OnException(object sender, ExceptionEventArgs args) => _logger.Debug(args.Exception, "Corsair Exception: {message}", args.Exception.Message);
 
         private void SessionStateChanged(object sender, CorsairSessionState state) => _logger.Debug("Corsair Session-State: {state}", state);

@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
@@ -31,16 +32,21 @@ namespace Artemis.Plugins.Devices.Corsair
             CreateMissingLedsSupported = false;
             SuspendSupported = true;
         }
-        
+
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
             if (_plugin.GetFeature<CorsairDeviceProvider>()!.IsEnabled)
                 throw new ArtemisPluginException("The legacy Corsair device provider cannot be enabled while the new Corsair device provider is enabled");
-            
-            SdkHelper.EnsureSdkAvailable(_logger);
-            
+
+            if (_deviceService.SuspendedDeviceProviders.Contains(this))
+            {
+                _logger.Information("Suspended, causing one timeout before enabling to allow some time iCUE to wake");
+                Thread.Sleep(16000);
+                return;
+            }
+
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "CUESDK.x64_2019.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "CUESDK_2019.dll"));
             try
@@ -48,7 +54,7 @@ namespace Artemis.Plugins.Devices.Corsair
                 RGBDeviceProvider.Instance.Exception += Provider_OnException;
 
                 _deviceService.AddDeviceProvider(this);
-                
+
                 if (RGBDeviceProvider.Instance.ProtocolDetails == null) return;
                 _logger.Debug("Corsair SDK details");
                 _logger.Debug(" - SDK version: {detail}", RGBDeviceProvider.Instance.ProtocolDetails.SdkVersion);
@@ -97,13 +103,6 @@ namespace Artemis.Plugins.Devices.Corsair
                 return $"K95 RGB PLATINUM-ALT-{device.PhysicalLayout.ToString().ToUpper()}.xml";
 
             return base.GetDeviceLayoutName(device);
-        }
-        
-        public override void Suspend()
-        {
-            // Kill iCUE because it freezes after sleep
-            Process? icue = Process.GetProcessesByName("iCUE").FirstOrDefault();
-            icue?.Kill();
         }
     }
 }
