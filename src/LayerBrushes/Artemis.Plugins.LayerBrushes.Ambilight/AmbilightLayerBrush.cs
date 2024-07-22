@@ -46,7 +46,7 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
 
                 fixed (byte* img = image)
                 {
-                    using SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, image.RawStride * ColorBGRA.ColorFormat.BytesPerPixel);
+                    using SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, image.RawStride);
                     canvas.DrawImage(skImage, bounds, paint);
                 }
             }
