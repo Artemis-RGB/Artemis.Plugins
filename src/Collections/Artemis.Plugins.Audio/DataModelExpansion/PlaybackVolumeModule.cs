@@ -98,10 +98,11 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
             // Update Main volume Peak
             lock (_audioEventLock) // To avoid query an Device/EndPoint that is not the current device anymore or has more or less channels
             {
-                // Absolute master peak volume 
-                float peakVolumeNormalized = _playbackDevice?.AudioMeterInformation.MasterPeakValue ?? 0f;
 
-                // Don't update datamodel if not neeeded
+                // Absolute master peak volume 
+                float peakVolumeNormalized = (float) _playbackDevice?.AudioMeterInformation.MasterPeakValue;
+
+                // Don't update datamodel if not needed
                 if (Math.Abs(_lastMasterPeakVolumeNormalized - peakVolumeNormalized) < 0.00001f)
                     return;
 
@@ -127,6 +128,58 @@ namespace Artemis.Plugins.Audio.DataModelExpansion
                     DynamicChild<ChannelDataModel> channelDataModel = _channelsDataModels[i];
                     channelDataModel.Value.PeakVolumeNormalized = channelsVolumeNormalized[i];
                     channelDataModel.Value.PeakVolume = channelsVolumeNormalized[i] * 100f;
+                }
+
+                // Populate Sessions DataModel. Note that if the node don't exists, conditions using these values will become invalid
+                SessionCollection audioSessions = _playbackDevice?.AudioSessionManager.Sessions;
+                for (int i = 0; i < audioSessions.Count; i++)
+                {
+                    AudioSessionControl session = audioSessions[i];
+
+                    // Don't waste resources parsing system sessions data
+                    if (session.IsSystemSoundsSession)
+                        continue;
+
+                    // Span Code thanks to Darth Affe https://github.com/DarthAffe
+                    ReadOnlySpan<char> data = session.GetSessionInstanceIdentifier.AsSpan();
+                    int pidStart = data.LastIndexOf("%") + 2;
+                    int nameStart = data.LastIndexOf("\\") + 1;
+
+                    ReadOnlySpan<char> nameSlice = data.Slice(nameStart);
+                    int nameEnd = nameSlice.LastIndexOf(".");
+
+                    // To avoid crashed with exe name that contains '.' character
+                    string name = nameSlice.Slice(0, nameEnd).ToString().Replace('.', ' ');
+
+                    if (!uint.TryParse(data.Slice(pidStart), out uint _))
+                        continue;
+
+                    // Ignore sessions without name. It may be a valid session but without a name it is useless for conditions system
+                    if (string.IsNullOrEmpty(name))
+                        continue;
+
+                    // Don't remove unused sessions as these becomes just inactive for a while. It is faster to keep them than scan and remove them.
+                    if (DataModel.Sessions.TryGetDynamicChild(name, out DynamicChild<SessionDataModel> sessionDataModel))
+                    {
+                        sessionDataModel.Value.Name = name;
+                        sessionDataModel.Value.State = session.State;
+                        sessionDataModel.Value.PeakVolume = session.AudioMeterInformation.MasterPeakValue * 100;
+                        sessionDataModel.Value.PeakVolumeNormalized = session.AudioMeterInformation.MasterPeakValue;
+                    }
+                    else
+                    {
+                        DataModel.Sessions.AddDynamicChild(
+                            name,
+                            new SessionDataModel()
+                            {
+                                Name = name,
+                                State = session.State,
+                                PeakVolume = session.AudioMeterInformation.MasterPeakValue * 100,
+                                PeakVolumeNormalized = session.AudioMeterInformation.MasterPeakValue
+                            },
+                            name
+                            );
+                    }
                 }
             }
         }
