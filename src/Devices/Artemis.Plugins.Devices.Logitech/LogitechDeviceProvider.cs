@@ -7,7 +7,6 @@ using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using HidSharp;
 using RGB.NET.Core;
-using RGB.NET.Devices.Logitech;
 using Serilog;
 using Serilog.Events;
 using RGBDeviceProvider = RGB.NET.Devices.Logitech.LogitechDeviceProvider;
@@ -28,23 +27,17 @@ namespace Artemis.Plugins.Devices.Logitech
             _logger = logger;
 
             SuspendSupported = true;
-            
-            // Extra device definitions
-            RGBDeviceProvider.PerZoneDeviceDefinitions.Add(0xC095, RGBDeviceType.Mouse, "G502 X Plus", LedMappings.ZoneMouse, (LogitechDeviceType.Mouse, 8, 0));
-            RGBDeviceProvider.PerZoneWirelessDeviceDefinitions.Add(0xC547, RGBDeviceType.Mouse, "G502 X Plus", LedMappings.ZoneMouse, (LogitechDeviceType.Mouse, 8, 0));
         }
 
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
 
         public override void Enable()
         {
-            _logger.Debug("Running pre-release version of the Logitech plugin");
-            
             SdkHelper.EnsureSdkAvailable(_logger);
             
             RGBDeviceProvider.PossibleX64NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x64", "LogitechLedEnginesWrapper.dll"));
             RGBDeviceProvider.PossibleX86NativePaths.Add(Path.Combine(Plugin.Directory.FullName, "x86", "LogitechLedEnginesWrapper.dll"));
-            
+
             RgbDeviceProvider.Exception += Provider_OnException;
             _deviceService.AddDeviceProvider(this);
 
