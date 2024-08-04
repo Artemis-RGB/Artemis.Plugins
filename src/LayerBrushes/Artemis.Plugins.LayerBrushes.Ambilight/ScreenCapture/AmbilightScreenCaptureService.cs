@@ -10,10 +10,10 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         private readonly IScreenCaptureService _screenCaptureService;
 
-        private readonly Dictionary<Display, IScreenCapture> _screenCaptures = new();
+        private readonly Dictionary<Display, IScreenCapture> _screenCaptures = [];
 
-        private List<GraphicsCard> _graphicsCards;
-        private Dictionary<GraphicsCard, List<Display>> _displays = new();
+        private readonly List<GraphicsCard> _graphicsCards;
+        private readonly Dictionary<GraphicsCard, List<Display>> _displays = [];
 
         #endregion
 
@@ -35,13 +35,13 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight.ScreenCapture
 
         public IEnumerable<GraphicsCard> GetGraphicsCards() => _graphicsCards;
 
-        public IEnumerable<Display> GetDisplays(GraphicsCard graphicsCard) => _displays.TryGetValue(graphicsCard, out List<Display> displays) ? displays : Enumerable.Empty<Display>();
+        public IEnumerable<Display> GetDisplays(GraphicsCard graphicsCard) => _displays.TryGetValue(graphicsCard, out List<Display>? displays) ? displays : Enumerable.Empty<Display>();
 
         public IScreenCapture GetScreenCapture(Display display)
         {
             lock (_screenCaptures)
             {
-                if (!_screenCaptures.TryGetValue(display, out IScreenCapture screenCapture))
+                if (!_screenCaptures.TryGetValue(display, out IScreenCapture? screenCapture))
                     _screenCaptures.Add(display, screenCapture = new AmbilightScreenCapture(_screenCaptureService.GetScreenCapture(display)));
 
                 return screenCapture;

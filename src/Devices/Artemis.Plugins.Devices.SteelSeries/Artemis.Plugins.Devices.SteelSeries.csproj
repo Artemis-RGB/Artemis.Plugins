@@ -7,8 +7,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="RGB.NET.HID" Version="2.1.0" />
-    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="2.1.0" />
+    <PackageReference Include="RGB.NET.HID" Version="3.0.0-prerelease.1" />
+    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="3.0.0-prerelease.1" />
   </ItemGroup>
   
   <ItemGroup>

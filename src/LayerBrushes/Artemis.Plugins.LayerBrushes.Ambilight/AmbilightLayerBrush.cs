@@ -4,6 +4,7 @@ using Artemis.Core.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 using Artemis.UI.Shared.LayerBrushes;
+using HPPH;
 using ScreenCapture.NET;
 using SkiaSharp;
 
@@ -43,9 +44,9 @@ namespace Artemis.Plugins.LayerBrushes.Ambilight
                                                   properties.BlackBarDetectionTop, properties.BlackBarDetectionBottom,
                                                   properties.BlackBarDetectionLeft, properties.BlackBarDetectionRight);
 
-                fixed (ColorBGRA* img = image)
+                fixed (byte* img = image)
                 {
-                    using SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, image.RawStride * ColorBGRA.ColorFormat.BytesPerPixel);
+                    using SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, image.RawStride);
                     canvas.DrawImage(skImage, bounds, paint);
                 }
             }
