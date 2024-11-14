@@ -4,7 +4,7 @@
     </PropertyGroup>
     
     <ItemGroup Condition="$(UseArtemisNugetPackages)">
-        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2024.219.2" />
+        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2024.1114.5" />
     </ItemGroup>
     
     <ItemGroup Condition="!$(UseArtemisNugetPackages)">
@@ -21,9 +21,7 @@
         <PackageReference Include="RGB.NET.Core" Version="3.0.0-prerelease.3 " />
         <PackageReference Include="RGB.NET.Layout" Version="3.0.0-prerelease.3 " />
         <PackageReference Include="RGB.NET.Presets" Version="3.0.0-prerelease.3 " />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
-        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+        <PackageReference Include="Serilog" Version="4.1.0" />
         <PackageReference Include="SkiaSharp" Version="2.88.9" />
         <PackageReference Include="System.Text.Json" Version="9.0.0" />
         
