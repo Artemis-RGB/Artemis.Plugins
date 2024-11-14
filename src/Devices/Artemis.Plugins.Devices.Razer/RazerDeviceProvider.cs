@@ -42,7 +42,7 @@ namespace Artemis.Plugins.Devices.Razer
         public override void Enable()
         {
             RgbDeviceProvider.Exception += Provider_OnException;
-            RgbDeviceProvider.LoadEmulatorDevices = _loadEmulatorDevices.Value;
+            RgbDeviceProvider.LoadEmulatorDevices = _loadEmulatorDevices.Value ? RazerEndpointType.All : RazerEndpointType.None;
 
             try
             {

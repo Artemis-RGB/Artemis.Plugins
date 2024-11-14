@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using HPPH;
 using ReactiveUI;
 using ScreenCapture.NET;
 
