@@ -12,8 +12,8 @@
         </TextBlock>
         <Border Classes="card" VerticalAlignment="Stretch" Margin="0,0,5,0">
             <StackPanel>
-                <Grid RowDefinitions="*,*" ColumnDefinitions="*,Auto">
-                    <StackPanel Grid.Column="0">
+                <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Row="0" Grid.Column="0">
                         <TextBlock>
                             Use compatibility mode for WASAPI Capture
                         </TextBlock>
@@ -23,6 +23,17 @@
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
                         <ToggleSwitch IsChecked="{CompiledBinding UseCustomWasapiCapture.Value}" MinWidth="0" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <TextBlock>
+                            Enable real-time volume from capture devices in the data model
+                        </TextBlock>
+                        <TextBlock Classes="subtitle" TextWrapping="Wrap">
+                            This option will cause Windows to display that Artemis is utilizing your microphone. If it is turned off, you will not be able to access volume information in the data model, unless another application has already been granted access at the same time.
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                        <ToggleSwitch IsChecked="{CompiledBinding EnableCaptureDeviceAccess.Value}" MinWidth="0" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
