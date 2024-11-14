@@ -26,12 +26,12 @@
 
             <Label IsVisible="{CompiledBinding IsCustomPath}">SVG path data</Label>
             <TextBox IsVisible="{CompiledBinding IsCustomPath}" Text="{CompiledBinding Path}" Height="100" Width="460" AcceptsReturn="True" TextWrapping="Wrap" />
-            <controls:HyperlinkButton IsVisible="{CompiledBinding IsCustomPath}"
+            <HyperlinkButton IsVisible="{CompiledBinding IsCustomPath}"
                                       HorizontalAlignment="Right"
                                       NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/profiles/brushes/particle"
                                       Margin="0 5 0 0">
                 Learn more
-            </controls:HyperlinkButton>
+            </HyperlinkButton>
 
             <Label>Minimum width</Label>
             <controls:NumberBox attachedProperties:NumberBoxAssist.SuffixText="px" Value="{CompiledBinding MinWidth}" SpinButtonPlacementMode="Inline" />

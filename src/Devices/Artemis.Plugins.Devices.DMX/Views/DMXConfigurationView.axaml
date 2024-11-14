@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:viewModels1="clr-namespace:Artemis.Plugins.Devices.DMX.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -15,9 +14,9 @@
                 <LineBreak />
                 To get started add one or more devices by its hostname.
             </TextBlock>
-            <controls:HyperlinkButton Grid.Column="1" NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/dmx" VerticalAlignment="Top">
+            <HyperlinkButton Grid.Column="1" NavigateUri="https://wiki.artemis-rgb.com/en/guides/user/devices/dmx" VerticalAlignment="Top">
                 Learn more
-            </controls:HyperlinkButton>
+            </HyperlinkButton>
         </Grid>
 
         <TextBlock Grid.Row="1" Classes="card-title">Devices</TextBlock>
