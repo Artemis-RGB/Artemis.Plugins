@@ -1,4 +1,5 @@
-﻿using Artemis.Core;
+﻿using System;
+using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;

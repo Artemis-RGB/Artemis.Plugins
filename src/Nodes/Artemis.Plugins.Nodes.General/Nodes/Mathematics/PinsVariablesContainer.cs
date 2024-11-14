@@ -14,9 +14,8 @@ public class PinsVariablesContainer : IVariablesContainer
     }
 
     #region Implementation of IVariablesContainer
-
-    /// <inheritdoc />
-    public IVariable AddOrUpdate(string name, double value)
+    
+    public IVariable AddOrUpdate(string name, EvaluatorValue value)
     {
         throw new NotImplementedException();
     }

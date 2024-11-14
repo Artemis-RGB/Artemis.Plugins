@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Artemis.Plugins.LayerEffects.Filter.ViewModels"
-             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Artemis.Plugins.LayerEffects.Filter.Views.ColorMatrixConfigurationView"
              x:DataType="viewModels:ColorMatrixConfigurationViewModel">
@@ -15,11 +14,11 @@
         <TextBlock TextWrapping="Wrap" Margin="0 25">
             If you are still not deterred, below is a link for a full explanation of color transforms in SkiaSharp, the rendering library Artemis uses.
         </TextBlock>
-        <controls:HyperlinkButton HorizontalAlignment="Center" 
+        <HyperlinkButton HorizontalAlignment="Center" 
                                   NavigateUri="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/color-filters"
                                   Margin="0 10">
             Learn more
-        </controls:HyperlinkButton>
+        </HyperlinkButton>
 
         <Grid ColumnDefinitions="70,70,70,70,70" RowDefinitions="Auto,Auto,Auto,Auto">
             <TextBox Grid.Row="0" Grid.Column="0" Text="{CompiledBinding Properties.ColorMatrix.CurrentValue[0]}" Margin="2" />
