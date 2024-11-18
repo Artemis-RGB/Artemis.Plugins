@@ -14,7 +14,7 @@ public sealed class WootingProfileService : ReusableService
     private readonly ILogger _logger;
     private List<WootingProfileDevice> _devices;
     private DateTime _lastUpdate;
-    public IEnumerable<WootingProfileDevice> Devices => IsActivated ? _devices : Enumerable.Empty<WootingProfileDevice>();
+    public IList<WootingProfileDevice> Devices => IsActivated ? _devices : Array.Empty<WootingProfileDevice>();
 
     public WootingProfileService(ILogger logger)
     {
