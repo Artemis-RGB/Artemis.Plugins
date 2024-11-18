@@ -19,8 +19,11 @@ public class WootingProfileModule : Module<WootingDataModel>
     public override void Enable()
     {
         _useToken = _profileService.RegisterUse();
-        foreach (WootingProfileDevice item in _profileService.Devices)
-            DataModel.AddDynamicChild(item.Info.Model, new WootingProfileDataModel());
+        for (int index = 0; index < _profileService.Devices.Count; index++)
+        {
+            WootingProfileDevice item = _profileService.Devices[index];
+            DataModel.AddDynamicChild(index.ToString(), new WootingProfileDataModel(), item.Info.Model);
+        }
     }
 
     public override void Update(double deltaTime)
@@ -36,11 +39,12 @@ public class WootingProfileModule : Module<WootingDataModel>
     private void UpdateProfiles()
     {
         _profileService.Update();
-        foreach (WootingProfileDevice device in _profileService.Devices)
+        for (int index = 0; index < _profileService.Devices.Count; index++)
         {
-            if (!DataModel.TryGetDynamicChild(device.Info.Model, out DynamicChild<WootingProfileDataModel> deviceDataModel))
+            WootingProfileDevice device = _profileService.Devices[index];
+            if (!DataModel.TryGetDynamicChild(index.ToString(), out DynamicChild<WootingProfileDataModel> deviceDataModel))
                 continue;
-            
+
             deviceDataModel.Value.Profile = device.Profile;
         }
     }

@@ -23,7 +23,7 @@ public class WootingAnalogModule : Module<WootingDataModel>
     {
         _useToken = _analogService.RegisterUse();
         foreach (WootingAnalogDevice item in _analogService.Devices)
-            DataModel.AddDynamicChild(item.Info.device_name, new WootingAnalogDataModel());
+            DataModel.AddDynamicChild(item.Info.device_id.ToString(), new WootingAnalogDataModel(), item.Info.device_name);
     }
 
     public override void Update(double deltaTime)
@@ -42,7 +42,7 @@ public class WootingAnalogModule : Module<WootingDataModel>
         _analogService.Update();
         foreach (WootingAnalogDevice device in _analogService.Devices)
         {
-            if (!DataModel.TryGetDynamicChild(device.Info.device_name, out DynamicChild<WootingAnalogDataModel> deviceDataModel))
+            if (!DataModel.TryGetDynamicChild(device.Info.device_id.ToString(), out DynamicChild<WootingAnalogDataModel> deviceDataModel))
                continue;
 
             double highest = double.MinValue;
@@ -54,5 +54,4 @@ public class WootingAnalogModule : Module<WootingDataModel>
             deviceDataModel.Value.HighestAnalogValue = highest;
         }
     }
-
 }
