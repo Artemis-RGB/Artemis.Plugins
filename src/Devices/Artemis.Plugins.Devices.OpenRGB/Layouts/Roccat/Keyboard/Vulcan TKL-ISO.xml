@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Roccat Vulcan TKL</Name>
+  <Author>H4K0N42</Author>
+  <Type>Keyboard</Type>
+  <Vendor>Roccat</Vendor>
+  <Model>Vulcan TKL</Model>
+  <Width>368</Width>
+  <Height>138</Height>
+  <LedUnitWidth>18</LedUnitWidth>
+  <Leds>
+    <Led Id="Keyboard_ArrowRight">
+      <X>343</X>
+      <Y>112</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowDown">
+      <X>323.5</X>
+      <Y>112</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowLeft">
+      <X>304</X>
+      <Y>112</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_RightCtrl">
+      <X>276</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Application">
+      <X>251.5</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Function">
+      <X>227</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_RightAlt">
+      <X>202.5</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Space">
+      <X>82</X>
+      <Y>112</Y>
+      <Width>116mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_LeftAlt">
+      <X>57.5</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_LeftGui">
+      <X>33</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_LeftCtrl">
+      <X>8.5</X>
+      <Y>112</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_ArrowUp">
+      <X>323.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_RightShift">
+      <X>246</X>
+      <Y>92</Y>
+      <Width>50mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_SlashAndQuestionMark">
+      <X>226</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_PeriodAndBiggerThan">
+      <X>206.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_CommaAndLessThan">
+      <X>187</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_M">
+      <X>167.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_N">
+      <X>148</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_B">
+      <X>128.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_V">
+      <X>109.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_C">
+      <X>90</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_X">
+      <X>70.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Z">
+      <X>51</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_NonUsBackslash">
+      <X>31.5</X>
+      <Y>92</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_LeftShift">
+      <X>8.5</X>
+      <Y>92</Y>
+      <Width>20mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Enter">
+      <X>276</X>
+      <Y>53.5</Y>
+      <Width>20mm</Width>
+      <Height>35mm</Height>
+    </Led>
+    <Led Id="Keyboard_NonUsTilde">
+      <X>255</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_ApostropheAndDoubleQuote">
+      <X>235.5</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_SemicolonAndColon">
+      <X>216</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_L">
+      <X>196.5</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_K">
+      <X>177</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_J">
+      <X>158</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_H">
+      <X>138.5</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_G">
+      <X>119</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F">
+      <X>99.5</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_D">
+      <X>80</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_S">
+      <X>60.5</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_A">
+      <X>41</X>
+      <Y>72.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_CapsLock">
+      <X>8.5</X>
+      <Y>72.5</Y>
+      <Width>30mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_PageDown">
+      <X>343</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_End">
+      <X>323.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Delete">
+      <X>304</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_BracketRight">
+      <X>250.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_BracketLeft">
+      <X>231</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_P">
+      <X>211.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_O">
+      <X>192</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_I">
+      <X>172.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_U">
+      <X>153</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Y">
+      <X>133.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_T">
+      <X>114</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_R">
+      <X>94.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_E">
+      <X>75.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_W">
+      <X>56</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Q">
+      <X>36.5</X>
+      <Y>53</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Tab">
+      <X>8.5</X>
+      <Y>53</Y>
+      <Width>25mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_PageUp">
+      <X>343</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Home">
+      <X>323.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Insert">
+      <X>304</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Backspace">
+      <X>261</X>
+      <Y>33.5</Y>
+      <Width>35mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_EqualsAndPlus">
+      <X>240.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_MinusAndUnderscore">
+      <X>221</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_0">
+      <X>201.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_9">
+      <X>182</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_8">
+      <X>162.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_7">
+      <X>143.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_6">
+      <X>124</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_5">
+      <X>104.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_4">
+      <X>85</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_3">
+      <X>65.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_2">
+      <X>46</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_1">
+      <X>26.5</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_GraveAccentAndTilde">
+      <X>7</X>
+      <Y>33.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_MediaMute">
+      <X>306</X>
+      <Y>13.5</Y>
+      <Width>14mm</Width>
+      <Height>8mm</Height>
+    </Led>
+    <Led Id="Keyboard_F12">
+      <X>279.5</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F11">
+      <X>260</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F10">
+      <X>240.5</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F9">
+      <X>221</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F8">
+      <X>192</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F7">
+      <X>172.5</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F6">
+      <X>153</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F5">
+      <X>133.5</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F4">
+      <X>104.5</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F3">
+      <X>85</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F2">
+      <X>65.5</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_F1">
+      <X>46</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+    <Led Id="Keyboard_Escape">
+      <X>7</X>
+      <Y>8.5</Y>
+      <Width>18mm</Width>
+      <Height>18mm</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Vulcan TKL-ISO.png</DeviceImage>
+  </CustomData>
+</Device>
