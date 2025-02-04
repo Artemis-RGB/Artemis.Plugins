@@ -16,6 +16,7 @@ public class DeviceConfigurationDialogViewModel : ContentDialogViewModelBase
     private string _hostname;
     private string _name;
     private string _port;
+    private int _speed;
     private DeviceDefinitionType? _type;
 
     public DeviceConfigurationDialogViewModel(DeviceDefinition device)
@@ -26,8 +27,10 @@ public class DeviceConfigurationDialogViewModel : ContentDialogViewModelBase
         _type = _device.Type;
         _port = _device.Port;
         _hostname = _device.Hostname;
+        _speed = _device.Speed;
         _isUdpBased = this.WhenAnyValue(vm => vm.Type, type => type == DeviceDefinitionType.ESP8266).ToProperty(this, vm => vm.IsUdpBased);
-        
+
+        SpeedList = [9600, 115200, 230400, 460800, 921600, 1500000];
         Ports = new ObservableCollection<string>(SerialPort.GetPortNames());
         this.ValidationRule(vm => vm.Type, type => type != null, "Device type is required");
         this.ValidationRule(vm => vm.Port, this.WhenAnyValue(vm => vm.IsUdpBased, vm => vm.Port, (udpBased, port) => udpBased || !string.IsNullOrWhiteSpace(port)), "Device port is required");
@@ -53,6 +56,12 @@ public class DeviceConfigurationDialogViewModel : ContentDialogViewModelBase
         set => RaiseAndSetIfChanged(ref _hostname, value);
     }
 
+    public int Speed
+    {
+        get => _speed;
+        set => RaiseAndSetIfChanged(ref _speed, value);
+    }
+
     public DeviceDefinitionType? Type
     {
         get => _type;
@@ -62,6 +71,7 @@ public class DeviceConfigurationDialogViewModel : ContentDialogViewModelBase
     public bool IsUdpBased => _isUdpBased.Value;
 
     public ObservableCollection<string> Ports { get; }
+    public ObservableCollection<int> SpeedList { get; }
     public ReactiveCommand<Unit, Unit> Accept { get; }
     
     private void ExecuteAccept()
@@ -74,6 +84,7 @@ public class DeviceConfigurationDialogViewModel : ContentDialogViewModelBase
         _device.Type = Type ?? DeviceDefinitionType.Arduino;
         _device.Port = Port;
         _device.Hostname = Hostname;
+        _device.Speed = Speed;
 
         ContentDialog?.Hide(ContentDialogResult.Primary);
     }
