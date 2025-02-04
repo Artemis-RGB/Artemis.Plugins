@@ -25,10 +25,6 @@ namespace Artemis.Plugins.Devices.SteelSeries
         {
             _deviceService = deviceService;
             _logger = logger;
-            
-            RGBDeviceProvider.DeviceDefinitions.Add(
-                0x161A, RGBDeviceType.Keyboard, "Apex 3", LedMappings.KeyboardEightZone, SteelSeriesDeviceType.EightZone
-            );
         }
 
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;
