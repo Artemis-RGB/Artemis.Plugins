@@ -69,10 +69,10 @@ namespace Artemis.Plugins.Devices.WS281X
                 switch (deviceDefinition.Type)
                 {
                     case DeviceDefinitionType.Arduino:
-                        RgbDeviceProvider.AddDeviceDefinition(new ArduinoWS281XDeviceDefinition(deviceDefinition.Port));
+                        RgbDeviceProvider.AddDeviceDefinition(new ArduinoWS281XDeviceDefinition(deviceDefinition.Port, deviceDefinition.Speed));
                         break;
                     case DeviceDefinitionType.Bitwizard:
-                        RgbDeviceProvider.AddDeviceDefinition(new BitwizardWS281XDeviceDefinition(deviceDefinition.Port));
+                        RgbDeviceProvider.AddDeviceDefinition(new BitwizardWS281XDeviceDefinition(deviceDefinition.Port, deviceDefinition.Speed));
                         break;
                     case DeviceDefinitionType.ESP8266:
                         RgbDeviceProvider.AddDeviceDefinition(new NodeMCUWS281XDeviceDefinition(deviceDefinition.Hostname));
