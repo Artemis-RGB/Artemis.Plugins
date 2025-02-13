@@ -19,7 +19,7 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl
 
         public override void Enable()
         {
-            _webServerService.AddController<RemoteControlController>(this);
+            _webServerService.AddController<RemoteControlController>(this, "remote-control-brushes");
 
             // This is where we can register our effect for use, we can also register multiple effects if we'd like
             RegisterLayerBrushDescriptor<RemoteControlBrush>("Remote Control", "A brush that can be remotely controlled via a web API", "Remote");

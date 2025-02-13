@@ -16,7 +16,7 @@ namespace Artemis.Plugins.WebAPI.Features
 
         public override void Enable()
         {
-            _webServerService.AddController<ProfilesController>(this);
+            _webServerService.AddController<ProfilesController>(this, "profiles");
         }
 
         public override void Disable()
