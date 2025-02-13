@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
       
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Platforms>x64</Platforms>
         <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
@@ -13,5 +13,15 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Update="McMaster.NETCore.Plugins" Version="2.0.0" />
+        <PackageReference Update="Serilog" Version="4.2.0" />
+        <PackageReference Update="System.Text.Json" Version="9.0.1" />
+        <PackageReference Update="Avalonia" Version="11.2.3" />
+        <PackageReference Update="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
+        <PackageReference Update="Avalonia.ReactiveUI" Version="11.2.3" />
+        <PackageReference Update="Avalonia.Xaml.Behaviors" Version="11.2.0.8" />
+        <PackageReference Update="DynamicData" Version="9.1.1" />
+        <PackageReference Update="FluentAvaloniaUI" Version="2.2.0" />
+        <PackageReference Update="Material.Icons.Avalonia" Version="2.2.0" />
     </ItemGroup>
 </Project>
