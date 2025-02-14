@@ -74,8 +74,9 @@ public class LatchNode : Node
 
     private void OnInputPinDisconnected(object? sender, SingleValueEventArgs<IPin> args)
     {
-        if (sender is not IPin inputPin || !_pinPairs.ContainsKey(inputPin)) return;
-
+        // Avoid changing the type if the node is loading as it'll disconnect the output
+        if (sender is not IPin inputPin || !_pinPairs.ContainsKey(inputPin) || IsLoading) return;
+        
         OutputPin outputPin = _pinPairs[inputPin];
         outputPin.ChangeType(typeof(object));
     }
