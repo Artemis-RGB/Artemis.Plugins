@@ -10,7 +10,7 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl.ViewModels
         {
             RemoteControlBrush = layerBrush;
 
-            BrushUrl = $"{webServerService.Server!.Listener.Prefixes.First().Replace("*", "localhost")}remote-control-brushes/{RemoteControlBrush.Layer.EntityId}";
+            BrushUrl = $"http://localhost:{webServerService.Server?.EndPoints.First().Port}/remote-control-brushes/{RemoteControlBrush.Layer.EntityId}";
         }
 
         public string BrushUrl { get; }

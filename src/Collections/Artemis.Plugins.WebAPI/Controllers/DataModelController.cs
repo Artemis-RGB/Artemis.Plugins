@@ -1,19 +1,20 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.WebAPI.Json;
-using EmbedIO;
-using EmbedIO.Routing;
-using EmbedIO.WebApi;
+using GenHTTP.Api.Protocol;
+using GenHTTP.Modules.Basics;
+using GenHTTP.Modules.Conversion.Serializers.Json;
+using GenHTTP.Modules.IO.Strings;
+using GenHTTP.Modules.Webservices;
 
 namespace Artemis.Plugins.WebAPI.Controllers
 {
-    internal class DataModelController : WebApiController
+    internal class DataModelController
     {
         private readonly IDataModelService _dataModelService;
         private readonly JsonSerializerOptions _serializerSettings;
@@ -28,30 +29,32 @@ namespace Artemis.Plugins.WebAPI.Controllers
             };
         }
 
-        [Route(HttpVerbs.Get, "/data-model")]
-        public async Task GetDataModel()
+        [ResourceMethod]
+        public IResponseBuilder GetDataModel(IRequest request)
         {
             // Cast to object to avoid the generic type being serialized
+            // Serialize manually, we want that juicy TypeInfoResolver
             string json = JsonSerializer.Serialize(_dataModelService.GetDataModels().Cast<object>(), _serializerSettings);
-
-            HttpContext.Response.ContentType = MimeType.Json;
-            await using TextWriter writer = HttpContext.OpenResponseText();
-            await writer.WriteAsync(json);
+            return request.Respond()
+                .Status(ResponseStatus.Ok)
+                .Content(new StringContent(json))
+                .Type(ContentType.ApplicationJson);
         }
 
-        [Route(HttpVerbs.Get, "/data-model/{plugin}")]
-        public async Task GetDataModel(Guid plugin)
+        [ResourceMethod(RequestMethod.Get, ":plugin")]
+        public IResponseBuilder GetDataModel(IRequest request, Guid plugin)
         {
-            // Cast to object to avoid the generic type being serialized
-            object dataModel = _dataModelService.GetDataModels().FirstOrDefault(dm => dm.Module.Plugin.Guid == plugin);
+            object? dataModel = _dataModelService.GetDataModels().FirstOrDefault(dm => dm.Module.Plugin.Guid == plugin);
             if (dataModel == null)
-                throw HttpException.NotFound();
-            
-            string json = JsonSerializer.Serialize(dataModel, _serializerSettings);
+                return request.Respond().Status(ResponseStatus.NotFound);
 
-            HttpContext.Response.ContentType = MimeType.Json;
-            await using TextWriter writer = HttpContext.OpenResponseText();
-            await writer.WriteAsync(json);
+            // Serialize manually, we want that juicy TypeInfoResolver
+            string json = JsonSerializer.Serialize(dataModel, _serializerSettings);
+            return request.Respond()
+                .Status(ResponseStatus.Ok)
+                .Content(new StringContent(json))
+                .Type(ContentType.ApplicationJson);
+            
         }
     }
 }

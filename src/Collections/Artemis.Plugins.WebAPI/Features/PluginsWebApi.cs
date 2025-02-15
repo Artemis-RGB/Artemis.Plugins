@@ -16,7 +16,7 @@ namespace Artemis.Plugins.WebAPI.Features
 
         public override void Enable()
         {
-            _webServerService.AddController<PluginsController>(this);
+            _webServerService.AddController<PluginInfoController>(this, "plugin-info");
         }
 
         public override void Disable()
