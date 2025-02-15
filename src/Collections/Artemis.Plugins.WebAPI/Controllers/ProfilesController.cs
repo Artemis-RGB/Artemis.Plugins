@@ -19,15 +19,15 @@ namespace Artemis.Plugins.WebAPI.Controllers
         }
 
         [ResourceMethod]
-        public IEnumerable<ProfileCategoryModel> GetProfileCategories()
-        {
-            return _profileService.ProfileCategories.Select(c => new ProfileCategoryModel(c));
-        }
-
-        [ResourceMethod]
-        public IEnumerable<ProfileConfigurationModel> GetProfileConfigurations()
+        public IEnumerable<ProfileConfigurationModel> ProfileConfigurations()
         {
             return _profileService.ProfileCategories.SelectMany(c => c.ProfileConfigurations).Select(c => new ProfileConfigurationModel(c));
+        }
+
+        [ResourceMethod(RequestMethod.Get, "categories")]
+        public IEnumerable<ProfileCategoryModel> ProfileCategories()
+        {
+            return _profileService.ProfileCategories.Select(c => new ProfileCategoryModel(c));
         }
 
         [ResourceMethod(RequestMethod.Post, "suspend/:profileId")]
