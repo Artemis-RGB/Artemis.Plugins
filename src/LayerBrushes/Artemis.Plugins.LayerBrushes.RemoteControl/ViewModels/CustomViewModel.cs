@@ -9,7 +9,6 @@ namespace Artemis.Plugins.LayerBrushes.RemoteControl.ViewModels
         public CustomViewModel(RemoteControlBrush layerBrush, IWebServerService webServerService) : base(layerBrush)
         {
             RemoteControlBrush = layerBrush;
-
             BrushUrl = $"http://localhost:{webServerService.Server?.EndPoints.First().Port}/remote-control-brushes/{RemoteControlBrush.Layer.EntityId}";
         }
 

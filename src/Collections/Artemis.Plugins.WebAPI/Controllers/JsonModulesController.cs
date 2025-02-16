@@ -4,6 +4,7 @@ using System.Text.Json.Nodes;
 using Artemis.Plugins.WebAPI.DataModels;
 using Artemis.Plugins.WebAPI.Services;
 using GenHTTP.Api.Protocol;
+using GenHTTP.Modules.Reflection;
 using GenHTTP.Modules.Webservices;
 using Json.Schema;
 
@@ -17,23 +18,26 @@ public class JsonModulesController(IJsonModuleService jsonModuleService)
         return jsonModuleService.JsonModules;
     }
 
-    [ResourceMethod(RequestMethod.Post)]
-    public JsonModule AddJsonModuleSchema(JsonSchema schema)
+    [ResourceMethod(RequestMethod.Post, ":moduleId/schema")]
+    public Result<JsonModule?> AddJsonModuleSchema(IRequest request, string moduleId, JsonSchema schema)
     {
+        if (moduleId.Length > 50)
+            return new Result<JsonModule?>(null).Status(400, "Module ID must be 50 characters or less");
+        
         JsonModule jsonModule = new()
         {
-            ModuleId = Guid.NewGuid(),
+            ModuleId = moduleId,
             Schema = schema
         };
 
         jsonModuleService.AddJsonModule(jsonModule);
         jsonModuleService.SaveChanges();
 
-        return jsonModule;
+        return new Result<JsonModule?>(jsonModule);
     }
 
     [ResourceMethod(RequestMethod.Put, ":moduleId/schema")]
-    public IResponseBuilder UpdateJsonModuleSchema(IRequest request, Guid moduleId, JsonSchema schema)
+    public IResponseBuilder UpdateJsonModuleSchema(IRequest request, string moduleId, JsonSchema schema)
     {
         JsonModule? jsonModule = jsonModuleService.GetJsonModule(moduleId);
         if (jsonModule == null)
@@ -46,7 +50,7 @@ public class JsonModulesController(IJsonModuleService jsonModuleService)
     }
 
     [ResourceMethod(RequestMethod.Put, ":moduleId/data")]
-    public IResponseBuilder UpdateJsonModuleData(IRequest request, Guid moduleId, JsonObject data)
+    public IResponseBuilder UpdateJsonModuleData(IRequest request, string moduleId, JsonObject data)
     {
         JsonSchemaDataModel? dataModel = jsonModuleService.GetJsonModuleDataModel(moduleId);
         if (dataModel == null)
