@@ -4,13 +4,12 @@ using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Services;
 using Artemis.Plugins.WebAPI.Models;
-using EmbedIO;
-using EmbedIO.Routing;
-using EmbedIO.WebApi;
+using GenHTTP.Api.Protocol;
+using GenHTTP.Modules.Webservices;
 
 namespace Artemis.Plugins.WebAPI.Controllers
 {
-    internal class ProfilesController : WebApiController
+    internal class ProfilesController
     {
         private readonly IProfileService _profileService;
 
@@ -19,27 +18,32 @@ namespace Artemis.Plugins.WebAPI.Controllers
             _profileService = profileService;
         }
 
-        [Route(HttpVerbs.Get, "/profiles/categories")]
-        public IEnumerable<ProfileCategoryModel> GetProfileCategories()
-        {
-            return _profileService.ProfileCategories.Select(c => new ProfileCategoryModel(c));
-        }
-
-        [Route(HttpVerbs.Get, "/profiles")]
-        public IEnumerable<ProfileConfigurationModel> GetProfileConfigurations()
+        [ResourceMethod]
+        public IEnumerable<ProfileConfigurationModel> ProfileConfigurations()
         {
             return _profileService.ProfileCategories.SelectMany(c => c.ProfileConfigurations).Select(c => new ProfileConfigurationModel(c));
         }
 
-        [Route(HttpVerbs.Post, "/profiles/suspend/{profileId}")]
-        public void GetProfileConfigurations(Guid profileId, [FormField] bool suspend)
+        [ResourceMethod(RequestMethod.Get, "categories")]
+        public IEnumerable<ProfileCategoryModel> ProfileCategories()
         {
-            ProfileConfiguration profileConfiguration = _profileService.ProfileCategories.SelectMany(c => c.ProfileConfigurations).FirstOrDefault(p => p.ProfileId == profileId);
+            return _profileService.ProfileCategories.Select(c => new ProfileCategoryModel(c));
+        }
+
+        [ResourceMethod(RequestMethod.Post, "suspend/:profileId")]
+        public IResponseBuilder SuspendProfile(IRequest request, Guid profileId, bool suspend)
+        {
+            ProfileConfiguration? profileConfiguration = _profileService.ProfileCategories
+                .SelectMany(c => c.ProfileConfigurations)
+                .FirstOrDefault(p => p.ProfileId == profileId);
+
             if (profileConfiguration == null)
-                throw HttpException.NotFound("Profile configuration not found.");
+                return request.Respond().Status(ResponseStatus.NotFound);
 
             profileConfiguration.IsSuspended = suspend;
             _profileService.SaveProfileCategory(profileConfiguration.Category);
+
+            return request.Respond().Status(ResponseStatus.NoContent);
         }
     }
 }

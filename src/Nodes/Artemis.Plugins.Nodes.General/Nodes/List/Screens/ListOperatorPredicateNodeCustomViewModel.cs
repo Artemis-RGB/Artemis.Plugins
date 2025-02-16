@@ -15,7 +15,6 @@ public class ListOperatorPredicateNodeCustomViewModel : CustomNodeViewModel
     private readonly IWindowService _windowService;
     private ListOperator _operator;
     private bool _canOpenEditor;
-    private bool _editorOpen;
 
     public ListOperatorPredicateNodeCustomViewModel(ListOperatorPredicateNode node, INodeScript script, IWindowService windowService) : base(node, script)
     {

@@ -5,6 +5,7 @@
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",
   "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "HelpPage": "https://wiki.artemis-rgb.com/en/guides/developer/local-rest-api",
   "Icon": "Api",
   "Description": "Providers a RESTful web API accessible on the local web server",
   "Version": "1.0.0.0",
