@@ -59,6 +59,16 @@ public class JsonModuleService : IJsonModuleService
         _jsonModules[jsonModule.ModuleId] = jsonModule;
     }
 
+    public void RemoveJsonModule(JsonModule jsonModule)
+    {
+        if (!_jsonModules.ContainsKey(jsonModule.ModuleId))
+            throw new ArtemisPluginException("Cannot remove a JSON module that has not been added yet");
+        
+        _plugin.GetFeature<JsonModulesWebApi>()?.DataModel.RemoveDynamicChildByKey(jsonModule.ModuleId);
+        _dataModels.Remove(jsonModule);
+        _jsonModules.Remove(jsonModule.ModuleId);
+    }
+
     public void SaveChanges()
     {
         _store.Save();
@@ -104,6 +114,7 @@ public interface IJsonModuleService : IPluginService
     JsonSchemaDataModel? GetJsonModuleDataModel(string moduleId);
     void AddJsonModule(JsonModule jsonModule);
     void UpdateJsonModule(JsonModule jsonModule);
+    void RemoveJsonModule(JsonModule jsonModule);
     void SaveChanges();
     void Load();
     void Unload();
