@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Wooting" Version="3.0.0" />
     <PackageReference Include="WootingAnalogSDK.NET" Version="0.5.0" />
     <PackageReference Include="McMaster.NETCore.Plugins" />
     <PackageReference Include="Serilog" />
@@ -32,5 +31,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.31.1" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+    <Reference Include="RGB.NET.Devices.Wooting">
+      <HintPath>..\..\..\..\RGB.NET\bin\net9.0\RGB.NET.Devices.Wooting.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
