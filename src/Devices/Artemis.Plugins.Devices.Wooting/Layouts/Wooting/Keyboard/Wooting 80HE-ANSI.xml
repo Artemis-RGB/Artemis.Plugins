@@ -105,7 +105,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Custom1">
+    <Led Id="Keyboard_Profile">
       <X>+5</X>
       <CustomData>
         <LogicalLayouts>
