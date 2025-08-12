@@ -8,16 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="WootingAnalogSDK.NET" Version="0.5.0" />
-    <PackageReference Include="McMaster.NETCore.Plugins" />
-    <PackageReference Include="Serilog" />
-    <PackageReference Include="System.Text.Json" />
-    <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
-    <PackageReference Include="Avalonia.ReactiveUI" />
-    <PackageReference Include="Avalonia.Xaml.Behaviors" />
-    <PackageReference Include="DynamicData" />
-    <PackageReference Include="FluentAvaloniaUI" />
-    <PackageReference Include="Material.Icons.Avalonia" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,10 +24,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.31.1" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
     <Reference Include="RGB.NET.Devices.Wooting">
       <HintPath>..\..\..\..\RGB.NET\bin\net9.0\RGB.NET.Devices.Wooting.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.31.1" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.72.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="wooting_analog_sdk.proto" GrpcServices="Client" />
   </ItemGroup>
 </Project>

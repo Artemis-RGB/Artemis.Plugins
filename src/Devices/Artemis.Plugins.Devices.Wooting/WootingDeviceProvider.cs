@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
 using RGB.NET.Core;
@@ -13,11 +13,12 @@ namespace Artemis.Plugins.Devices.Wooting
         private readonly ILogger _logger;
         private readonly IDeviceService _deviceService;
 
-        public WootingDeviceProvider(ILogger logger, IDeviceService deviceService)
+        public WootingDeviceProvider(ILogger logger, IDeviceService deviceService, IInputService inputService)
         {
             _logger = logger;
             _deviceService = deviceService;
             CanDetectPhysicalLayout = true;
+            inputService.AddInputProvider(new WootingAnalogInputProvider(logger, inputService, deviceService));
         }
         
         public override RGBDeviceProvider RgbDeviceProvider => RGBDeviceProvider.Instance;

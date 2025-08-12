@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package wooting_analog_sdk;
+
+message AnalogGetDevicesRequest {}
+
+message AnalogGetDevicesResponse {
+  message AnalogDevice {
+    uint64 id = 1;
+    uint32 rows = 2;
+    uint32 columns = 3;
+    string model_name = 4;
+    string serial_number = 5;
+  }
+
+  repeated AnalogDevice devices = 1;
+}
+
+message AnalogStreamRequest {
+  uint64 deviceid = 1;
+}
+
+message AnalogEntry {
+  uint32 key = 1;
+  float value = 2;
+}
+
+message AnalogStreamResponse {
+  uint32 timestamp = 1;
+  repeated AnalogEntry data = 2;
+}
+
+service AnalogSdkService {
+  rpc GetConnectedDevices(AnalogGetDevicesRequest) returns (AnalogGetDevicesResponse);
+  rpc AnalogStream(AnalogStreamRequest) returns (stream AnalogStreamResponse);
+}
