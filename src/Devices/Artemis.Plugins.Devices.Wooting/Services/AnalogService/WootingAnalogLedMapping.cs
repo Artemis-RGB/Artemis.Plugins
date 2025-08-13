@@ -245,7 +245,7 @@ internal static class WootingAnalogLedMapping
         [KeyboardKey.NumPad9] = 0x61, //NUMPAD9
         [KeyboardKey.NumPad0] = 0x62, //NUMPAD0
         [KeyboardKey.NumPadDecimal] = 0x63, //NUMPAD_DECIMAL
-        //[KeyboardKey.OemBackslash] = 0x64, //INTL_BACKSLASH
+        [KeyboardKey.OemPipe] = 0x64, //INTL_BACKSLASH
         [KeyboardKey.Application] = 0x65, //CONTEXT_MENU
         [KeyboardKey.F13] = 0x68, //F13
         [KeyboardKey.F14] = 0x69, //F14
@@ -267,6 +267,8 @@ internal static class WootingAnalogLedMapping
         [KeyboardKey.RightShift] = 0xe5, //SHIFT_RIGHT
         [KeyboardKey.RightAlt] = 0xe6, //ALT_RIGHT
         [KeyboardKey.RightWin] = 0xe7, //META_RIGHT
+        
+        //Mode = 1032,
     };
     
     internal static Dictionary<short, KeyboardKey> InputKeyCodesReversed { get; } = InputKeyCodes.ToDictionary(x => x.Value, x => x.Key);

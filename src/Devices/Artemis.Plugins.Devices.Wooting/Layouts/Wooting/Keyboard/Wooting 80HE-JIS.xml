@@ -244,7 +244,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_Home">
+    <Led Id="Keyboard_PageUp">
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="NA" Image="Regular_Keys/PageUp.png" />
@@ -363,7 +363,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_End">
+    <Led Id="Keyboard_PageDown">
       <CustomData>
         <LogicalLayouts>
           <LogicalLayout Name="NA" Image="Regular_Keys/PageDown.png" />
@@ -625,7 +625,7 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
-    <Led Id="Keyboard_RightGui">
+    <Led Id="Keyboard_RightCtrl">
       <Width>1.25</Width>
       <CustomData>
         <LogicalLayouts>
