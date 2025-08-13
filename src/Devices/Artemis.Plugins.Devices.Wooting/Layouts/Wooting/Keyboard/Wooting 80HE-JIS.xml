@@ -601,13 +601,14 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_Custom2">
+      <Width>1.5</Width>
+    </Led>
     <Led Id="Keyboard_Space">
-      <Width>4.50</Width>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Regular_Keys/Space.png" />
-        </LogicalLayouts>
-      </CustomData>
+      <Width>1.5</Width>
+    </Led>
+    <Led Id="Keyboard_Custom3">
+      <Width>1.5</Width>
     </Led>
     <Led Id="Keyboard_International4">
       <Width>1.25</Width>

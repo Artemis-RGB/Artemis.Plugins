@@ -587,13 +587,20 @@
         </LogicalLayouts>
       </CustomData>
     </Led>
+    <Led Id="Keyboard_Custom1">
+      <Width>1.2</Width>
+    </Led>
+    <Led Id="Keyboard_Custom2">
+      <Width>1.2</Width>
+    </Led>
     <Led Id="Keyboard_Space">
-      <Width>6.00</Width>
-      <CustomData>
-        <LogicalLayouts>
-          <LogicalLayout Name="NA" Image="Regular_Keys/Space.png" />
-        </LogicalLayouts>
-      </CustomData>
+      <Width>1.2</Width>
+    </Led>
+    <Led Id="Keyboard_Custom3">
+      <Width>1.2</Width>
+    </Led>
+    <Led Id="Keyboard_Custom4">
+      <Width>1.2</Width>
     </Led>
     <Led Id="Keyboard_RightAlt">
       <Width>1.25</Width>
