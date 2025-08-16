@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Artemis.Core.Services;
 using RGB.NET.Core;
 
 namespace Artemis.Plugins.Devices.Wooting.Services.AnalogService;
@@ -136,7 +137,7 @@ internal static class WootingAnalogLedMapping
          FnKey = 0x409
          DisableKey = 0x40A
          FnLayerLock = 0x40B
-         FnKey2 = 0x40C= 
+         FnKey2 = 0x40C=
         */
         [LedId.Keyboard_Custom1] = 1027,
         [LedId.Keyboard_Custom2] = 1028,
@@ -146,4 +147,129 @@ internal static class WootingAnalogLedMapping
     };
 
     internal static Dictionary<short, LedId> HidCodesReversed { get; } = HidCodes.ToDictionary(x => (short)x.Value, x => x.Key);
+
+    internal static Dictionary<KeyboardKey, short> InputKeyCodes { get; } = new()
+    {
+        [KeyboardKey.A] = 0x04,
+        [KeyboardKey.B] = 0x05, //US_B
+        [KeyboardKey.C] = 0x06, //US_C
+        [KeyboardKey.D] = 0x07, //US_D
+        [KeyboardKey.E] = 0x08, //US_E
+        [KeyboardKey.F] = 0x09, //US_F
+        [KeyboardKey.G] = 0x0a, //US_G
+        [KeyboardKey.H] = 0x0b, //US_H
+        [KeyboardKey.I] = 0x0c, //US_I
+        [KeyboardKey.J] = 0x0d, //US_J
+        [KeyboardKey.K] = 0x0e, //US_K
+        [KeyboardKey.L] = 0x0f, //US_L
+        [KeyboardKey.M] = 0x10, //US_M
+        [KeyboardKey.N] = 0x11, //US_N
+        [KeyboardKey.O] = 0x12, //US_O
+        [KeyboardKey.P] = 0x13, //US_P
+        [KeyboardKey.Q] = 0x14, //US_Q
+        [KeyboardKey.R] = 0x15, //US_R
+        [KeyboardKey.S] = 0x16, //US_S
+        [KeyboardKey.T] = 0x17, //US_T
+        [KeyboardKey.U] = 0x18, //US_U
+        [KeyboardKey.V] = 0x19, //US_V
+        [KeyboardKey.W] = 0x1a, //US_W
+        [KeyboardKey.X] = 0x1b, //US_X
+        [KeyboardKey.Y] = 0x1c, //US_Y
+        [KeyboardKey.Z] = 0x1d, //US_Z
+        [KeyboardKey.D1] = 0x1e, //DIGIT1
+        [KeyboardKey.D2] = 0x1f, //DIGIT2
+        [KeyboardKey.D3] = 0x20, //DIGIT3
+        [KeyboardKey.D4] = 0x21, //DIGIT4
+        [KeyboardKey.D5] = 0x22, //DIGIT5
+        [KeyboardKey.D6] = 0x23, //DIGIT6
+        [KeyboardKey.D7] = 0x24, //DIGIT7
+        [KeyboardKey.D8] = 0x25, //DIGIT8
+        [KeyboardKey.D9] = 0x26, //DIGIT9
+        [KeyboardKey.D0] = 0x27, //DIGIT0
+        [KeyboardKey.Enter] = 0x28, //ENTER
+        [KeyboardKey.Escape] = 0x29, //ESCAPE
+        [KeyboardKey.Backspace] = 0x2a, //BACKSPACE
+        [KeyboardKey.Tab] = 0x2b, //TAB
+        [KeyboardKey.Space] = 0x2c, //SPACE
+        [KeyboardKey.OemMinus] = 0x2d, //MINUS
+        [KeyboardKey.OemPlus] = 0x2e, //EQUAL
+        [KeyboardKey.OemOpenBrackets] = 0x2f, //BRACKET_LEFT
+        [KeyboardKey.OemCloseBrackets] = 0x30, //BRACKET_RIGHT
+        [KeyboardKey.OemBackslash] = 0x31, //BACKSLASH
+        [KeyboardKey.OemSemicolon] = 0x33, //SEMICOLON
+        [KeyboardKey.OemQuotes] = 0x34, //QUOTE
+        [KeyboardKey.OemTilde] = 0x35, //BACKQUOTE
+        [KeyboardKey.OemComma] = 0x36, //COMMA
+        [KeyboardKey.OemPeriod] = 0x37, //PERIOD
+        [KeyboardKey.OemQuestion] = 0x38, //SLASH
+        [KeyboardKey.CapsLock] = 0x39, //CAPS_LOCK
+        [KeyboardKey.F1] = 0x3a, //F1
+        [KeyboardKey.F2] = 0x3b, //F2
+        [KeyboardKey.F3] = 0x3c, //F3
+        [KeyboardKey.F4] = 0x3d, //F4
+        [KeyboardKey.F5] = 0x3e, //F5
+        [KeyboardKey.F6] = 0x3f, //F6
+        [KeyboardKey.F7] = 0x40, //F7
+        [KeyboardKey.F8] = 0x41, //F8
+        [KeyboardKey.F9] = 0x42, //F9
+        [KeyboardKey.F10] = 0x43, //F10
+        [KeyboardKey.F11] = 0x44, //F11
+        [KeyboardKey.F12] = 0x45, //F12
+        [KeyboardKey.PrintScreen] = 0x46, //PRINT_SCREEN
+        [KeyboardKey.ScrollLock] = 0x47, //SCROLL_LOCK
+        [KeyboardKey.PauseBreak] = 0x48, //PAUSE
+        [KeyboardKey.Insert] = 0x49, //INSERT
+        [KeyboardKey.Home] = 0x4a, //HOME
+        [KeyboardKey.PageUp] = 0x4b, //PAGE_UP
+        [KeyboardKey.Delete] = 0x4c, //DEL
+        [KeyboardKey.End] = 0x4d, //END
+        [KeyboardKey.PageDown] = 0x4e, //PAGE_DOWN
+        [KeyboardKey.ArrowRight] = 0x4f, //ARROW_RIGHT
+        [KeyboardKey.ArrowLeft] = 0x50, //ARROW_LEFT
+        [KeyboardKey.ArrowDown] = 0x51, //ARROW_DOWN
+        [KeyboardKey.ArrowUp] = 0x52, //ARROW_UP
+        [KeyboardKey.NumLock] = 0x53, //NUM_LOCK
+        [KeyboardKey.NumPadDivide] = 0x54, //NUMPAD_DIVIDE
+        [KeyboardKey.NumPadMultiply] = 0x55, //NUMPAD_MULTIPLY
+        [KeyboardKey.NumPadSubtract] = 0x56, //NUMPAD_SUBTRACT
+        [KeyboardKey.NumPadAdd] = 0x57, //NUMPAD_ADD
+        [KeyboardKey.NumPadEnter] = 0x58, //NUMPAD_ENTER
+        [KeyboardKey.NumPad1] = 0x59, //NUMPAD1
+        [KeyboardKey.NumPad2] = 0x5a, //NUMPAD2
+        [KeyboardKey.NumPad3] = 0x5b, //NUMPAD3
+        [KeyboardKey.NumPad4] = 0x5c, //NUMPAD4
+        [KeyboardKey.NumPad5] = 0x5d, //NUMPAD5
+        [KeyboardKey.NumPad6] = 0x5e, //NUMPAD6
+        [KeyboardKey.NumPad7] = 0x5f, //NUMPAD7
+        [KeyboardKey.NumPad8] = 0x60, //NUMPAD8
+        [KeyboardKey.NumPad9] = 0x61, //NUMPAD9
+        [KeyboardKey.NumPad0] = 0x62, //NUMPAD0
+        [KeyboardKey.NumPadDecimal] = 0x63, //NUMPAD_DECIMAL
+        [KeyboardKey.OemPipe] = 0x64, //INTL_BACKSLASH
+        [KeyboardKey.Application] = 0x65, //CONTEXT_MENU
+        [KeyboardKey.F13] = 0x68, //F13
+        [KeyboardKey.F14] = 0x69, //F14
+        [KeyboardKey.F15] = 0x6a, //F15
+        [KeyboardKey.F16] = 0x6b, //F16
+        [KeyboardKey.F17] = 0x6c, //F17
+        [KeyboardKey.F18] = 0x6d, //F18
+        [KeyboardKey.F19] = 0x6e, //F19
+        [KeyboardKey.F20] = 0x6f, //F20
+        [KeyboardKey.F21] = 0x70, //F21
+        [KeyboardKey.F22] = 0x71, //F22
+        [KeyboardKey.F23] = 0x72, //F23
+        [KeyboardKey.F24] = 0x73, //F24
+        [KeyboardKey.LeftCtrl] = 0xe0, //CONTROL_LEFT
+        [KeyboardKey.LeftShift] = 0xe1, //SHIFT_LEFT
+        [KeyboardKey.LeftAlt] = 0xe2, //ALT_LEFT
+        [KeyboardKey.LeftWin] = 0xe3, //META_LEFT
+        [KeyboardKey.RightCtrl] = 0xe4, //CONTROL_RIGHT
+        [KeyboardKey.RightShift] = 0xe5, //SHIFT_RIGHT
+        [KeyboardKey.RightAlt] = 0xe6, //ALT_RIGHT
+        [KeyboardKey.RightWin] = 0xe7, //META_RIGHT
+        
+        //Mode = 1032,
+    };
+    
+    internal static Dictionary<short, KeyboardKey> InputKeyCodesReversed { get; } = InputKeyCodes.ToDictionary(x => x.Value, x => x.Key);
 }
