@@ -84,6 +84,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{591844D9-3F22-4D4A-9687-54B05E9C3E2D}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		..\.github\workflows\artemis-plugins-audio.yml = ..\.github\workflows\artemis-plugins-audio.yml
+		..\.github\workflows\plugin-upload.yml = ..\.github\workflows\plugin-upload.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nodes", "Nodes", "{7AE6F335-202C-45DD-8FE3-1BE3E0EF7F6F}"

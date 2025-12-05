@@ -1,4 +1,3 @@
-# File: '.github/workflows/reusable-plugin-upload.yml'
 name: Reusable Plugin Upload
 
 on:
@@ -48,7 +47,7 @@ jobs:
           $projFolder = '${{ inputs.projectFolder }}' ;
           $publishDir = Join-Path $projFolder 'publish' ;
           if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force } ;
-          dotnet publish $proj --configuration Release --output $publishDir ;
+          dotnet publish $proj --no-restore --configuration Release --output $publishDir ;
 
       - name: Update plugin.json version to date-based version
         shell: pwsh
@@ -72,6 +71,14 @@ jobs:
           Add-Type -AssemblyName System.IO.Compression.FileSystem ;
           [System.IO.Compression.ZipFile]::CreateFromDirectory($publishDir, $zip) ;
           Write-Host "ZIP=$zip" ;
+
+      # Upload the ZIP as a build artifact before uploading to the Workshop
+      - name: Upload plugin ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-${{ inputs.safeName }}
+          path: ${{ runner.temp }}\plugin.zip
+          if-no-files-found: error
 
       - name: Generate changelog
         id: changelog
@@ -101,20 +108,39 @@ jobs:
           $entryId = ${{ inputs.entryId }} ;
           $zip = Join-Path $env:RUNNER_TEMP 'plugin.zip' ;
           $changelogPath = '${{ steps.changelog.outputs.file }}' ;
-          $changelog = Get-Content -LiteralPath $changelogPath -Raw ;
-          $uri = "https://workshop.artemis-rgb.com/releases/upload/$entryId" ;
-          $headers = @{ Authorization = "Bearer $env:WORKSHOP_PAT" } ;
-          $form = @{
-            file = Get-Item -LiteralPath $zip ;
-            ReleaseDependencies = "" ;
-            Changelog = $changelog
+          $changelog = if (Test-Path $changelogPath) { Get-Content -LiteralPath $changelogPath -Raw } else { $null } ;
+
+          # Build a multipart/form-data request similar to the C# code
+          $handler = New-Object System.Net.Http.HttpClientHandler ;
+          $client = New-Object System.Net.Http.HttpClient($handler) ;
+          $client.BaseAddress = [Uri]"https://workshop.artemis-rgb.com/" ;
+          $client.DefaultRequestHeaders.Authorization = New-Object System.Net.Http.Headers.AuthenticationHeaderValue('Bearer', $env:WORKSHOP_PAT) ;
+
+          $content = New-Object System.Net.Http.MultipartFormDataContent ;
+          if ($changelog -and -not [string]::IsNullOrWhiteSpace($changelog)) {
+            $stringContent = New-Object System.Net.Http.StringContent($changelog) ;
+            $content.Add($stringContent, 'Changelog') ;
           } ;
+
+          $stream = [System.IO.File]::Open($zip, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read) ;
           try {
-            $resp = Invoke-RestMethod -Method Post -Uri $uri -Headers $headers -Form $form ;
-            Write-Host "Upload succeeded." ;
-          } catch {
-            Write-Host "Upload failed: $($_.Exception.Message)" ;
-            throw ;
+            $streamContent = New-Object System.Net.Http.StreamContent($stream) ;
+            $streamContent.Headers.ContentType = New-Object System.Net.Http.Headers.MediaTypeHeaderValue('application/zip') ;
+            $content.Add($streamContent, 'file', 'file.zip') ;
+
+            $uri = "releases/upload/$entryId" ;
+            $response = $client.PostAsync($uri, $content).GetAwaiter().GetResult() ;
+            if (-not $response.IsSuccessStatusCode) {
+              $body = $response.Content.ReadAsStringAsync().GetAwaiter().GetResult() ;
+              throw "Upload failed: $($response.StatusCode) - $body" ;
+            } else {
+              Write-Host 'Upload succeeded.' ;
+            }
+          } finally {
+            $stream.Dispose() ;
+            $content.Dispose() ;
+            $client.Dispose() ;
+            $handler.Dispose() ;
           }
 
       - name: Move tracking tag
