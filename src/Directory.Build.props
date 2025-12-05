@@ -6,11 +6,10 @@
     <ItemGroup Condition="$(UseArtemisNugetPackages)">
         <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2025.216.4" />
     </ItemGroup>
-    
-    <ItemGroup>
-        <!-- Packages here are referenced by Core and UI.Shared. If things are out of date, copy paste the references from those projects -->
-        <!-- Updating the packages through Rider or VS will *probably* break, so copy paste instead -->
 
+    <!-- Packages here are referenced by Core and UI.Shared. If things are out of date, copy paste the references from those projects -->
+    <!-- Updating the packages through Rider or VS will *probably* break, so copy paste instead -->
+    <ItemGroup>
         <!-- Artemis.Core  -->
         <PackageReference Include="DryIoc.dll" Version="5.4.3" />
         <PackageReference Include="GenHTTP.Core" Version="9.7.0" />
