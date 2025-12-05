@@ -1,0 +1,134 @@
+# File: '.github/workflows/reusable-plugin-upload.yml'
+name: Reusable Plugin Upload
+
+on:
+  workflow_call:
+    inputs:
+      entryId:
+        description: Artemis Workshop entry ID for this plugin
+        required: true
+        type: number
+      projectPath:
+        description: Path to the plugin .csproj
+        required: true
+        type: string
+      projectFolder:
+        description: Folder of the plugin project (used for publish output)
+        required: true
+        type: string
+      safeName:
+        description: Safe name identifier for tag tracking
+        required: true
+        type: string
+    secrets:
+      WORKSHOP_PAT:
+        required: true
+
+jobs:
+  build-and-upload:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            7.0.x
+
+      - name: Restore
+        run: dotnet restore '${{ inputs.projectPath }}'
+
+      - name: Publish to project folder
+        shell: pwsh
+        run: |
+          $proj = '${{ inputs.projectPath }}' ;
+          $projFolder = '${{ inputs.projectFolder }}' ;
+          $publishDir = Join-Path $projFolder 'publish' ;
+          if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force } ;
+          dotnet publish $proj --configuration Release --output $publishDir ;
+
+      - name: Update plugin.json version to date-based version
+        shell: pwsh
+        run: |
+          $projFolder = '${{ inputs.projectFolder }}' ;
+          $publishDir = Join-Path $projFolder 'publish' ;
+          $pluginJsonPath = Join-Path $publishDir 'plugin.json' ;
+          if (!(Test-Path $pluginJsonPath)) { throw "plugin.json not found at $pluginJsonPath" } ;
+          $json = Get-Content -LiteralPath $pluginJsonPath -Raw | ConvertFrom-Json ;
+          $version = (Get-Date).ToString('yyyy.MM.dd.HHmm') ;
+          $json.version = $version ;
+          $json | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $pluginJsonPath -Encoding UTF8 ;
+
+      - name: Zip publish output
+        shell: pwsh
+        run: |
+          $projFolder = '${{ inputs.projectFolder }}' ;
+          $publishDir = Join-Path $projFolder 'publish' ;
+          $zip = Join-Path $env:RUNNER_TEMP 'plugin.zip' ;
+          if (Test-Path $zip) { Remove-Item $zip -Force } ;
+          Add-Type -AssemblyName System.IO.Compression.FileSystem ;
+          [System.IO.Compression.ZipFile]::CreateFromDirectory($publishDir, $zip) ;
+          Write-Host "ZIP=$zip" ;
+
+      - name: Generate changelog
+        id: changelog
+        shell: pwsh
+        run: |
+          $safe = '${{ inputs.safeName }}' ;
+          $tag = "workshop-$safe-latest" ;
+          $defaultBranch = '${{ github.event.repository.default_branch }}' ;
+          $hasTag = git rev-parse --verify "$tag" 2>$null ;
+          if ($LASTEXITCODE -eq 0) {
+            $range = "$tag..HEAD" ;
+          } else {
+            $range = "$defaultBranch..HEAD" ;
+          } ;
+          $log = git log $range --pretty="* %h %s (%an)" ;
+          if ([string]::IsNullOrWhiteSpace($log)) { $log = "* No changes detected." } ;
+          $md = "# Changelog`n`n$log" ;
+          $file = Join-Path $env:RUNNER_TEMP 'CHANGELOG.md' ;
+          Set-Content -LiteralPath $file -Value $md -Encoding UTF8 ;
+          echo "file=$file" >> $env:GITHUB_OUTPUT ;
+
+      - name: Upload to Workshop
+        shell: pwsh
+        env:
+          WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+        run: |
+          $entryId = ${{ inputs.entryId }} ;
+          $zip = Join-Path $env:RUNNER_TEMP 'plugin.zip' ;
+          $changelogPath = '${{ steps.changelog.outputs.file }}' ;
+          $changelog = Get-Content -LiteralPath $changelogPath -Raw ;
+          $uri = "https://workshop.artemis-rbb.com/releases/upload/$entryId" ;
+          $headers = @{ Authorization = "Bearer $env:WORKSHOP_PAT" } ;
+          $form = @{
+            file = Get-Item -LiteralPath $zip ;
+            ReleaseDependencies = "" ;
+            Changelog = $changelog
+          } ;
+          try {
+            $resp = Invoke-RestMethod -Method Post -Uri $uri -Headers $headers -Form $form ;
+            Write-Host "Upload succeeded." ;
+          } catch {
+            Write-Host "Upload failed: $($_.Exception.Message)" ;
+            throw ;
+          }
+
+      - name: Move tracking tag
+        if: ${{ success() }}
+        shell: pwsh
+        run: |
+          $safe = '${{ inputs.safeName }}' ;
+          $tag = "workshop-$safe-latest" ;
+          $exists = git rev-parse --verify "$tag" 2>$null ;
+          if ($LASTEXITCODE -eq 0) {
+            git tag -f "$tag" HEAD ;
+          } else {
+            git tag "$tag" HEAD ;
+          } ;
+          git push origin --tags --force ;

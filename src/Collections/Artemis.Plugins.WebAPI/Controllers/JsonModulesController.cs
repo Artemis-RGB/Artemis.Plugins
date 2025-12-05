@@ -19,7 +19,7 @@ public class JsonModulesController(IJsonModuleService jsonModuleService)
     }
 
     [ResourceMethod(RequestMethod.Post, ":moduleId/schema")]
-    public Result<JsonModule?> AddJsonModuleSchema(IRequest request, string moduleId, JsonSchema schema)
+    public Result<JsonModule?> AddJsonModuleSchema(string moduleId, JsonSchema schema)
     {
         if (moduleId.Length > 50)
             return new Result<JsonModule?>(null).Status(400, "Module ID must be 50 characters or less");
@@ -36,6 +36,18 @@ public class JsonModulesController(IJsonModuleService jsonModuleService)
             jsonModuleService.AddJsonModule(jsonModule);
         }
 
+        jsonModuleService.SaveChanges();
+        return new Result<JsonModule?>(jsonModule);
+    }
+    
+    [ResourceMethod(RequestMethod.Delete, ":moduleId/schema")]
+    public Result<JsonModule?> DeleteJsonModuleSchema(string moduleId)
+    {
+        JsonModule? jsonModule = jsonModuleService.GetJsonModule(moduleId);
+        if (jsonModule == null)
+            return new Result<JsonModule?>(null).Status(404, "Module not found");
+
+        jsonModuleService.RemoveJsonModule(jsonModule);
         jsonModuleService.SaveChanges();
         return new Result<JsonModule?>(jsonModule);
     }
