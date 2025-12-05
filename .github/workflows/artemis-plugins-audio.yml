@@ -12,7 +12,6 @@ jobs:
   upload:
     uses: ./.github/workflows/plugin-upload.yml
     with:
-      entryId: 123456
       projectPath: 'src/Collections/Artemis.Plugins.Audio/Artemis.Plugins.Audio.csproj'
       projectFolder: 'src/Collections/Artemis.Plugins.Audio'
       safeName: 'artemis-plugins-audio'

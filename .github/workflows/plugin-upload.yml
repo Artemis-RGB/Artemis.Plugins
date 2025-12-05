@@ -3,10 +3,6 @@ name: Reusable Plugin Upload
 on:
   workflow_call:
     inputs:
-      entryId:
-        description: Artemis Workshop entry ID for this plugin
-        required: true
-        type: number
       projectPath:
         description: Path to the plugin .csproj
         required: true
@@ -36,6 +32,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
+          
+      - name: Install Plugin Uploader
+        run: dotnet tool install ArtemisRGB.Tools.PluginUploader --global
 
       - name: Restore
         run: dotnet restore '${{ inputs.projectPath }}'
@@ -61,98 +60,12 @@ jobs:
           $json.version = $version ;
           $json | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $pluginJsonPath -Encoding UTF8 ;
 
-      - name: Zip publish output
-        shell: pwsh
-        run: |
-          $projFolder = '${{ inputs.projectFolder }}' ;
-          $publishDir = Join-Path $projFolder 'publish' ;
-          $zip = Join-Path $env:RUNNER_TEMP 'plugin.zip' ;
-          if (Test-Path $zip) { Remove-Item $zip -Force } ;
-          Add-Type -AssemblyName System.IO.Compression.FileSystem ;
-          [System.IO.Compression.ZipFile]::CreateFromDirectory($publishDir, $zip) ;
-          Write-Host "ZIP=$zip" ;
-
-      # Upload the ZIP as a build artifact before uploading to the Workshop
       - name: Upload plugin ZIP artifact
         uses: actions/upload-artifact@v4
         with:
-          name: plugin-${{ inputs.safeName }}
-          path: ${{ runner.temp }}\plugin.zip
+          name: plugin
+          path: ${{ inputs.projectFolder }}\publish
           if-no-files-found: error
 
-      - name: Generate changelog
-        id: changelog
-        shell: pwsh
-        run: |
-          $safe = '${{ inputs.safeName }}' ;
-          $tag = "workshop-$safe-latest" ;
-          $defaultBranch = '${{ github.event.repository.default_branch }}' ;
-          $hasTag = git rev-parse --verify "$tag" 2>$null ;
-          if ($LASTEXITCODE -eq 0) {
-            $range = "$tag..HEAD" ;
-          } else {
-            $range = "$defaultBranch..HEAD" ;
-          } ;
-          $log = git log $range --pretty="* %h %s (%an)" ;
-          if ([string]::IsNullOrWhiteSpace($log)) { $log = "* No changes detected." } ;
-          $md = "# Changelog`n`n$log" ;
-          $file = Join-Path $env:RUNNER_TEMP 'CHANGELOG.md' ;
-          Set-Content -LiteralPath $file -Value $md -Encoding UTF8 ;
-          echo "file=$file" >> $env:GITHUB_OUTPUT ;
-
       - name: Upload to Workshop
-        shell: pwsh
-        env:
-          WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
-        run: |
-          $entryId = ${{ inputs.entryId }} ;
-          $zip = Join-Path $env:RUNNER_TEMP 'plugin.zip' ;
-          $changelogPath = '${{ steps.changelog.outputs.file }}' ;
-          $changelog = if (Test-Path $changelogPath) { Get-Content -LiteralPath $changelogPath -Raw } else { $null } ;
-
-          # Build a multipart/form-data request similar to the C# code
-          $handler = New-Object System.Net.Http.HttpClientHandler ;
-          $client = New-Object System.Net.Http.HttpClient($handler) ;
-          $client.BaseAddress = [Uri]"https://workshop.artemis-rgb.com/" ;
-          $client.DefaultRequestHeaders.Authorization = New-Object System.Net.Http.Headers.AuthenticationHeaderValue('Bearer', $env:WORKSHOP_PAT) ;
-
-          $content = New-Object System.Net.Http.MultipartFormDataContent ;
-          if ($changelog -and -not [string]::IsNullOrWhiteSpace($changelog)) {
-            $stringContent = New-Object System.Net.Http.StringContent($changelog) ;
-            $content.Add($stringContent, 'Changelog') ;
-          } ;
-
-          $stream = [System.IO.File]::Open($zip, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read) ;
-          try {
-            $streamContent = New-Object System.Net.Http.StreamContent($stream) ;
-            $streamContent.Headers.ContentType = New-Object System.Net.Http.Headers.MediaTypeHeaderValue('application/zip') ;
-            $content.Add($streamContent, 'file', 'file.zip') ;
-
-            $uri = "releases/upload/$entryId" ;
-            $response = $client.PostAsync($uri, $content).GetAwaiter().GetResult() ;
-            if (-not $response.IsSuccessStatusCode) {
-              $body = $response.Content.ReadAsStringAsync().GetAwaiter().GetResult() ;
-              throw "Upload failed: $($response.StatusCode) - $body" ;
-            } else {
-              Write-Host 'Upload succeeded.' ;
-            }
-          } finally {
-            $stream.Dispose() ;
-            $content.Dispose() ;
-            $client.Dispose() ;
-            $handler.Dispose() ;
-          }
-
-      - name: Move tracking tag
-        if: ${{ success() }}
-        shell: pwsh
-        run: |
-          $safe = '${{ inputs.safeName }}' ;
-          $tag = "workshop-$safe-latest" ;
-          $exists = git rev-parse --verify "$tag" 2>$null ;
-          if ($LASTEXITCODE -eq 0) {
-            git tag -f "$tag" HEAD ;
-          } else {
-            git tag "$tag" HEAD ;
-          } ;
-          git push origin --tags --force ;
+        run: artemis-plugin-uploader upload --pat ${{ secrets.WORKSHOP_PAT }} --folder '${{ inputs.projectFolder }}\publish'
