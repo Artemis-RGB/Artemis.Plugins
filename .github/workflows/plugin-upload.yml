@@ -7,17 +7,6 @@ on:
         description: Path to the plugin .csproj
         required: true
         type: string
-      projectFolder:
-        description: Folder of the plugin project (used for publish output)
-        required: true
-        type: string
-      safeName:
-        description: Safe name identifier for tag tracking
-        required: true
-        type: string
-    secrets:
-      WORKSHOP_PAT:
-        required: true
 
 jobs:
   build-and-upload:
@@ -39,24 +28,31 @@ jobs:
       - name: Restore
         run: dotnet restore '${{ inputs.projectPath }}'
 
-      - name: Publish to project folder
+      - name: Compute paths
+        id: compute
         shell: pwsh
         run: |
           $proj = '${{ inputs.projectPath }}' ;
-          $projFolder = '${{ inputs.projectFolder }}' ;
+          $projFolder = Split-Path -Parent $proj ;
           $publishDir = Join-Path $projFolder 'publish' ;
+          "projectFolder=$projFolder" >> $env:GITHUB_OUTPUT ;
+          "publishDir=$publishDir" >> $env:GITHUB_OUTPUT ;
+
+      - name: Publish to project folder
+        shell: pwsh
+        run: |
+          $publishDir = '${{ steps.compute.outputs.publishDir }}' ;
           if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force } ;
-          dotnet publish $proj --no-restore --configuration Release --output $publishDir ;
+          dotnet publish '${{ inputs.projectPath }}' --no-restore --configuration Release --output $publishDir ;
 
       - name: Update plugin.json version to date-based version
         shell: pwsh
         run: |
-          $projFolder = '${{ inputs.projectFolder }}' ;
-          $publishDir = Join-Path $projFolder 'publish' ;
+          $publishDir = '${{ steps.compute.outputs.publishDir }}' ;
           $pluginJsonPath = Join-Path $publishDir 'plugin.json' ;
           if (!(Test-Path $pluginJsonPath)) { throw "plugin.json not found at $pluginJsonPath" } ;
           $json = Get-Content -LiteralPath $pluginJsonPath -Raw | ConvertFrom-Json ;
-          $version = (Get-Date).ToString('yyyy.MM.dd.HHmm') ;
+          $version = (Get-Date).ToString('yyyy.MMdd.HHmm') ;
           $json.version = $version ;
           $json | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $pluginJsonPath -Encoding UTF8 ;
 
@@ -64,8 +60,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: plugin
-          path: ${{ inputs.projectFolder }}\publish
+          path: ${{ steps.compute.outputs.publishDir }}
           if-no-files-found: error
 
       - name: Upload to Workshop
-        run: artemis-plugin-uploader upload --pat ${{ secrets.WORKSHOP_PAT }} --folder '${{ inputs.projectFolder }}\publish'
+        run: artemis-plugin-uploader upload --pat ${{ secrets.WORKSHOP_PAT }} --folder '${{ steps.compute.outputs.publishDir }}'

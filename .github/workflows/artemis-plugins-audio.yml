@@ -4,16 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feature/workshop-ci
+      - master
     paths:
       - 'src/Collections/Artemis.Plugins.Audio/**'
+      - 'src/Directory.Build.props'
 
 jobs:
   upload:
     uses: ./.github/workflows/plugin-upload.yml
     with:
       projectPath: 'src/Collections/Artemis.Plugins.Audio/Artemis.Plugins.Audio.csproj'
-      projectFolder: 'src/Collections/Artemis.Plugins.Audio'
-      safeName: 'artemis-plugins-audio'
-    secrets:
-      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
