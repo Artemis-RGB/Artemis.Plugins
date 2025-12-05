@@ -1,13 +1,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <UseArtemisNugetPackages>false</UseArtemisNugetPackages>
+        <UseArtemisNugetPackages>true</UseArtemisNugetPackages>
     </PropertyGroup>
 
     <ItemGroup Condition="$(UseArtemisNugetPackages)">
-        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2024.1114.5" />
+        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2025.216.4" />
     </ItemGroup>
-
-    <ItemGroup Condition="!$(UseArtemisNugetPackages)">
+    
+    <ItemGroup>
         <!-- Packages here are referenced by Core and UI.Shared. If things are out of date, copy paste the references from those projects -->
         <!-- Updating the packages through Rider or VS will *probably* break, so copy paste instead -->
 
@@ -36,7 +36,9 @@
         <PackageReference Include="Material.Icons.Avalonia" Version="2.4.1" />
         <PackageReference Include="ReactiveUI" Version="20.2.45" />
         <PackageReference Include="ReactiveUI.Validation" Version="4.1.1" />
+    </ItemGroup>
 
+    <ItemGroup Condition="!$(UseArtemisNugetPackages)">
         <!--All packages Artemis already references are compile-only dependencies-->
         <PackageReference Update="@(PackageReference)" IncludeAssets="compile;build" />
 
