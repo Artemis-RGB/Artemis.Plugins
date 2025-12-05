@@ -36,9 +36,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
-            7.0.x
+          dotnet-version: 9.0.x
 
       - name: Restore
         run: dotnet restore '${{ inputs.projectPath }}'
@@ -104,7 +102,7 @@ jobs:
           $zip = Join-Path $env:RUNNER_TEMP 'plugin.zip' ;
           $changelogPath = '${{ steps.changelog.outputs.file }}' ;
           $changelog = Get-Content -LiteralPath $changelogPath -Raw ;
-          $uri = "https://workshop.artemis-rbb.com/releases/upload/$entryId" ;
+          $uri = "https://workshop.artemis-rgb.com/releases/upload/$entryId" ;
           $headers = @{ Authorization = "Bearer $env:WORKSHOP_PAT" } ;
           $form = @{
             file = Get-Item -LiteralPath $zip ;
