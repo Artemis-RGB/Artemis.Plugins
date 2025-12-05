@@ -10,7 +10,7 @@ on:
 
 jobs:
   upload:
-    uses: ./.github/workflows/reusable-plugin-upload.yml
+    uses: .github/workflows/reusable-plugin-upload.yml
     with:
       entryId: 123456
       projectPath: 'src/Collections/Artemis.Plugins.Audio/Artemis.Plugins.Audio.csproj'
