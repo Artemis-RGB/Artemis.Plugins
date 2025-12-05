@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Audio
+name: Build and upload Artemis.Plugins.Devices.Corsair
 
 on:
   workflow_dispatch:
@@ -6,14 +6,14 @@ on:
     branches:
       - master
     paths:
-      - 'src/Collections/Artemis.Plugins.Audio/**'
+      - 'src/Devices/Artemis.Plugins.Devices.Corsair/**'
       - 'src/Directory.Build.props'
 
 jobs:
   upload:
     uses: ./.github/workflows/plugin-upload.yml
     with:
-      projectPath: 'src/Collections/Artemis.Plugins.Audio/Artemis.Plugins.Audio.csproj'
+      projectPath: 'src/Devices/Artemis.Plugins.Devices.Corsair/Artemis.Plugins.Devices.Corsair.csproj'
     secrets:
       WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
 

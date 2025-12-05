@@ -1,0 +1,19 @@
+name: Build and upload Artemis.Plugins.LayerEffects.LedReveal
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/LayerEffects/Artemis.Plugins.LayerEffects.LedReveal/**'
+      - 'src/Directory.Build.props'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/LayerEffects/Artemis.Plugins.LayerEffects.LedReveal/Artemis.Plugins.LayerEffects.LedReveal.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+
