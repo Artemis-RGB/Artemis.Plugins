@@ -8,6 +8,7 @@ namespace Artemis.Plugins.Devices.WS281X.Settings
         private string _name;
         private string _port;
         private string _hostname;
+        private int _speed = 115200;
         private DeviceDefinitionType _type;
         
         public string Name
@@ -32,6 +33,11 @@ namespace Artemis.Plugins.Devices.WS281X.Settings
         {
             get => _hostname;
             set => SetProperty(ref _hostname, value);
+        }
+        public int Speed
+        {
+            get => _speed;
+            set => SetProperty(ref _speed, value);
         }
     }
 
