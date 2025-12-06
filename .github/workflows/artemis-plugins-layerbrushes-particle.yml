@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.LayerBrushes.Particle
+name: Artemis.Plugins.LayerBrushes.Particle - Build and upload
 
 on:
   workflow_dispatch:

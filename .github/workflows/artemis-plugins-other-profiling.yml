@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Profiling
+name: Artemis.Plugins.Profiling - Build and upload
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.WebAPI
+name: Artemis.Plugins.WebAPI - Build and upload
 
 on:
   workflow_dispatch:

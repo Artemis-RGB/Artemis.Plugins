@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Modules.DefaultProfile
+name: Artemis.Plugins.Modules.DefaultProfile - Build and upload
 
 on:
   workflow_dispatch:

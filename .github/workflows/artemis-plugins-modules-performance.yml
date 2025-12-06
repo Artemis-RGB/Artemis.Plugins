@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Modules.Performance
+name: Artemis.Plugins.Modules.Performance - Build and upload
 
 on:
   workflow_dispatch:

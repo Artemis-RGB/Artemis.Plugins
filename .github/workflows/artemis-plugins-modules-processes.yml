@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Modules.Processes
+name: Artemis.Plugins.Modules.Processes - Build and upload
 
 on:
   workflow_dispatch:

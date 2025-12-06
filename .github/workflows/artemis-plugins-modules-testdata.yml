@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Modules.TestData
+name: Artemis.Plugins.Modules.TestData - Build and upload
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Input
+name: Artemis.Plugins.Input - Build and upload
 
 on:
   workflow_dispatch:

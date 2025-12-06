@@ -1,5 +1,4 @@
-name: Build and upload Artemis.Plugins.PhilipsHue
-
+name: Artemis.Plugins.PhilipsHue - Build and upload
 on:
   workflow_dispatch:
   push:

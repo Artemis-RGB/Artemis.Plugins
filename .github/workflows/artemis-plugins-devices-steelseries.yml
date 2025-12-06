@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.SteelSeries
+name: Artemis.Plugins.Devices.SteelSeries - Build and upload
 
 on:
   workflow_dispatch:

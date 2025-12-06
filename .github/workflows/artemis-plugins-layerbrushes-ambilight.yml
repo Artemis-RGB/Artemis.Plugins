@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.LayerBrushes.Ambilight
+name: Artemis.Plugins.LayerBrushes.Ambilight - Build and upload
 
 on:
   workflow_dispatch:

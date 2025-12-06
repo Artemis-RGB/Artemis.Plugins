@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.Corsair
+name: Artemis.Plugins.Devices.Corsair - Build and upload
 
 on:
   workflow_dispatch:

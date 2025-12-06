@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.LayerBrushes.Color
+name: Artemis.Plugins.LayerBrushes.Color - Build and upload
 
 on:
   workflow_dispatch:

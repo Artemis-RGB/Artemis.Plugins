@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.WS281X
+name: Artemis.Plugins.Devices.WS281X - Build and upload
 
 on:
   workflow_dispatch:

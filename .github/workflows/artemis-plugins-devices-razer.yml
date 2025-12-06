@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.Razer
+name: Artemis.Plugins.Devices.Razer - Build and upload
 
 on:
   workflow_dispatch:

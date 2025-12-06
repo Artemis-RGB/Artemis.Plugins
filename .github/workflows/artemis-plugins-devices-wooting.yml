@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.Wooting
+name: Artemis.Plugins.Devices.Wooting - Build and upload
 
 on:
   workflow_dispatch:

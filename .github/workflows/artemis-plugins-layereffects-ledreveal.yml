@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.LayerEffects.LedReveal
+name: Artemis.Plugins.LayerEffects.LedReveal - Build and upload
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.LayerBrushes.RemoteControl
+name: Artemis.Plugins.LayerBrushes.RemoteControl - Build and upload
 
 on:
   workflow_dispatch:

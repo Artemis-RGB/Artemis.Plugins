@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.LayerBrushes.Noise
+name: Artemis.Plugins.LayerBrushes.Noise - Build and upload
 
 on:
   workflow_dispatch:

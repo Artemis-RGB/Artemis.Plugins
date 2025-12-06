@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.Novation
+name: Artemis.Plugins.Devices.Novation - Build and upload
 
 on:
   workflow_dispatch:

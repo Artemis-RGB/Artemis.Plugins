@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.OpenRGB
+name: Artemis.Plugins.Devices.OpenRGB - Build and upload
 
 on:
   workflow_dispatch:

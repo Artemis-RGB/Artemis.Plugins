@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Modules.Time
+name: Artemis.Plugins.Modules.Time - Build and upload
 
 on:
   workflow_dispatch:

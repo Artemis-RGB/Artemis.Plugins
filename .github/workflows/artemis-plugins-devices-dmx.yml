@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.DMX
+name: Artemis.Plugins.Devices.DMX - Build and upload
 
 on:
   workflow_dispatch:

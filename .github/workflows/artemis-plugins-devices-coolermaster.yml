@@ -1,4 +1,4 @@
-name: Build and upload Artemis.Plugins.Devices.CoolerMaster
+name: Artemis.Plugins.Devices.CoolerMaster - Build and upload
 
 on:
   workflow_dispatch:
