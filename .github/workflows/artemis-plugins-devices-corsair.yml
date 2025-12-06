@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/Devices/Artemis.Plugins.Devices.Corsair/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

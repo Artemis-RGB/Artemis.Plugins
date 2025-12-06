@@ -1,0 +1,44 @@
+name: Build and upload Artemis.Plugins.WebAPI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Directory.Build.props'
+
+jobs:
+  build-and-upload:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Install Plugin Uploader
+        run: dotnet tool install ArtemisRGB.Tools.PluginUploader --global
+        
+      - name: Update plugin.json version to date-based version
+        shell: pwsh
+        run: |
+          $version = (Get-Date).ToString('yyyy.MMdd.HHmm') ;
+          Get-ChildItem -Path 'src' -Recurse -Filter 'plugin.json' | ForEach-Object {
+            $pluginJsonPath = $_.FullName ;
+            Write-Host "Updating version in $pluginJsonPath to $version" ;
+            $json = Get-Content -LiteralPath $pluginJsonPath -Raw | ConvertFrom-Json ;
+            $json.version = $version ;
+            $json | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $pluginJsonPath -Encoding UTF8 ;
+          }
+
+      - name: Publish
+        run: dotnet publish -c Release src
+
+      - name: Upload to Workshop
+        run: artemis-plugin-uploader upload-all --pat ${{ secrets.WORKSHOP_PAT }} --folder src

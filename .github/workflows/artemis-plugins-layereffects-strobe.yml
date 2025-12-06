@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/LayerEffects/Artemis.Plugins.LayerEffect.Strobe/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

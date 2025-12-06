@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/LayerBrushes/Artemis.Plugins.LayerBrushes.Color/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

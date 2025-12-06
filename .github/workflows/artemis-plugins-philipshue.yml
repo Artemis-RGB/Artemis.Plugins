@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/Collections/Artemis.Plugins.PhilipsHue/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

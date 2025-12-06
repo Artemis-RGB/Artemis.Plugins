@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/LayerEffects/Artemis.Plugins.LayerEffects.Filter/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

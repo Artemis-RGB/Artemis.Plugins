@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/Nodes/Artemis.Plugins.Nodes.General/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

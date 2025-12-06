@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/LayerBrushes/Artemis.Plugins.LayerBrushes.RemoteControl/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

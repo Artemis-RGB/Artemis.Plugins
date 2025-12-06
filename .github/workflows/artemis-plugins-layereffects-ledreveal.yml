@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/LayerEffects/Artemis.Plugins.LayerEffects.LedReveal/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

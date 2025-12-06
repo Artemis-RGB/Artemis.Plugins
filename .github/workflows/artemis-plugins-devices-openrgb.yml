@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/Devices/Artemis.Plugins.Devices.OpenRGB/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/Devices/Artemis.Plugins.Devices.Logitech/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:

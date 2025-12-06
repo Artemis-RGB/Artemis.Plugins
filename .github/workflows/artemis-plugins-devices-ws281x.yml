@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'src/Devices/Artemis.Plugins.Devices.WS281X/**'
-      - 'src/Directory.Build.props'
 
 jobs:
   upload:
