@@ -8,7 +8,7 @@ namespace Artemis.Plugins.Devices.Debug
     {
         public override void OnPluginLoaded(Plugin plugin)
         {
-            plugin.ConfigurationDialog = new PluginConfigurationDialog<DebugConfigurationViewModel>();
+            plugin.ConfigurationDialog = new PluginConfigurationDialog<DebugConfigurationViewModel>(true);
         }
     }
 }

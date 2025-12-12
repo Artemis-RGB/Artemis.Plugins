@@ -9,7 +9,7 @@ namespace Artemis.Plugins.Devices.WS281X
     {
         public override void OnPluginLoaded(Plugin plugin)
         {
-            plugin.ConfigurationDialog = new PluginConfigurationDialog<WS281XConfigurationViewModel>();
+            plugin.ConfigurationDialog = new PluginConfigurationDialog<WS281XConfigurationViewModel>(true);
         }
     }
 }
