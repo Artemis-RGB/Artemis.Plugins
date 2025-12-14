@@ -8,7 +8,7 @@
   "HelpPage": "https://wiki.artemis-rgb.com/guides/user/devices/wooting",
   "Icon": "Keyboard",
   "Description": "Allows Artemis to control lighting on Wooting keyboards. Will eventually also expose analog key data.",
-  "Version": "1.0.0.0",
+  "Version": "1.0.0.1",
   "Main": "Artemis.Plugins.Devices.Wooting.dll",
   "AutoEnableFeatures": false,
   "Platforms":"Windows,Linux"
