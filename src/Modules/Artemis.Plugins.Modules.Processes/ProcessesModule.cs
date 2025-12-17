@@ -52,7 +52,7 @@ public class ProcessesModule : Module<ProcessesDataModel>
         _enableActiveWindow.SettingChanged += EnableActiveWindowOnSettingChanged;
 
         AddTimedUpdate(TimeSpan.FromMilliseconds(100), UpdateCurrentWindow);
-        AddTimedUpdate(TimeSpan.FromSeconds(250), UpdateRunningProcesses);
+        AddTimedUpdate(TimeSpan.FromMilliseconds(250), UpdateRunningProcesses);
         ApplyEnableActiveWindow();
     }
 
