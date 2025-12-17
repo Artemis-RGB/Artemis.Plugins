@@ -1,0 +1,17 @@
+name: Artemis.Plugins.Devices.WS281X - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Devices/Artemis.Plugins.Devices.WS281X/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Devices/Artemis.Plugins.Devices.WS281X/Artemis.Plugins.Devices.WS281X.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
