@@ -22,7 +22,7 @@ public class PerformanceModule : Module<PerformanceDataModel>
     public override void Enable()
     {
         //TODO: Make update frequency configurable
-        AddTimedUpdate(TimeSpan.FromMilliseconds(100), _ => UpdatePerformance(), "UpdatePerformance");
+        AddTimedUpdate(TimeSpan.FromMilliseconds(300), _ => UpdatePerformance(), "UpdatePerformance");
     }
 
     public override void Disable()
