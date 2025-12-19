@@ -22,6 +22,8 @@
         <StackPanel IsVisible="{CompiledBinding !IsUdpBased}" HorizontalAlignment="Stretch">
             <Label>COM port:</Label>
             <ComboBox HorizontalAlignment="Stretch" SelectedItem="{CompiledBinding Port}" ItemsSource="{CompiledBinding Ports}"/>
+			<Label>Baud rate:</Label>
+			<ComboBox HorizontalAlignment="Stretch" SelectedItem="{CompiledBinding Speed}" ItemsSource="{CompiledBinding SpeedList}"/>
         </StackPanel>
 
         <StackPanel IsVisible="{CompiledBinding IsUdpBased}" HorizontalAlignment="Stretch">
