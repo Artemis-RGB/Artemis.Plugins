@@ -1,5 +1,5 @@
 using Avalonia.Interactivity;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Nodes.General.Nodes.Mathematics.Screens;
 

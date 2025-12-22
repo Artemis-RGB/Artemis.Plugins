@@ -1,0 +1,70 @@
+name: Reusable Plugin Upload
+
+on:
+  workflow_call:
+    inputs:
+      projectPath:
+        description: Path to the plugin .csproj
+        required: true
+        type: string
+    secrets:
+      WORKSHOP_PAT:
+        required: true
+
+jobs:
+  build-and-upload:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+          
+      - name: Install Plugin Uploader
+        run: dotnet tool install ArtemisRGB.Tools.PluginUploader --global
+
+      - name: Restore
+        run: dotnet restore '${{ inputs.projectPath }}'
+
+      - name: Compute paths
+        id: compute
+        shell: pwsh
+        run: |
+          $proj = '${{ inputs.projectPath }}' ;
+          $projFolder = Split-Path -Parent $proj ;
+          $publishDir = Join-Path $projFolder 'publish' ;
+          "projectFolder=$projFolder" >> $env:GITHUB_OUTPUT ;
+          "publishDir=$publishDir" >> $env:GITHUB_OUTPUT ;
+
+      - name: Publish to project folder
+        shell: pwsh
+        run: |
+          $publishDir = '${{ steps.compute.outputs.publishDir }}' ;
+          if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force } ;
+          dotnet publish '${{ inputs.projectPath }}' --no-restore --configuration Release --output $publishDir ;
+
+      - name: Update plugin.json version to date-based version
+        shell: pwsh
+        run: |
+          $publishDir = '${{ steps.compute.outputs.publishDir }}' ;
+          $pluginJsonPath = Join-Path $publishDir 'plugin.json' ;
+          if (!(Test-Path $pluginJsonPath)) { throw "plugin.json not found at $pluginJsonPath" } ;
+          $json = Get-Content -LiteralPath $pluginJsonPath -Raw | ConvertFrom-Json ;
+          $version = (Get-Date).ToString('yyyy.MMdd.HHmm') ;
+          $json.version = $version ;
+          $json | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $pluginJsonPath -Encoding UTF8 ;
+
+      - name: Upload plugin ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin
+          path: ${{ steps.compute.outputs.publishDir }}
+          if-no-files-found: error
+
+      - name: Upload to Workshop
+        run: artemis-plugin-uploader upload --pat ${{ secrets.WORKSHOP_PAT }} --folder '${{ steps.compute.outputs.publishDir }}'

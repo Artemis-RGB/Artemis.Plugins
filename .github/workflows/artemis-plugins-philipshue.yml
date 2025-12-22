@@ -1,0 +1,17 @@
+name: Artemis.Plugins.PhilipsHue - Build and upload
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Collections/Artemis.Plugins.PhilipsHue/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Collections/Artemis.Plugins.PhilipsHue/Artemis.Plugins.PhilipsHue.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

@@ -1,0 +1,18 @@
+name: Artemis.Plugins.Modules.TestData - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Modules/Artemis.Plugins.Modules.TestData/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Modules/Artemis.Plugins.Modules.TestData/Artemis.Plugins.Modules.TestData.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

@@ -1,5 +1,5 @@
 using Artemis.UI.Shared;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Nodes.General.Nodes.Input.Screens;
 

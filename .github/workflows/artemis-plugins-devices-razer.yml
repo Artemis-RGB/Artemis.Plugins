@@ -1,0 +1,18 @@
+name: Artemis.Plugins.Devices.Razer - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Devices/Artemis.Plugins.Devices.Razer/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Devices/Artemis.Plugins.Devices.Razer/Artemis.Plugins.Devices.Razer.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

@@ -8,6 +8,6 @@ public class HueBootstrapper : PluginBootstrapper
 {
     public override void OnPluginLoaded(Plugin plugin)
     {
-        plugin.ConfigurationDialog = new PluginConfigurationDialog<PhilipsHueConfigurationViewModel>();
+        plugin.ConfigurationDialog = new PluginConfigurationDialog<PhilipsHueConfigurationViewModel>(true);
     }
 }

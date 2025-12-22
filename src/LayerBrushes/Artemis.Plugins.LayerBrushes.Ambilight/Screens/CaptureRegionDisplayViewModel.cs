@@ -1,4 +1,5 @@
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.UI.Shared;
 using Avalonia.Controls;

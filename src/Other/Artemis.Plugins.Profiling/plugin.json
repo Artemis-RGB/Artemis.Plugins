@@ -1,6 +1,6 @@
 {
   "Guid": "27d124e3-48e8-4b0a-8a5e-d5e337a88d4a",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "JetBrains Profiling",
   "Description": "Allows you to profile Artemis performance for debugging purposes using JetBrains profilers",
   "Icon": "Resources/logo.png",

@@ -90,6 +90,46 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nodes", "Nodes", "{7AE6F335
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Plugins.Nodes.General", "Nodes\Artemis.Plugins.Nodes.General\Artemis.Plugins.Nodes.General.csproj", "{7D3708F8-70B7-40C2-A290-622DB256A22D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{35281CB6-7C8A-423F-B8B6-F593667B0F8E}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\artemis-plugins-audio.yml = ..\.github\workflows\artemis-plugins-audio.yml
+		..\.github\workflows\plugin-upload.yml = ..\.github\workflows\plugin-upload.yml
+		..\.github\workflows\artemis-plugins-devices-asus.yml = ..\.github\workflows\artemis-plugins-devices-asus.yml
+		..\.github\workflows\artemis-plugins-devices-coolermaster.yml = ..\.github\workflows\artemis-plugins-devices-coolermaster.yml
+		..\.github\workflows\artemis-plugins-devices-corsair.yml = ..\.github\workflows\artemis-plugins-devices-corsair.yml
+		..\.github\workflows\artemis-plugins-devices-debug.yml = ..\.github\workflows\artemis-plugins-devices-debug.yml
+		..\.github\workflows\artemis-plugins-devices-dmx.yml = ..\.github\workflows\artemis-plugins-devices-dmx.yml
+		..\.github\workflows\artemis-plugins-devices-logitech.yml = ..\.github\workflows\artemis-plugins-devices-logitech.yml
+		..\.github\workflows\artemis-plugins-devices-msi.yml = ..\.github\workflows\artemis-plugins-devices-msi.yml
+		..\.github\workflows\artemis-plugins-devices-novation.yml = ..\.github\workflows\artemis-plugins-devices-novation.yml
+		..\.github\workflows\artemis-plugins-devices-openrgb.yml = ..\.github\workflows\artemis-plugins-devices-openrgb.yml
+		..\.github\workflows\artemis-plugins-devices-picopi.yml = ..\.github\workflows\artemis-plugins-devices-picopi.yml
+		..\.github\workflows\artemis-plugins-devices-razer.yml = ..\.github\workflows\artemis-plugins-devices-razer.yml
+		..\.github\workflows\artemis-plugins-devices-steelseries.yml = ..\.github\workflows\artemis-plugins-devices-steelseries.yml
+		..\.github\workflows\artemis-plugins-devices-wooting.yml = ..\.github\workflows\artemis-plugins-devices-wooting.yml
+		..\.github\workflows\artemis-plugins-devices-ws281x.yml = ..\.github\workflows\artemis-plugins-devices-ws281x.yml
+		..\.github\workflows\artemis-plugins-input.yml = ..\.github\workflows\artemis-plugins-input.yml
+		..\.github\workflows\artemis-plugins-layerbrushes-ambilight.yml = ..\.github\workflows\artemis-plugins-layerbrushes-ambilight.yml
+		..\.github\workflows\artemis-plugins-layerbrushes-color.yml = ..\.github\workflows\artemis-plugins-layerbrushes-color.yml
+		..\.github\workflows\artemis-plugins-layerbrushes-noise.yml = ..\.github\workflows\artemis-plugins-layerbrushes-noise.yml
+		..\.github\workflows\artemis-plugins-layerbrushes-particle.yml = ..\.github\workflows\artemis-plugins-layerbrushes-particle.yml
+		..\.github\workflows\artemis-plugins-layerbrushes-remotecontrol.yml = ..\.github\workflows\artemis-plugins-layerbrushes-remotecontrol.yml
+		..\.github\workflows\artemis-plugins-layereffects-filter.yml = ..\.github\workflows\artemis-plugins-layereffects-filter.yml
+		..\.github\workflows\artemis-plugins-layereffects-ledreveal.yml = ..\.github\workflows\artemis-plugins-layereffects-ledreveal.yml
+		..\.github\workflows\artemis-plugins-layereffects-strobe.yml = ..\.github\workflows\artemis-plugins-layereffects-strobe.yml
+		..\.github\workflows\artemis-plugins-modules-defaultprofile.yml = ..\.github\workflows\artemis-plugins-modules-defaultprofile.yml
+		..\.github\workflows\artemis-plugins-modules-performance.yml = ..\.github\workflows\artemis-plugins-modules-performance.yml
+		..\.github\workflows\artemis-plugins-modules-processes.yml = ..\.github\workflows\artemis-plugins-modules-processes.yml
+		..\.github\workflows\artemis-plugins-modules-profiles.yml = ..\.github\workflows\artemis-plugins-modules-profiles.yml
+		..\.github\workflows\artemis-plugins-modules-testdata.yml = ..\.github\workflows\artemis-plugins-modules-testdata.yml
+		..\.github\workflows\artemis-plugins-modules-time.yml = ..\.github\workflows\artemis-plugins-modules-time.yml
+		..\.github\workflows\artemis-plugins-nodes-general.yml = ..\.github\workflows\artemis-plugins-nodes-general.yml
+		..\.github\workflows\artemis-plugins-other-profiling.yml = ..\.github\workflows\artemis-plugins-other-profiling.yml
+		..\.github\workflows\artemis-plugins-philipshue.yml = ..\.github\workflows\artemis-plugins-philipshue.yml
+		..\.github\workflows\artemis-plugins-webapi.yml = ..\.github\workflows\artemis-plugins-webapi.yml
+		..\.github\workflows\artemis-plugins.yml = ..\.github\workflows\artemis-plugins.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -271,6 +311,7 @@ Global
 		{BFA0D759-EF8B-4B4B-8879-CB0DEB27A193} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{A3E1FB7F-838F-49DB-9229-ED65DC4693F0} = {82496F91-3977-44EE-A1B8-B301A8B03E20}
 		{7D3708F8-70B7-40C2-A290-622DB256A22D} = {7AE6F335-202C-45DD-8FE3-1BE3E0EF7F6F}
+		{35281CB6-7C8A-423F-B8B6-F593667B0F8E} = {591844D9-3F22-4D4A-9687-54B05E9C3E2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B916481-E18C-4776-900C-3E79B636F006}

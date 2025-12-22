@@ -1,0 +1,18 @@
+name: Artemis.Plugins.Devices.OpenRGB - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Devices/Artemis.Plugins.Devices.OpenRGB/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Devices/Artemis.Plugins.Devices.OpenRGB/Artemis.Plugins.Devices.OpenRGB.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

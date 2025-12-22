@@ -1,7 +1,6 @@
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
 using ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 

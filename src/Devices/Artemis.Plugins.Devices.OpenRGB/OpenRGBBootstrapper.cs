@@ -8,7 +8,7 @@ namespace Artemis.Plugins.Devices.OpenRGB
     {
         public override void OnPluginLoaded(Plugin plugin)
         {
-            plugin.ConfigurationDialog = new PluginConfigurationDialog<OpenRGBConfigurationDialogViewModel>();
+            plugin.ConfigurationDialog = new PluginConfigurationDialog<OpenRGBConfigurationDialogViewModel>(true);
         }
     }
 }

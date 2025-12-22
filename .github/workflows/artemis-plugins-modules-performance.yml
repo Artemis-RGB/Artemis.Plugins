@@ -1,0 +1,18 @@
+name: Artemis.Plugins.Modules.Performance - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Modules/Artemis.Plugins.Modules.Performance/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Modules/Artemis.Plugins.Modules.Performance/Artemis.Plugins.Modules.Performance.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

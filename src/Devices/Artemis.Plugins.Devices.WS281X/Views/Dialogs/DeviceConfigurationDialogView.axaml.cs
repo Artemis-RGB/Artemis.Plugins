@@ -1,7 +1,5 @@
 using Artemis.Plugins.Devices.WS281X.ViewModels.Dialogs;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Devices.WS281X.Views.Dialogs;
 

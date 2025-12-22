@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Threading.Tasks;
 using Artemis.Plugins.LayerBrushes.Ambilight.PropertyGroups;
 using Artemis.UI.Shared.LayerBrushes;
@@ -62,7 +63,7 @@ public class CapturePropertiesViewModel : BrushConfigurationViewModel
         _updateTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Normal, (_, _) => Update());
         _updateTimer.Start();
 
-        this.WhenActivated(d =>
+        ViewForMixins.WhenActivated((IActivatableViewModel) this, (CompositeDisposable d) =>
         {
             Initialize(d);
             this.WhenAnyValue(vm => vm.SelectedCaptureScreen).Subscribe(OnSelectedCaptureScreenChanged);

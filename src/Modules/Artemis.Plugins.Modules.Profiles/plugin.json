@@ -1,6 +1,6 @@
 {
   "Guid": "b79d14b5-45f3-48e8-a781-5525dc9b6f89",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Artemis Profiles",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

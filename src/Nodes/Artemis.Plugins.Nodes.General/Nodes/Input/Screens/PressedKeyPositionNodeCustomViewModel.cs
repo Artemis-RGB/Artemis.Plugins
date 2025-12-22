@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Artemis.Core;
 using Artemis.UI.Shared.Services.NodeEditor;

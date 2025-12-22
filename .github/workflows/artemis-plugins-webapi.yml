@@ -1,0 +1,18 @@
+name: Artemis.Plugins.WebAPI - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Collections/Artemis.Plugins.WebAPI/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Collections/Artemis.Plugins.WebAPI/Artemis.Plugins.WebAPI.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

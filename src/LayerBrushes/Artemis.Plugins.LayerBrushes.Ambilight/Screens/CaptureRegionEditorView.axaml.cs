@@ -1,12 +1,10 @@
 using System;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
 using ReactiveUI;
+using ReactiveUI.Avalonia;
 using SkiaSharp;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;

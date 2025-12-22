@@ -1,0 +1,18 @@
+name: Artemis.Plugins.LayerEffect.Strobe - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/LayerEffects/Artemis.Plugins.LayerEffect.Strobe/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/LayerEffects/Artemis.Plugins.LayerEffect.Strobe/Artemis.Plugins.LayerEffect.Strobe.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

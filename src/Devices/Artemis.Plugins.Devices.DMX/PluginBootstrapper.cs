@@ -8,7 +8,7 @@ namespace Artemis.Plugins.Devices.DMX
     {
         public override void OnPluginLoaded(Plugin plugin)
         {
-            plugin.ConfigurationDialog = new PluginConfigurationDialog<DMXConfigurationViewModel>();
+            plugin.ConfigurationDialog = new PluginConfigurationDialog<DMXConfigurationViewModel>(true);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "c20e876f-7cb0-4fa1-b0cc-ae1afb5865d1",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "ASUS Devices",
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",

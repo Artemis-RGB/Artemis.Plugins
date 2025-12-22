@@ -2,9 +2,8 @@ using System.Threading.Tasks;
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels.Dialogs;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
 using Avalonia.Threading;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.LayerBrushes.Particle.Views.Dialogs;
 

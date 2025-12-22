@@ -1,0 +1,18 @@
+name: Artemis.Plugins.Modules.DefaultProfile - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Modules/Artemis.Plugins.Modules.DefaultProfile/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Modules/Artemis.Plugins.Modules.DefaultProfile/Artemis.Plugins.Modules.DefaultProfile.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

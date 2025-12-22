@@ -1,10 +1,10 @@
 using System;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using Artemis.Plugins.PhilipsHue.ViewModels;
 using Artemis.Plugins.PhilipsHue.Views.Steps;
-using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Navigation;
 using ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.PhilipsHue.Views;
 

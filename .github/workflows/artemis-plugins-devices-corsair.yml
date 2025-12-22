@@ -1,0 +1,18 @@
+name: Artemis.Plugins.Devices.Corsair - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Devices/Artemis.Plugins.Devices.Corsair/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Devices/Artemis.Plugins.Devices.Corsair/Artemis.Plugins.Devices.Corsair.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

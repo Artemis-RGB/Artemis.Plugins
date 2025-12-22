@@ -1,0 +1,18 @@
+name: Artemis.Plugins.LayerEffects.Filter - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/LayerEffects/Artemis.Plugins.LayerEffects.Filter/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/LayerEffects/Artemis.Plugins.LayerEffects.Filter/Artemis.Plugins.LayerEffects.Filter.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

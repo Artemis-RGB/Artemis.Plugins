@@ -1,0 +1,18 @@
+name: Artemis.Plugins.LayerBrushes.Color - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/LayerBrushes/Artemis.Plugins.LayerBrushes.Color/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/LayerBrushes/Artemis.Plugins.LayerBrushes.Color/Artemis.Plugins.LayerBrushes.Color.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
+

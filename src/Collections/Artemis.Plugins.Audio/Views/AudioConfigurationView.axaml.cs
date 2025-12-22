@@ -1,6 +1,5 @@
 using Artemis.Plugins.Audio.ViewModels;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Audio.Views
 {

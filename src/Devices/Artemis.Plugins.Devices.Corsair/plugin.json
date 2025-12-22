@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "926629ab-8170-42f3-be18-22c694aa91cd",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Corsair Devices",
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",

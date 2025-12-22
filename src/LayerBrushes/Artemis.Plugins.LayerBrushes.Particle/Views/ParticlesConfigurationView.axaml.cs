@@ -1,8 +1,5 @@
 using Artemis.Plugins.LayerBrushes.Particle.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.LayerBrushes.Particle.Views;
 

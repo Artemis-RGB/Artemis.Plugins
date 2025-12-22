@@ -1,6 +1,6 @@
 {
   "Guid": "a24be298-df33-4fdc-b787-1680f950593d",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Remote Control Brush",
   "Description": "A layer-brush that can be remotely controlled via a web API",
   "Icon": "Remote",
