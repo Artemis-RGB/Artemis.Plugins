@@ -1,6 +1,6 @@
 {
   "Guid": "179ad4ce-3f4b-4118-b1b8-74e8c5806324",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Ambilight",
   "Icon": "MonitorMultiple",
   "Description": "Screen-Capturing to use the image currently shown on the display for a brush.",

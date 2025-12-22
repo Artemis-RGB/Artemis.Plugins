@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "4e1e54fd-6636-40ad-afdc-b3b0135feab2",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Default profile",
   "Author": "Robert & Cheerpipe",
   "Website": "https://artemis-rgb.com/",

@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "d9e1ee78-f004-4291-aa8b-0690bd8581b5",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "General Scripting Nodes",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

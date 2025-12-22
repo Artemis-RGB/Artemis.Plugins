@@ -1,8 +1,5 @@
 using Artemis.Plugins.Devices.Debug.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Devices.Debug.Views
 {

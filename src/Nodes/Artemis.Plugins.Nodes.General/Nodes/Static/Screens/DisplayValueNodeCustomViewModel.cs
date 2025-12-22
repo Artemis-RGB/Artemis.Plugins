@@ -1,7 +1,8 @@
-﻿using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables.Fluent;
 using Artemis.Core;
 using Artemis.UI.Shared.VisualScripting;
 using ReactiveUI;
+using Timer = System.Timers.Timer;
 
 namespace Artemis.Plugins.Nodes.General.Nodes.Static.Screens;
 
@@ -17,7 +18,7 @@ public class DisplayValueNodeCustomViewModel : CustomNodeViewModel
         // Because the DisplayValueNode has no output it never evaluates, manually do so here
         this.WhenActivated(d =>
         {
-            System.Timers.Timer updateTimer = new(TimeSpan.FromMilliseconds(25.0 / 1000));
+            Timer updateTimer = new(TimeSpan.FromMilliseconds(25.0 / 1000));
             updateTimer.Elapsed += (_, _) => Update();
             updateTimer.Start();
             updateTimer.DisposeWith(d);

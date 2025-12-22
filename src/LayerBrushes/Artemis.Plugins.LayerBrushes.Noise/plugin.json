@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "61cbbf01-8d69-4ede-a972-f3f269da66d9",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Noise layer brush",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

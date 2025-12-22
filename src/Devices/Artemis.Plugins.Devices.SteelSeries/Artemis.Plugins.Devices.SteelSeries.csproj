@@ -7,14 +7,14 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="RGB.NET.HID" Version="3.0.0" />
-    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="3.0.0" />
+    <PackageReference Include="RGB.NET.HID" Version="3.1.0" />
+    <PackageReference Include="RGB.NET.Devices.SteelSeries" Version="3.1.0" />
     <PackageReference Include="McMaster.NETCore.Plugins" />
     <PackageReference Include="Serilog" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
-    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Avalonia" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" />
     <PackageReference Include="DynamicData" />
     <PackageReference Include="FluentAvaloniaUI" />

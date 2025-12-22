@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "9177c320-1206-48a3-af52-b1749c758786",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "MSI Devices",
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",

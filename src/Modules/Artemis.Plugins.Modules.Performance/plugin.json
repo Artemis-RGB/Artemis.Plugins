@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "440be010-a0b1-47a9-95bc-7ac03ca5fd7b",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Performance",
   "Author": "Robert & Cheerpipe",
   "Website": "https://artemis-rgb.com/",

@@ -2,9 +2,9 @@ using System.Threading.Tasks;
 using Artemis.Plugins.PhilipsHue.ViewModels;
 using Artemis.UI.Shared.Extensions;
 using Avalonia.Input;
-using Avalonia.ReactiveUI;
 using Avalonia.Threading;
 using ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.PhilipsHue.Views;
 

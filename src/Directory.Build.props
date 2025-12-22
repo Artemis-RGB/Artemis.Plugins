@@ -4,7 +4,7 @@
     </PropertyGroup>
 
     <ItemGroup Condition="$(UseArtemisNugetPackages)">
-        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2025.1212.5" />
+        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2025.1222.3" />
     </ItemGroup>
 
     <!-- Packages here are referenced by Core and UI.Shared. If things are out of date, copy paste the references from those projects -->
@@ -12,8 +12,8 @@
     <ItemGroup>
         <!-- Artemis.Core  -->
         <PackageReference Include="DryIoc.dll" Version="5.4.3" />
-        <PackageReference Include="GenHTTP.Core" Version="10.2.0" />
-        <PackageReference Include="GenHTTP.Modules.Webservices" Version="10.2.0" />
+        <PackageReference Include="GenHTTP.Core" Version="10.3.0" />
+        <PackageReference Include="GenHTTP.Modules.Webservices" Version="10.3.0" />
         <PackageReference Include="HidSharp" Version="2.6.4" />
         <PackageReference Include="Humanizer.Core" Version="3.0.1" />
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />

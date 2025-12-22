@@ -1,6 +1,5 @@
 using Artemis.Plugins.Devices.DMX.ViewModels;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Devices.DMX.Views;
 

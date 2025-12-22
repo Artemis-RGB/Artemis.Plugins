@@ -1,6 +1,6 @@
 {
   "Guid": "246713a5-1eb1-41d4-8d37-6797aa08977f",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Strobe Effect",
   "Icon": "SineWave",
   "Description": "Provides the strobe layer effect",

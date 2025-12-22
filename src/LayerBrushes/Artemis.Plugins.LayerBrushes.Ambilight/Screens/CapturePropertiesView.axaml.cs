@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using Artemis.UI.Shared.Extensions;
 using Avalonia;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.LayerBrushes.Ambilight.Screens;
 

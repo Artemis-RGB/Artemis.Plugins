@@ -1,5 +1,5 @@
 using Artemis.UI.Shared.Controls.GradientPicker;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Nodes.General.Nodes.Color.Screens;
 

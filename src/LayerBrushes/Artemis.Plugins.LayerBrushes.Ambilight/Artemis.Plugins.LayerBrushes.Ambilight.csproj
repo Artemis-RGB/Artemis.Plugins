@@ -12,17 +12,18 @@
     <PackageReference Include="ScreenCapture.NET" Version="3.0.0" />
     <PackageReference Include="ScreenCapture.NET.DX11" Version="3.0.0" />
     <PackageReference Include="ScreenCapture.NET.X11" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="10.0.1" />
     <PackageReference Include="McMaster.NETCore.Plugins" />
     <PackageReference Include="Serilog" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
-    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Avalonia" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" />
     <PackageReference Include="DynamicData" />
     <PackageReference Include="FluentAvaloniaUI" />
     <PackageReference Include="Material.Icons.Avalonia" />
+    <PackageReference Update="FluentAvaloniaUI" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>

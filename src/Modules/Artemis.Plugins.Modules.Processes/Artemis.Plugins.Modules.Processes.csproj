@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Drawing.Common" Version="9.0.5" />
+        <PackageReference Include="System.Drawing.Common" Version="10.0.1" />
         <PackageReference Include="McMaster.NETCore.Plugins" />
         <PackageReference Include="Serilog" />
         <PackageReference Include="System.Text.Json" />
         <PackageReference Include="Avalonia" />
         <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
-        <PackageReference Include="Avalonia.ReactiveUI" />
+        <PackageReference Include="ReactiveUI.Avalonia" />
         <PackageReference Include="Avalonia.Xaml.Behaviors" />
         <PackageReference Include="DynamicData" />
         <PackageReference Include="FluentAvaloniaUI" />
