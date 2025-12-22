@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Artemis.Core;
 using Artemis.Core.Events;
@@ -58,7 +58,7 @@ public class EnumEqualsNodeCustomViewModel : CustomNodeViewModel
     {
         Dispatcher.UIThread.Post(() =>
         {
-            List<EnumValueItem> values = Enum.GetValues(type).Cast<Enum>().Select(e => new EnumValueItem(value: Convert.ToInt64(e), name: e.Humanize())).ToList();
+            List<EnumValueItem> values = Enum.GetValues(type).Cast<Enum>().Select(e => new EnumValueItem(value: Convert.ToInt64(e), name: e.ToString().Humanize())).ToList();
             if (values.Count > 20)
                 EnumValues.AddRange(values.OrderBy(v => v.Name));
             else

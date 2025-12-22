@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "8A53050A-CAD1-44B5-9B50-1519299C1D60",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "PicoPi Devices",
   "Author": "DarthAffe",
   "Website": "https://github.com/DarthAffe/RGB.NET-PicoPi",

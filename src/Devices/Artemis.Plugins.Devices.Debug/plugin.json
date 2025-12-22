@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "cad475d3-c621-4ec7-bbfc-784e3b4723ce",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Debug Devices",
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",

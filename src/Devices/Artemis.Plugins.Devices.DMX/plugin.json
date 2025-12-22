@@ -1,6 +1,6 @@
 ﻿{
   "Guid": "6f073d4d-d97d-4040-9750-841fdbe06915",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "DMX Devices",
   "Author": "DarthAffe & Robert",
   "Website": "https://artemis-rgb.com/",

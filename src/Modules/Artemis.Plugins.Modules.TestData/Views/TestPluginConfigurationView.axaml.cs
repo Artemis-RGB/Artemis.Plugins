@@ -1,7 +1,5 @@
 using Artemis.UI.Shared;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Modules.TestData.Views;
 

@@ -1,5 +1,6 @@
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using Artemis.Core;
 using Artemis.Core.Events;
 using Artemis.UI.Shared.Services;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;

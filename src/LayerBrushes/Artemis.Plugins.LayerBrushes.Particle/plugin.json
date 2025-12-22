@@ -1,6 +1,6 @@
 {
   "Guid": "c4c0a8e0-29b7-4003-ba44-e095ef329a69",
-  "Api": "1.0",
+  "MinimumVersion": "1.2025.1222.3",
   "Name": "Particles brush",
   "Author": "Robert",
   "Website": "https://artemis-rgb.com/",

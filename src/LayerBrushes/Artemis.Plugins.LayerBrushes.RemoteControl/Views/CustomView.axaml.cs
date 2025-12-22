@@ -1,6 +1,5 @@
 using Artemis.Plugins.LayerBrushes.RemoteControl.ViewModels;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.LayerBrushes.RemoteControl.Views;
 
