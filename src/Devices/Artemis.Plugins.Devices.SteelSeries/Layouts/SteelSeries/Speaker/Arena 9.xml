@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Arena 9</Name>
+  <Description>5.1 speaker</Description>
+  <Author>XLR8</Author>
+  <Type>Speaker</Type>
+  <Vendor>SteelSeries</Vendor>
+  <Model>Arena 9</Model>
+  <Width>2000</Width>
+  <Height>400</Height>
+  <LedUnitWidth>50</LedUnitWidth>
+  <LedUnitHeight>50</LedUnitHeight>
+  <Leds>
+    <Led Id="Speaker1">
+      <X>71.2</X>
+      <Y>343.6</Y>
+      <Width>4</Width>
+      <Height>1</Height>
+    </Led>
+    <Led Id="Speaker2">
+      <Shape>Circle</Shape>
+      <X>47.5</X>
+      <Y>-83.5</Y>
+      <Width>5</Width>
+      <Height>5</Height>
+    </Led>
+    <Led Id="Speaker3">
+      <X>1737.5</X>
+      <Y>342.2</Y>
+      <Width>4</Width>
+    </Led>
+    <Led Id="Speaker4">
+      <Shape>Circle</Shape>
+      <X>1720</X>
+      <Y>-91.6</Y>
+      <Width>5</Width>
+      <Height>5</Height>
+    </Led>
+  </Leds>
+  <CustomData>
+    <DeviceImage>Arena 9.png</DeviceImage>
+  </CustomData>
+</Device>
