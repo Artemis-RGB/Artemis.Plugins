@@ -4,7 +4,7 @@
     </PropertyGroup>
 
     <ItemGroup Condition="$(UseArtemisNugetPackages)">
-        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2025.1222.3" />
+        <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2025.1223.3" />
     </ItemGroup>
 
     <!-- Packages here are referenced by Core and UI.Shared. If things are out of date, copy paste the references from those projects -->
@@ -22,7 +22,7 @@
         <PackageReference Include="RGB.NET.Layout" Version="3.1.0 " />
         <PackageReference Include="RGB.NET.Presets" Version="3.1.0 " />
         <PackageReference Include="Serilog" Version="4.3.0" />
-        <PackageReference Include="SkiaSharp" Version="3.119.1" />
+        <PackageReference Include="SkiaSharp" Version="2.88.9" />
         <PackageReference Include="System.Text.Json" Version="10.0.1" />
 
         <!-- Artemis.UI.Shared -->
