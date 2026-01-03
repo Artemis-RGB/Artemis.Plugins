@@ -1,0 +1,12 @@
+﻿{
+  "Guid": "97a1b145-7e82-45be-987d-e1954a2f53aa",
+  "MinimumVersion": "1.2025.1222.3",
+  "Name": "Screen Capture Scripting Nodes",
+  "Author": "Robert",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "FileTree",
+  "Description": "Provides nodes that can capture parts of the screen for use in visual scripts",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Nodes.ScreenCapture.dll"
+}

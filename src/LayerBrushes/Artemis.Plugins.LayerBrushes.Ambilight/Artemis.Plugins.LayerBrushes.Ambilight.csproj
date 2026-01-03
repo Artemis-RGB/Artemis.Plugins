@@ -23,7 +23,6 @@
     <PackageReference Include="DynamicData" />
     <PackageReference Include="FluentAvaloniaUI" />
     <PackageReference Include="Material.Icons.Avalonia" />
-    <PackageReference Update="FluentAvaloniaUI" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>

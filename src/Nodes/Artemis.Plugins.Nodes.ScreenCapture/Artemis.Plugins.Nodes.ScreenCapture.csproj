@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Platforms>x64</Platforms>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <ImplicitUsings>true</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Win32.SystemEvents" Version="10.0.1" />
+        <PackageReference Include="ScreenCapture.NET" Version="3.0.0"/>
+        <PackageReference Include="ScreenCapture.NET.DX11" Version="3.0.0"/>
+        <PackageReference Include="ScreenCapture.NET.X11" Version="3.0.0"/>
+        <PackageReference Include="McMaster.NETCore.Plugins"/>
+        <PackageReference Include="Serilog"/>
+        <PackageReference Include="System.Text.Json"/>
+        <PackageReference Include="Avalonia"/>
+        <PackageReference Include="Avalonia.Controls.ItemsRepeater"/>
+        <PackageReference Include="ReactiveUI.Avalonia"/>
+        <PackageReference Include="Avalonia.Xaml.Behaviors"/>
+        <PackageReference Include="DynamicData"/>
+        <PackageReference Include="FluentAvaloniaUI"/>
+        <PackageReference Include="Material.Icons.Avalonia"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest"/>
+        <PackageReference Include="ArtemisRGB.Plugins.BuildTask" Version="2.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+</Project>
