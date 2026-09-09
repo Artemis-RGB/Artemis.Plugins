@@ -2,12 +2,13 @@
 using Artemis.Core;
 using Artemis.Core.Modules;
 using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi.Interfaces;
 
 namespace Artemis.Plugins.Audio.DataModelExpansion.DataModels
 {
     public class PlaybackVolumeDataModel : DataModel
     {
-        [DataModelProperty(Description ="Name of the current playback device.")]
+        [DataModelProperty(Description = "Name of the current playback device.")]
         public string DefaultDeviceName { get; set; }
         [DataModelProperty(Description = "Channel count of the the current playback device.")]
         public int ChannelCount { get; set; }
@@ -32,6 +33,7 @@ namespace Artemis.Plugins.Audio.DataModelExpansion.DataModels
         [DataModelProperty(Description = "Event triggered when current playback device master volume is changed.")]
         public DataModelEvent VolumeChanged { get; set; } = new DataModelEvent();
         public ChannelsDataModel Channels { get; set; } = new ChannelsDataModel();
+        public SessionsDataModel Sessions { get; set; } = new SessionsDataModel();
 
         public void Reset()
         {
@@ -49,6 +51,17 @@ namespace Artemis.Plugins.Audio.DataModelExpansion.DataModels
     }
 
     public class ChannelsDataModel : DataModel { }
+
+    public class SessionsDataModel : DataModel { }
+
+    public class SessionDataModel : DataModel
+    {
+        public string Name { get; set; }
+        public AudioSessionState? State { get; set; }
+        public float PeakVolume { get; set; }
+        public float PeakVolumeNormalized { get; set; }
+    }
+
     public class ChannelDataModel : DataModel
     {
         public int ChannelIndex { get; set; }
