@@ -1,0 +1,14 @@
+{
+  "Guid": "0bfa0f35-045c-40ec-84da-798011231bc1",
+  "MinimumVersion": "1.2025.1222.3",
+  "Name": "Sound BlasterX Devices",
+  "Author": "ocformula",
+  "Website": "https://artemis-rgb.com/",
+  "Repository": "https://github.com/Artemis-RGB/Artemis.Plugins",
+  "Icon": "Speaker",
+  "Description": "Allows Artemis to control lighting on Creative Sound BlasterX devices through Creative's LED manager. Supported: Sound BlasterX Katana.",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Devices.SoundBlasterX.dll",
+  "AutoEnableFeatures": false,
+  "Platforms": "Windows"
+}
