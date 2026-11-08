@@ -1,0 +1,17 @@
+name: Artemis.Plugins.Devices.SoundBlasterX - Build and upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Devices/Artemis.Plugins.Devices.SoundBlasterX/**'
+
+jobs:
+  upload:
+    uses: ./.github/workflows/plugin-upload.yml
+    with:
+      projectPath: 'src/Devices/Artemis.Plugins.Devices.SoundBlasterX/Artemis.Plugins.Devices.SoundBlasterX.csproj'
+    secrets:
+      WORKSHOP_PAT: ${{ secrets.WORKSHOP_PAT }}
