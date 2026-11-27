@@ -5,6 +5,8 @@ namespace Artemis.Plugins.LayerEffects.Filter
 {
     public class DilateEffect : LayerEffect<DilateEffectProperties>
     {
+        public override bool DrawsOnlyAroundContent => true;
+
         public override void EnableLayerEffect()
         {
         }

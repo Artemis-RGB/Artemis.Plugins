@@ -5,6 +5,8 @@ namespace Artemis.Plugins.LayerEffects.Filter
 {
     public class GlowEffect : LayerEffect<GlowEffectProperties>
     {
+        public override bool DrawsOnlyAroundContent => true;
+
         public override void EnableLayerEffect()
         {
         }
